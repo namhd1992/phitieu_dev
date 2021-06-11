@@ -1,8 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom'
 import '../../styles/main.css';
-import MenuAppBar from '../lucky_rotation/MenuAppBar';
-import Lucky_Rotation from '../lucky_rotation'
+import MenuAppBar from '../phitieu/MenuAppBar';
+import Lucky_Rotation from '../phitieu/home'
+// import SanQua from '../phitieu/sanqua'
+// import DuaTop from '../phitieu/duatop'
 
 class App extends React.Component {
 
@@ -23,6 +25,8 @@ class App extends React.Component {
 						data={[{ url: "home", label: "home" }, { url: "about", label: "about" }]}></MenuAppBar>
 					<main ref={(c) => this.main = c}>
 						<Route exact path="/" component={Lucky_Rotation} />
+						{/* <Route exact path="/sanqua" component={SanQua} />
+						<Route exact path="/duatop" component={SanQua} /> */}
 					</main>
 				</div>
 			</div>
