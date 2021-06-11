@@ -72,15 +72,10 @@ class Lucky_Rotation extends React.Component {
 			offsetVinhDanh: 0,
 			numberShow:15,
 			isAll:true,
-			wheelPower:0,
-			wheelSpinning:false,
 			stop:true,
-			theWheel:null,
 			auto: false,
-			userTurnSpin:{},
 			itemOfSpin:[],
 			luckySpin:{},
-			userTurnSpin:{},
 			turnsFree:0,
 			isLogin:false,
 			day:'00',
@@ -98,21 +93,15 @@ class Lucky_Rotation extends React.Component {
 			countCodeBonus:0,
 			dataVinhDanh:[],
 			dataTuDo:[],
-			dataCodeBonus:[],
 			listVinhDanh:[],
 			listTuDo:[],
 			listHistory:[],
-			listCodeBonus:[],
 			width:0,
 			height:0,
 			img_width:0,
 			img_height:0,
 			code:false,
-			scoinCard:false,
 			inputValue: '',
-			noti_mdt:false,
-			noti_tudo:false,
-			numberPage:3,
 			img_status: "sukiendangdienra",
 			message_status:'',
 			data_auto:[],
@@ -124,7 +113,6 @@ class Lucky_Rotation extends React.Component {
 			hour_live:'00', 
 			minute_live:'00', 
 			second_live:'00',
-			linkLiveStream:'',
 			isLive:false,
 			user:{},
 			xacthuc:false,
@@ -351,163 +339,18 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	start=()=>{
-		const {turnsFree, itemOfSpin, isSpin, closeAuto, auto}=this.state;
-		var _this = this;
-		var user = JSON.parse(localStorage.getItem("user"));
-		// var user = 'nambv';
-		if (user !== null) {
-			if(user.VipLevel!==0){
-				if(turnsFree>0){
-					// $('#Loading').modal('show');
-					this.props.pickCard(user.Token).then(()=>{
-						// $('#Loading').modal('hide');
-						var data=this.props.dataPick;
-						console.log(data)
-						var list=this.state.data_auto;
-						if(data!==undefined){
-							if(data.Status ===0){
-								var id=data.Data.AwardId;
-								var pos=0
-								pos = itemOfSpin.map(function(e) { return e.Id; }).indexOf(id);
-								list.unshift(data.Data.AwardName);
-								var len_auto=list.length;
-								
-								this.resetWheel();
-								if(!isSpin && closeAuto){
-									this.startSpin(pos+1);
-								}	
-								this.setState({itemBonus: data.Data, data_auto: list, len_auto:len_auto, closeAuto:true});
-							}else if(data.Status ===2){
-								if(auto){
-									clearInterval(this.state.intervalId);
-									this.setState({ isSpin:false, closeAuto:false});
-									$('#myModal9').modal('hide');
-								}
-								$('#matluot').modal('show');
-								var urlVideo="https://www.youtube.com/embed/"+data.Data.VideoId+"?autoplay=1&mute=1"
-								var intervalWaiting = setInterval(this.timeWaitings, 1000);
-								this.setState({message_error:data.Message, timeWaiting:data.WaitingSeconds, startSpin:false, urlVideo:urlVideo, intervalWaiting:intervalWaiting})
-								
-							}else{
-								$('#myModal11').modal('show');
-								this.setState({message_error:data.Message, startSpin:false})
-							}
-						}else{
-							$('#myModal12').modal('show');
-							this.setState({server_err:true, startSpin:false})
-						}
-					})
-					
-				}else{
-					$('#myModal6').modal('show');
-				}
-			}else{
-				this.setState({startSpin:false},()=>{
-					$('#activeVip').modal('show');
-				})
-			}
-		} else {
-			$('#myModal5').modal('show');
-		}
 		
 	}
 
 	btnStart=()=>{
-		const {wheelSpinning}=this.state;
-		if(!wheelSpinning){
-			this.setState({data_auto:[], closeAuto:true, startSpin:true},()=>{
-				this.start();
-			})
-		}	
-		// this.startSpin(5)
 	}
 
-	startSpin=(segmentNumber)=>{
-		const {wheelSpinning, wheelPower, theWheel}=this.state;
-		if (wheelSpinning == false) {
-			let stopAt = theWheel.getRandomForSegment(segmentNumber);
-			theWheel.animation.stopAngle = stopAt;
-			theWheel.startAnimation();
-			this.setState({wheelSpinning: true, stop:false});
-		}
-	}
-	
 
-	resetWheel=()=>{
-		const { theWheel}=this.state;
-		theWheel.stopAnimation(false);
-		theWheel.animation.spins = 10; 
-		theWheel.rotationAngle = 0;   
-		theWheel.draw();              
-		this.setState({wheelSpinning: false});    
-	}
 
-	completeRotation=()=>{
-		const {auto, turnsFree, theWheel, itemBonus}=this.state;
-		if(auto){
-			var intervalId = setInterval(this.autoRotation, 2000);
-			$('#myModal9').modal('show');
-   			this.setState({intervalId: intervalId, isSpin: true, closeAuto:false, wheelSpinning: false, startSpin:false});
-			
-		}else{
-			if(itemBonus.AwardId===4){
-				$('#myModal11').modal('show');
-				this.setState({message_error: 'Bạn đã quay vào ô mất lượt.'});		
-			}else if(itemBonus.AwardId===11){
-				$('#myModal11').modal('show');
-				this.setState({message_error: 'Chúc bạn may mắn lần sau.'});
-			}else{
-				$('#myModal4').modal('show');
-			}
-			this.setState({isSpin: false, closeAuto:true, wheelSpinning: false, startSpin:false});
-			this.getDetailData()
-		}
-	}
 
 	handleChange = () => {
 		this.setState({ auto : !this.state.auto});
 	};
-
-
-	autoRotation=()=>{
-		const {turnsFree}=this.state;
-		if(turnsFree>0){
-			this.getDetailData();
-		}else{
-			clearInterval(this.state.intervalId);
-		}
-	}
-
-
-	getDetailData=()=>{
-		const {auto}=this.state;
-		var user = JSON.parse(localStorage.getItem("user"));
-		this.getVinhDanh(1);
-		this.props.getDataUserSpin(user.Token).then(()=>{
-			var data=this.props.dataUserSpin;
-			if(data!==undefined){
-				var turnsFree=data.Spins
-				if(data.Status===0){
-					if(turnsFree>0){
-						if(auto){
-							this.start();
-						}
-					}else{
-						$('#myModal6').modal('show');
-						clearInterval(this.state.intervalId);
-					}
-					this.setState({turnsFree:turnsFree})
-				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Lỗi hệ thống. Vui lòng thử lại.'})
-				}
-			}else{
-				$('#myModal12').modal('show');
-				this.setState({server_err:true})
-			}
-
-		})
-	}
 
 
 	timeRemain=(times)=>{
@@ -553,18 +396,6 @@ class Lucky_Rotation extends React.Component {
 		return time;
 	  }
 
-
-	closeMatLuot=()=>{
-		clearInterval(this.state.intervalWaiting);
-		$('#matluot').modal('hide'); 
-	}
-	showModalBonus=()=>{
-		$('#myModal').modal('show'); 
-	}
-
-	hideModalBonus=()=>{
-		$('#myModal').modal('hide');
-	}
 
 	showModalRules=()=>{
 		$('#myModal1').modal('show'); 
@@ -660,40 +491,10 @@ class Lucky_Rotation extends React.Component {
 		$('#myModal2').modal('hide');
 	}
 
-	showModalCodeBonus=()=>{
-		const {luckySpin, offsetCode, limit}=this.state;
-		var user = JSON.parse(localStorage.getItem("user"));
-		if(user !== null){
-			this.props.getCodeBonus(user.Token, luckySpin.id, 'LUCKY_NUMBER').then(()=>{
-				var data=this.props.dataCodeBonus;
-				if(data!==undefined){
-					if(data.status==='01'){
-						console.log(data.data)
-						this.setState({dataCodeBonus:data.data, countCodeBonus:data.data.length, listCodeBonus: data.data.slice(0,5), noti_mdt:false})
-					}else{
-						$('#myModal11').modal('show');
-						this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'})
-					}
-				}else{
-					$('#myModal12').modal('show');
-					this.setState({server_err:true})
-				}
-			});
-			$('#myModal4').modal('hide');
-			$('#myModal3').modal('show');
-		}else {
-			$('#myModal5').modal('show');
-		}
-	}
-
 	closePopupAuto=()=>{
 		clearInterval(this.state.intervalId);
 		this.setState({ isSpin:false, closeAuto:false});
 		$('#myModal9').modal('hide');
-	}
-
-	hideModalCodeBonus=()=>{
-		$('#myModal3').modal('hide');
 	}
 
 	showModalDetailBonus=()=>{
@@ -707,9 +508,6 @@ class Lucky_Rotation extends React.Component {
 		$('#myModal12').modal('hide');
 	}
 
-	// hideModalCode=()=>{
-	// 	$('#myModal7').modal('hide');
-	// }
 
 
 	handlePageChangeTuDo=(pageNumber)=> {
@@ -726,19 +524,12 @@ class Lucky_Rotation extends React.Component {
 		})
 	}
 
-	handlePageChangeCodeBonus=(pageNumber)=> {
-		const {dataCodeBonus}=this.state;
-		var newPosition=(pageNumber-1)*5
-		this.setState({activeCodeBonus: pageNumber, listCodeBonus: dataCodeBonus.slice(newPosition, newPosition+5)});
-	}
 
 	handlePageChangeVinhDanh=(pageNumber)=> {
 		this.setState({activeVinhDanh: pageNumber},()=>{
 			this.getVinhDanh(pageNumber)
 		})
-		// const {dataVinhDanh}=this.state;
-		// var newPosition=(pageNumber-1)*10
-		// this.setState({activeVinhDanh: pageNumber, listVinhDanh: dataVinhDanh.slice(newPosition, newPosition+10)});
+
 	}
 
 	openTabNapScoin=(url)=> {
@@ -752,15 +543,6 @@ class Lucky_Rotation extends React.Component {
 		window.open(url, '_blank').focus();
 	}
 
-	findCode=(evt)=>{
-		var value=evt.target.value
-		// this.setState({
-		// 	inputValue: evt.target.value
-		//   });
-		const {dataCodeBonus}=this.state;
-		var data=dataCodeBonus.filter(v=>v.description.indexOf(value)!==-1)
-		this.setState({countCodeBonus:data.length, listCodeBonus:data.slice(0,5)})
-	}
 
 
 	randomItemIndex=()=>{
@@ -771,8 +553,8 @@ class Lucky_Rotation extends React.Component {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 	render() {
-		const {xacthuc,urlVideo,timeWaiting, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second,len_auto, code,numberPage, img_status, message_status, data_auto,message_error,linkLiveStream,dataItem,startSpin,
-			waiting, activeTuDo, activeHistory, activeCodeBonus, activeVinhDanh, limit, countCodeBonus, countTuDo, countHistory, countVinhDanh, listHistory, listCodeBonus, listTuDo, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo, hour_live, minute_live, second_live, isLive, user}=this.state;
+		const {xacthuc,urlVideo,timeWaiting,height, width, auto, isLogin, day, hour, minute, second,len_auto, code, img_status, message_status, data_auto,message_error,dataItem,startSpin,
+			waiting, activeTuDo, activeHistory, activeCodeBonus, activeVinhDanh, limit, countCodeBonus, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh,itemBonus, turnsFree, hour_live, minute_live, second_live, isLive, user}=this.state;
 		const { classes } = this.props;
 		return (<div>
 					<div class="container page position-relative">
@@ -1104,7 +886,6 @@ const mapStateToProps = state => ({
 	dataTuDo: state.lucky.dataTuDo,
 	dataHistoryTuDo: state.lucky.dataHistoryTuDo,
 	dataVinhDanh: state.lucky.dataVinhDanh,
-	dataCodeBonus: state.lucky.dataCodeBonus,
 	server:state.server.serverError,
 	waiting: state.lucky.waiting,
 })

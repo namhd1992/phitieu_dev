@@ -26,7 +26,7 @@ class App extends React.Component {
 					<main ref={(c) => this.main = c}>
 						<Route exact path="/" component={Lucky_Rotation} />
 						{/* <Route exact path="/sanqua" component={SanQua} />
-						<Route exact path="/duatop" component={SanQua} /> */}
+						<Route exact path="/duatop" component={DuaTop} /> */}
 					</main>
 				</div>
 			</div>
