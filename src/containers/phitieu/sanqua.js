@@ -2,6 +2,9 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import Pagination from "react-js-pagination";
 import axios from 'axios';
+import { render } from 'react-dom';
+// import { Stage, Layer, Image, Text } from 'react-konva';
+import Konva from 'konva';
 import { connect } from 'react-redux'
 import './css/style.css';
 import {
@@ -24,12 +27,13 @@ import {
 import Wheel from './Winwheel'
 import {
 	getData
-} from '../../modules/profile'
+} from '../../modules/profile';
 
 
+import icon_clock from './images/icon-clock.png';
+import line_timing from './images/line-timing.png';
+import btn_thoat from './images/btn-thoat.png';
 
-
-// import muiten from './images/muiten.png';
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
 import 'bootstrap';
@@ -42,6 +46,10 @@ const styles = {
 
 var award_open=true;
 var n=0;
+var width = window.innerWidth;
+var height = window.innerHeight;
+
+
 
 class Lucky_Rotation extends React.Component {
 
@@ -115,7 +123,8 @@ class Lucky_Rotation extends React.Component {
 			len_auto:0,
 			waiting:false,
 			urlVideo:'',
-			innerWidth:0
+			innerWidth:0,
+			image: null
 		};
 	}
 	componentWillMount(){
@@ -123,11 +132,51 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth})
+		this.loadImage();
 	}
 
+	componentDidUpdate(oldProps) {
+		if (oldProps.src !== this.props.src) {
+		  this.loadImage();
+		}
+	  }
+
+	componentWillUnmount() {
+		this.image.removeEventListener('load', this.handleLoad);
+	  }
+
+	  componentWillUnmount() {
+		this.image.removeEventListener('load', this.handleLoad);
+	  }
 
 
 	componentDidMount(){
+		var stage = new Konva.Stage({
+			container: 'canvas',
+			width: width,
+			height: height,
+		});
+		var layer = new Konva.Layer();
+	
+		// var pentagon = new Konva.RegularPolygon({
+		// 	x: stage.width() / 2,
+		// 	y: stage.height() / 2,
+		// 	sides: 5,
+		// 	radius: 70,
+		// 	fill: 'red',
+		// 	stroke: 'black',
+		// 	strokeWidth: 4,
+		// 	// visible: false,
+		// });
+	
+		//   // add the shape to the layer
+		// layer.add(pentagon);
+	
+		//   // add the layer to the stage
+		// stage.add(layer);
+
+		  
+
 		const {img_width, img_height}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 
@@ -166,7 +215,7 @@ class Lucky_Rotation extends React.Component {
 		} 
 		
 		
-		window.addEventListener('scroll', this.handleScroll);
+		// window.addEventListener('scroll', this.handleScroll);
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -290,47 +339,6 @@ class Lucky_Rotation extends React.Component {
 		}
 	}
 
-	loginAction = () => {
-		const {server_err}=this.state;
-		if(!server_err){
-			if (typeof(Storage) !== "undefined") {
-				var currentPath = window.location.pathname;
-				localStorage.setItem("currentPath", currentPath);
-			} else {
-				console.log("Trình duyệt không hỗ trợ localStorage");
-			}
-			window.location.replace(`http://graph.vtcmobile.vn/oauth/authorize?client_id=92d34808c813f4cd89578c92896651ca&redirect_uri=${window.location.protocol}//${window.location.host}/login&agencyid=0`)
-			
-			
-			// window.location.replace(`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=UH8DN779CWCMnCyeXGrm2BRqiTlJajUyZUEM0Kc&agencyid=0&redirect_uri=${window.location.protocol}//${window.location.host}/`);
-		}else{
-			$('#myModal12').modal('show');
-		}
-	}
-	logoutAction = () => {
-		this.logout();
-		localStorage.removeItem("user");
-		window.location.replace(
-			`https://graph.vtcmobile.vn/oauth/authorize?client_id=92d34808c813f4cd89578c92896651ca&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
-		);
-
-		// window.location.replace(
-		// 	`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=UH8DN779CWCMnCyeXGrm2BRqiTlJajUyZUEM0Kc&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
-		// );
-	}
-
-	logout=()=>{
-		var user = JSON.parse(localStorage.getItem("user"));
-		var header = {
-			headers: {
-				"Content-Type": "application/json",
-				"token": user.Token,
-			}
-		}
-		axios.get('https://api.splay.vn/luckywheel/luckywheel/user-signout/', header).then(function (response) {
-			console.log(response)
-		})
-	}
 
 	start=()=>{
 	
@@ -452,14 +460,79 @@ class Lucky_Rotation extends React.Component {
 	}
 
 
+	loadImage() {
+		// save to "this" to remove "load" handler on unmount
+		this.image = new window.Image();
+		this.image.src = "https://konvajs.org/assets/yoda.jpg";
+		this.image.addEventListener('load', this.handleLoad);
+	  }
+
+	  handleLoad = () => {
+
+		this.setState({
+		  image: this.image
+		});
+	  };
+
 
 
 	render() {
-		const {user}=this.state;
+		const {user, image}=this.state;
 
-		return (<div>
-
-		</div>)
+		return (
+				<div class="bg-page-sanqua position-relative">
+					
+					<div class="phitieu">
+						<div class="img-phitieu"></div>
+					</div>
+					<div class="tongdiem">
+						<h2 class="font-size-2vw text-uppercase font-weight-bold text-center mb-1 text-shadow">Tổng điểm</h2>
+						<h4 class="font-size-2vw text-uppercase text-center text-shadow">699669</h4>
+					</div>
+					<div class="phongtudong font-size-2vw font-weight-bold text-uppercase text-shadow">
+						<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động
+					</div>
+					<div class="timing">
+						<div class="media">
+						<img src={icon_clock} class="align-self-center mt-n1" width="13%" alt="clock" />
+						<div class="media-body">
+							<img class="m-0 p-0 mt-n3" src={line_timing} width="90%" alt="Line" />
+							<h6 class="text-yellow font-size-1vw mt-n1n pl-1 text-shadow">Còn: 2d 10h 22p 11s</h6>
+						</div>
+						</div>
+					</div>
+					<div class="account-name">
+						<p class="font-size-1vw text-white mb-0 text-center">Đặng Lê</p>
+						<h2 class="font-size-1vw text-warning m-0 text-center">VIP Kim Cương</h2>
+					</div>
+					<div class="btn-login">
+						<img src={btn_thoat} width="100%" alt="" />
+					</div>
+					<div class="phitieu-status marquee">
+						<div class="marquee_inner">            
+							<span class="m-0 font-size-2vw font-weight-bold text-shadow pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
+							<span class="m-0 font-size-2vw font-weight-bold text-shadow pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
+						</div>    	
+					</div>
+					<div class="toplist-account text-center">
+						<h2 class="font-size-2vw m-0 font-weight-bold text-shadow">Danh sách TOP</h2>
+						<ul class="list-group font-size-1vw mt-2">
+						<li class="list-group-item bg-transparent p-0 text-shadow">FirstitemFirstitem</li>
+						<li class="list-group-item bg-transparent p-0 text-shadow">Second item</li>
+						<li class="list-group-item bg-transparent p-0 text-shadow">Third item</li>
+						<li class="list-group-item bg-transparent p-0 text-shadow">First item</li>
+						<li class="list-group-item bg-transparent p-0 text-shadow">Second item</li>
+						<li class="list-group-item bg-transparent p-0 text-shadow">Third item</li>
+						<li class="list-group-item bg-transparent p-0 text-shadow">First item</li>
+						<li class="list-group-item bg-transparent p-0 text-shadow">Second item</li>
+						<li class="list-group-item bg-transparent p-0 text-shadow">First item</li>
+						<li class="list-group-item bg-transparent p-0 text-shadow">Second item</li>
+						</ul> 
+					</div>
+					<div id="canvas"></div>
+				</div>
+			
+			)
 	}
 }
 
@@ -507,3 +580,49 @@ export default connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(Lucky_Rotation)
+
+{/* <Stage width={window.innerWidth} height={window.innerHeight}>
+				<Layer>
+					<Image
+						x={150}
+						y={150}
+						image={image}
+						ref={node => {
+							this.imageNode = node;
+						  }}
+						  draggable
+						fill={this.state.isDragging ? 'green' : 'black'}
+						onDragStart={() => {
+						this.setState({
+							isDragging: true
+						});
+						}}
+						onDragEnd={e => {
+						this.setState({
+							isDragging: false,
+							x: e.target.x(),
+							y: e.target.y()
+						});
+						}}
+					/>
+					<Text
+						text="Draggable Text"
+						x={this.state.x}
+						y={this.state.y}
+						draggable
+						fill={this.state.isDragging ? 'green' : 'black'}
+						onDragStart={() => {
+						this.setState({
+							isDragging: true
+						});
+						}}
+						onDragEnd={e => {
+						this.setState({
+							isDragging: false,
+							x: e.target.x(),
+							y: e.target.y()
+						});
+						}}
+					/>
+				</Layer>
+			</Stage> */}

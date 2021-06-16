@@ -1,6 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import Pagination from "react-js-pagination";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import { connect } from 'react-redux'
 import './css/style.css';
@@ -552,6 +553,11 @@ class Lucky_Rotation extends React.Component {
 	numberWithCommas=(x)=> {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+
+	sanqua=()=>{
+
+	}
+
 	render() {
 		const {xacthuc,urlVideo,timeWaiting,height, width, auto, isLogin, day, hour, minute, second,len_auto, code, img_status, message_status, data_auto,message_error,dataItem,startSpin,
 			waiting, activeTuDo, activeHistory, activeCodeBonus, activeVinhDanh, limit, countCodeBonus, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh,itemBonus, turnsFree, hour_live, minute_live, second_live, isLive, user}=this.state;
@@ -570,8 +576,12 @@ class Lucky_Rotation extends React.Component {
 						<div class="bg-top position-relative">
 							<div class="bg-bottom">
 								<div class="btn-s position-relative">
-									<a href="san-qua.html" title="Săn quà"><img src={btn_sanqua} width="30%" hspace="10" /></a>
-									<a href="dua-top.html" title="Đua TOP"><img src={btn_duatop} width="30%" hspace="10" /></a>
+									<Link to="/sanqua">
+										<a><img src={btn_sanqua} width="30%" hspace="10" /></a>
+									</Link>
+									<Link to="/duatop">
+										<a><img src={btn_duatop} width="30%" hspace="10" /></a>
+									</Link>
 								</div>
 								<div class="bxh position-relative">
 									<ul class="nav nav-pills nav-justified" role="tablist">
