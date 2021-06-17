@@ -33,6 +33,7 @@ import {
 import icon_clock from './images/icon-clock.png';
 import line_timing from './images/line-timing.png';
 import btn_thoat from './images/btn-thoat.png';
+import phitieu from './images/phitieu.png';
 
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
@@ -57,20 +58,16 @@ class Lucky_Rotation extends React.Component {
 		super(props);
 		this.state = {
 			limit: 10,
-			offsetTuDo: 0,
-			offsetCode: 0,
+
 			offsetVinhDanh: 0,
-			numberShow:15,
 			isAll:true,
-			wheelPower:0,
-			wheelSpinning:false,
 			stop:true,
-			theWheel:null,
+
 			auto: false,
-			userTurnSpin:{},
+
 			itemOfSpin:[],
 			luckySpin:{},
-			userTurnSpin:{},
+
 			turnsFree:0,
 			isLogin:false,
 			day:'00',
@@ -78,53 +75,38 @@ class Lucky_Rotation extends React.Component {
 			minute:'00', 
 			second:'00',
 			itemBonus:{},
-			activeCodeBonus:1,
-			activeVinhDanh:1,
-			activeTuDo:1,
-			activeHistory:1,
-			countVinhDanh:0,
-			countHistory:0,
-			countTuDo:0,
-			countCodeBonus:0,
 			dataVinhDanh:[],
 			dataTuDo:[],
 			dataCodeBonus:[],
-			listVinhDanh:[],
-			listTuDo:[],
 			listHistory:[],
-			listCodeBonus:[],
 			width:0,
 			height:0,
 			img_width:0,
 			img_height:0,
 			code:false,
-			scoinCard:false,
-			inputValue: '',
-			noti_mdt:false,
-			noti_tudo:false,
-			numberPage:3,
 			message_status:'',
 			data_auto:[],
 			isSpin:false,
 			closeAuto:true,
 			message_error:'',
 			server_err:false,
-			finished:false,
 			hour_live:'00', 
 			minute_live:'00', 
 			second_live:'00',
 			linkLiveStream:'',
 			isLive:false,
 			user:{},
-			xacthuc:false,
 			timeWaiting:0,
 			dataItem:{},
 			startSpin:false,
 			len_auto:0,
 			waiting:false,
-			urlVideo:'',
 			innerWidth:0,
-			image: null
+			image: null, 
+			stage:{},
+			layer:{},
+			darthVaderImg:{}
+
 		};
 	}
 	componentWillMount(){
@@ -157,6 +139,8 @@ class Lucky_Rotation extends React.Component {
 			height: height,
 		});
 		var layer = new Konva.Layer();
+
+		this.setState({stage:stage, layer:layer})
 	
 		// var pentagon = new Konva.RegularPolygon({
 		// 	x: stage.width() / 2,
@@ -286,24 +270,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	getVinhDanh=(pageNumber)=>{
-		const {limit}=this.state;
-		var offsetVinhDanh=(pageNumber-1)*limit;
-		this.props.getVinhDanh(limit, offsetVinhDanh).then(()=>{
-			var data=this.props.dataVinhDanh;
-			if(data!==undefined){
-				if(data.Status===0){
-					var listVinhDanh=data.Data;
-					console.log(listVinhDanh)
-					this.setState({listVinhDanh:data.Data, countVinhDanh:data.Totals})
-				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Không lấy được dữ liệu bảng vinh danh.'})
-				}
-			}else{
-				$('#myModal12').modal('show');
-				this.setState({server_err:true})
-			}
-		});
+	
 	}
 
 	getStatus=(luckySpin)=>{
@@ -474,7 +441,37 @@ class Lucky_Rotation extends React.Component {
 		});
 	  };
 
+	showDart=()=>{
+		const {stage, layer}=this.state;
+		layer.clearBeforeDraw()
+		var _this=this
+		var touchPos = stage.getPointerPosition();
+		var imageObj = new Image();
+		imageObj.onload = function () {
+			var darthVaderImg = new Konva.Image({
+				image: imageObj,
+				x: touchPos.x-100,
+				y: touchPos.y-80,
+				width: 200,
+				height: 137,
+				draggable: true,
+				});
+		
+				layer.add(darthVaderImg);
+				stage.add(layer);
+				_this.setState({darthVaderImg:darthVaderImg})
+		};
+		imageObj.src = phitieu;
+		
+		
+	}
 
+	showLineDart=()=>{
+		const {stage, layer, darthVaderImg}=this.state;
+		darthVaderImg.x(50)
+		darthVaderImg.y(50)
+		console.log(darthVaderImg)
+	}
 
 	render() {
 		const {user, image}=this.state;
@@ -529,7 +526,7 @@ class Lucky_Rotation extends React.Component {
 						<li class="list-group-item bg-transparent p-0 text-shadow">Second item</li>
 						</ul> 
 					</div>
-					<div id="canvas"></div>
+					<div id="canvas" onTouchStart={this.showDart} onTouchEnd={this.showLineDart}></div>
 				</div>
 			
 			)
