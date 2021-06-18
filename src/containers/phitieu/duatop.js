@@ -119,54 +119,69 @@ class Lucky_Rotation extends React.Component {
 		};
 	}
 	componentWillMount(){
-		this.onResize();
-		window.addEventListener("resize", this.setScreenOrientation);
-		window.removeEventListener('scroll', this.handleScroll);
-		this.setState({innerWidth:window.innerWidth})
+		// this.onResize();
+		// window.addEventListener("resize", this.setScreenOrientation);
+		// window.removeEventListener('scroll', this.handleScroll);
+		// this.setState({innerWidth:window.innerWidth})
 	}
 
 
 
 	componentDidMount(){
-		const {img_width, img_height}=this.state;
-		var user = JSON.parse(localStorage.getItem("user"));
+		// const {img_width, img_height}=this.state;
+		// var user = JSON.parse(localStorage.getItem("user"));
 
-		this.props.getLuckyInfo().then(()=>{
-			var data=this.props.dataLuckyInfo;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.getStatus(data.Data)
-				}
-			}
-		})
+		// this.props.getLuckyInfo().then(()=>{
+		// 	var data=this.props.dataLuckyInfo;
+		// 	if(data!==undefined){
+		// 		if(data.Status===0){
+		// 			this.getStatus(data.Data)
+		// 		}
+		// 	}
+		// })
 
-		this.props.getLuckyItems().then(()=>{
-			var data=this.props.dataLuckyItems;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.setState({itemOfSpin: data.Data})
-				}
-			}
-		})
+		// this.props.getLuckyItems().then(()=>{
+		// 	var data=this.props.dataLuckyItems;
+		// 	if(data!==undefined){
+		// 		if(data.Status===0){
+		// 			this.setState({itemOfSpin: data.Data})
+		// 		}
+		// 	}
+		// })
 
-		this.getVinhDanh(1);
+		// this.getVinhDanh(1);
 
 
-		if (user !== null) {
-			this.setState({isLogin:true, user:user})
-			this.props.getDataUserSpin(user.Token).then(()=>{
-				var data=this.props.dataUserSpin;
-				if(data!==undefined){
-					if(data.Status===0){
-						this.setState({turnsFree: data.Spins})
-					}
-				}
+		// if (user !== null) {
+		// 	this.setState({isLogin:true, user:user})
+		// 	this.props.getDataUserSpin(user.Token).then(()=>{
+		// 		var data=this.props.dataUserSpin;
+		// 		if(data!==undefined){
+		// 			if(data.Status===0){
+		// 				this.setState({turnsFree: data.Spins})
+		// 			}
+		// 		}
 
-			})
-		} 
+		// 	})
+		// } 
 		
 		
-		window.addEventListener('scroll', this.handleScroll);
+		// window.addEventListener('scroll', this.handleScroll);
+		var canvas = document.getElementById("canvas"),
+		ctx = canvas.getContext("2d");
+		var width = window.innerWidth;
+		var height = window.innerHeight;
+
+		canvas.width = width;
+		canvas.height = height;
+
+
+		var background = new Image();
+		background.src = "http://i.imgur.com/yf6d9SX.jpg";
+
+		background.onload = function(){
+			ctx.drawImage(background,0,0);   
+		}
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -458,7 +473,7 @@ class Lucky_Rotation extends React.Component {
 		const {user}=this.state;
 
 		return (<div>
-
+			<canvas id="canvas"></canvas>
 		</div>)
 	}
 }
