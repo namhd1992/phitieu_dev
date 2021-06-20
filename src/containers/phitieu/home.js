@@ -22,7 +22,6 @@ import {
 	getDataUserSpin,
 	getItemAward
 } from '../../modules/lucky'
-import Wheel from './Winwheel'
 import {
 	getData
 } from '../../modules/profile'

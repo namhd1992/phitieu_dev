@@ -25,7 +25,6 @@ import {
 	getDataUserSpin,
 	getItemAward
 } from '../../modules/lucky'
-import Wheel from './Winwheel'
 import {
 	getData
 } from '../../modules/profile';
@@ -35,6 +34,7 @@ import icon_clock from './images/icon-clock.png';
 import line_timing from './images/line-timing.png';
 import btn_thoat from './images/btn-thoat.png';
 import phitieu from './images/phitieu.png';
+import dart_player from './images/dart-player.png';
 import dart_flight from './images/dart-flight.gif';
 
 import ReactResizeDetector from 'react-resize-detector'
@@ -49,6 +49,9 @@ const styles = {
 
 var award_open=true;
 var n=0;
+var animId;
+var dartTimerId = 1;
+var FLIGHT_ANIM_DELAY = 20;
 var width = window.innerWidth;
 var height = window.innerHeight;
 
@@ -180,7 +183,7 @@ class Lucky_Rotation extends React.Component {
 				stage.add(layer);
 				_this.setState({dartFlightImg:dartFlightImg})
 		};
-		dartFlight.src = dart_flight;
+		dartFlight.src = dart_player;
 
 
 		const {img_width, img_height}=this.state;
@@ -497,6 +500,18 @@ class Lucky_Rotation extends React.Component {
 		var y= touchPos.y-80;
 		darthVaderImg.x(x);
 		darthVaderImg.y(y);
+	}
+
+	doFlightAnim=(step)=>{
+		// Stop the last animation
+		dartTimerId = clearTimeout(animId);
+
+		if (step <= 20) {
+
+				// showcell(step, 0, 'dart');
+				dartTimerId = setTimeout(this.doFlightAnim(step + 1), FLIGHT_ANIM_DELAY);
+
+		}
 	}
 
 	render() {
