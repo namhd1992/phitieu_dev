@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import Pagination from "react-js-pagination";
 import axios from 'axios';
 import { connect } from 'react-redux'
-import './css/style.css';
+import '../css/style.css';
 import {
 	getDetailData,
 	getRotationDetailData,
@@ -20,10 +20,10 @@ import {
 	userLogout,
 	getDataUserSpin,
 	getItemAward
-} from '../../modules/lucky'
+} from '../../../modules/lucky'
 import {
 	getData
-} from '../../modules/profile'
+} from '../../../modules/profile'
 
 
 
