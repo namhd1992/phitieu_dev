@@ -4,7 +4,7 @@ import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { connect } from 'react-redux'
-import '../css/style.css';
+// import './css/style.css';
 import {
 	getDetailData,
 	getRotationDetailData,
@@ -26,29 +26,29 @@ import {
 	getData
 } from '../../../modules/profile'
 
-import btn_dangnhap from '../images/btn-dangnhap.png';
-import btn_sanqua from '../images/btn-sanqua.png';
-import btn_duatop from '../images/btn-duatop.png';
-import btn_vinhdanhsanqua_active from '../images/btn-vinhdanhsanqua-active.png';
-import btn_bxhduatop from '../images/btn-bxhduatop.png';
-import btn_huongdanmuathescoin from '../images/btn-huongdanmuathescoin.png';
-import btn_nhanthongbaosukien from '../images/btn-nhanthongbaosukien.png';
-import btn_napgame from '../images/btn-napgame.png';
-import img_hotline from '../images/img-hotline.png';
-import logo_scoin from '../images/logo_scoin.png';
-import logo_scoinvip from '../images/logo_scoinvip.png';
-import logo_splay from '../images/logo_splay.png';
-import btn_tudo from '../images/btn-tudo.png';
-// import xiaomi_black from '../images/xiaomi-black-shark-2.png';
-import img_thescoin200k from '../images/img-thescoin200k.png';
-import img_thescoinvoucher from '../images/img-thescoinvoucher.png';
-import btn_phanthuong_active from '../images/btn-phanthuong-active.png';
-import btn_lichsu from '../images/btn-lichsu.png';
+import btn_dangnhap from './images/btn-dangnhap.png';
+import btn_sanqua from './images/btn-sanqua.png';
+import btn_duatop from './images/btn-duatop.png';
+import btn_vinhdanhsanqua_active from './images/btn-vinhdanhsanqua-active.png';
+import btn_bxhduatop from './images/btn-bxhduatop.png';
+import btn_huongdanmuathescoin from './images/btn-huongdanmuathescoin.png';
+import btn_nhanthongbaosukien from './images/btn-nhanthongbaosukien.png';
+import btn_napgame from './images/btn-napgame.png';
+import img_hotline from './images/img-hotline.png';
+import logo_scoin from './images/logo_scoin.png';
+import logo_scoinvip from './images/logo_scoinvip.png';
+import logo_splay from './images/logo_splay.png';
+import btn_tudo from './images/btn-tudo.png';
+// import xiaomi_black from './images/xiaomi-black-shark-2.png';
+import img_thescoin200k from './images/img-thescoin200k.png';
+import img_thescoinvoucher from './images/img-thescoinvoucher.png';
+import btn_phanthuong_active from './images/btn-phanthuong-active.png';
+import btn_lichsu from './images/btn-lichsu.png';
 
 
-// import muiten from '../images/muiten.png';
+// import muiten from './images/muiten.png';
 import ReactResizeDetector from 'react-resize-detector'
-// import spin from '../images/spin.gif';
+// import spin from './images/spin.gif';
 import $ from 'jquery';
 import 'bootstrap';
 

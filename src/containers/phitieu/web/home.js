@@ -4,7 +4,7 @@ import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { connect } from 'react-redux'
-import '../css/style_web.css';
+import './css/style_web.css';
 import {
 	getDetailData,
 	getRotationDetailData,
@@ -26,29 +26,29 @@ import {
 	getData
 } from '../../../modules/profile'
 
-import btn_dangnhap from '../images/btn-dangnhap.png';
-import btn_sanqua from '../images/btn-sanqua.png';
-import btn_duatop from '../images/btn-duatop.png';
-import btn_vinhdanhsanqua_active from '../images/btn-vinhdanhsanqua-active.png';
-import btn_bxhduatop from '../images/btn-bxhduatop.png';
-import btn_huongdanmuathescoin from '../images/btn-huongdanmuathescoin.png';
-import btn_nhanthongbaosukien from '../images/btn-nhanthongbaosukien.png';
-import btn_napgame from '../images/btn-napgame.png';
-import img_hotline from '../images/img-hotline.png';
-import logo_scoin from '../images/logo_scoin.png';
-import logo_scoinvip from '../images/logo_scoinvip.png';
-import logo_splay from '../images/logo_splay.png';
-import btn_tudo from '../images/btn-tudo.png';
-// import xiaomi_black from '../images/xiaomi-black-shark-2.png';
-import img_thescoin200k from '../images/img-thescoin200k.png';
-import img_thescoinvoucher from '../images/img-thescoinvoucher.png';
-import btn_phanthuong_active from '../images/btn-phanthuong-active.png';
-import btn_lichsu from '../images/btn-lichsu.png';
+import btn_dangnhap from './images/btn-dangnhap.png';
+import btn_sanqua from './images/btn-sanqua.png';
+import btn_duatop from './images/btn-duatop.png';
+import btn_vinhdanhsanqua_active from './images/btn-vinhdanhsanqua-active.png';
+import btn_bxhduatop from './images/btn-bxhduatop.png';
+import btn_huongdanmuathescoin from './images/btn-huongdanmuathescoin.png';
+import btn_nhanthongbaosukien from './images/btn-nhanthongbaosukien.png';
+import btn_napgame from './images/btn-napgame.png';
+import img_hotline from './images/img-hotline.png';
+import logo_scoin from './images/logo_scoin.png';
+import logo_scoinvip from './images/logo_scoinvip.png';
+import logo_splay from './images/logo_splay.png';
+import btn_tudo from './images/btn-tudo.png';
+// import xiaomi_black from './images/xiaomi-black-shark-2.png';
+import img_thescoin200k from './images/img-thescoin200k.png';
+import img_thescoinvoucher from './images/img-thescoinvoucher.png';
+import btn_phanthuong_active from './images/btn-phanthuong-active.png';
+import btn_lichsu from './images/btn-lichsu.png';
 
 
-// import muiten from '../images/muiten.png';
+// import muiten from './images/muiten.png';
 import ReactResizeDetector from 'react-resize-detector'
-// import spin from '../images/spin.gif';
+// import spin from './images/spin.gif';
 import $ from 'jquery';
 import 'bootstrap';
 
@@ -561,15 +561,15 @@ class Lucky_Rotation extends React.Component {
 		const {xacthuc,urlVideo,timeWaiting,height, width, auto, isLogin, day, hour, minute, second,len_auto, code, img_status, message_status, data_auto,message_error,dataItem,startSpin,
 			waiting, activeTuDo, activeHistory, activeCodeBonus, activeVinhDanh, limit, countCodeBonus, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh,itemBonus, turnsFree, hour_live, minute_live, second_live, isLive, user}=this.state;
 		const { classes } = this.props;
-		return (<div>
-					<div class="container page position-relative">
+		return (<div>	
+					<div class="container-fluid page position-relative">
 						<div class="login d-flex flex-row-reverse">
 							<div class="align-self-center">
 								<a href="#Modaldangnhap" title="Đăng nhập" data-toggle="modal"><img src={btn_dangnhap} alt="" width="100" /></a>
 							</div>
 							<div class="text-center align-self-center pr-1">
-								<p class="font-size-3vw text-white mb-0">Xin chào</p>
-								<h2 class="font-size-3vw text-warning m-0 font-weight-bold">Đặng Lê VIP Kim Cương</h2>
+								<p class="font-size-16 text-white mb-0">Đặng Lê</p>
+								<h2 class="font-size-14 text-warning m-0">VIP Kim Cương</h2>
 							</div>
 						</div>
 						<div class="bg-top position-relative">
@@ -582,19 +582,19 @@ class Lucky_Rotation extends React.Component {
 										<a><img src={btn_duatop} width="30%" hspace="10" /></a>
 									</Link>
 								</div>
-								<div class="bxh position-relative">
+								<div class="bxh position-relative mx-auto">
 									<ul class="nav nav-pills nav-justified" role="tablist">
 										<li class="nav-item">
-										<a class="nav-link btn-vinhdanh active p-0" data-toggle="pill" href="#home"><img src={btn_vinhdanhsanqua_active} width="95%" hspace="5" id="image-1" /></a>
+										<a class="nav-link btn-vinhdanh active p-0" data-toggle="pill" href="#home"><img src={btn_vinhdanhsanqua_active} width="340" hspace="5" id="image-1" /></a>
 										</li>
 										<li class="nav-item">
-										<a class="nav-link btn-bxhduatop p-0" data-toggle="pill" href="#menu1"><img src={btn_bxhduatop} width="95%" hspace="5" id="image-2" /></a>
+										<a class="nav-link btn-bxhduatop p-0" data-toggle="pill" href="#menu1"><img src={btn_bxhduatop} width="340" hspace="5" id="image-2" /></a>
 										</li>
 									</ul>
 									
 									<div class="tab-content bg-bxh">
-										<div id="home" class="tab-pane active pt-3vw pb-3">
-										<table class="table table-borderless text-center font-size-3vw mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
+										<div id="home" class="tab-pane active pt-3 pb-3 px-3">
+										<table class="table table-borderless text-center font-size-16 mb-0 text-red" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "39px"}}>
 											<thead>
 											<tr class="bg-border-bottom">
 												<th class="p-1 bg-border-right w-33">Tài khoản</th>
@@ -605,14 +605,15 @@ class Lucky_Rotation extends React.Component {
 											<tbody>
 											<tr class="bg-border-bottom">
 												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim</td>
+												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
 												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
 											</tr>
+											
 											</tbody>
 										</table>
 										</div>
-										<div id="menu1" class="tab-pane fade pt-3vw pb-3">
-										<table class="table table-borderless text-center font-size-3vw mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
+										<div id="menu1" class="tab-pane fade pt-3 pb-3">
+										<table class="table table-borderless text-center font-size-16 mb-0 text-red" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "39px"}}>
 											<thead>
 											<tr class="bg-border-bottom">
 												<th class="p-1 bg-border-right w-33">Tài khoản</th>
@@ -626,26 +627,26 @@ class Lucky_Rotation extends React.Component {
 												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim</td>
 												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
 											</tr>
-
+											
 											</tbody>
 										</table>
 										</div>                
 									</div>
 								</div>
 								<div class="btn-h position-relative">
-									<a href="#" title="Hướng dẫn mua thẻ scoin" target="_blank"><img src={btn_huongdanmuathescoin} width="40%" hspace="10" /></a>
-									<a href="#" title="Nhận thông báo sự kiện"><img src={btn_nhanthongbaosukien} width="40%" hspace="10" /></a>
+									<a href="#" title="Hướng dẫn mua thẻ scoin" target="_blank"><img src={btn_huongdanmuathescoin} width="340" hspace="10" /></a>
+									<a href="#" title="Nhận thông báo sự kiện"><img src="images/btn-nhanthongbaosukien.png" width="340" hspace="10" /></a>
 								</div>
 								<div class="btn-h position-relative mt-2">
-									<a href="#" title="Nạp game" target="_blank"><img src={btn_napgame} width="20%" hspace="11%" /></a>
-									<a href="Tel:19001104" title="Hot line"><img src={img_hotline} width="40%" hspace="10" /></a>
+									<a href="#" title="Nạp game" target="_blank"><img src={btn_napgame} width="150" hspace="100" /></a>
+									<a href="Tel:19001104" title="Hot line"><img src={img_hotline} width="300" hspace="40" /></a>
 								</div>
 								<div class="btn-h position-relative mt-2">
-									<a href="#" title="Scoin" target="_blank"><img src={logo_scoin} width="20%" hspace="10" /></a>
-									<a href="#" title="Scoin VIP" target="_blank"><img src={logo_scoinvip} width="20%" hspace="10" /></a>
-									<a href="#" title="Splay"><img src={logo_splay} width="20%" hspace="10" /></a>
+									<a href="#" title="Scoin" target="_blank"><img src={logo_scoin} width="150" hspace="30" /></a>
+									<a href="#" title="Scoin VIP" target="_blank"><img src={logo_scoinvip} width="150" hspace="30" /></a>
+									<a href="#" title="Splay"><img src={logo_splay} width="150" hspace="30" /></a>
 								</div>
-								<div class="btn-h position-relative mt-2 pb-2 font-size-3vw text-white-50">
+								<div class="btn-h position-relative mt-2 pb-2 font-size-16 text-white-50">
 									<p class="text-center">
 										Hệ thống phát hành game VTC Mobile
 										<br></br>
@@ -667,8 +668,7 @@ class Lucky_Rotation extends React.Component {
 								</div>
 								<div class="menu-right"><a href="#Modaltudo" title="Tủ đồ" data-toggle="modal"><img src={btn_tudo} width="100%" alt="" /></a></div>
 							</div>
-						</div>
-					
+						</div> 
 					</div>
 
 

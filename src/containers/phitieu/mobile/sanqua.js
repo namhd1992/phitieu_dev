@@ -6,7 +6,7 @@ import { render } from 'react-dom';
 // import { Stage, Layer, Image, Text } from 'react-konva';
 import Konva from 'konva';
 import { connect } from 'react-redux'
-import '../css/style.css';
+// import './css/style.css';
 import DeviceOrientation, { Orientation } from 'react-screen-orientation';
 import {
 	getDetailData,
@@ -30,12 +30,12 @@ import {
 } from '../../../modules/profile';
 
 
-import icon_clock from '../images/icon-clock.png';
-import line_timing from '../images/line-timing.png';
-import btn_thoat from '../images/btn-thoat.png';
-import phitieu from '../images/phitieu.png';
-import dart_player from '../images/dart-player.png';
-import dart_flight from '../images/dart-flight.gif';
+import icon_clock from './images/icon-clock.png';
+import line_timing from './images/line-timing.png';
+import btn_thoat from './images/btn-thoat.png';
+import phitieu from './images/phitieu.png';
+import dart_player from './images/dart-player.png';
+import dart_flight from './images/dart-flight.gif';
 
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
@@ -54,6 +54,7 @@ var dartTimerId = 1;
 var FLIGHT_ANIM_DELAY = 20;
 var width = window.innerWidth;
 var height = window.innerHeight;
+var curFrame = 0;
 
 
 
