@@ -33,6 +33,15 @@ import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
 import 'bootstrap';
 
+
+
+import icon_clock from './images/icon-clock.png';
+import line_timing from './images/line-timing.png';
+import btn_thoat from './images/btn-thoat.png';
+import phitieu from './images/phitieu.png';
+import dart_player from './images/dart-player.png';
+import dart_flight from './images/dart-flight.gif';
+
 const styles = {
 	paper: {
 		background: "#fff",
@@ -166,21 +175,7 @@ class Lucky_Rotation extends React.Component {
 		
 		
 		// window.addEventListener('scroll', this.handleScroll);
-		var canvas = document.getElementById("canvas"),
-		ctx = canvas.getContext("2d");
-		var width = window.innerWidth;
-		var height = window.innerHeight;
 
-		canvas.width = width;
-		canvas.height = height;
-
-
-		var background = new Image();
-		background.src = "http://i.imgur.com/yf6d9SX.jpg";
-
-		background.onload = function(){
-			ctx.drawImage(background,0,0);   
-		}
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -471,9 +466,45 @@ class Lucky_Rotation extends React.Component {
 	render() {
 		const {user}=this.state;
 
-		return (<div>
-			<canvas id="canvas"></canvas>
-		</div>)
+		return (<div class="bg-page-duatop position-relative">
+		<div class="phitieu">
+			<div class="img-phitieu"></div>
+		</div>
+		<div class="tongdiem">
+			<h2 class="font-size-16 text-uppercase font-weight-bold text-center mb-1 text-shadow">Tổng điểm</h2>
+			<h4 class="font-size-18 text-uppercase text-center text-shadow">699669</h4>
+		</div>
+		<div class="phongtudong font-size-18 font-weight-bold text-uppercase text-shadow">
+			<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động
+		</div>
+		<div class="timing">
+			<div class="media">
+			  <img src={icon_clock} class="align-self-center mt-n1" width="32" alt="clock" />
+			  <div class="media-body">
+				<img class="m-0 p-0 mt-n3" src={line_timing} width="200" alt="Line" />
+				<h6 class="text-yellow font-size-16 mt-n1n pl-1 text-shadow">Còn: 2d 10h 22p 11s</h6>
+			  </div>
+			</div>
+		</div>
+		<div class="account-name">
+			<p class="font-size-16 text-white mb-0 text-center">Đặng Lê</p>
+			<h2 class="font-size-14 text-warning m-0 text-center"> VIP Kim Cương</h2>
+		</div>
+		<div class="btn-login">
+			<img src={btn_thoat} width="100" alt="" />
+		</div>
+		<div class="phit1ieu-status marquee">
+			<div class="marquee_inner">            
+				<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
+				<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
+			 </div>    	
+		</div>
+		<div class="diemcaonhat">
+			<h2 class="font-size-16 text-uppercase font-weight-bold text-center mb-1 text-shadow">Điểm cao nhất</h2>
+			<h4 class="font-size-18 text-uppercase text-center text-shadow">699669</h4>
+		</div>
+		<div id="canvas" onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
+	</div>)
 	}
 }
 

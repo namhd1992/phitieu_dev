@@ -517,70 +517,81 @@ class Lucky_Rotation extends React.Component {
 	render() {
 		const {user, image}=this.state;
 
-		return (
-			<DeviceOrientation lockOrientation={'landscape'}>
-				<Orientation orientation='landscape' alwaysRender={false}>
-					<div class="bg-page-sanqua position-relative">
-						
-						<div class="phitieu">
-							<div class="img-phitieu"></div>
-						</div>
-						<div class="tongdiem">
-							<h2 class="font-size-2vw text-uppercase font-weight-bold text-center mb-1 text-shadow">Tổng điểm</h2>
-							<h4 class="font-size-2vw text-uppercase text-center text-shadow">699669</h4>
-						</div>
-						<div class="phongtudong font-size-2vw font-weight-bold text-uppercase text-shadow">
-							<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động
-						</div>
-						<div class="timing">
-							<div class="media">
-							<img src={icon_clock} class="align-self-center mt-n1" width="13%" alt="clock" />
-							<div class="media-body">
-								<img class="m-0 p-0 mt-n3" src={line_timing} width="90%" alt="Line" />
-								<h6 class="text-yellow font-size-1vw mt-n1n pl-1 text-shadow">Còn: 2d 10h 22p 11s</h6>
-							</div>
-							</div>
-						</div>
-						<div class="account-name">
-							<p class="font-size-1vw text-white mb-0 text-center">Đặng Lê</p>
-							<h2 class="font-size-1vw text-warning m-0 text-center">VIP Kim Cương</h2>
-						</div>
-						<div class="btn-login">
-							<img src={btn_thoat} width="100%" alt="" />
-						</div>
-						<div class="phitieu-status marquee">
-							<div class="marquee_inner">            
-								<span class="m-0 font-size-2vw font-weight-bold text-shadow pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
-								<span class="m-0 font-size-2vw font-weight-bold text-shadow pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
-							</div>    	
-						</div>
-						<div class="toplist-account text-center">
-							<h2 class="font-size-2vw m-0 font-weight-bold text-shadow">Danh sách TOP</h2>
-							<ul class="list-group font-size-1vw mt-2">
-							<li class="list-group-item bg-transparent p-0 text-shadow">FirstitemFirstitem</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow">Second item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow">Third item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow">First item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow">Second item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow">Third item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow">First item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow">Second item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow">First item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow">Second item</li>
-							</ul> 
-						</div>
-						<div id="canvas" onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
+		return (<div class="bg-page-sanqua position-relative">
+					<div class="phitieu">
+						<div class="img-phitieu"></div>
 					</div>
-				</Orientation>
-				<Orientation orientation='portrait'>
-					<div>
-						<p>Vui lòng xoay màn hình để chơi!</p>
-						<div id="canvas" />
+					<div class="tongdiem">
+						<h2 class="font-size-18 text-uppercase font-weight-bold text-center mb-1 text-shadow">Tổng điểm</h2>
+						<h4 class="font-size-18 text-uppercase text-center text-shadow">699669</h4>
 					</div>
-				</Orientation>
-			</DeviceOrientation>
-			)
-	}
+					<div class="phongtudong font-size-18 font-weight-bold text-uppercase text-shadow">
+						<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động    </div>
+					<div class="timing">
+						<div class="media">
+						<img src={icon_clock} class="align-self-center mt-n1" width="32" alt="clock" />
+						<div class="media-body">
+							<img class="m-0 p-0 mt-n3" src={line_timing} width="200" alt="Line" />
+							<h6 class="text-yellow font-size-16 mt-n1n pl-1 text-shadow">Còn: 2d 10h 22p 11s</h6>
+						</div>
+						</div>
+					</div>
+					<div class="account-name">
+						<p class="font-size-16 text-white mb-0 text-center">Đặng Lê</p>
+						<h2 class="font-size-14 text-warning m-0 text-center">VIP Kim Cương</h2>
+					</div>
+					<div class="btn-login">
+						<img src={btn_thoat} width="100" alt="" />
+					</div>
+					<div class="phitieu-status marquee">
+						<div class="marquee_inner">            
+							<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
+							<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
+						</div>    	
+					</div>
+					<div class="toplist-account text-center">
+						<h2 class="font-size-18 m-0 font-weight-bold text-shadow text-center">Danh sách TOP</h2>
+						<table class="table table-borderless font-size-14 mb-0 mt-1" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "210%"}}>
+							<tbody>
+							<tr class="bg-border-bottom">
+								<td class="p-0 w-50 font-size-16 text-shadow">ThuyVixxx</td>
+								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>                
+							</tr>
+							<tr class="bg-border-bottom">
+								<td class="p-0 w-50 font-size-16 text-shadow">NgocTrxxx</td>
+								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>
+							</tr>
+							<tr class="bg-border-bottom">
+								<td class="p-0 w-50 font-size-16 text-shadow">ThuyVixxx</td>
+								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>                
+							</tr>
+							<tr class="bg-border-bottom">
+								<td class="p-0 w-50 font-size-16 text-shadow">NgocTrxxx</td>
+								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>
+							</tr>
+							<tr class="bg-border-bottom">
+								<td class="p-0 w-50 font-size-16 text-shadow">ThuyVixxx</td>
+								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>                
+							</tr>
+							<tr class="bg-border-bottom">
+								<td class="p-0 w-50 font-size-16 text-shadow">NgocTrxxx</td>
+								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>
+							</tr>
+							<tr class="bg-border-bottom">
+								<td class="p-0 w-50 font-size-16 text-shadow">ThuyVixxx</td>
+								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>                
+							</tr>
+							<tr>
+								<td class="p-0 w-50 font-size-16 text-shadow">NgocTrxxx</td>
+								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>
+							</tr>
+											
+							</tbody>
+						</table>
+					</div>
+					<div id="canvas" onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>
+		</div>
+	)}
 }
 
 const mapStateToProps = state => ({
