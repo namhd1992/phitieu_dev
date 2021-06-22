@@ -1,0 +1,139 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+html {scroll-behavior: smooth; font-size: 26px; font-family:Arial, Helvetica, sans-serif}
+.font-size-14 {font-size: 14px;}
+.font-size-16 {font-size: 16px;}
+.font-size-18 {font-size: 18px;}
+
+
+.page {background:url(../images/bgw-page.png) repeat; padding: 0; margin: 0 auto; width: 100%}
+.bg-top {background:url(../images/bgw-top.png) no-repeat; background-position: top; background-size: 100%; display: block; height: 100%; width:100%;}
+.login {position: absolute; top: 0; right: 30px; height: 70px; width: 200px; z-index:10}
+.bg-bottom {background:url(../images/bgw-bottom.png) no-repeat; background-position: bottom; background-size: 100%; display: block; }
+.btn-s {padding-top: 46%; width:100%; text-align: center;}
+.menu-left {position: absolute; left: 1%; top: 8%; background:url(../images/btn-ahgl.png) no-repeat; background-size: 100%; width: 200px; height: 280px;}
+.menu-left p.menu-link {width: 100%; height: 18%; margin-top: 2%;}
+.menu-left p.menu-link.link-first {margin-top: 12%}
+.menu-right {position: absolute; right: 1%; top: 10%; width: 160px; height: 90px;}
+.bxh { padding-top: 8%; width: 768px;}
+.nav-pills .nav-link.active {background: none}
+.bg-bxh {background:url(../images/bg-bxh.png) no-repeat; background-position: top; background-size: 100%; height: 100%; width:100%;}
+/*.bg-border-bottom {background-image: url(../images/bg-border-bottom.png); background-repeat: no-repeat; background-position: bottom 2px; background-size: contain; height:5px; width:100%;}*/
+.bg-border-bottom {border-bottom: solid 1px #712400}
+.bg-border-right {background-image: url(../images/bg-border-right.png); background-repeat: no-repeat; background-position: right bottom; background-size: 1%;}
+.w-33 {width: 33%; overflow: hidden; white-space:nowrap; text-overflow: ellipsis;}
+.btn-h { width:100%; text-align: center;}
+.pt-3vw {padding-top: 2%;}
+
+.bg-page-sanqua {background:url(../images/bg-page-sanqua.png) no-repeat; background-position: top; background-size: contain; display: block; width: 1244px; height: 680px; margin: 0 auto;}
+.bg-page-duatop {background:url(../images/bg-page-duatop.png) no-repeat; background-position: top; background-size: contain; display: block; width: 1244px; height: 680px; margin: 0 auto;}
+.tongdiem {position: absolute; top: 51.3%; left: 23%}
+.phongtudong {position: absolute; top: 90%; left: 39%}
+.diemcaonhat {position: absolute; top: 51.3%; left: 72%}
+.timing {position: absolute; top: 14.5%; left: 39.5%; width: 300px;}
+.phitieu-status {position: absolute; top: 19.5%; left: 38%; width: 320px;}
+.mt-n1n {margin-top: -.8rem}
+.account-name {position: absolute; top: 5px; left: 62%; width: 30%;}
+.btn-login {position: absolute; left: 83%; top:0; width: 12%;}
+.toplist-account {position: absolute; left: 67.2%; top: 37%; width: 180px;}
+
+
+
+
+
+.modal-dangnhap {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%}
+.text-brown {color: #6b5247;}
+.text-yellow {color: #f69310;}
+.text-red {color: #af4138;}
+.border-giaithuong-e {border: solid 1px #f69310; border-radius: 8px}
+.scroll-modal-body {height: 400px; overflow: auto;}
+.img-dacochu {position: absolute; top: 30%; left: 30%}
+.modal-tudo {background:url(../images/bg-popup-tudo.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%}
+.valign-middle {vertical-align: middle !important;}
+.pag-custom .page-item {margin: 5px;}
+.pag-custom .page-link {background-color: #fcc316; border-color: #fcc316; border-radius: 4px; color:#FFFFFF; font-size:13px; padding: 2px 10px}
+.pag-custom .page-be {background-color: #b30101; border-color: #b30101;}
+.pag-custom .page-item.active .page-link {background-color: #b30101; border-color: #b30101;}
+.phitieu {position: absolute; top: 13.9vw; left: 35.2vw; width: 30vw; height: 30vw;}
+.phitieu .img-phitieu {background:url(../images/tieu.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%}
+
+
+
+
+.text-blink {animation: blinker 1s linear infinite;}
+@keyframes blinker {
+  40% {
+    opacity: 0.2;
+  }
+}
+.text-shadow {color: #fef4b1;
+  text-shadow:
+    0 0 5px #d94c0c,
+    0 0 10px #d94c0c,
+    0 0 20px #d94c0c,
+    0 0 40px #d94c0c,
+    0 0 80px #d94c0c;}
+
+/* Begin our marquee, and inner content */
+.marquee {
+    overflow: hidden;
+    position: relative;
+    padding-left: 20%;
+    /* Some browsers may require -webkit-animation */
+    animation: reduce 30s linear infinite;
+}
+
+.marquee_inner {
+	white-space: nowrap;
+	display: inline-block;
+	/* Some browsers may require -webkit-animation */
+	animation: scroll 30s linear infinite;
+}
+/* Creates two white-to-transparent gradients at the ends of the marquee */
+.marquee::before, .marquee::after {
+    z-index: 1;
+    top: 0; left: 0;
+    width: 50px; height: 100%;
+    content: ""; display: block;
+}
+
+.marquee::after {
+    left: auto; right: 0;
+    transform: rotate(180deg);
+}
+
+@keyframes reduce {
+    to {
+        padding-left: 0;
+    }
+}
+
+@keyframes scroll {
+    to {
+        transform: translateX( -100% );
+    }
+}
+/* End our marquee, and inner content */
+
+@media screen and (max-width:1200px) {
+.font-size-14 {font-size: 12px;}
+.font-size-16 {font-size: 13px;}
+.font-size-18 {font-size: 16px;}
+.bg-page-sanqua {background:url(../images/bg-page-sanqua.png) no-repeat; background-position: top; background-size: contain; display: block; width: 1024px; height: 768px; margin: 0 auto;}
+.bg-page-duatop {background:url(../images/bg-page-duatop.png) no-repeat; background-position: top; background-size: contain; display: block; width: 1024px; height: 768px;   margin: 0 auto;}
+.tongdiem {position: absolute; top: 37%; left: 23%}
+.phongtudong {position: absolute; top: 67%; left: 39%}
+.diemcaonhat {position: absolute; top: 37%; left: 72%}
+.timing {position: absolute; top: 10.2%; left: 37%; width: 265px;}
+.phitieu-status {position: absolute; top: 13.5%; left: 38%; width: 320px;}
+.mt-n1n {margin-top: -.8rem}
+.account-name {position: absolute; top: 5px; left: 62%; width: 30%;}
+.btn-login {position: absolute; left: 83%; top:0; width: 12%;}
+.toplist-account {position: absolute; left: 67.2%; top: 26.3%; width: 145px;}
+
+}
+
+
