@@ -6,7 +6,7 @@ import { render } from 'react-dom';
 // import { Stage, Layer, Image, Text } from 'react-konva';
 import Konva from 'konva';
 import { connect } from 'react-redux'
-// import './css/style.css';
+import './css/style.css';
 import DeviceOrientation, { Orientation } from 'react-screen-orientation';
 import {
 	getDetailData,
@@ -55,6 +55,13 @@ var FLIGHT_ANIM_DELAY = 20;
 var width = window.innerWidth;
 var height = window.innerHeight;
 var curFrame = 0;
+var frameCount = 5; 
+var spriteWidth = 430; 
+var spriteHeight = 197; 
+var widthFrame = spriteWidth/frameCount; 
+var heightFrame = spriteHeight; 
+var srcX=0; 
+var srcY=0; 
 
 
 
@@ -169,22 +176,22 @@ class Lucky_Rotation extends React.Component {
 		};
 		imageObj.src = phitieu;
 
-		var dartFlight = new Image();
-		dartFlight.onload = function () {
-			var dartFlightImg = new Konva.Image({
-				image: dartFlight,
-				x: 300,
-				y: 280,
-				width: 200,
-				height: 137,
-				visible:false
-				});
+		// var dartFlight = new Image();
+		// dartFlight.onload = function () {
+		// 	var dartFlightImg = new Konva.Image({
+		// 		image: dartFlight,
+		// 		x: 300,
+		// 		y: 280,
+		// 		width: widthFrame,
+		// 		height: heightFrame,
+		// 		visible:false
+		// 		});
 		
-				layer.add(dartFlightImg);
-				stage.add(layer);
-				_this.setState({dartFlightImg:dartFlightImg})
-		};
-		dartFlight.src = dart_player;
+		// 		layer.add(dartFlightImg);
+		// 		stage.add(layer);
+		// 		_this.setState({dartFlightImg:dartFlightImg})
+		// };
+		// dartFlight.src = dart_player;
 
 
 		const {img_width, img_height}=this.state;
@@ -468,8 +475,8 @@ class Lucky_Rotation extends React.Component {
 	  };
 
 	touchStart=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg}=this.state;
-		dartFlightImg.hide();
+		const {stage, layer, darthVaderImg}=this.state;
+		// dartFlightImg.hide();
 		var touchPos = stage.getPointerPosition();
 		var x= touchPos.x-100;
 		var y= touchPos.y-80;
@@ -484,9 +491,10 @@ class Lucky_Rotation extends React.Component {
 		var touchPos = stage.getPointerPosition();
 		darthVaderImg.hide();
 		if(dartPositionY >touchPos.y){
-			dartFlightImg.x(touchPos.x)
-			dartFlightImg.y(touchPos.y)
-			dartFlightImg.show();
+			// dartFlightImg.x(touchPos.x)
+			// dartFlightImg.y(touchPos.y)
+			// dartFlightImg.show();
+			this.draw()
 		}else{
 			alert("vuốt lên để phi tiêu")
 		}
@@ -502,17 +510,39 @@ class Lucky_Rotation extends React.Component {
 		darthVaderImg.x(x);
 		darthVaderImg.y(y);
 	}
+	updateFrame=()=>{
+		curFrame=++curFrame/frameCount;
+		srcX=curFrame*widthFrame-20;
+		srcY=0;
+		console.log('curFrame:',curFrame)
+	}
 
-	doFlightAnim=(step)=>{
-		// Stop the last animation
-		dartTimerId = clearTimeout(animId);
-
-		if (step <= 20) {
-
-				// showcell(step, 0, 'dart');
-				dartTimerId = setTimeout(this.doFlightAnim(step + 1), FLIGHT_ANIM_DELAY);
-
-		}
+	draw=()=>{
+		var _this=this
+		const {stage, layer}=this.state;
+		var touchPos = stage.getPointerPosition();
+		this.updateFrame();
+		var dartFlight = new Image();
+		dartFlight.onload = function () {
+			var dartFlightImg = new Konva.Image({
+				image: dartFlight,
+				x: touchPos.x,
+				y: touchPos.y,
+				width: widthFrame,
+				height: heightFrame,
+				// visible:false
+				});
+				
+			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
+			layer.add(dartFlightImg);
+			stage.add(layer);
+			setTimeout(()=>{
+				_this.draw() 
+				dartFlightImg.remove(); 
+			}, 1000);
+			_this.setState({dartFlightImg:dartFlightImg})
+		};
+		dartFlight.src = dart_player;
 	}
 
 	render() {
