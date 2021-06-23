@@ -4,7 +4,7 @@ import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { connect } from 'react-redux'
-// import './css/style_web.css';
+import './css/style_web.css';
 import {
 	getDetailData,
 	getRotationDetailData,
