@@ -562,19 +562,19 @@ class Lucky_Rotation extends React.Component {
 			waiting, activeTuDo, activeHistory, activeCodeBonus, activeVinhDanh, limit, countCodeBonus, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh,itemBonus, turnsFree, hour_live, minute_live, second_live, isLive, user}=this.state;
 		const { classes } = this.props;
 		return (<div>
-					<div class="container page position-relative">
+					<div class="container page_m position-relative">
 						<div class="login d-flex flex-row-reverse">
 							<div class="align-self-center">
 								<a href="#Modaldangnhap" title="Đăng nhập" data-toggle="modal"><img src={btn_dangnhap} alt="" width="100" /></a>
 							</div>
 							<div class="text-center align-self-center pr-1">
-								<p class="font-size-3vw text-white mb-0">Xin chào</p>
-								<h2 class="font-size-3vw text-warning m-0 font-weight-bold">Đặng Lê VIP Kim Cương</h2>
+								<p class="font-size-3vw_m text-white mb-0">Xin chào</p>
+								<h2 class="font-size-3vw_m text-warning m-0 font-weight-bold">Đặng Lê VIP Kim Cương</h2>
 							</div>
 						</div>
-						<div class="bg-top position-relative">
-							<div class="bg-bottom">
-								<div class="btn-s position-relative">
+						<div class="bg-top_m position-relative">
+							<div class="bg-bottom_m">
+								<div class="btn-s_m position-relative">
 									<Link to="/sanqua">
 										<a><img src={btn_sanqua} width="30%" hspace="10" /></a>
 									</Link>
@@ -582,48 +582,48 @@ class Lucky_Rotation extends React.Component {
 										<a><img src={btn_duatop} width="30%" hspace="10" /></a>
 									</Link>
 								</div>
-								<div class="bxh position-relative">
-									<ul class="nav nav-pills nav-justified" role="tablist">
+								<div class="bxh_m position-relative">
+									<ul class="nav nav-pills_m_m nav-justified_m_m" role="tablist">
 										<li class="nav-item">
-										<a class="nav-link btn-vinhdanh active p-0" data-toggle="pill" href="#home"><img src={btn_vinhdanhsanqua_active} width="95%" hspace="5" id="image-1" /></a>
+										<a class="nav-link_m btn-vinhdanh_m active p-0" data-toggle="pill" href="#home"><img src={btn_vinhdanhsanqua_active} width="95%" hspace="5" id="image-1" /></a>
 										</li>
 										<li class="nav-item">
-										<a class="nav-link btn-bxhduatop p-0" data-toggle="pill" href="#menu1"><img src={btn_bxhduatop} width="95%" hspace="5" id="image-2" /></a>
+										<a class="nav-link_m btn-bxhduatop_m p-0" data-toggle="pill" href="#menu1"><img src={btn_bxhduatop} width="95%" hspace="5" id="image-2" /></a>
 										</li>
 									</ul>
 									
-									<div class="tab-content bg-bxh">
-										<div id="home" class="tab-pane active pt-3vw pb-3">
-										<table class="table table-borderless text-center font-size-3vw mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
+									<div class="tab-content bg-bxh_m">
+										<div id="home" class="tab-pane active pt-3vw_m pb-3">
+										<table class="table table-borderless text-center font-size-3vw_m mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
 											<thead>
-											<tr class="bg-border-bottom">
-												<th class="p-1 bg-border-right w-33">Tài khoản</th>
-												<th class="p-1 bg-border-right w-33">Giải thưởng</th>
+											<tr class="bg-border-bottom_m">
+												<th class="p-1 bg-border-right_m w-33">Tài khoản</th>
+												<th class="p-1 bg-border-right_m w-33">Giải thưởng</th>
 												<th class="p-1 w-33">Thời gian trúng</th>
 											</tr>
 											</thead>
 											<tbody>
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim</td>
+											<tr class="bg-border-bottom_m">
+												<td class="p-0 bg-border-right_m w-33">John</td>
+												<td class="p-0 bg-border-right_m w-33">Gói quà bạch kim Gói quà bạch kim</td>
 												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
 											</tr>
 											</tbody>
 										</table>
 										</div>
-										<div id="menu1" class="tab-pane fade pt-3vw pb-3">
-										<table class="table table-borderless text-center font-size-3vw mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
+										<div id="menu1" class="tab-pane fade pt-3vw_m pb-3">
+										<table class="table table-borderless text-center font-size-3vw_m mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
 											<thead>
-											<tr class="bg-border-bottom">
-												<th class="p-1 bg-border-right w-33">Tài khoản</th>
-												<th class="p-1 bg-border-right w-33">Giải thưởng</th>
+											<tr class="bg-border-bottom_m">
+												<th class="p-1 bg-border-right_m w-33">Tài khoản</th>
+												<th class="p-1 bg-border-right_m w-33">Giải thưởng</th>
 												<th class="p-1 w-33">Thời gian trúng</th>
 											</tr>
 											</thead>
 											<tbody>
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim</td>
+											<tr class="bg-border-bottom_m">
+												<td class="p-0 bg-border-right_m w-33">John</td>
+												<td class="p-0 bg-border-right_m w-33">Gói quà bạch kim Gói quà bạch kim</td>
 												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
 											</tr>
 
@@ -632,20 +632,20 @@ class Lucky_Rotation extends React.Component {
 										</div>                
 									</div>
 								</div>
-								<div class="btn-h position-relative">
+								<div class="btn-h_m position-relative">
 									<a href="#" title="Hướng dẫn mua thẻ scoin" target="_blank"><img src={btn_huongdanmuathescoin} width="40%" hspace="10" /></a>
 									<a href="#" title="Nhận thông báo sự kiện"><img src={btn_nhanthongbaosukien} width="40%" hspace="10" /></a>
 								</div>
-								<div class="btn-h position-relative mt-2">
+								<div class="btn-h_m position-relative mt-2">
 									<a href="#" title="Nạp game" target="_blank"><img src={btn_napgame} width="20%" hspace="11%" /></a>
 									<a href="Tel:19001104" title="Hot line"><img src={img_hotline} width="40%" hspace="10" /></a>
 								</div>
-								<div class="btn-h position-relative mt-2">
+								<div class="btn-h_m position-relative mt-2">
 									<a href="#" title="Scoin" target="_blank"><img src={logo_scoin} width="20%" hspace="10" /></a>
 									<a href="#" title="Scoin VIP" target="_blank"><img src={logo_scoinvip} width="20%" hspace="10" /></a>
 									<a href="#" title="Splay"><img src={logo_splay} width="20%" hspace="10" /></a>
 								</div>
-								<div class="btn-h position-relative mt-2 pb-2 font-size-3vw text-white-50">
+								<div class="btn-h_m position-relative mt-2 pb-2 font-size-3vw_m text-white-50">
 									<p class="text-center">
 										Hệ thống phát hành game VTC Mobile
 										<br></br>
@@ -659,13 +659,13 @@ class Lucky_Rotation extends React.Component {
 										Tổng đài hỗ trợ 1900 1104
 									</p>
 								</div>
-								<div class="menu-left">
+								<div class="menu-left_m">
 									<a href="#" title="Active VIP" target="_blank"><p class="mb-0 menu-link link-first"></p></a>
 									<a href="#" title="Hướng dẫn chơi"><p class="mb-0 menu-link"></p></a>
 									<a href="#Modalgiaithuong" title="Giải thưởng" data-toggle="modal"><p class="mb-0 menu-link"></p></a>
 									<a href="#" title="Lịch sử giao dịch"><p class="mb-0 menu-link"></p></a>
 								</div>
-								<div class="menu-right"><a href="#Modaltudo" title="Tủ đồ" data-toggle="modal"><img src={btn_tudo} width="100%" alt="" /></a></div>
+								<div class="menu-right_m"><a href="#Modaltudo" title="Tủ đồ" data-toggle="modal"><img src={btn_tudo} width="100%" alt="" /></a></div>
 							</div>
 						</div>
 					
@@ -674,13 +674,13 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Thông báo đăng nhập--> */}
 			<div className="modal fade" id="myModal5">
-				<div class="modal-dialog modal-dangnhap">
+				<div class="modal-dialog modal-dangnhap_m">
 					<div class="modal-content bg-transparent border-0">
 					<div class="modal-header border-0 p-0 text-dark">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body border-0">
-						<h2 class="font-size-3vw font-weight-bold text-uppercase text-center">Bạn vẫn chưa đăng nhập</h2>
+						<h2 class="font-size-3vw_m font-weight-bold text-uppercase text-center">Bạn vẫn chưa đăng nhập</h2>
 						<p class="text-center"><a title="Đăng nhập" onClick={this.loginAction}><img src={btn_dangnhap} width="30%" alt="" /></a></p>
 					</div>
 
@@ -691,29 +691,29 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Giai thuong--> */}
 			<div class="modal fade" id="Modalgiaithuong">
-				<div class="modal-dialog modal-dangnhap modal-dialog-scrollable">
+				<div class="modal-dialog modal-dangnhap_m modal-dialog-scrollable">
 					<div class="modal-content bg-transparent border-0">
 
 					<div class="modal-header border-0 p-0">
 						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body border-0 py-0 my-2 px-3 scroll-modal-body">      	
-						<div class="row mx-0 mb-1 border-giaithuong-e">
+						<div class="row mx-0 mb-1 border-giaithuong-e_m">
 							<div class="col-12 text-center text-brown pt-1">
-								<h2 class="font-size-3vw font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
-								<p class="font-size-3vw mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
+								<h2 class="font-size-3vw_m font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
+								<p class="font-size-3vw_m mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
 							</div>
 							<div class="col-4 text-center">
 								<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
-								<p class="font-size-3vw text-phanthuong text-yellow">Topup Scoin 50k</p>
+								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Topup Scoin 50k</p>
 							</div>
 							<div class="col-4 text-center">
 								<p class="m-0"><img src={img_thescoin200k} alt="" width="60%" /></p>
-								<p class="font-size-3vw text-phanthuong text-yellow">Thẻ Scoin 200k</p>
+								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin 200k</p>
 							</div>
 							<div class="col-4 text-center">
 								<p class="m-0"><img src={img_thescoinvoucher} alt="" width="60%" /></p>
-								<p class="font-size-3vw text-phanthuong text-yellow">Thẻ Scoin Voucher 10k</p>
+								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin Voucher 10k</p>
 							</div>
 						</div>
 					</div>
@@ -724,7 +724,7 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Tu do--> */}
 			<div class="modal fade" id="Modaltudo">
-				<div class="modal-dialog modal-tudo">
+				<div class="modal-dialog modal-tudo_m">
 					<div class="modal-content bg-transparent border-0">
 					<div class="modal-header border-0 p-0 text-dark">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -732,73 +732,73 @@ class Lucky_Rotation extends React.Component {
 
 					<div class="modal-body border-0 py-0 my-0 px-3 scroll-modal-body">
 						{/* <!-- Nav pills --> */}
-						<ul class="nav nav-pills nav-justified mx-auto">
+						<ul class="nav nav-pills_m nav-justified_m mx-auto">
 						<li class="nav-item">
-							<a class="nav-link py-0 active" data-toggle="pill" href="#tabphanthuong"><img src={btn_phanthuong_active} width="100%" hspace="5" id="image-3" /></a>
+							<a class="nav-link_m py-0 active" data-toggle="pill" href="#tabphanthuong"><img src={btn_phanthuong_active} width="100%" hspace="5" id="image-3" /></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link py-0" data-toggle="pill" href="#tablichsu"><img src={btn_lichsu} width="100%" hspace="5" id="image-4" /></a>
+							<a class="nav-link_m py-0" data-toggle="pill" href="#tablichsu"><img src={btn_lichsu} width="100%" hspace="5" id="image-4" /></a>
 						</li>
 
 						</ul>        
 						{/* <!-- Tab panes --> */}
 						<div class="tab-content">
 							<div class="tab-pane active" id="tabphanthuong">
-								<table class="table table-borderless text-center font-size-3vw mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
+								<table class="table table-borderless text-center font-size-3vw_m mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
 									<thead>
-									<tr class="bg-border-bottom">
-										<th class="p-1 bg-border-right w-25 valign-middle">Phần thưởng</th>
-										<th class="p-1 bg-border-right w-25 valign-middle">Nội dung</th>
-										<th class="p-1 bg-border-right w-25 valign-middle">Thời gian trúng</th>
-										<th class="p-1 w-25 valign-middle">Mở quà</th>
+									<tr class="bg-border-bottom_m">
+										<th class="p-1 bg-border-right_m w-25 valign-middle_m">Phần thưởng</th>
+										<th class="p-1 bg-border-right_m w-25 valign-middle_m">Nội dung</th>
+										<th class="p-1 bg-border-right_m w-25 valign-middle_m">Thời gian trúng</th>
+										<th class="p-1 w-25 valign-middle_m">Mở quà</th>
 									</tr>
 									</thead>
 									<tbody>
-									<tr class="bg-border-bottom">
-										<td class="p-0 bg-border-right w-25 valign-middle">John</td>
-										<td class="p-0 bg-border-right w-25 valign-middle">Gói quà bạch kim Gói quà bạch kim</td>
-										<td class="p-0 bg-border-right w-25 valign-middle">12:24:58 19/05/2021</td>
-										<td class="p-1 w-25 valign-middle"><a href="#" title="Mở quà">Mở quà</a></td>
+									<tr class="bg-border-bottom_m">
+										<td class="p-0 bg-border-right_m w-25 valign-middle_m">John</td>
+										<td class="p-0 bg-border-right_m w-25 valign-middle_m">Gói quà bạch kim Gói quà bạch kim</td>
+										<td class="p-0 bg-border-right_m w-25 valign-middle_m">12:24:58 19/05/2021</td>
+										<td class="p-1 w-25 valign-middle_m"><a href="#" title="Mở quà">Mở quà</a></td>
 									</tr>
 									
 									</tbody>
 								</table>
 								<ul class="pagination justify-content-center pag-custom mt-1">
-									<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item active"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">...</a></li>
-									<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+									<li class="page-item"><a class="page-link_m page-be_m" href="#">Trang đầu</a></li>
+									<li class="page-item"><a class="page-link_m" href="#">1</a></li>
+									<li class="page-item active"><a class="page-link_m" href="#">2</a></li>
+									<li class="page-item"><a class="page-link_m" href="#">3</a></li>
+									<li class="page-item"><a class="page-link_m" href="#">...</a></li>
+									<li class="page-item"><a class="page-link_m page-be_m" href="#">Trang cuối</a></li>
 								</ul>
 							</div>
 							{/* <!--End tabphanthuong --> */}
 							<div class="tab-pane fade" id="tablichsu">
-								<table class="table table-borderless text-center font-size-3vw mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
+								<table class="table table-borderless text-center font-size-3vw_m mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
 									<thead>
-									<tr class="bg-border-bottom">
-										<th class="p-1 bg-border-right w-25 valign-middle">Phần thưởng</th>
-										<th class="p-1 bg-border-right w-25 valign-middle">Nội dung</th>
-										<th class="p-1 bg-border-right w-25 valign-middle">Thời gian trúng</th>
-										<th class="p-1 w-25 valign-middle">Mở quà</th>
+									<tr class="bg-border-bottom_m">
+										<th class="p-1 bg-border-right_m w-25 valign-middle_m">Phần thưởng</th>
+										<th class="p-1 bg-border-right_m w-25 valign-middle_m">Nội dung</th>
+										<th class="p-1 bg-border-right_m w-25 valign-middle_m">Thời gian trúng</th>
+										<th class="p-1 w-25 valign-middle_m">Mở quà</th>
 									</tr>
 									</thead>
 									<tbody>
-									<tr class="bg-border-bottom">
-										<td class="p-0 bg-border-right w-25 valign-middle">John</td>
-										<td class="p-0 bg-border-right w-25 valign-middle">Gói quà bạch kim Gói quà bạch kim</td>
-										<td class="p-0 bg-border-right w-25 valign-middle">12:24:58 19/05/2021</td>
-										<td class="p-1 w-25 valign-middle"><a href="#" title="Mở quà">Mở quà</a></td>
+									<tr class="bg-border-bottom_m">
+										<td class="p-0 bg-border-right_m w-25 valign-middle_m">John</td>
+										<td class="p-0 bg-border-right_m w-25 valign-middle_m">Gói quà bạch kim Gói quà bạch kim</td>
+										<td class="p-0 bg-border-right_m w-25 valign-middle_m">12:24:58 19/05/2021</td>
+										<td class="p-1 w-25 valign-middle_m"><a href="#" title="Mở quà">Mở quà</a></td>
 									</tr>
 									</tbody>
 								</table>
 								<ul class="pagination justify-content-center pag-custom mt-1">
-									<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item active"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">...</a></li>
-									<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+									<li class="page-item"><a class="page-link_m page-be_m" href="#">Trang đầu</a></li>
+									<li class="page-item"><a class="page-link_m" href="#">1</a></li>
+									<li class="page-item active"><a class="page-link_m" href="#">2</a></li>
+									<li class="page-item"><a class="page-link_m" href="#">3</a></li>
+									<li class="page-item"><a class="page-link_m" href="#">...</a></li>
+									<li class="page-item"><a class="page-link_m page-be_m" href="#">Trang cuối</a></li>
 								</ul>
 							</div>
 							</div>

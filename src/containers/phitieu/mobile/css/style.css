@@ -4,62 +4,62 @@
 
 
 html {scroll-behavior: smooth; font-size: 26px}
-.page {max-width: 960px; background:url(../images/bg-page.png) repeat; padding: 0; margin: 0 auto;}
-.bg-top {background:url(../images/bg-top.png) no-repeat; background-position: top; background-size: 100%; display: block; height: 100%; width:100%;}
-.btn-s {padding-top: 90%; width:100%; text-align: center;}
-.bxh { padding-top: 10%;}
-.nav-pills .nav-link.active {background: none}
-.bg-bxh {background:url(../images/bg-bxh.png) no-repeat; background-position: top; background-size: 100%; height: 100%; width:100%;}
-.font-size-3vw {font-size:3vw;}
-.bg-border-bottom {background-image: url(../images/bg-border-bottom.png); background-repeat: no-repeat; background-position: center bottom; background-size: 100%;}
-.bg-border-right {background-image: url(../images/bg-border-right.png); background-repeat: no-repeat; background-position: right bottom; background-size: 1%;}
-.w-33 {width: 33%; overflow: hidden; white-space:nowrap; text-overflow: ellipsis;}
-.btn-h { width:100%; text-align: center;}
-.pt-3vw {padding-top: 2%;}
-.bg-bottom {background:url(../images/bg-bottom.png) no-repeat; background-position: bottom; background-size: 100%; display: block; }
-.menu-left {position: absolute; left: 1%; top: 15%; background:url(../images/btn-ahgl.png) no-repeat; background-size: 100%; width: 28%; height: 15%;}
-.menu-left p.menu-link {width: 100%; height: 18%; margin-top: 2%;}
-.menu-left p.menu-link.link-first {margin-top: 12%}
-.menu-right {position: absolute; right: 1%; top: 20%; width: 23%; height: 5%;}
-.bg-page-sanqua {background:url(../images/bg-page-sanqua.png) no-repeat; background-position: top; background-size: contain; display: block; height: 100vh; width:100vw; max-width: 960px; max-height: 450px; margin: 0 auto;}
-.bg-page-duatop {background:url(../images/bg-page-duatop.png) no-repeat; background-position: top; background-size: contain; display: block; height: 100vh; width:100vw; max-width: 960px; max-height: 450px; margin: 0 auto;}
-.phitieu {position: absolute; top: 13.9vw; left: 35.2vw; width: 30vw; height: 30vw;}
-.phitieu .img-phitieu {background:url(../images/tieu.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%}
-.tongdiem {position: absolute; top: 28.8vw; left: 13vw}
-.diemcaonhat {position: absolute; top: 28.8vw; left: 76vw}
-.font-size-2vw {font-size:2vw;}
-.phongtudong {position: absolute; top: 41vw; left: 5vw}
-.timing {position: absolute; top: 5px; left: 35vw; width: 30%;}
-.font-size-1vw {font-size:1.6vw;} 
-.mt-n1n {margin-top: -.8rem}
-.account-name {position: absolute; top: 5px; left: 62vw; width: 30%;}
-.btn-login {position: absolute; right: 1vw; top:0; width: 12%;}
-.phitieu-status {position: absolute; top: 6vw; left: 35vw; width: 40%;}
-.toplist-account {position: absolute; right: 9vw; top: 15vw; width: 18.6%;}
-.modal-dangnhap {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
-.text-brown {color: #6b5247;}
-.text-yellow {color: #f69310;}
-.border-giaithuong-e {border: solid 1px #f69310; border-radius: 8px}
-.scroll-modal-body {height: 75vw; overflow: auto;}
-.img-dacochu {position: absolute; top: 30%; left: 30%}
-.modal-tudo {background:url(../images/bg-popup-tudo.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
-.valign-middle {vertical-align: middle !important;}
-.pag-custom .page-item {margin: 5px;}
-.pag-custom .page-link {background-color: #fcc316; border-color: #fcc316; border-radius: 4px; color:#FFFFFF; font-size:13px; padding: 2px 10px}
-.pag-custom .page-be {background-color: #b30101; border-color: #b30101;}
-.pag-custom .page-item.active .page-link {background-color: #b30101; border-color: #b30101;}
+.page_m {max-width: 960px; background:url(../images/bg-page.png) repeat; padding: 0; margin: 0 auto;}
+.bg-top_m {background:url(../images/bg-top.png) no-repeat; background-position: top; background-size: 100%; display: block; height: 100%; width:100%;}
+.btn-s_m {padding-top: 90%; width:100%; text-align: center;}
+.bxh_m { padding-top: 10%;}
+.nav-pills_m .nav-link_m.active {background: none}
+.bg-bxh_m {background:url(../images/bg-bxh.png) no-repeat; background-position: top; background-size: 100%; height: 100%; width:100%;}
+.font-size-3vw_m {font-size:3vw;}
+.bg-border-bottom_m {background-image: url(../images/bg-border-bottom.png); background-repeat: no-repeat; background-position: center bottom; background-size: 100%;}
+.bg-border-right_m {background-image: url(../images/bg-border-right.png); background-repeat: no-repeat; background-position: right bottom; background-size: 1%;}
+.w-33_m {width: 33%; overflow: hidden; white-space:nowrap; text-overflow: ellipsis;}
+.btn-h_m { width:100%; text-align: center;}
+.pt-3vw_m {padding-top: 2%;}
+.bg-bottom_m {background:url(../images/bg-bottom.png) no-repeat; background-position: bottom; background-size: 100%; display: block; }
+.menu-left_m {position: absolute; left: 1%; top: 15%; background:url(../images/btn-ahgl.png) no-repeat; background-size: 100%; width: 28%; height: 15%;}
+.menu-left_m p.menu-link_m {width: 100%; height: 18%; margin-top: 2%;}
+.menu-left_m p.menu-link_m.link-first_m {margin-top: 12%}
+.menu-right_m {position: absolute; right: 1%; top: 20%; width: 23%; height: 5%;}
+.bg-page-sanqua_m {background:url(../images/bg-page-sanqua.png) no-repeat; background-position: top; background-size: contain; display: block; height: 100vh; width:100vw; max-width: 960px; max-height: 450px; margin: 0 auto;}
+.bg-page-duatop_m {background:url(../images/bg-page-duatop.png) no-repeat; background-position: top; background-size: contain; display: block; height: 100vh; width:100vw; max-width: 960px; max-height: 450px; margin: 0 auto;}
+.phitieu_m {position: absolute; top: 13.9vw; left: 35.2vw; width: 30vw; height: 30vw;}
+.phitieu_m .img-phitieu_m {background:url(../images/tieu.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%}
+.tongdiem_m {position: absolute; top: 28.8vw; left: 13vw}
+.diemcaonhat_m {position: absolute; top: 28.8vw; left: 76vw}
+.font-size-2vw_m {font-size:2vw;}
+.phongtudong_m {position: absolute; top: 41vw; left: 5vw}
+.timing_m {position: absolute; top: 5px; left: 35vw; width: 30%;}
+.font-size-1vw_m {font-size:1.6vw;} 
+.mt-n1n_m {margin-top: -.8rem}
+.account-name_m {position: absolute; top: 5px; left: 62vw; width: 30%;}
+.btn-login_m {position: absolute; right: 1vw; top:0; width: 12%;}
+.phitieu-status_m {position: absolute; top: 6vw; left: 35vw; width: 40%;}
+.toplist-account_m {position: absolute; right: 9vw; top: 15vw; width: 18.6%;}
+.modal-dangnhap_m {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
+.text-brown_m {color: #6b5247;}
+.text-yellow_m {color: #f69310;}
+.border-giaithuong-e_m {border: solid 1px #f69310; border-radius: 8px}
+.scroll-modal-body_m {height: 75vw; overflow: auto;}
+.img-dacochu_m {position: absolute; top: 30%; left: 30%}
+.modal-tudo_m {background:url(../images/bg-popup-tudo.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
+.valign-middle_m {vertical-align: middle !important;}
+.pag-custom_m .page-item_m {margin: 5px;}
+.pag-custom_m .page-link_m {background-color: #fcc316; border-color: #fcc316; border-radius: 4px; color:#FFFFFF; font-size:13px; padding: 2px 10px}
+.pag-custom_m .page-be_m {background-color: #b30101; border-color: #b30101;}
+.pag-custom_m .page-item_m.active .page-link_m {background-color: #b30101; border-color: #b30101;}
 
 
 
 
 
-.text-blink {animation: blinker 1s linear infinite;}
+.text-blink_m {animation: blinker 1s linear infinite;}
 @keyframes blinker {
   40% {
     opacity: 0.2;
   }
 }
-.text-shadow {color: #fef4b1;
+.text-shadow_m {color: #fef4b1;
   text-shadow:
     0 0 5px #d94c0c,
     0 0 10px #d94c0c,
@@ -68,7 +68,7 @@ html {scroll-behavior: smooth; font-size: 26px}
     0 0 80px #d94c0c;}
 
 /* Begin our marquee, and inner content */
-.marquee {
+.marquee_m {
     overflow: hidden;
     position: relative;
     padding-left: 20%;
@@ -76,21 +76,21 @@ html {scroll-behavior: smooth; font-size: 26px}
     animation: reduce 30s linear infinite;
 }
 
-.marquee_inner {
+.marquee_inner_m {
 	white-space: nowrap;
 	display: inline-block;
 	/* Some browsers may require -webkit-animation */
 	animation: scroll 30s linear infinite;
 }
 /* Creates two white-to-transparent gradients at the ends of the marquee */
-.marquee::before, .marquee::after {
+.marquee_m::before, .marquee_m::after {
     z-index: 1;
     top: 0; left: 0;
     width: 50px; height: 100%;
     content: ""; display: block;
 }
 
-.marquee::after {
+.marquee_m::after {
     left: auto; right: 0;
     transform: rotate(180deg);
 }
@@ -110,32 +110,32 @@ html {scroll-behavior: smooth; font-size: 26px}
 
 
 @media screen and (min-width:960px) {
-.font-size-3vw {font-size: 29px;}
-.phitieu {left: 340px; top: 135px; width: 285px; height: 285px;}
+.font-size-3vw_m {font-size: 29px;}
+.phitieu_m {left: 340px; top: 135px; width: 285px; height: 285px;}
 
-.tongdiem {position: absolute; top: 60%; left: 11%}
-.diemcaonhat {position: absolute; top: 60%; left: 70%}
-.phongtudong {position: absolute; top: 86%; left: 2%}
-.timing {position: absolute; top: 1%; left: 36%; width: 30%;}
-.account-name {position: absolute; top: 0; left: 60%; width: 30%;}
-.btn-login {position: absolute; right: 1vw; top:0; width: 12%;}
-.phitieu-status {position: absolute; top: 16%; left: 36%; width: 40%;}
-.toplist-account {position: absolute; right: 10%; top: 27%; width: 18.6%;}
+.tongdiem_m {position: absolute; top: 60%; left: 11%}
+.diemcaonhat_m {position: absolute; top: 60%; left: 70%}
+.phongtudong_m {position: absolute; top: 86%; left: 2%}
+.timing_m {position: absolute; top: 1%; left: 36%; width: 30%;}
+.account-name_m {position: absolute; top: 0; left: 60%; width: 30%;}
+.btn-login_m {position: absolute; right: 1vw; top:0; width: 12%;}
+.phitieu-status_m {position: absolute; top: 16%; left: 36%; width: 40%;}
+.toplist-account_m {position: absolute; right: 10%; top: 27%; width: 18.6%;}
 }
 
 @media screen and (max-width:576px) {
-.modal-dangnhap {margin: 0}
-.modal-tudo {margin: 0}
+.modal-dangnhap_m {margin: 0}
+.modal-tudo_m {margin: 0}
 }
 
 @media screen and (min-width:480px) {
-.menu-left p.menu-link {margin-top: 4%;}
-.text-phanthuong {font-size: 18px}
+.menu-left_m p.menu-link_m {margin-top: 4%;}
+.text-phanthuong_m {font-size: 18px}
 }
 
 @media screen and (max-width:640px) {
-.timing {top: 0;}
-.account-name {top: 0;}
-.btn-login {top: -5px;}
+.timing_m {top: 0;}
+.account-name_m {top: 0;}
+.btn-login_m {top: -5px;}
 }
 
