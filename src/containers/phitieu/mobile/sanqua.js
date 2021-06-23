@@ -130,14 +130,14 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth})
-		this.loadImage();
+		// this.loadImage();
 	}
 
-	componentDidUpdate(oldProps) {
-		if (oldProps.src !== this.props.src) {
-		  this.loadImage();
-		}
-	  }
+	// componentDidUpdate(oldProps) {
+	// 	if (oldProps.src !== this.props.src) {
+	// 	  this.loadImage();
+	// 	}
+	//   }
 
 	componentWillUnmount() {
 		this.image.removeEventListener('load', this.handleLoad);
@@ -460,23 +460,26 @@ class Lucky_Rotation extends React.Component {
 	}
 
 
-	loadImage() {
-		// save to "this" to remove "load" handler on unmount
-		this.image = new window.Image();
-		this.image.src = "https://konvajs.org/assets/yoda.jpg";
-		this.image.addEventListener('load', this.handleLoad);
-	  }
+	// loadImage() {
+	// 	// save to "this" to remove "load" handler on unmount
+	// 	this.image = new window.Image();
+	// 	this.image.src = "https://konvajs.org/assets/yoda.jpg";
+	// 	this.image.addEventListener('load', this.handleLoad);
+	//   }
 
-	  handleLoad = () => {
+	// handleLoad = () => {
 
-		this.setState({
-		  image: this.image
-		});
-	  };
+	// 	this.setState({
+	// 		image: this.image
+	// 	});
+	// };
 
 	touchStart=()=>{
-		const {stage, layer, darthVaderImg}=this.state;
-		// dartFlightImg.hide();
+		const {stage, layer, darthVaderImg, dartFlightImg}=this.state;
+		if(JSON.stringify(dartFlightImg) !== '{}'){
+			dartFlightImg.remove();
+		}
+		
 		var touchPos = stage.getPointerPosition();
 		var x= touchPos.x-100;
 		var y= touchPos.y-80;
@@ -489,6 +492,7 @@ class Lucky_Rotation extends React.Component {
 	touchEnd=()=>{
 		const {stage, layer, darthVaderImg, dartFlightImg, dartPositionY}=this.state;
 		var touchPos = stage.getPointerPosition();
+		curFrame=0
 		darthVaderImg.hide();
 		if(dartPositionY >touchPos.y){
 			// dartFlightImg.x(touchPos.x)
@@ -511,9 +515,9 @@ class Lucky_Rotation extends React.Component {
 		darthVaderImg.y(y);
 	}
 	updateFrame=()=>{
-		curFrame=++curFrame/frameCount;
-		srcX=curFrame*widthFrame-20;
+		srcX=curFrame*widthFrame;
 		srcY=0;
+		curFrame=++curFrame;
 		console.log('curFrame:',curFrame)
 	}
 
@@ -536,10 +540,13 @@ class Lucky_Rotation extends React.Component {
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
-			setTimeout(()=>{
-				_this.draw() 
-				dartFlightImg.remove(); 
-			}, 1000);
+			if(curFrame <= 4){
+				setTimeout(()=>{
+					_this.draw() 
+					dartFlightImg.remove(); 
+				}, 200);
+			}
+			
 			_this.setState({dartFlightImg:dartFlightImg})
 		};
 		dartFlight.src = dart_player;
