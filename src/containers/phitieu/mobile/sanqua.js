@@ -530,8 +530,8 @@ class Lucky_Rotation extends React.Component {
 		dartFlight.onload = function () {
 			var dartFlightImg = new Konva.Image({
 				image: dartFlight,
-				x: touchPos.x,
-				y: touchPos.y,
+				x: touchPos.x - widthFrame/2,
+				y: touchPos.y - heightFrame/4,
 				width: widthFrame,
 				height: heightFrame,
 				// visible:false
@@ -544,7 +544,7 @@ class Lucky_Rotation extends React.Component {
 				setTimeout(()=>{
 					_this.draw() 
 					dartFlightImg.remove(); 
-				}, 200);
+				}, 50);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
