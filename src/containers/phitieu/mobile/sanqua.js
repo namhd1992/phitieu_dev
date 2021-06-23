@@ -497,9 +497,6 @@ class Lucky_Rotation extends React.Component {
 		curFrame=0
 		darthVaderImg.hide();
 		if(dartPositionY >touchPos.y){
-			// dartFlightImg.x(touchPos.x)
-			// dartFlightImg.y(touchPos.y)
-			// dartFlightImg.show();
 			this.draw()
 		}else{
 			alert("vuốt lên để phi tiêu")

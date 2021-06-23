@@ -54,6 +54,14 @@ var dartTimerId = 1;
 var FLIGHT_ANIM_DELAY = 20;
 var width = window.innerWidth;
 var height = window.innerHeight;
+var curFrame = 0;
+var frameCount = 5; 
+var spriteWidth = 430; 
+var spriteHeight = 197; 
+var widthFrame = spriteWidth/frameCount; 
+var heightFrame = spriteHeight; 
+var srcX=0; 
+var srcY=0; 
 
 
 
@@ -466,9 +474,12 @@ class Lucky_Rotation extends React.Component {
 		});
 	  };
 
-	touchStart=()=>{
+	  touchStart=()=>{
 		const {stage, layer, darthVaderImg, dartFlightImg}=this.state;
-		dartFlightImg.hide();
+		if(JSON.stringify(dartFlightImg) !== '{}'){
+			dartFlightImg.remove();
+		}
+		
 		var touchPos = stage.getPointerPosition();
 		var x= touchPos.x-100;
 		var y= touchPos.y-80;
@@ -481,11 +492,10 @@ class Lucky_Rotation extends React.Component {
 	touchEnd=()=>{
 		const {stage, layer, darthVaderImg, dartFlightImg, dartPositionY}=this.state;
 		var touchPos = stage.getPointerPosition();
+		curFrame=0
 		darthVaderImg.hide();
 		if(dartPositionY >touchPos.y){
-			dartFlightImg.x(touchPos.x)
-			dartFlightImg.y(touchPos.y)
-			dartFlightImg.show();
+			this.draw()
 		}else{
 			alert("vuốt lên để phi tiêu")
 		}
@@ -501,17 +511,42 @@ class Lucky_Rotation extends React.Component {
 		darthVaderImg.x(x);
 		darthVaderImg.y(y);
 	}
+	updateFrame=()=>{
+		srcX=curFrame*widthFrame;
+		srcY=0;
+		curFrame=++curFrame;
+		console.log('curFrame:',curFrame)
+	}
 
-	doFlightAnim=(step)=>{
-		// Stop the last animation
-		dartTimerId = clearTimeout(animId);
-
-		if (step <= 20) {
-
-				// showcell(step, 0, 'dart');
-				dartTimerId = setTimeout(this.doFlightAnim(step + 1), FLIGHT_ANIM_DELAY);
-
-		}
+	draw=()=>{
+		var _this=this
+		const {stage, layer}=this.state;
+		var touchPos = stage.getPointerPosition();
+		this.updateFrame();
+		var dartFlight = new Image();
+		dartFlight.onload = function () {
+			var dartFlightImg = new Konva.Image({
+				image: dartFlight,
+				x: touchPos.x - widthFrame/2,
+				y: touchPos.y - heightFrame/4,
+				width: widthFrame,
+				height: heightFrame,
+				// visible:false
+				});
+				
+			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
+			layer.add(dartFlightImg);
+			stage.add(layer);
+			if(curFrame <= 4){
+				setTimeout(()=>{
+					_this.draw() 
+					dartFlightImg.remove(); 
+				}, 50);
+			}
+			
+			_this.setState({dartFlightImg:dartFlightImg})
+		};
+		dartFlight.src = dart_player;
 	}
 
 	render() {
