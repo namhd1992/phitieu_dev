@@ -129,9 +129,11 @@ class Lucky_Rotation extends React.Component {
 		this.onResize();
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.removeEventListener('scroll', this.handleScroll);
-		this.setState({innerWidth:window.innerWidth})
+		this.setState({innerWidth:window.innerWidth});
+	
 		// this.loadImage();
 	}
+
 
 	// componentDidUpdate(oldProps) {
 	// 	if (oldProps.src !== this.props.src) {
@@ -149,6 +151,14 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
+		var el = document.getElementById('canvas');
+ 
+		if(el.webkitRequestFullScreen) {
+			el.webkitRequestFullScreen();
+		}
+	   else {
+		  el.mozRequestFullScreen();
+	   }   
 		var stage = new Konva.Stage({
 			container: 'canvas',
 			width: width,
