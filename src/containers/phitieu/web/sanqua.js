@@ -505,11 +505,13 @@ class Lucky_Rotation extends React.Component {
 
 	touchMove=()=>{
 		const {stage, layer, darthVaderImg}=this.state;
-		var touchPos = stage.getPointerPosition();
-		var x= touchPos.x-100;
-		var y= touchPos.y-80;
-		darthVaderImg.x(x);
-		darthVaderImg.y(y);
+		if(JSON.stringify(darthVaderImg) !== '{}'){
+			var touchPos = stage.getPointerPosition();
+			var x= touchPos.x-100;
+			var y= touchPos.y-80;
+			darthVaderImg.x(x);
+			darthVaderImg.y(y);
+		}
 	}
 	updateFrame=()=>{
 		srcX=curFrame*widthFrame;
