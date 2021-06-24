@@ -137,6 +137,7 @@ class Lucky_Rotation extends React.Component {
 		}else{
 			this.setState({horizontal: true})
 		}
+		this.toggleFullScreen()
 		// this.loadImage();
 	}
 
@@ -294,6 +295,17 @@ class Lucky_Rotation extends React.Component {
 			this.setState({ width: 586, height: 657, img_width:470, img_height:470});
 		}
 	}
+
+
+	toggleFullScreen=()=> {
+		if (!document.fullscreenElement) {
+			document.documentElement.requestFullscreen();
+		} else {
+		  if (document.exitFullscreen) {
+			document.exitFullscreen();
+		  }
+		}
+	  }
 
 	getVinhDanh=(pageNumber)=>{
 	
