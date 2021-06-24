@@ -33,6 +33,14 @@ import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
 import 'bootstrap';
 
+import icon_clock from './images/icon-clock.png';
+import line_timing from './images/line-timing.png';
+import btn_thoat from './images/btn-thoat.png';
+import phitieu from './images/phitieu.png';
+import dart_player from './images/dart-player.png';
+import dart_flight from './images/dart-flight.gif';
+
+
 const styles = {
 	paper: {
 		background: "#fff",
@@ -472,8 +480,46 @@ class Lucky_Rotation extends React.Component {
 		const {user}=this.state;
 
 		return (<div>
-			<canvas id="canvas"></canvas>
-		</div>)
+					<div class="bg-page-duatop_m position-relative">
+						<div class="phitieu_m">
+							<div class="img-phitieu_m"></div>
+						</div>
+						<div class="tongdiem_m">
+							<h2 class="font-size-2vw_m text-uppercase font-weight-bold text-center mb-1 text-shadow_m">Tổng điểm</h2>
+							<h4 class="font-size-2vw_m text-uppercase text-center text-shadow_m">699669</h4>
+						</div>
+						<div class="phongtudong_m font-size-2vw_m font-weight-bold text-uppercase text-shadow_m">
+							<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động
+						</div>
+						<div class="timing_m">
+							<div class="media">
+							<img src={icon_clock} class="align-self-center mt-n1" width="13%" alt="clock" />
+							<div class="media-body">
+								<img class="m-0 p-0 mt-n3" src={line_timing} width="90%" alt="Line" />
+								<h6 class="text-yellow font-size-1vw_m mt-n1n pl-1 text-shadow_m">Còn: 2 ngày 10:22:11</h6>
+							</div>
+							</div>
+						</div>
+						<div class="account-name_m">
+							<p class="font-size-1vw_m text-white mb-0 text-center">Đặng Lê Nguyên Vũ</p>
+							<h2 class="font-size-1vw_m text-warning m-0 text-center"> VIP Kim Cương</h2>
+						</div>
+						<div class="btn-login_m">
+							<img src={btn_thoat} width="100%" alt="" />
+						</div>
+						<div class="phitieu-status_m marquee_m">
+							<div class="marquee_inner_m">            
+								<span class="m-0 font-size-1vw_m font-weight-bold text-shadow_m pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
+								<span class="m-0 font-size-1vw_m font-weight-bold text-shadow_m pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
+							</div>    	
+						</div>
+						<div class="diemcaonhat_m">
+							<h2 class="font-size-2vw_m text-uppercase font-weight-bold text-center mb-1 text-shadow_m">Điểm cao nhất</h2>
+							<h4 class="font-size-2vw_m text-uppercase text-center text-shadow_m">699669 <br /><span class="font-size-1vw_m">NguyenLe</span></h4>
+						</div>
+					</div>
+		</div>
+		)
 	}
 }
 

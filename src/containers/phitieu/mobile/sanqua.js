@@ -36,6 +36,7 @@ import btn_thoat from './images/btn-thoat.png';
 import phitieu from './images/phitieu.png';
 import dart_player from './images/dart-player.png';
 import dart_flight from './images/dart-flight.gif';
+import rotate from './images/rotate.png';
 
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
@@ -121,7 +122,8 @@ class Lucky_Rotation extends React.Component {
 			darthVaderImg:{},
 			dartFlightImg:{},
 			orientation:'',
-			dartPositionY:0
+			dartPositionY:0,
+			horizontal:false
 
 		};
 	}
@@ -130,7 +132,11 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth});
-	
+		if(window.innerWidth < window.innerHeight){
+			this.setState({horizontal: false})
+		}else{
+			this.setState({horizontal: true})
+		}
 		// this.loadImage();
 	}
 
@@ -151,50 +157,35 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
-		var stage = new Konva.Stage({
-			container: 'canvas',
-			width: width,
-			height: height,
-		});
-		var layer = new Konva.Layer();
-
-		this.setState({stage:stage, layer:layer})
-		var _this=this
-		var imageObj = new Image();
-		imageObj.onload = function () {
-			var darthVaderImg = new Konva.Image({
-				image: imageObj,
-				x: 300,
-				y: 280,
-				width: 200,
-				height: 137,
-				draggable: true,
-				visible:false
-				});
-		
-				layer.add(darthVaderImg);
-				stage.add(layer);
-				_this.setState({darthVaderImg:darthVaderImg})
-		};
-		imageObj.src = phitieu;
-
-		// var dartFlight = new Image();
-		// dartFlight.onload = function () {
-		// 	var dartFlightImg = new Konva.Image({
-		// 		image: dartFlight,
-		// 		x: 300,
-		// 		y: 280,
-		// 		width: widthFrame,
-		// 		height: heightFrame,
-		// 		visible:false
-		// 		});
-		
-		// 		layer.add(dartFlightImg);
-		// 		stage.add(layer);
-		// 		_this.setState({dartFlightImg:dartFlightImg})
-		// };
-		// dartFlight.src = dart_player;
-
+		const {horizontal}=this.state;
+		if(horizontal){
+			var stage = new Konva.Stage({
+				container: 'canvas',
+				width: width,
+				height: height,
+			});
+			var layer = new Konva.Layer();
+	
+			this.setState({stage:stage, layer:layer})
+			var _this=this
+			var imageObj = new Image();
+			imageObj.onload = function () {
+				var darthVaderImg = new Konva.Image({
+					image: imageObj,
+					x: 300,
+					y: 280,
+					width: 200,
+					height: 137,
+					draggable: true,
+					visible:false
+					});
+			
+					layer.add(darthVaderImg);
+					stage.add(layer);
+					_this.setState({darthVaderImg:darthVaderImg})
+			};
+			imageObj.src = phitieu;
+		}
 
 		const {img_width, img_height}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
@@ -552,12 +543,11 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	render() {
-		const {user, image}=this.state;
+		const {user, image, horizontal}=this.state;
 
 		return (
-			<DeviceOrientation lockOrientation={'landscape'}>
-				<Orientation orientation='landscape' alwaysRender={false}>
-					<div class="bg-page-sanqua_m position-relative">
+				<div>
+					{(horizontal)?(<div class="bg-page-sanqua_m position-relative">
 						
 						<div class="phitieu_m">
 							<div class="img-phitieu_m"></div>
@@ -607,15 +597,10 @@ class Lucky_Rotation extends React.Component {
 							</ul> 
 						</div>
 						<div id="canvas" onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
-					</div>
-				</Orientation>
-				<Orientation orientation='portrait'>
-					<div>
-						<p>Vui lòng xoay màn hình để chơi!</p>
-						<div id="canvas" />
-					</div>
-				</Orientation>
-			</DeviceOrientation>
+					</div>):(<div>
+						<img src={rotate} width="100%" alt="" />
+					</div>)}
+				</div>
 			)
 	}
 }
