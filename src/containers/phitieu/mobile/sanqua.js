@@ -36,8 +36,6 @@ import btn_thoat from './images/btn-thoat.png';
 import phitieu from './images/phitieu.png';
 import dart_player from './images/dart-player.png';
 import dart_flight from './images/dart-flight.gif';
-import bg_page_sanqua from './images/bg-page-sanqua.png';
-import bg_page_sanqua_2 from './images/bg-page-sanqua-2.png';
 import rotate from './images/rotate.png';
 
 import ReactResizeDetector from 'react-resize-detector'
@@ -170,23 +168,6 @@ class Lucky_Rotation extends React.Component {
 	
 			this.setState({stage:stage, layer:layer})
 			var _this=this
-			
-
-			var bg_img = new Image();
-			bg_img.onload = function () {
-				var bg = new Konva.Image({
-					image: bg_img,
-					x: 0,
-					y: 0,
-					width: width,
-					height: height,
-					});
-			
-					layer.add(bg);
-					stage.add(layer);
-			};
-			bg_img.src = bg_page_sanqua_2;
-
 			var imageObj = new Image();
 			imageObj.onload = function () {
 				var darthVaderImg = new Konva.Image({
@@ -204,7 +185,6 @@ class Lucky_Rotation extends React.Component {
 					_this.setState({darthVaderImg:darthVaderImg})
 			};
 			imageObj.src = phitieu;
-
 		}
 
 		const {img_width, img_height}=this.state;
@@ -567,60 +547,57 @@ class Lucky_Rotation extends React.Component {
 
 		return (
 				<div>
-					{(horizontal)?(
-					// <div class="bg-page-sanqua_m position-relative">
+					{(horizontal)?(<div class="bg-page-sanqua_m position-relative">
 						
-					// 	<div class="phitieu_m">
-					// 		<div class="img-phitieu_m"></div>
-					// 	</div>
-					// 	<div class="tongdiem_m">
-					// 		<h2 class="font-size-2vw_m text-uppercase font-weight-bold text-center mb-1 text-shadow_m">Tổng điểm</h2>
-					// 		<h4 class="font-size-2vw_m text-uppercase text-center text-shadow_m">699669</h4>
-					// 	</div>
-					// 	<div class="phongtudong_m font-size-2vw_m font-weight-bold text-uppercase text-shadow_m">
-					// 		<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động
-					// 	</div>
-					// 	<div class="timing_m">
-					// 		<div class="media">
-					// 		<img src={icon_clock} class="align-self-center mt-n1" width="13%" alt="clock" />
-					// 		<div class="media-body">
-					// 			<img class="m-0 p-0 mt-n3" src={line_timing} width="90%" alt="Line" />
-					// 			<h6 class="text-yellow font-size-1vw_m mt-n1n_m pl-1 text-shadow_m">Còn: 2d 10h 22p 11s</h6>
-					// 		</div>
-					// 		</div>
-					// 	</div>
-					// 	<div class="account-name_m">
-					// 		<p class="font-size-1vw_m text-white mb-0 text-center">Đặng Lê</p>
-					// 		<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Kim Cương</h2>
-					// 	</div>
-					// 	<div class="btn-login_m">
-					// 		<img src={btn_thoat} width="100%" alt="" />
-					// 	</div>
-					// 	<div class="phitieu-status_m marquee_m">
-					// 		<div class="marquee_inner_m">            
-					// 			<span class="m-0 font-size-2vw_m font-weight-bold text-shadow_m pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
-					// 			<span class="m-0 font-size-2vw_m font-weight-bold text-shadow_m pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
-					// 		</div>    	
-					// 	</div>
-					// 	<div class="toplist-account_m text-center">
-					// 		<h2 class="font-size-2vw_m m-0 font-weight-bold text-shadow_m">Danh sách TOP</h2>
-					// 		<ul class="list-group font-size-1vw_m mt-2">
-					// 		<li class="list-group-item bg-transparent p-0 text-shadow_m">FirstitemFirstitem</li>
-					// 		<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
-					// 		<li class="list-group-item bg-transparent p-0 text-shadow_m">Third item</li>
-					// 		<li class="list-group-item bg-transparent p-0 text-shadow_m">First item</li>
-					// 		<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
-					// 		<li class="list-group-item bg-transparent p-0 text-shadow_m">Third item</li>
-					// 		<li class="list-group-item bg-transparent p-0 text-shadow_m">First item</li>
-					// 		<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
-					// 		<li class="list-group-item bg-transparent p-0 text-shadow_m">First item</li>
-					// 		<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
-					// 		</ul> 
-					// 	</div>
-					// 	<div id="canvas" onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
-					// </div>
-					<div id="canvas" onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
-					):(<div>
+						<div class="phitieu_m">
+							<div class="img-phitieu_m"></div>
+						</div>
+						<div class="tongdiem_m">
+							<h2 class="font-size-2vw_m text-uppercase font-weight-bold text-center mb-1 text-shadow_m">Tổng điểm</h2>
+							<h4 class="font-size-2vw_m text-uppercase text-center text-shadow_m">699669</h4>
+						</div>
+						<div class="phongtudong_m font-size-2vw_m font-weight-bold text-uppercase text-shadow_m">
+							<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động
+						</div>
+						<div class="timing_m">
+							<div class="media">
+							<img src={icon_clock} class="align-self-center mt-n1" width="13%" alt="clock" />
+							<div class="media-body">
+								<img class="m-0 p-0 mt-n3" src={line_timing} width="90%" alt="Line" />
+								<h6 class="text-yellow font-size-1vw_m mt-n1n_m pl-1 text-shadow_m">Còn: 2d 10h 22p 11s</h6>
+							</div>
+							</div>
+						</div>
+						<div class="account-name_m">
+							<p class="font-size-1vw_m text-white mb-0 text-center">Đặng Lê</p>
+							<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Kim Cương</h2>
+						</div>
+						<div class="btn-login_m">
+							<img src={btn_thoat} width="100%" alt="" />
+						</div>
+						<div class="phitieu-status_m marquee_m">
+							<div class="marquee_inner_m">            
+								<span class="m-0 font-size-2vw_m font-weight-bold text-shadow_m pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
+								<span class="m-0 font-size-2vw_m font-weight-bold text-shadow_m pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
+							</div>    	
+						</div>
+						<div class="toplist-account_m text-center">
+							<h2 class="font-size-2vw_m m-0 font-weight-bold text-shadow_m">Danh sách TOP</h2>
+							<ul class="list-group font-size-1vw_m mt-2">
+							<li class="list-group-item bg-transparent p-0 text-shadow_m">FirstitemFirstitem</li>
+							<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
+							<li class="list-group-item bg-transparent p-0 text-shadow_m">Third item</li>
+							<li class="list-group-item bg-transparent p-0 text-shadow_m">First item</li>
+							<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
+							<li class="list-group-item bg-transparent p-0 text-shadow_m">Third item</li>
+							<li class="list-group-item bg-transparent p-0 text-shadow_m">First item</li>
+							<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
+							<li class="list-group-item bg-transparent p-0 text-shadow_m">First item</li>
+							<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
+							</ul> 
+						</div>
+						<div id="canvas" onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
+					</div>):(<div>
 						<img src={rotate} width="100%" alt="" />
 					</div>)}
 				</div>
