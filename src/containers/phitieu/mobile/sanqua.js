@@ -242,11 +242,12 @@ class Lucky_Rotation extends React.Component {
 		this.setState({ auto : !this.state.auto});
 	}
 	setScreenOrientation=()=>{
-		// const {innerWidth}=this.state;
-		// if(Math.abs(innerWidth - window.innerWidth) >100){
-		// 	window.location.reload();
-		// 	this.setState({innerWidth:window.innerWidth})
-		// }
+		const {innerWidth}=this.state;
+		if(Math.abs(innerWidth - window.innerWidth) >100){
+			window.location.reload();
+			// this.toggleFullScreen() 
+			this.setState({innerWidth:window.innerWidth})
+		}
 	}
 
 	onResize=()=>{
@@ -502,7 +503,7 @@ class Lucky_Rotation extends React.Component {
 		if(dartPositionY >touchPos.y){
 			this.draw()
 		}else{
-			alert("vuốt lên để phi tiêu")
+			// alert("vuốt lên để phi tiêu")
 		}
 		
 
@@ -593,6 +594,9 @@ class Lucky_Rotation extends React.Component {
 								<span class="m-0 font-size-2vw_m font-weight-bold text-shadow_m pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
 							</div>    	
 						</div>
+
+						
+						
 						<div class="toplist-account_m text-center">
 							<h2 class="font-size-2vw_m m-0 font-weight-bold text-shadow_m">Danh sách TOP</h2>
 							<ul class="list-group font-size-1vw_m mt-2">
@@ -608,7 +612,9 @@ class Lucky_Rotation extends React.Component {
 							<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
 							</ul> 
 						</div>
-						<div id="canvas" onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
+
+						<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:9999}} onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
+						
 					</div>):(<div>
 						<img src={rotate} width="100%" alt="" />
 					</div>)}
