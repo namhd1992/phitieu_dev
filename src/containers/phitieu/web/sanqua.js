@@ -151,8 +151,8 @@ class Lucky_Rotation extends React.Component {
 	componentDidMount(){
 		var stage = new Konva.Stage({
 			container: 'canvas',
-			width: 1245,
-			height: 645,
+			width: 1244,
+			height: 680,
 		});
 		var layer = new Konva.Layer();
 
@@ -626,7 +626,7 @@ class Lucky_Rotation extends React.Component {
 							</tbody>
 						</table>
 					</div>
-					<div id="canvas" onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>
+					<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>
 		</div>
 	)}
 }
