@@ -479,21 +479,6 @@ class Lucky_Rotation extends React.Component {
 		});
 	}
 
-
-	// loadImage() {
-	// 	// save to "this" to remove "load" handler on unmount
-	// 	this.image = new window.Image();
-	// 	this.image.src = "https://konvajs.org/assets/yoda.jpg";
-	// 	this.image.addEventListener('load', this.handleLoad);
-	//   }
-
-	// handleLoad = () => {
-
-	// 	this.setState({
-	// 		image: this.image
-	// 	});
-	// };
-
 	touchStart=()=>{
 		const {stage, layer, darthVaderImg, dartFlightImg}=this.state;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
@@ -573,7 +558,7 @@ class Lucky_Rotation extends React.Component {
 		const {user, image, horizontal}=this.state;
 
 		return (
-				<div id="game">
+				<div id="game" style={{overflowBlock:'hidden'}}>
 					{(horizontal)?(<div class="bg-page-sanqua_m position-relative">
 						
 						<div class="phitieu_m">
@@ -627,7 +612,7 @@ class Lucky_Rotation extends React.Component {
 							</ul> 
 						</div>
 
-						<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:9999}} onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
+						<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
 						
 					</div>):(<div>
 						<img src={rotate} width="100%" alt="" />
