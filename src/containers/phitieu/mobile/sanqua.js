@@ -128,6 +128,7 @@ class Lucky_Rotation extends React.Component {
 		};
 	}
 	componentWillMount(){
+		console.log(document.fullscreenElement)
 		this.onResize();
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.removeEventListener('scroll', this.handleScroll);
@@ -135,9 +136,10 @@ class Lucky_Rotation extends React.Component {
 		if(window.innerWidth < window.innerHeight){
 			this.setState({horizontal: false})
 		}else{
+			this.toggleFullScreen()
 			this.setState({horizontal: true})
 		}
-		this.toggleFullScreen()
+		
 		// this.loadImage();
 	}
 
@@ -244,7 +246,7 @@ class Lucky_Rotation extends React.Component {
 	setScreenOrientation=()=>{
 		const {innerWidth}=this.state;
 		if(Math.abs(innerWidth - window.innerWidth) >100){
-			window.location.reload();
+			// window.location.reload();
 			// this.toggleFullScreen() 
 			this.setState({innerWidth:window.innerWidth})
 		}
@@ -299,8 +301,12 @@ class Lucky_Rotation extends React.Component {
 
 
 	toggleFullScreen=()=> {
+		console.log(document.fullscreenElement)
 		if (!document.fullscreenElement) {
-			document.documentElement.requestFullscreen();
+			document.documentElement.requestFullscreen().catch(err => {
+				console.log("error")
+			  });
+			// document.documentElement.requestFullscreen();
 		} else {
 		  if (document.exitFullscreen) {
 			document.exitFullscreen();
