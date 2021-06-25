@@ -136,7 +136,6 @@ class Lucky_Rotation extends React.Component {
 		if(window.innerWidth < window.innerHeight){
 			this.setState({horizontal: false})
 		}else{
-			this.toggleFullScreen()
 			this.setState({horizontal: true})
 		}
 		
@@ -150,17 +149,10 @@ class Lucky_Rotation extends React.Component {
 	// 	}
 	//   }
 
-	componentWillUnmount() {
-		this.image.removeEventListener('load', this.handleLoad);
-	  }
-
-	  componentWillUnmount() {
-		this.image.removeEventListener('load', this.handleLoad);
-	  }
-
 
 	componentDidMount(){
 		const {horizontal}=this.state;
+		this.toggleFullScreen()
 		if(horizontal){
 			var stage = new Konva.Stage({
 				container: 'canvas',
@@ -246,10 +238,10 @@ class Lucky_Rotation extends React.Component {
 	setScreenOrientation=()=>{
 		const {innerWidth}=this.state;
 		if(Math.abs(innerWidth - window.innerWidth) >100){
-			// window.location.reload();
-			// this.toggleFullScreen() 
+			window.location.reload();
 			this.setState({innerWidth:window.innerWidth})
 		}
+		this.toggleFullScreen() 
 	}
 
 	onResize=()=>{
@@ -300,17 +292,33 @@ class Lucky_Rotation extends React.Component {
 	}
 
 
-	toggleFullScreen=()=> {
-		console.log(document.fullscreenElement)
-		if (!document.fullscreenElement) {
-			document.documentElement.requestFullscreen().catch(err => {
+	// toggleFullScreen=()=> {
+	// 	console.log(document.fullscreenElement)
+	// 	if (!document.fullscreenElement) {
+	// 		document.documentElement.requestFullscreen().catch(err => {
+	// 			console.log("error")
+	// 		  });
+	// 	} else {
+	// 	  if (document.exitFullscreen) {
+	// 		document.exitFullscreen();
+	// 	  }
+	// 	}
+	//   }
+
+	toggleFullScreen() {
+		var elem = document.getElementById("game");
+		if (elem.requestFullscreen) {
+			elem.requestFullscreen().catch(err => {
 				console.log("error")
-			  });
-			// document.documentElement.requestFullscreen();
-		} else {
-		  if (document.exitFullscreen) {
-			document.exitFullscreen();
-		  }
+			});
+		} else if (elem.webkitRequestFullscreen) { /* Safari */
+			elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT).catch(err => {
+				console.log("error")
+			});
+		} else if (elem.msRequestFullscreen) { /* IE11 */
+			elem.msRequestFullscreen().catch(err => {
+				console.log("error")
+			});
 		}
 	  }
 
@@ -565,7 +573,7 @@ class Lucky_Rotation extends React.Component {
 		const {user, image, horizontal}=this.state;
 
 		return (
-				<div>
+				<div id="game">
 					{(horizontal)?(<div class="bg-page-sanqua_m position-relative">
 						
 						<div class="phitieu_m">
