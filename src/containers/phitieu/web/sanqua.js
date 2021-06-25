@@ -151,8 +151,8 @@ class Lucky_Rotation extends React.Component {
 	componentDidMount(){
 		var stage = new Konva.Stage({
 			container: 'canvas',
-			width: 1240,
-			height: 650,
+			width: 1245,
+			height: 645,
 		});
 		var layer = new Konva.Layer();
 
