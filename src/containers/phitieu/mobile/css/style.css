@@ -3,7 +3,7 @@
 
 
 
-html {scroll-behavior: smooth; font-size: 26px}
+html {scroll-behavior: smooth; font-size: 26px; font-family: Arial, Helvetica, sans-serif;}
 .page_m {max-width: 960px; background:url(../images/bg-page.png) repeat; padding: 0; margin: 0 auto;}
 .bg-top_m {background:url(../images/bg-top.png) no-repeat; background-position: top; background-size: 100%; display: block; height: 100%; width:100%;}
 .btn-s_m {padding-top: 90%; width:100%; text-align: center;}
@@ -36,6 +36,7 @@ html {scroll-behavior: smooth; font-size: 26px}
 .btn-login_m {position: absolute; right: 1vw; top:0; width: 12%;}
 .phitieu-status_m {position: absolute; top: 6vw; left: 35vw; width: 40%;}
 .toplist-account_m {position: absolute; right: 9vw; top: 15vw; width: 18.6%;}
+.text-elipsis-toplist-account_m {width: 100%; overflow: hidden; white-space:nowrap; text-overflow: ellipsis;}
 .modal-dangnhap_m {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
 .text-brown_m {color: #6b5247;}
 .text-yellow_m {color: #f69310;}

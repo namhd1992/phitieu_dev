@@ -52,6 +52,7 @@ var n=0;
 var animId;
 var dartTimerId = 1;
 var FLIGHT_ANIM_DELAY = 20;
+var SEGMENT_COUNT = 20;
 var width = window.innerWidth;
 var height = window.innerHeight;
 var curFrame = 0;
@@ -63,6 +64,20 @@ var heightFrame = spriteHeight;
 var srcX=0; 
 var srcY=0; 
 
+var Dart_Center_X=619;
+var Dart_Center_Y=375;
+var radius=134;
+
+var SEGMENT_SIZE = Math.PI/10.0;
+var SEGMENTS = [8, 15, 73, 83, 124, 134];
+var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
+var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
+
+var segmentIndex = 0; // index vysece
+var segmentType = 0;  // typ policka
+var segment = 0;
+
+var totalScore = 0;
 
 
 class Lucky_Rotation extends React.Component {
@@ -499,8 +514,7 @@ class Lucky_Rotation extends React.Component {
 		}else{
 			alert("vuốt lên để phi tiêu")
 		}
-		
-
+		this.fireDart(touchPos.x, touchPos.y)
 	}
 
 	touchMove=()=>{
@@ -550,6 +564,69 @@ class Lucky_Rotation extends React.Component {
 		};
 		dartFlight.src = dart_player;
 	}
+
+	fireDart=(tarX, tarY)=> {
+		this.computeHit(tarX,tarY);
+		this.generateScore();
+	}
+
+	
+    computeHit=(xpos,ypos)=> {
+
+		var dx = Dart_Center_X - xpos;
+		var dy = Dart_Center_Y - ypos;
+	
+		// var angle = Math.atan2(dx,dy)-angleOffset*2;
+		var angle = Math.atan2(dy,dx);
+		var delta = Math.sqrt(dx*dx+dy*dy);
+
+
+		var sg = 0;
+		for (var i = 0; i < 6; i++) {
+			if (delta > SEGMENTS[i])
+			sg = i+1;
+		}
+
+		segmentType = sg;
+		segmentIndex = Math.round(-angle * (180.0/Math.PI)+180.0);
+	
+	
+		segment = Math.round((segmentIndex)  / (360.0/SEGMENT_COUNT));
+	
+	
+	   }
+
+	generateScore=()=> {
+
+		if (SEGMENT_NAMES[segmentType] == 'out') {
+	
+			totalScore = 0; // mimo herni pole
+	
+		} else
+		if (SEGMENT_NAMES[segmentType] == '50') {
+	
+			totalScore = 50; // cisty stred
+	
+			} else {
+	
+			if (SEGMENT_NAMES[segmentType] == '25') {
+	
+				totalScore = 25; // sirsi stred
+	
+			} else {
+	
+				totalScore = SCORE_VALUES[segment];
+	
+				if (SEGMENT_NAMES[segmentType] == 'double') totalScore *= 2;  // vnejsi okraj - double
+				if (SEGMENT_NAMES[segmentType] == 'tripple') totalScore *= 3; // prostredni pole - tripple
+			}
+		}
+			console.log('AA:', totalScore)
+	
+	}
+
+
+
 
 	render() {
 		const {user, image}=this.state;

@@ -589,28 +589,49 @@ class Lucky_Rotation extends React.Component {
 						</div>
 						<div class="phitieu-status_m marquee_m">
 							<div class="marquee_inner_m">            
-								<span class="m-0 font-size-2vw_m font-weight-bold text-shadow_m pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
-								<span class="m-0 font-size-2vw_m font-weight-bold text-shadow_m pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
+								<span class="m-0 font-size-1vw_m font-weight-bold text-shadow_m pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
+								<span class="m-0 font-size-1vw_m font-weight-bold text-shadow_m pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
 							</div>    	
 						</div>
 
 						
 						
-						<div class="toplist-account_m text-center">
-							<h2 class="font-size-2vw_m m-0 font-weight-bold text-shadow_m">Danh sách TOP</h2>
-							<ul class="list-group font-size-1vw_m mt-2">
-							<li class="list-group-item bg-transparent p-0 text-shadow_m">FirstitemFirstitem</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow_m">Third item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow_m">First item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow_m">Third item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow_m">First item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow_m">First item</li>
-							<li class="list-group-item bg-transparent p-0 text-shadow_m">Second item</li>
-							</ul> 
-						</div>
+						<div class="toplist-account_m">
+							<h2 class="font-size-2vw_m m-0 font-weight-bold text-shadow text-center">Danh sách TOP</h2>
+							<table class="table table-borderless font-size-3vw_m mb-0 mt-1" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "100%"}}>
+								<tbody>
+									<tr class="bg-border-bottom_m">
+										<td class="p-0 w-50 font-size-1vw_m text-shadow">ThuyVixxx</td>
+										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>                
+									</tr>
+									<tr class="bg-border-bottom_m">
+										<td class="p-0 w-50 font-size-1vw_m text-shadow">NgocTrxxx</td>
+										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>
+									</tr>
+									<tr class="bg-border-bottom_m">
+										<td class="p-0 w-50 font-size-1vw_m text-shadow">ThuyVixxx</td>
+										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>                
+									</tr>
+									<tr class="bg-border-bottom_m">
+										<td class="p-0 w-50 font-size-1vw_m text-shadow">NgocTrxxx</td>
+										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>
+									</tr>
+									<tr class="bg-border-bottom_m">
+										<td class="p-0 w-50 font-size-1vw_m text-shadow">ThuyVixxx</td>
+										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>                
+									</tr>
+									<tr class="bg-border-bottom_m">
+										<td class="p-0 w-50 font-size-1vw_m text-shadow">NgocTrxxx</td>
+										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>
+									</tr>
+									<tr class="bg-border-bottom_m">
+										<td class="p-0 w-50 font-size-1vw_m text-shadow">ThuyVixxx</td>
+										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>                
+									</tr>
+												
+								</tbody>
+							</table>
+    					</div>
 
 						<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
 						
