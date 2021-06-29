@@ -29,7 +29,8 @@ html {scroll-behavior: smooth; font-size: 26px; font-family: Arial, Helvetica, s
 .diemcaonhat_m {position: absolute; top: 28.8vw; left: 76vw}
 .font-size-2vw_m {font-size:2vw;}
 .phongtudong_m {position: absolute; top: 41vw; left: 5vw}
-.timing_m {position: absolute; top: 5px; left: 35vw; width: 30%;}
+.bg-line-timing_m {background:url(../images/bg-line-timing.png) no-repeat; background-size: 100%; height: 12px;}
+.timing_m {position: absolute; top: 5px; left: 35vw; width: 25%;}
 .font-size-1vw_m {font-size:1.6vw;} 
 .mt-n1n_m {margin-top: -.8rem}
 .account-name_m {position: absolute; top: 5px; left: 62vw; width: 30%;}

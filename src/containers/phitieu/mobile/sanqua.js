@@ -123,7 +123,8 @@ class Lucky_Rotation extends React.Component {
 			dartFlightImg:{},
 			orientation:'',
 			dartPositionY:0,
-			horizontal:false
+			horizontal:false,
+			timing:"10%"
 
 		};
 	}
@@ -555,7 +556,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	render() {
-		const {user, image, horizontal}=this.state;
+		const {user, image, horizontal, timing}=this.state;
 
 		return (
 				<div id="game" style={{overflowBlock:'hidden'}}>
@@ -571,13 +572,24 @@ class Lucky_Rotation extends React.Component {
 						<div class="phongtudong_m font-size-2vw_m font-weight-bold text-uppercase text-shadow_m">
 							<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động
 						</div>
-						<div class="timing_m">
+						{/* <div class="timing_m">
 							<div class="media">
 							<img src={icon_clock} class="align-self-center mt-n1" width="13%" alt="clock" />
 							<div class="media-body">
 								<img class="m-0 p-0 mt-n3" src={line_timing} width="90%" alt="Line" />
 								<h6 class="text-yellow font-size-1vw_m mt-n1n_m pl-1 text-shadow_m">Còn: 2d 10h 22p 11s</h6>
 							</div>
+							</div>
+						</div> */}
+						<div class="timing_m">
+							<div class="media">
+								<img src={icon_clock} class="align-self-center mt-n1" width="13%" alt="clock"/>
+								<div class="media-body">
+									<div class="bg-line-timing_m">
+									<span style={{background:"#f5950a", width: timing, height: 8, display:"block", borderRadius: 4}}>&nbsp;</span>
+									</div>
+									<h6 class="text-yellow font-size-1vw_m pl-1 text-shadow">Còn: 2 ngày 10h:22p:11s</h6>
+								</div>
 							</div>
 						</div>
 						<div class="account-name_m">

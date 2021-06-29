@@ -32,10 +32,11 @@ import {
 
 import icon_clock from './images/icon-clock.png';
 import line_timing from './images/line-timing.png';
-import btn_thoat from './images/btn-thoat.png';
 import phitieu from './images/phitieu.png';
 import dart_player from './images/dart-player.png';
-import dart_flight from './images/dart-flight.gif';
+import img_checkbox_none from './images/img-checkbox-none.png';
+import img_checkbox_checked from './images/img-checkbox-checked.png';
+import btn_thoat from './images/btn-thoat.png';
 
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
@@ -46,6 +47,8 @@ const styles = {
 		background: "#fff",
 	},
 };
+
+var startX=430, endX=805, startY=190, endY=560;
 
 var award_open=true;
 var n=0;
@@ -135,8 +138,13 @@ class Lucky_Rotation extends React.Component {
 			layer:{},
 			darthVaderImg:{},
 			dartFlightImg:{},
+			checkboxImg:{},
+			uncheckboxImg:{},
+			exitImg:{},
+			auto_play:false,
 			orientation:'',
-			dartPositionY:0
+			dartPositionY:0,
+			timing:"10%"
 
 		};
 	}
@@ -145,22 +153,15 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth})
-		this.loadImage();
 	}
 
 	componentDidUpdate(oldProps) {
-		if (oldProps.src !== this.props.src) {
-		  this.loadImage();
-		}
-	  }
+		// if (oldProps.src !== this.props.src) {
+		//   this.loadImage();
+		// }
+	}
 
-	componentWillUnmount() {
-		this.image.removeEventListener('load', this.handleLoad);
-	  }
 
-	  componentWillUnmount() {
-		this.image.removeEventListener('load', this.handleLoad);
-	  }
 
 
 	componentDidMount(){
@@ -170,6 +171,20 @@ class Lucky_Rotation extends React.Component {
 			height: 680,
 		});
 		var layer = new Konva.Layer();
+
+		var stage_checkbox = new Konva.Stage({
+			container: 'div_checkbox',
+			width: 240,
+			height: 30,
+		});
+		var layer_checkbox = new Konva.Layer();
+
+		var stage_exit = new Konva.Stage({
+			container: 'div_exit',
+			width: 105,
+			height: 42,
+		});
+		var layer_exit = new Konva.Layer();
 
 		this.setState({stage:stage, layer:layer})
 		var _this=this
@@ -207,6 +222,55 @@ class Lucky_Rotation extends React.Component {
 				_this.setState({dartFlightImg:dartFlightImg})
 		};
 		dartFlight.src = dart_player;
+
+		var checkbox = new Image();
+		checkbox.onload = function () {
+			var checkboxImg = new Konva.Image({
+				image: checkbox,
+				x: 0,
+				y: 3,
+				width: 20,
+				height: 20,
+				});
+		
+				layer_checkbox.add(checkboxImg);
+				stage_checkbox.add(layer_checkbox);
+				_this.setState({checkboxImg:checkboxImg})
+		};
+		checkbox.src = img_checkbox_none;
+
+		var uncheckbox = new Image();
+		uncheckbox.onload = function () {
+			var uncheckboxImg = new Konva.Image({
+				image: uncheckbox,
+				x: 0,
+				y: 3,
+				width: 20,
+				height: 20,
+				visible:false
+			});
+	
+			layer_checkbox.add(uncheckboxImg);
+			stage_checkbox.add(layer_checkbox);
+			_this.setState({uncheckboxImg:uncheckboxImg})
+		};
+		uncheckbox.src = img_checkbox_checked;
+
+		var btnExit = new Image();
+		btnExit.onload = function () {
+			var exitImg = new Konva.Image({
+				image: btnExit,
+				x: 0,
+				y: 0,
+				width: 100,
+				height: 40
+			});
+	
+			layer_exit.add(exitImg);
+			stage_exit.add(layer_exit);
+			_this.setState({exitImg:exitImg})
+		};
+		btnExit.src = btn_thoat;
 
 
 		const {img_width, img_height}=this.state;
@@ -262,6 +326,13 @@ class Lucky_Rotation extends React.Component {
 		clearInterval(this.state.intervalId);
 		this.setState({ auto : !this.state.auto});
 	}
+
+	getRandomInt=(min, max)=> {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
 	setScreenOrientation=()=>{
 		const {innerWidth}=this.state;
 		if(Math.abs(innerWidth - window.innerWidth) >100){
@@ -475,21 +546,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 
-	loadImage() {
-		// save to "this" to remove "load" handler on unmount
-		this.image = new window.Image();
-		this.image.src = "https://konvajs.org/assets/yoda.jpg";
-		this.image.addEventListener('load', this.handleLoad);
-	  }
-
-	  handleLoad = () => {
-
-		this.setState({
-		  image: this.image
-		});
-	  };
-
-	  touchStart=()=>{
+	touchStart=()=>{
 		const {stage, layer, darthVaderImg, dartFlightImg}=this.state;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
@@ -505,16 +562,18 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchEnd=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg, dartPositionY}=this.state;
+		const {stage, layer, darthVaderImg, dartPositionY}=this.state;
 		var touchPos = stage.getPointerPosition();
 		curFrame=0
 		darthVaderImg.hide();
 		if(dartPositionY >touchPos.y){
-			this.draw()
+			this.draw(touchPos.x, touchPos.y)
+			console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
+			this.fireDart(touchPos.x, touchPos.y)
 		}else{
 			alert("vuốt lên để phi tiêu")
 		}
-		this.fireDart(touchPos.x, touchPos.y)
+		
 	}
 
 	touchMove=()=>{
@@ -531,10 +590,10 @@ class Lucky_Rotation extends React.Component {
 		srcX=curFrame*widthFrame;
 		srcY=0;
 		curFrame=++curFrame;
-		console.log('curFrame:',curFrame)
 	}
 
-	draw=()=>{
+	draw=(x, y)=>{
+		console.log('X:', x, 'Y:',y)
 		var _this=this
 		const {stage, layer}=this.state;
 		var touchPos = stage.getPointerPosition();
@@ -543,8 +602,8 @@ class Lucky_Rotation extends React.Component {
 		dartFlight.onload = function () {
 			var dartFlightImg = new Konva.Image({
 				image: dartFlight,
-				x: touchPos.x - widthFrame/2,
-				y: touchPos.y - heightFrame/4,
+				x: x - widthFrame/2,
+				y: y - heightFrame/4,
 				width: widthFrame,
 				height: heightFrame,
 				// visible:false
@@ -555,7 +614,7 @@ class Lucky_Rotation extends React.Component {
 			stage.add(layer);
 			if(curFrame <= 4){
 				setTimeout(()=>{
-					_this.draw() 
+					_this.draw(x,y) 
 					dartFlightImg.remove(); 
 				}, 50);
 			}
@@ -622,14 +681,44 @@ class Lucky_Rotation extends React.Component {
 			}
 		}
 			console.log('AA:', totalScore)
-	
+	}
+
+
+	check_auto=()=>{
+		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		this.setState({auto_play:!auto_play},()=>{
+			if(this.state.auto_play){
+				checkboxImg.hide();
+				uncheckboxImg.show();
+				var intervalId = setInterval(this.autoPlay, 1000);
+				this.setState({intervalId:intervalId})
+				
+			}else{
+				checkboxImg.show();
+				uncheckboxImg.hide();
+				clearInterval(this.state.intervalId);
+			}
+		})
+	}
+
+	autoPlay=()=>{
+		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		var x=this.getRandomInt(startX, endX);
+		var y=this.getRandomInt(startY, endY);
+		this.draw(x,y);
+		this.fireDart(x,y)
+	}
+
+
+	exit=()=>{
+		window.location.replace("/")
 	}
 
 
 
 
 	render() {
-		const {user, image}=this.state;
+		const {user, image, auto_play, timing}=this.state;
 
 		return (<div class="bg-page-sanqua position-relative">
 					<div class="phitieu">
@@ -640,8 +729,9 @@ class Lucky_Rotation extends React.Component {
 						<h4 class="font-size-18 text-uppercase text-center text-shadow">699669</h4>
 					</div>
 					<div class="phongtudong font-size-18 font-weight-bold text-uppercase text-shadow">
-						<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động    </div>
-					<div class="timing">
+						Phóng phi tiêu tự động    
+					</div>
+					{/* <div class="timing">
 						<div class="media">
 						<img src={icon_clock} class="align-self-center mt-n1" width="32" alt="clock" />
 						<div class="media-body">
@@ -649,14 +739,25 @@ class Lucky_Rotation extends React.Component {
 							<h6 class="text-yellow font-size-16 mt-n1n pl-1 text-shadow">Còn: 2d 10h 22p 11s</h6>
 						</div>
 						</div>
+					</div> */}
+					<div class="timing">
+						<div class="media">
+							<img src={icon_clock} class="align-self-center mt-n1" width="32" alt="clock" />
+							<div class="media-body">
+								<div class="bg-line-timing">
+									<span style={{background:"#f5950a", width: timing, height: "12px", display: "block", borderRadius: 4}}>&nbsp;</span>
+								</div>
+								<h6 class="text-yellow font-size-16 mt-n1 pl-1 text-shadow">Còn: 2 ngày 10:22:11</h6>
+							</div>
+						</div>
 					</div>
 					<div class="account-name">
 						<p class="font-size-16 text-white mb-0 text-center">Đặng Lê</p>
 						<h2 class="font-size-14 text-warning m-0 text-center">VIP Kim Cương</h2>
 					</div>
-					<div class="btn-login">
+					{/* <div class="btn-login">
 						<img src={btn_thoat} width="100" alt="" />
-					</div>
+					</div> */}
 					<div class="phitieu-status marquee">
 						<div class="marquee_inner">            
 							<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
@@ -703,7 +804,10 @@ class Lucky_Rotation extends React.Component {
 							</tbody>
 						</table>
 					</div>
-					<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>
+					{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>)}
+					
+					<div id="div_checkbox" style={{position:'absolute', top:"90%", left:"37%", zIndex:999999}} onMouseDown={this.check_auto}></div>
+					<div id="div_exit" style={{position:'absolute', top:0, left:"83%", zIndex:999999}} onMouseDown={this.exit}></div>
 		</div>
 	)}
 }

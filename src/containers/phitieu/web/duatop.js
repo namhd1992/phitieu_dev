@@ -479,11 +479,13 @@ class Lucky_Rotation extends React.Component {
 		</div>
 		<div class="timing">
 			<div class="media">
-			  <img src={icon_clock} class="align-self-center mt-n1" width="32" alt="clock" />
-			  <div class="media-body">
-				<img class="m-0 p-0 mt-n3" src={line_timing} width="200" alt="Line" />
-				<h6 class="text-yellow font-size-16 mt-n1n pl-1 text-shadow">Còn: 2d 10h 22p 11s</h6>
-			  </div>
+				<img src={icon_clock} class="align-self-center mt-n1" width="32" alt="clock" />
+				<div class="media-body">
+					<div class="bg-line-timing">
+						<span style={{background:"#f5950a", width: "100%", height: "12px", display: "block", borderRadius: 4}}>&nbsp;</span>
+					</div>
+					<h6 class="text-yellow font-size-16 mt-n1 pl-1 text-shadow">Còn: 2 ngày 10:22:11</h6>
+				</div>
 			</div>
 		</div>
 		<div class="account-name">
