@@ -59,9 +59,9 @@ var SEGMENT_COUNT = 20;
 var width = window.innerWidth;
 var height = window.innerHeight;
 var curFrame = 0;
-var frameCount = 5; 
-var spriteWidth = 430; 
-var spriteHeight = 197; 
+var frameCount = 13; 
+var spriteWidth = 598; 
+var spriteHeight = 200; 
 var widthFrame = spriteWidth/frameCount; 
 var heightFrame = spriteHeight; 
 var srcX=0; 
@@ -144,7 +144,8 @@ class Lucky_Rotation extends React.Component {
 			auto_play:false,
 			orientation:'',
 			dartPositionY:0,
-			timing:"10%"
+			timing:"10%",
+			score_text:{}
 
 		};
 	}
@@ -174,7 +175,7 @@ class Lucky_Rotation extends React.Component {
 
 		var stage_checkbox = new Konva.Stage({
 			container: 'div_checkbox',
-			width: 240,
+			width: 50,
 			height: 30,
 		});
 		var layer_checkbox = new Konva.Layer();
@@ -192,10 +193,10 @@ class Lucky_Rotation extends React.Component {
 		imageObj.onload = function () {
 			var darthVaderImg = new Konva.Image({
 				image: imageObj,
-				x: 300,
-				y: 280,
-				width: 200,
-				height: 137,
+				x: 0,
+				y: 0,
+				width: 46,
+				height: 200,
 				draggable: true,
 				visible:false
 				});
@@ -210,8 +211,8 @@ class Lucky_Rotation extends React.Component {
 		dartFlight.onload = function () {
 			var dartFlightImg = new Konva.Image({
 				image: dartFlight,
-				x: 300,
-				y: 280,
+				x: 0,
+				y: 0,
 				width: 200,
 				height: 137,
 				visible:false
@@ -397,7 +398,7 @@ class Lucky_Rotation extends React.Component {
 		var EndDate=luckySpin.EndDate;
 		var start=StartDate.substring(StartDate.indexOf("(") +1,StartDate.indexOf(")"));
 		var end=EndDate.substring(EndDate.indexOf("(")+1,EndDate.indexOf(")"));
-		console.log(start, end)
+		// console.log(start, end)
 		var time=Date.now();
 
 		// var distance_3day=start - 3 * 86400 * 1000;
@@ -494,7 +495,7 @@ class Lucky_Rotation extends React.Component {
 
 	timeWaitings=()=>{
 		const current=this.state.timeWaiting;
-		console.log(current)
+		// console.log(current)
 		if(current>=0){
 			var minute=Math.floor(((current%86400)%3600)/60) > 9 ? Math.floor(((current%86400)%3600)/60) : `0${Math.floor(((current%86400)%3600)/60)}`;
 			var second=Math.ceil(((current%86400)%3600)%60) > 9 ? Math.ceil(((current%86400)%3600)%60) : `0${Math.ceil(((current%86400)%3600)%60)}`;
@@ -547,13 +548,17 @@ class Lucky_Rotation extends React.Component {
 
 
 	touchStart=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg}=this.state;
+		const {stage, layer, darthVaderImg, dartFlightImg, score_text}=this.state;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
+
+		if(JSON.stringify(score_text) !== '{}'){
+			score_text.remove();
+		}
 		
 		var touchPos = stage.getPointerPosition();
-		var x= touchPos.x-100;
+		var x= touchPos.x-20;
 		var y= touchPos.y-80;
 		darthVaderImg.x(x);
 		darthVaderImg.y(y);
@@ -562,14 +567,14 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchEnd=()=>{
-		const {stage, layer, darthVaderImg, dartPositionY}=this.state;
+		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg}=this.state;
 		var touchPos = stage.getPointerPosition();
 		curFrame=0
 		darthVaderImg.hide();
 		if(dartPositionY >touchPos.y){
 			this.draw(touchPos.x, touchPos.y)
-			console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
-			this.fireDart(touchPos.x, touchPos.y)
+			// console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
+			this.fireDart(touchPos.x, touchPos.y-heightFrame/2)
 		}else{
 			alert("vuốt lên để phi tiêu")
 		}
@@ -580,7 +585,7 @@ class Lucky_Rotation extends React.Component {
 		const {stage, layer, darthVaderImg}=this.state;
 		if(JSON.stringify(darthVaderImg) !== '{}'){
 			var touchPos = stage.getPointerPosition();
-			var x= touchPos.x-100;
+			var x= touchPos.x-20;
 			var y= touchPos.y-80;
 			darthVaderImg.x(x);
 			darthVaderImg.y(y);
@@ -603,7 +608,7 @@ class Lucky_Rotation extends React.Component {
 			var dartFlightImg = new Konva.Image({
 				image: dartFlight,
 				x: x - widthFrame/2,
-				y: y - heightFrame/4,
+				y: y - heightFrame/2,
 				width: widthFrame,
 				height: heightFrame,
 				// visible:false
@@ -612,11 +617,11 @@ class Lucky_Rotation extends React.Component {
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
-			if(curFrame <= 4){
+			if(curFrame <= 12){
 				setTimeout(()=>{
 					_this.draw(x,y) 
 					dartFlightImg.remove(); 
-				}, 50);
+				}, 30);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
@@ -680,7 +685,8 @@ class Lucky_Rotation extends React.Component {
 				if (SEGMENT_NAMES[segmentType] == 'tripple') totalScore *= 3; // prostredni pole - tripple
 			}
 		}
-			console.log('AA:', totalScore)
+		this.showScore(totalScore)
+			// console.log('AA:', totalScore)
 	}
 
 
@@ -712,6 +718,42 @@ class Lucky_Rotation extends React.Component {
 
 	exit=()=>{
 		window.location.replace("/")
+	}
+
+	showScore=(totalScore)=>{
+		var score=totalScore>9?totalScore:'0'+totalScore;
+		const {layer, stage}=this.state;
+		var newH=stage.height() / 2;
+		var size=25;
+	
+		var score_text = new Konva.Text({
+			x: stage.width() / 2 -15,
+			y: stage.height() / 2,
+			text: score,
+			fontSize: size,
+			fontFamily: 'Calibri',
+			text: score,
+			fill: 'yellow',
+			fontStyle:'bold',
+			text: score,
+		});
+
+		console.log(score_text)
+
+		var inter=setInterval(()=>{	
+			newH=newH-1;
+			size=size+0.1;
+			score_text.fontSize(size)
+			score_text.y(newH);
+		}, 20);
+
+		layer.add(score_text)
+		stage.add(layer)
+		setTimeout(()=>{ 
+			score_text.remove()
+			clearInterval(inter)
+		}, 1000);
+		this.setState({score_text:score_text})
 	}
 
 
