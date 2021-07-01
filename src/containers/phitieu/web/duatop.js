@@ -2,8 +2,12 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import Pagination from "react-js-pagination";
 import axios from 'axios';
+import { render } from 'react-dom';
+// import { Stage, Layer, Image, Text } from 'react-konva';
+import Konva from 'konva';
 import { connect } from 'react-redux'
 import './css/style_web.css';
+import DeviceOrientation, { Orientation } from 'react-screen-orientation';
 import {
 	getDetailData,
 	getRotationDetailData,
@@ -23,24 +27,20 @@ import {
 } from '../../../modules/lucky'
 import {
 	getData
-} from '../../../modules/profile'
-
-
-
-
-// import muiten from './images/muiten.png';
-import ReactResizeDetector from 'react-resize-detector'
-import $ from 'jquery';
-import 'bootstrap';
-
+} from '../../../modules/profile';
 
 
 import icon_clock from './images/icon-clock.png';
 import line_timing from './images/line-timing.png';
-import btn_thoat from './images/btn-thoat.png';
 import phitieu from './images/phitieu.png';
 import dart_player from './images/dart-player.png';
-import dart_flight from './images/dart-flight.gif';
+import img_checkbox_none from './images/img-checkbox-none.png';
+import img_checkbox_checked from './images/img-checkbox-checked.png';
+import btn_thoat from './images/btn-thoat.png';
+
+import ReactResizeDetector from 'react-resize-detector'
+import $ from 'jquery';
+import 'bootstrap';
 
 const styles = {
 	paper: {
@@ -48,8 +48,40 @@ const styles = {
 	},
 };
 
+
+var startX=430, endX=805, startY=190, endY=560;
+
 var award_open=true;
 var n=0;
+var animId;
+var dartTimerId = 1;
+var FLIGHT_ANIM_DELAY = 20;
+var SEGMENT_COUNT = 20;
+var width = window.innerWidth;
+var height = window.innerHeight;
+var curFrame = 0;
+var frameCount = 13; 
+var spriteWidth = 598; 
+var spriteHeight = 200; 
+var widthFrame = spriteWidth/frameCount; 
+var heightFrame = spriteHeight; 
+var srcX=0; 
+var srcY=0; 
+
+var Dart_Center_X=619;
+var Dart_Center_Y=375;
+var radius=134;
+
+var SEGMENT_SIZE = Math.PI/10.0;
+var SEGMENTS = [8, 15, 73, 83, 124, 134];
+var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
+var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
+
+var segmentIndex = 0; // index vysece
+var segmentType = 0;  // typ policka
+var segment = 0;
+
+var totalScore = 0;
 
 class Lucky_Rotation extends React.Component {
 
@@ -57,20 +89,16 @@ class Lucky_Rotation extends React.Component {
 		super(props);
 		this.state = {
 			limit: 10,
-			offsetTuDo: 0,
-			offsetCode: 0,
+
 			offsetVinhDanh: 0,
-			numberShow:15,
 			isAll:true,
-			wheelPower:0,
-			wheelSpinning:false,
 			stop:true,
-			theWheel:null,
+
 			auto: false,
-			userTurnSpin:{},
+
 			itemOfSpin:[],
 			luckySpin:{},
-			userTurnSpin:{},
+
 			turnsFree:0,
 			isLogin:false,
 			day:'00',
@@ -78,104 +106,213 @@ class Lucky_Rotation extends React.Component {
 			minute:'00', 
 			second:'00',
 			itemBonus:{},
-			activeCodeBonus:1,
-			activeVinhDanh:1,
-			activeTuDo:1,
-			activeHistory:1,
-			countVinhDanh:0,
-			countHistory:0,
-			countTuDo:0,
-			countCodeBonus:0,
 			dataVinhDanh:[],
 			dataTuDo:[],
 			dataCodeBonus:[],
-			listVinhDanh:[],
-			listTuDo:[],
 			listHistory:[],
-			listCodeBonus:[],
 			width:0,
 			height:0,
 			img_width:0,
 			img_height:0,
 			code:false,
-			scoinCard:false,
-			inputValue: '',
-			noti_mdt:false,
-			noti_tudo:false,
-			numberPage:3,
 			message_status:'',
 			data_auto:[],
 			isSpin:false,
 			closeAuto:true,
 			message_error:'',
 			server_err:false,
-			finished:false,
 			hour_live:'00', 
 			minute_live:'00', 
 			second_live:'00',
 			linkLiveStream:'',
 			isLive:false,
 			user:{},
-			xacthuc:false,
 			timeWaiting:0,
 			dataItem:{},
 			startSpin:false,
 			len_auto:0,
 			waiting:false,
-			urlVideo:'',
-			innerWidth:0
+			innerWidth:0,
+			image: null, 
+			stage:{},
+			layer:{},
+			darthVaderImg:{},
+			dartFlightImg:{},
+			checkboxImg:{},
+			uncheckboxImg:{},
+			exitImg:{},
+			auto_play:false,
+			orientation:'',
+			dartPositionY:0,
+			timing:"10%",
+			score_text:{}
+
 		};
 	}
 	componentWillMount(){
-		// this.onResize();
-		// window.addEventListener("resize", this.setScreenOrientation);
-		// window.removeEventListener('scroll', this.handleScroll);
-		// this.setState({innerWidth:window.innerWidth})
+		this.onResize();
+		window.addEventListener("resize", this.setScreenOrientation);
+		window.removeEventListener('scroll', this.handleScroll);
+		this.setState({innerWidth:window.innerWidth})
 	}
+
+	componentDidUpdate(oldProps) {
+		// if (oldProps.src !== this.props.src) {
+		//   this.loadImage();
+		// }
+	}
+
 
 
 
 	componentDidMount(){
-		// const {img_width, img_height}=this.state;
-		// var user = JSON.parse(localStorage.getItem("user"));
+		var stage = new Konva.Stage({
+			container: 'canvas',
+			width: 1244,
+			height: 680,
+		});
+		var layer = new Konva.Layer();
 
-		// this.props.getLuckyInfo().then(()=>{
-		// 	var data=this.props.dataLuckyInfo;
-		// 	if(data!==undefined){
-		// 		if(data.Status===0){
-		// 			this.getStatus(data.Data)
-		// 		}
-		// 	}
-		// })
+		var stage_checkbox = new Konva.Stage({
+			container: 'div_checkbox',
+			width: 50,
+			height: 30,
+		});
+		var layer_checkbox = new Konva.Layer();
 
-		// this.props.getLuckyItems().then(()=>{
-		// 	var data=this.props.dataLuckyItems;
-		// 	if(data!==undefined){
-		// 		if(data.Status===0){
-		// 			this.setState({itemOfSpin: data.Data})
-		// 		}
-		// 	}
-		// })
+		var stage_exit = new Konva.Stage({
+			container: 'div_exit',
+			width: 105,
+			height: 42,
+		});
+		var layer_exit = new Konva.Layer();
 
-		// this.getVinhDanh(1);
+		this.setState({stage:stage, layer:layer})
+		var _this=this
+		var imageObj = new Image();
+		imageObj.onload = function () {
+			var darthVaderImg = new Konva.Image({
+				image: imageObj,
+				x: 0,
+				y: 0,
+				width: 46,
+				height: 200,
+				draggable: true,
+				visible:false
+				});
+		
+				layer.add(darthVaderImg);
+				stage.add(layer);
+				_this.setState({darthVaderImg:darthVaderImg})
+		};
+		imageObj.src = phitieu;
+
+		// var dartFlight = new Image();
+		// dartFlight.onload = function () {
+		// 	var dartFlightImg = new Konva.Image({
+		// 		image: dartFlight,
+		// 		x: 0,
+		// 		y: 0,
+		// 		width: 200,
+		// 		height: 137,
+		// 		visible:false
+		// 		});
+		
+		// 		layer.add(dartFlightImg);
+		// 		stage.add(layer);
+		// 		_this.setState({dartFlightImg:dartFlightImg})
+		// };
+		// dartFlight.src = dart_player;
+
+		var checkbox = new Image();
+		checkbox.onload = function () {
+			var checkboxImg = new Konva.Image({
+				image: checkbox,
+				x: 0,
+				y: 3,
+				width: 20,
+				height: 20,
+				});
+		
+				layer_checkbox.add(checkboxImg);
+				stage_checkbox.add(layer_checkbox);
+				_this.setState({checkboxImg:checkboxImg})
+		};
+		checkbox.src = img_checkbox_none;
+
+		var uncheckbox = new Image();
+		uncheckbox.onload = function () {
+			var uncheckboxImg = new Konva.Image({
+				image: uncheckbox,
+				x: 0,
+				y: 3,
+				width: 20,
+				height: 20,
+				visible:false
+			});
+	
+			layer_checkbox.add(uncheckboxImg);
+			stage_checkbox.add(layer_checkbox);
+			_this.setState({uncheckboxImg:uncheckboxImg})
+		};
+		uncheckbox.src = img_checkbox_checked;
+
+		var btnExit = new Image();
+		btnExit.onload = function () {
+			var exitImg = new Konva.Image({
+				image: btnExit,
+				x: 0,
+				y: 0,
+				width: 100,
+				height: 40
+			});
+	
+			layer_exit.add(exitImg);
+			stage_exit.add(layer_exit);
+			_this.setState({exitImg:exitImg})
+		};
+		btnExit.src = btn_thoat;
 
 
-		// if (user !== null) {
-		// 	this.setState({isLogin:true, user:user})
-		// 	this.props.getDataUserSpin(user.Token).then(()=>{
-		// 		var data=this.props.dataUserSpin;
-		// 		if(data!==undefined){
-		// 			if(data.Status===0){
-		// 				this.setState({turnsFree: data.Spins})
-		// 			}
-		// 		}
+		const {img_width, img_height}=this.state;
+		var user = JSON.parse(localStorage.getItem("user"));
 
-		// 	})
-		// } 
+		this.props.getLuckyInfo().then(()=>{
+			var data=this.props.dataLuckyInfo;
+			if(data!==undefined){
+				if(data.Status===0){
+					this.getStatus(data.Data)
+				}
+			}
+		})
+
+		this.props.getLuckyItems().then(()=>{
+			var data=this.props.dataLuckyItems;
+			if(data!==undefined){
+				if(data.Status===0){
+					this.setState({itemOfSpin: data.Data})
+				}
+			}
+		})
+
+		this.getVinhDanh(1);
+
+
+		if (user !== null) {
+			this.setState({isLogin:true, user:user})
+			this.props.getDataUserSpin(user.Token).then(()=>{
+				var data=this.props.dataUserSpin;
+				if(data!==undefined){
+					if(data.Status===0){
+						this.setState({turnsFree: data.Spins})
+					}
+				}
+
+			})
+		} 
 		
 		
 		// window.addEventListener('scroll', this.handleScroll);
-
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -190,6 +327,13 @@ class Lucky_Rotation extends React.Component {
 		clearInterval(this.state.intervalId);
 		this.setState({ auto : !this.state.auto});
 	}
+
+	getRandomInt=(min, max)=> {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
 	setScreenOrientation=()=>{
 		const {innerWidth}=this.state;
 		if(Math.abs(innerWidth - window.innerWidth) >100){
@@ -246,24 +390,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	getVinhDanh=(pageNumber)=>{
-		const {limit}=this.state;
-		var offsetVinhDanh=(pageNumber-1)*limit;
-		this.props.getVinhDanh(limit, offsetVinhDanh).then(()=>{
-			var data=this.props.dataVinhDanh;
-			if(data!==undefined){
-				if(data.Status===0){
-					var listVinhDanh=data.Data;
-					console.log(listVinhDanh)
-					this.setState({listVinhDanh:data.Data, countVinhDanh:data.Totals})
-				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Không lấy được dữ liệu bảng vinh danh.'})
-				}
-			}else{
-				$('#myModal12').modal('show');
-				this.setState({server_err:true})
-			}
-		});
+	
 	}
 
 	getStatus=(luckySpin)=>{
@@ -271,7 +398,7 @@ class Lucky_Rotation extends React.Component {
 		var EndDate=luckySpin.EndDate;
 		var start=StartDate.substring(StartDate.indexOf("(") +1,StartDate.indexOf(")"));
 		var end=EndDate.substring(EndDate.indexOf("(")+1,EndDate.indexOf(")"));
-		console.log(start, end)
+		// console.log(start, end)
 		var time=Date.now();
 
 		// var distance_3day=start - 3 * 86400 * 1000;
@@ -298,61 +425,6 @@ class Lucky_Rotation extends React.Component {
 			$("#button").hide();
 		}
 	}
-
-	loginAction = () => {
-		const {server_err}=this.state;
-		if(!server_err){
-			if (typeof(Storage) !== "undefined") {
-				var currentPath = window.location.pathname;
-				localStorage.setItem("currentPath", currentPath);
-			} else {
-				console.log("Trình duyệt không hỗ trợ localStorage");
-			}
-			window.location.replace(`http://graph.vtcmobile.vn/oauth/authorize?client_id=92d34808c813f4cd89578c92896651ca&redirect_uri=${window.location.protocol}//${window.location.host}/login&agencyid=0`)
-			
-			
-			// window.location.replace(`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=UH8DN779CWCMnCyeXGrm2BRqiTlJajUyZUEM0Kc&agencyid=0&redirect_uri=${window.location.protocol}//${window.location.host}/`);
-		}else{
-			$('#myModal12').modal('show');
-		}
-	}
-	logoutAction = () => {
-		this.logout();
-		localStorage.removeItem("user");
-		window.location.replace(
-			`https://graph.vtcmobile.vn/oauth/authorize?client_id=92d34808c813f4cd89578c92896651ca&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
-		);
-
-		// window.location.replace(
-		// 	`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=UH8DN779CWCMnCyeXGrm2BRqiTlJajUyZUEM0Kc&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
-		// );
-	}
-
-	logout=()=>{
-		var user = JSON.parse(localStorage.getItem("user"));
-		var header = {
-			headers: {
-				"Content-Type": "application/json",
-				"token": user.Token,
-			}
-		}
-		axios.get('https://api.splay.vn/luckywheel/luckywheel/user-signout/', header).then(function (response) {
-			console.log(response)
-		})
-	}
-
-	start=()=>{
-	
-	}
-
-	btnStart=()=>{
-
-	}
-
-	startSpin=()=>{
-
-	}
-	
 
 
 
@@ -409,7 +481,7 @@ class Lucky_Rotation extends React.Component {
 
 	timeWaitings=()=>{
 		const current=this.state.timeWaiting;
-		console.log(current)
+		// console.log(current)
 		if(current>=0){
 			var minute=Math.floor(((current%86400)%3600)/60) > 9 ? Math.floor(((current%86400)%3600)/60) : `0${Math.floor(((current%86400)%3600)/60)}`;
 			var second=Math.ceil(((current%86400)%3600)%60) > 9 ? Math.ceil(((current%86400)%3600)%60) : `0${Math.ceil(((current%86400)%3600)%60)}`;
@@ -461,10 +533,224 @@ class Lucky_Rotation extends React.Component {
 	}
 
 
+	touchStart=()=>{
+		const {stage, layer, darthVaderImg, dartFlightImg, score_text}=this.state;
+		if(JSON.stringify(dartFlightImg) !== '{}'){
+			dartFlightImg.remove();
+		}
+
+		if(JSON.stringify(score_text) !== '{}'){
+			score_text.remove();
+		}
+		
+		var touchPos = stage.getPointerPosition();
+		var x= touchPos.x-20;
+		var y= touchPos.y-80;
+		darthVaderImg.x(x);
+		darthVaderImg.y(y);
+		darthVaderImg.show();
+		this.setState({dartPositionY:touchPos.y})
+	}
+
+	touchEnd=()=>{
+		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg}=this.state;
+		var touchPos = stage.getPointerPosition();
+		curFrame=0
+		darthVaderImg.hide();
+		if(dartPositionY >touchPos.y){
+			this.draw(touchPos.x, touchPos.y)
+			// console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
+			this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+		}else{
+			alert("vuốt lên để phi tiêu")
+		}
+		
+	}
+
+	touchMove=()=>{
+		const {stage, layer, darthVaderImg}=this.state;
+		if(JSON.stringify(darthVaderImg) !== '{}'){
+			var touchPos = stage.getPointerPosition();
+			var x= touchPos.x-20;
+			var y= touchPos.y-100;
+			darthVaderImg.x(x);
+			darthVaderImg.y(y);
+		}
+	}
+	updateFrame=()=>{
+		srcX=curFrame*widthFrame;
+		srcY=0;
+		curFrame=++curFrame;
+	}
+
+	draw=(x, y)=>{
+		const {dartFlightImg}=this.state;
+		var _this=this
+		const {stage, layer}=this.state;
+		var touchPos = stage.getPointerPosition();
+		this.updateFrame();
+		var dartFlight = new Image();
+		dartFlight.onload = function () {
+			var dartFlightImg = new Konva.Image({
+				image: dartFlight,
+				x: x - widthFrame/2,
+				y: y - heightFrame/2,
+				width: widthFrame,
+				height: heightFrame,
+				// visible:false
+				});
+				
+			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
+			layer.add(dartFlightImg);
+			stage.add(layer);
+			if(curFrame <= 12){
+				setTimeout(()=>{
+					_this.draw(x,y) 
+					dartFlightImg.remove(); 
+				}, 23);
+			}
+			
+			_this.setState({dartFlightImg:dartFlightImg})
+		};
+		dartFlight.src = dart_player;
+	}
+
+	fireDart=(tarX, tarY)=> {
+		this.computeHit(tarX,tarY);
+		this.generateScore();
+	}
+
+	
+    computeHit=(xpos,ypos)=> {
+
+		var dx = Dart_Center_X - xpos;
+		var dy = Dart_Center_Y - ypos;
+	
+		// var angle = Math.atan2(dx,dy)-angleOffset*2;
+		var angle = Math.atan2(dy,dx);
+		var delta = Math.sqrt(dx*dx+dy*dy);
+
+
+		var sg = 0;
+		for (var i = 0; i < 6; i++) {
+			if (delta > SEGMENTS[i])
+			sg = i+1;
+		}
+
+		segmentType = sg;
+		segmentIndex = Math.round(-angle * (180.0/Math.PI)+180.0);
+	
+	
+		segment = Math.round((segmentIndex)  / (360.0/SEGMENT_COUNT));
+	
+	
+	   }
+
+	generateScore=()=> {
+
+		if (SEGMENT_NAMES[segmentType] == 'out') {
+	
+			totalScore = 0; // mimo herni pole
+	
+		} else
+		if (SEGMENT_NAMES[segmentType] == '50') {
+	
+			totalScore = 50; // cisty stred
+	
+			} else {
+	
+			if (SEGMENT_NAMES[segmentType] == '25') {
+	
+				totalScore = 25; // sirsi stred
+	
+			} else {
+	
+				totalScore = SCORE_VALUES[segment];
+	
+				if (SEGMENT_NAMES[segmentType] == 'double') totalScore *= 2;  // vnejsi okraj - double
+				if (SEGMENT_NAMES[segmentType] == 'tripple') totalScore *= 3; // prostredni pole - tripple
+			}
+		}
+		this.showScore(totalScore)
+			// console.log('AA:', totalScore)
+	}
+
+
+	check_auto=()=>{
+		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		this.setState({auto_play:!auto_play},()=>{
+			if(this.state.auto_play){
+				checkboxImg.hide();
+				uncheckboxImg.show();
+				var intervalId = setInterval(this.autoPlay, 2000);
+				this.setState({intervalId:intervalId})
+				
+			}else{
+				checkboxImg.show();
+				uncheckboxImg.hide();
+				clearInterval(this.state.intervalId);
+			}
+		})
+	}
+
+	autoPlay=()=>{
+		
+		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		curFrame=0;
+		if(JSON.stringify(dartFlightImg) !== '{}'){
+			dartFlightImg.remove();
+		}
+		var x=this.getRandomInt(startX, endX);
+		var y=this.getRandomInt(startY, endY);
+		this.draw(x,y);
+		this.fireDart(x, y-heightFrame/2 + 12)
+	}
+
+
+	exit=()=>{
+		window.location.replace("/")
+	}
+
+	showScore=(totalScore)=>{
+		var score=totalScore>9?totalScore:'0'+totalScore;
+		const {layer, stage}=this.state;
+		var newH=stage.height() / 2;
+		var size=25;
+	
+		var score_text = new Konva.Text({
+			x: stage.width() / 2 -15,
+			y: stage.height() / 2,
+			text: score,
+			fontSize: size,
+			fontFamily: 'Calibri',
+			text: score,
+			fill: 'yellow',
+			fontStyle:'bold',
+			text: score,
+		});
+
+		var inter=setInterval(()=>{	
+			newH=newH-1;
+			size=size+0.1;
+			score_text.fontSize(size)
+			score_text.y(newH);
+		}, 20);
+
+		layer.add(score_text)
+		stage.add(layer)
+		setTimeout(()=>{ 
+			score_text.remove()
+			clearInterval(inter)
+		}, 1000);
+		this.setState({score_text:score_text})
+	}
+
+
 
 
 	render() {
-		const {user}=this.state;
+		const {user, image, auto_play, timing}=this.state;
+
 
 		return (<div class="bg-page-duatop position-relative">
 		<div class="phitieu">
@@ -475,14 +761,14 @@ class Lucky_Rotation extends React.Component {
 			<h4 class="font-size-18 text-uppercase text-center text-shadow">699669</h4>
 		</div>
 		<div class="phongtudong font-size-18 font-weight-bold text-uppercase text-shadow">
-			<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động
+			Phóng phi tiêu tự động
 		</div>
 		<div class="timing">
 			<div class="media">
 				<img src={icon_clock} class="align-self-center mt-n1" width="32" alt="clock" />
 				<div class="media-body">
 					<div class="bg-line-timing">
-						<span style={{background:"#f5950a", width: "100%", height: "12px", display: "block", borderRadius: 4}}>&nbsp;</span>
+						<span style={{background:"#f5950a", width: timing, height: "12px", display: "block", borderRadius: 4}}>&nbsp;</span>
 					</div>
 					<h6 class="text-yellow font-size-16 mt-n1 pl-1 text-shadow">Còn: 2 ngày 10:22:11</h6>
 				</div>
@@ -492,9 +778,7 @@ class Lucky_Rotation extends React.Component {
 			<p class="font-size-16 text-white mb-0 text-center">Đặng Lê</p>
 			<h2 class="font-size-14 text-warning m-0 text-center"> VIP Kim Cương</h2>
 		</div>
-		<div class="btn-login">
-			<img src={btn_thoat} width="100" alt="" />
-		</div>
+
 		<div class="phit1ieu-status marquee">
 			<div class="marquee_inner">            
 				<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
@@ -505,7 +789,10 @@ class Lucky_Rotation extends React.Component {
 			<h2 class="font-size-16 text-uppercase font-weight-bold text-center mb-1 text-shadow">Điểm cao nhất</h2>
 			<h4 class="font-size-18 text-uppercase text-center text-shadow">699669</h4>
 		</div>
-		<div id="canvas" onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
+		{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>)}
+					
+					<div id="div_checkbox" style={{position:'absolute', top:"90%", left:"37%", zIndex:999999}} onMouseDown={this.check_auto}></div>
+					<div id="div_exit" style={{position:'absolute', top:0, left:"83%", zIndex:999999}} onMouseDown={this.exit}></div>
 	</div>)
 	}
 }
