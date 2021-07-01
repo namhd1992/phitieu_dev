@@ -607,7 +607,7 @@ class Lucky_Rotation extends React.Component {
 				setTimeout(()=>{
 					_this.draw(x,y) 
 					dartFlightImg.remove(); 
-				}, 20);
+				}, 23);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
@@ -682,7 +682,7 @@ class Lucky_Rotation extends React.Component {
 			if(this.state.auto_play){
 				checkboxImg.hide();
 				uncheckboxImg.show();
-				var intervalId = setInterval(this.autoPlay, 3000);
+				var intervalId = setInterval(this.autoPlay, 2000);
 				this.setState({intervalId:intervalId})
 				
 			}else{
