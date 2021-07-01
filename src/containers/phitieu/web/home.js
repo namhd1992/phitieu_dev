@@ -576,10 +576,10 @@ class Lucky_Rotation extends React.Component {
 							<div class="bg-bottom">
 								<div class="btn-s position-relative">
 									<Link to="/sanqua">
-										<a><img src={btn_sanqua} width="30%" hspace="10" /></a>
+										<a><img src={btn_sanqua} width="200px" hspace="10" /></a>
 									</Link>
 									<Link to="/duatop">
-										<a><img src={btn_duatop} width="30%" hspace="10" /></a>
+										<a><img src={btn_duatop} width="200px" hspace="10" /></a>
 									</Link>
 								</div>
 								<div class="bxh position-relative mx-auto">
