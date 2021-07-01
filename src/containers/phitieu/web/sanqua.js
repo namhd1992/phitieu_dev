@@ -207,22 +207,22 @@ class Lucky_Rotation extends React.Component {
 		};
 		imageObj.src = phitieu;
 
-		var dartFlight = new Image();
-		dartFlight.onload = function () {
-			var dartFlightImg = new Konva.Image({
-				image: dartFlight,
-				x: 0,
-				y: 0,
-				width: 200,
-				height: 137,
-				visible:false
-				});
+		// var dartFlight = new Image();
+		// dartFlight.onload = function () {
+		// 	var dartFlightImg = new Konva.Image({
+		// 		image: dartFlight,
+		// 		x: 0,
+		// 		y: 0,
+		// 		width: 200,
+		// 		height: 137,
+		// 		visible:false
+		// 		});
 		
-				layer.add(dartFlightImg);
-				stage.add(layer);
-				_this.setState({dartFlightImg:dartFlightImg})
-		};
-		dartFlight.src = dart_player;
+		// 		layer.add(dartFlightImg);
+		// 		stage.add(layer);
+		// 		_this.setState({dartFlightImg:dartFlightImg})
+		// };
+		// dartFlight.src = dart_player;
 
 		var checkbox = new Image();
 		checkbox.onload = function () {
@@ -427,20 +427,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 
-	start=()=>{
-	
-	}
-
-	btnStart=()=>{
-
-	}
-
-	startSpin=()=>{
-
-	}
-	
-
-
 
 	handleChange = () => {
 		this.setState({ auto : !this.state.auto});
@@ -574,7 +560,7 @@ class Lucky_Rotation extends React.Component {
 		if(dartPositionY >touchPos.y){
 			this.draw(touchPos.x, touchPos.y)
 			// console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
-			this.fireDart(touchPos.x, touchPos.y-heightFrame/2)
+			this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
 		}else{
 			alert("vuốt lên để phi tiêu")
 		}
@@ -586,7 +572,7 @@ class Lucky_Rotation extends React.Component {
 		if(JSON.stringify(darthVaderImg) !== '{}'){
 			var touchPos = stage.getPointerPosition();
 			var x= touchPos.x-20;
-			var y= touchPos.y-80;
+			var y= touchPos.y-100;
 			darthVaderImg.x(x);
 			darthVaderImg.y(y);
 		}
@@ -598,7 +584,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	draw=(x, y)=>{
-		console.log('X:', x, 'Y:',y)
+		const {dartFlightImg}=this.state;
 		var _this=this
 		const {stage, layer}=this.state;
 		var touchPos = stage.getPointerPosition();
@@ -621,7 +607,7 @@ class Lucky_Rotation extends React.Component {
 				setTimeout(()=>{
 					_this.draw(x,y) 
 					dartFlightImg.remove(); 
-				}, 30);
+				}, 20);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
@@ -696,7 +682,7 @@ class Lucky_Rotation extends React.Component {
 			if(this.state.auto_play){
 				checkboxImg.hide();
 				uncheckboxImg.show();
-				var intervalId = setInterval(this.autoPlay, 1000);
+				var intervalId = setInterval(this.autoPlay, 3000);
 				this.setState({intervalId:intervalId})
 				
 			}else{
@@ -708,11 +694,16 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	autoPlay=()=>{
+		
 		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		curFrame=0;
+		if(JSON.stringify(dartFlightImg) !== '{}'){
+			dartFlightImg.remove();
+		}
 		var x=this.getRandomInt(startX, endX);
 		var y=this.getRandomInt(startY, endY);
 		this.draw(x,y);
-		this.fireDart(x,y)
+		this.fireDart(x, y-heightFrame/2 + 12)
 	}
 
 
@@ -737,8 +728,6 @@ class Lucky_Rotation extends React.Component {
 			fontStyle:'bold',
 			text: score,
 		});
-
-		console.log(score_text)
 
 		var inter=setInterval(()=>{	
 			newH=newH-1;
