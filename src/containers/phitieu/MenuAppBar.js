@@ -95,7 +95,7 @@ class MenuAppBar extends React.Component {
 			var currentPath=localStorage.getItem("currentPath");
 			if (code != null) {
 				if (fb_mess === null) {
-					var url = Ultilities.base_url() + "luckywheel/user-signin/";
+					var url = Ultilities.base_url() + "darts/user-signin/";
 					var header = {
 						headers: {
 							"Content-Type": "application/text",
@@ -119,7 +119,7 @@ class MenuAppBar extends React.Component {
 						_this.setState({ auth: false });
 					})
 				} else {
-					var url = Ultilities.base_url() + "luckywheel/user-signin/";
+					var url = Ultilities.base_url() + "darts/user-signin/";
 					var header = {
 						headers: {
 							"Content-Type": "application/text",

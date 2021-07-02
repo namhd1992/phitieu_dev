@@ -19,7 +19,7 @@ import {
 	getLuckyItems,
 	getInfoUser,
 	userLogout,
-	getDataUserSpin,
+	getDartScore,
 	getItemAward
 } from '../../../modules/lucky'
 import {
@@ -49,6 +49,13 @@ import btn_phanthuong_active from './images/btn-phanthuong-active.png';
 import btn_phanthuong from './images/btn-phanthuong.png';
 import btn_lichsu from './images/btn-lichsu.png';
 import btn_lichsu_active from './images/btn-lichsu-active.png';
+import btn_activevip from './images/btn-activevip.png';
+import vip_kimcuong from './images/vip-kimcuong.png';
+import vip_bachkim from './images/vip-bachkim.png';
+import vip_vang from './images/vip-vang.png';
+import vip_bac from './images/vip-bac.png';
+import vip_dong from './images/vip-dong.png';
+
 
 
 // import muiten from './images/muiten.png';
@@ -541,7 +548,16 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	dangNhap=()=>{
-		$('#Modaldangnhap').modal('show');
+		var user = JSON.parse(localStorage.getItem("user"));
+		if (user !== null) {
+			$('#activeVip').modal('show');
+		}else {
+			$('#Modaldangnhap').modal('show');
+		}
+	}
+
+	showTooltip=()=>{
+		$('[data-toggle="tooltip"]').tooltip();
 	}
 
 	render() {
@@ -556,11 +572,10 @@ class Lucky_Rotation extends React.Component {
 							</div>
 							<div class="text-center align-self-center pr-1">
 								<p class="font-size-16 text-white mb-0">{user.Username}</p>
-								{/* {(user.VipLevel===1)?(<a href="http://vip.scoin.vn" title="VIP Đồng" target="_blank">VIP Đồng <img src={vip_dong} alt="VIP Đồng" width="16" /></a>):(<div></div>)}
-								{(user.VipLevel===2)?(<a href="http://vip.scoin.vn" title="VIP Bạc" target="_blank">VIP Bạc <img src={vip_bac} alt="VIP Bạc" width="16" /></a>):(<div></div>)}
-								{(user.VipLevel===3)?(<a href="http://vip.scoin.vn" title="VIP Vàng" target="_blank">VIP Vàng <img src={vip_vang} alt="VIP Vàng" width="16" /></a>):(<div></div>)}
-								{(user.VipLevel===4)?(<a href="http://vip.scoin.vn" title="VIP bạch kim" target="_blank">VIP Bạch kim <img src={vip_bachkim} alt="VIP Bạch kim" width="16" /></a>):(<div></div>)} */}
-								<h2 class="font-size-14 text-warning m-0">VIP Kim Cương</h2>
+								{(user.VipLevel===1)?(<h2 class="font-size-14 text-warning m-0">VIP Đồng <img src={vip_dong} alt="VIP Đồng" width="16" /></h2>):(<div></div>)}
+								{(user.VipLevel===2)?(<h2 class="font-size-14 text-warning m-0">VIP Bạc <img src={vip_bac} alt="VIP Bạc" width="16" /></h2>):(<div></div>)}
+								{(user.VipLevel===3)?(<h2 class="font-size-14 text-warning m-0">VIP Vàng <img src={vip_vang} alt="VIP Vàng" width="16" /></h2>):(<div></div>)}
+								{(user.VipLevel===4)?(<h2 class="font-size-14 text-warning m-0">VIP Bạch kim <img src={vip_bachkim} alt="VIP Bạch kim" width="16" /></h2>):(<div></div>)}
 							</div>
 						</div>):(<div class="login d-flex flex-row-reverse">
 							<div class="align-self-center">
@@ -571,12 +586,14 @@ class Lucky_Rotation extends React.Component {
 						<div class="bg-top position-relative">
 							<div class="bg-bottom">
 								{(isLogin)?(<div class="btn-s position-relative">
-									<Link to="/sanqua">
+									{(user.VipLevel>0)?(<div><Link to="/sanqua">
 										<a style={{cursor:'pointer'}}><img src={btn_sanqua} width="200px" hspace="10" /></a>
 									</Link>
 									<Link to="/duatop">
 										<a style={{cursor:'pointer'}}><img src={btn_duatop} width="200px" hspace="10" /></a>
-									</Link>
+									</Link></div>):(<div><a title="Săn quà" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_sanqua} width="200" hspace="10" /></a>
+               							<a title="Đua TOP" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_duatop} width="200" hspace="10" /></a></div>)}
+									
 								</div>):(
 								<div class="btn-s position-relative">
 									 	<a title="Săn quà" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_sanqua} width="200" hspace="10" /></a>
@@ -595,110 +612,57 @@ class Lucky_Rotation extends React.Component {
 									</ul>
 									
 									<div class="tab-content bg-bxh">
-										<div id="home" class="tab-pane active pt-3 pb-3 px-3">
-										<table class="table table-borderless text-center font-size-16 mb-0 text-red" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "35px"}}>
-											<thead>
-											<tr class="bg-border-bottom">
-												<th class="p-1 bg-border-right w-33">Tài khoản</th>
-												<th class="p-1 bg-border-right w-33">Giải thưởng</th>
-												<th class="p-1 w-33">Thời gian trúng</th>
-											</tr>
-											</thead>
-											<tbody>
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-											
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-											
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-											
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-											
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-											
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-
-											
-											</tbody>
-										</table>
-										<ul class="pagination justify-content-center pag-custom mt-1">
-											<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
-											<li class="page-item"><a class="page-link" href="#">1</a></li>
-											<li class="page-item active"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
-											<li class="page-item"><a class="page-link" href="#">...</a></li>
-											<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
-										</ul>
+										<div id="home" class="tab-pane active pt-3 pb-3 px-3" style={{minHeight:520}}>
+											<table class="table table-borderless text-center font-size-16 mb-0 text-red" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "35px"}}>
+												<thead>
+												<tr class="bg-border-bottom">
+													<th class="p-1 bg-border-right w-33">Tài khoản</th>
+													<th class="p-1 bg-border-right w-33">Giải thưởng</th>
+													<th class="p-1 w-33">Thời gian trúng</th>
+												</tr>
+												</thead>
+												<tbody>
+													<tr class="bg-border-bottom">
+														<td class="p-0 bg-border-right w-33">Phuonghanxxx</td>
+														<td class="p-0 bg-border-right w-33" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title="Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</span></td>
+														<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
+													</tr>
+												</tbody>
+											</table>
+											<ul class="pagination justify-content-center pag-custom mt-1">
+												<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
+												<li class="page-item"><a class="page-link" href="#">1</a></li>
+												<li class="page-item active"><a class="page-link" href="#">2</a></li>
+												<li class="page-item"><a class="page-link" href="#">3</a></li>
+												<li class="page-item"><a class="page-link" href="#">...</a></li>
+												<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+											</ul>
 										</div>
-										<div id="menu1" class="tab-pane fade pt-3 pb-3 px-3">
-										<table class="table table-borderless text-center font-size-16 mb-0 text-red" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "35px"}}>
-											<thead>
-											<tr class="bg-border-bottom">
-												<th class="p-1 bg-border-right w-33">Tài khoản</th>
-												<th class="p-1 bg-border-right w-33">Giải thưởng</th>
-												<th class="p-1 w-33">Thời gian trúng</th>
-											</tr>
-											</thead>
-											<tbody>
-											<tr class="bg-border-bottom">
-												<td class="p-0 bg-border-right w-33">John</td>
-												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-											
-											</tbody>
-										</table>
-										<ul class="pagination justify-content-center pag-custom mt-1">
-											<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
-											<li class="page-item"><a class="page-link" href="#">1</a></li>
-											<li class="page-item active"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
-											<li class="page-item"><a class="page-link" href="#">...</a></li>
-											<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
-										</ul>
+										<div id="menu1" class="tab-pane fade pt-3 pb-3 px-3" style={{minHeight:520}}>
+											<table class="table table-borderless text-center font-size-16 mb-0 text-red" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "35px"}}>
+												<thead>
+												<tr class="bg-border-bottom">
+													<th class="p-1 bg-border-right w-33">Tài khoản</th>
+													<th class="p-1 bg-border-right w-33">Giải thưởng</th>
+													<th class="p-1 w-33">Thời gian trúng</th>
+												</tr>
+												</thead>
+												<tbody>
+													<tr class="bg-border-bottom">
+														<td class="p-0 bg-border-right w-33">Ngoctrinhxxx</td>
+														<td class="p-0 bg-border-right w-33" onMouseOver={this.showTooltip}><span data-toggle="tooltip" data-placement="bottom" title="Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</span></td>
+														<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
+													</tr>
+												</tbody>
+											</table>
+											<ul class="pagination justify-content-center pag-custom mt-1">
+												<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
+												<li class="page-item"><a class="page-link" href="#">1</a></li>
+												<li class="page-item active"><a class="page-link" href="#">2</a></li>
+												<li class="page-item"><a class="page-link" href="#">3</a></li>
+												<li class="page-item"><a class="page-link" href="#">...</a></li>
+												<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+											</ul>
 										</div>                
 									</div>
 								</div>
@@ -749,8 +713,8 @@ class Lucky_Rotation extends React.Component {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body border-0">
-						<h5 class="text-thele lead text-center">Tài khoản của bạn chưa phải là Vip. Hãy kích hoạt tài khoản Vip để chơi.</h5>
-						<a href="https://vip.scoin.vn" type="button" target="_blank" class="btn btn-xacnhan text-white btn-block text-center py-4">Trang chủ VIP</a>
+						<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn vẫn chưa đăng nhập</h2>
+						<p class="text-center"><a title="Đăng nhập" onClick={this.loginAction}><img src={btn_dangnhap} width="30%" alt="" /></a></p>
 					</div>
 
 					</div>
@@ -758,16 +722,21 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			
-			{/* <!-- The Modal Thông báo đăng nhập--> */}
-			<div className="modal fade" id="activeVip">
+			{/* <!-- The Modal Thông báo activeVip--> */}
+
+			<div class="modal fade" id="activeVip">
 				<div class="modal-dialog modal-dangnhap">
 					<div class="modal-content bg-transparent border-0">
+
+					{/* <!-- Modal Header --> */}
 					<div class="modal-header border-0 p-0 text-dark">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
+
+					{/* <!-- Modal body --> */}
 					<div class="modal-body border-0">
-						<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn vẫn chưa đăng nhập</h2>
-						<p class="text-center"><a title="Đăng nhập" onClick={this.loginAction}><img src={btn_dangnhap} width="30%" alt="" /></a></p>
+						<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn cần active tài khoản VIP để chơi.</h2>
+						<p class="text-center"><a href="https://vip.scoin.vn" target="_blank"><img src={btn_activevip} width="120" alt="Active VIP" /></a></p>
 					</div>
 
 					</div>
@@ -935,7 +904,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getLuckyInfo,
 	getLuckyItems,
 	userLogout,
-	getDataUserSpin
+	getDartScore
 }, dispatch)
 
 

@@ -58,7 +58,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family:Arial, Helvetica, sa
 .pag-custom .page-item.active .page-link {background-color: #b30101; border-color: #b30101;}
 /* .phitieu {position: absolute; top: 13.9vw; left: 35.2vw; width: 30vw; height: 30vw;}
 .phitieu .img-phitieu {background:url(../images/tieu.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%} */
-.tooltip {font-size: 14px;}
+.tooltip {font-size: 14px !important;}
 
 
 

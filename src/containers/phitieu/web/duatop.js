@@ -21,7 +21,7 @@ import {
 	getLuckyItems,
 	getInfoUser,
 	userLogout,
-	getDataUserSpin,
+	getDartScore,
 	getItemAward
 } from '../../../modules/lucky'
 import {
@@ -297,7 +297,7 @@ class Lucky_Rotation extends React.Component {
 
 		if (user !== null) {
 			this.setState({isLogin:true, user:user})
-			this.props.getDataUserSpin(user.Token).then(()=>{
+			this.props.getDartScore(user.Token).then(()=>{
 				var data=this.props.dataUserSpin;
 				if(data!==undefined){
 					if(data.Status===0){
@@ -431,7 +431,7 @@ class Lucky_Rotation extends React.Component {
 	getDetailData=()=>{
 		const {auto}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
-		this.props.getDataUserSpin(user.Token).then(()=>{
+		this.props.getDartScore(user.Token).then(()=>{
 			var data=this.props.dataUserSpin;
 			if(data!==undefined){
 				var turnsFree=data.Spins
@@ -825,7 +825,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getLuckyInfo,
 	getLuckyItems,
 	userLogout,
-	getDataUserSpin
+	getDartScore
 }, dispatch)
 
 

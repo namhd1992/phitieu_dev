@@ -21,7 +21,7 @@ import {
 	getLuckyItems,
 	getInfoUser,
 	userLogout,
-	getDataUserSpin,
+	getDartScore,
 	getItemAward
 } from '../../../modules/lucky'
 import {
@@ -36,6 +36,7 @@ import dart_player from './images/dart-player.png';
 import img_checkbox_none from './images/img-checkbox-none.png';
 import img_checkbox_checked from './images/img-checkbox-checked.png';
 import btn_thoat from './images/btn-thoat.png';
+import btn_duatop from './images/btn-duatop.png';
 
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
@@ -142,7 +143,11 @@ class Lucky_Rotation extends React.Component {
 			orientation:'',
 			dartPositionY:0,
 			timing:"10%",
-			score_text:{}
+			score_text:{},
+			data:{},
+			points:0,
+			countDart:0,
+			listTop:[]
 
 		};
 	}
@@ -274,25 +279,31 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers})
+					console.log(data.Data)
 					this.getStatus(data.Data)
+				}else if(data.Status===2){
+					$('#Modalnone').modal('show');
+				}else{
+					console.log("Lỗi")
 				}
 			}
 		})
 
 
 
-		if (user !== null) {
-			this.setState({isLogin:true, user:user})
-			this.props.getDataUserSpin(1,0,user.Token).then(()=>{
-				var data=this.props.dataUserSpin;
-				if(data!==undefined){
-					if(data.Status===0){
-						this.setState({turnsFree: data.Spins})
-					}
-				}
+		// if (user !== null) {
+		// 	this.setState({isLogin:true, user:user})
+		// 	this.props.getDartScore(1,0,user.Token).then(()=>{
+		// 		var data=this.props.dataUserSpin;
+		// 		if(data!==undefined){
+		// 			if(data.Status===0){
+		// 				this.setState({turnsFree: data.Spins})
+		// 			}
+		// 		}
 
-			})
-		} 
+		// 	})
+		// } 
 		
 		
 		// window.addEventListener('scroll', this.handleScroll);
@@ -326,76 +337,24 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	onResize=()=>{
-		if (window.innerWidth <= 320) {
-			this.setState({ width: 210, height: 235, img_width:170, img_height:170});
-		}
-		if (window.innerWidth > 320 && window.innerWidth <= 360) {
-			this.setState({ width: 252, height: 282, img_width:200, img_height:200});
-		}
-		if (window.innerWidth > 360 && window.innerWidth <= 380) {
-			this.setState({ width: 293, height: 330, img_width:235, img_height:235});
-		}
-		if (window.innerWidth > 380 && window.innerWidth <= 480) {
-			this.setState({ width: 344, height: 383, img_width:275, img_height:275});
-		}
-		if (window.innerWidth > 480 && window.innerWidth <= 600) {
-			this.setState({ width: 335, height: 375, img_width:267, img_height:267});
-		}
-		if (window.innerWidth > 600 && window.innerWidth <= 640) {
-			this.setState({ width: 336, height: 376, img_width:270, img_height:270});
-		}
-		if (window.innerWidth > 640 && window.innerWidth <= 768) {
-			this.setState({ width: 470, height: 525, img_width:375, img_height:375});
-		}
-		if (window.innerWidth > 768 && window.innerWidth < 780) {
-			this.setState({ width: 504, height: 563, img_width:405, img_height:405});
-		}
-
-		if (window.innerWidth >= 780 && window.innerWidth <= 790) {
-			this.setState({ width: 469, height: 524, img_width:375, img_height:375});
-		}
-
-		if (window.innerWidth > 790 && window.innerWidth <= 800) {
-			this.setState({ width: 469, height: 522, img_width:372, img_height:372});
-		}
-
-		if (window.innerWidth > 800 && window.innerWidth <= 900) {
-			this.setState({ width: 504, height: 563, img_width:405, img_height:405});
-		}
-
-		if (window.innerWidth > 900 && window.innerWidth < 1024) {
-			this.setState({ width: 590, height: 653, img_width:470, img_height:470});
-		}
-
-		if (window.innerWidth >= 1024) {
-			this.setState({ width: 586, height: 657, img_width:470, img_height:470});
-		}
+		
 	}
 
 
 	getStatus=(luckySpin)=>{
-		var StartDate=luckySpin.StartDate;
-		var EndDate=luckySpin.EndDate;
+		var StartDate=luckySpin.StartTime;
+		var EndDate=luckySpin.EndTime;
 		var start=StartDate.substring(StartDate.indexOf("(") +1,StartDate.indexOf(")"));
 		var end=EndDate.substring(EndDate.indexOf("(")+1,EndDate.indexOf(")"));
-		// console.log(start, end)
 		var time=Date.now();
 
-		// var distance_3day=start - 3 * 86400 * 1000;
-		// var duration=end-time;
+		var n=end-start;
+		var m=end-time;
+		var timing=m/n * 100
+		this.setState({timing: timing})
+		this.timeRemain(end)
 
-		if (time < start) {
-			this.timeRemain(start)
-			this.setState({ img_status: 'sapdienra', message_status:"Sự kiện chưa diễn ra."});
-		}
-		if (time > start && time < end) {
-			this.timeRemain(end)
-			this.setState({ img_status: 'sukiendangdienra'});
-		}
-		if (time > end) {
-			this.setState({ img_status: 'ketthuc', message_status:"Sự kiện đã kết thúc."});
-			// $('#myModal14').modal('show');
-		}
+
 	}
 
 	handleScroll = (event) => {
@@ -415,32 +374,32 @@ class Lucky_Rotation extends React.Component {
 
 
 	getDetailData=()=>{
-		const {auto}=this.state;
-		var user = JSON.parse(localStorage.getItem("user"));
-		this.props.getDataUserSpin(user.Token).then(()=>{
-			var data=this.props.dataUserSpin;
-			if(data!==undefined){
-				var turnsFree=data.Spins
-				if(data.Status===0){
-					if(turnsFree>0){
-						if(auto){
-							this.start();
-						}
-					}else{
-						$('#myModal6').modal('show');
-						clearInterval(this.state.intervalId);
-					}
-					this.setState({turnsFree:turnsFree})
-				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Lỗi hệ thống. Vui lòng thử lại.'})
-				}
-			}else{
-				$('#myModal12').modal('show');
-				this.setState({server_err:true})
-			}
+		// const {auto}=this.state;
+		// var user = JSON.parse(localStorage.getItem("user"));
+		// this.props.getDartScore(user.Token).then(()=>{
+		// 	var data=this.props.dataUserSpin;
+		// 	if(data!==undefined){
+		// 		var turnsFree=data.Spins
+		// 		if(data.Status===0){
+		// 			if(turnsFree>0){
+		// 				if(auto){
+		// 					this.start();
+		// 				}
+		// 			}else{
+		// 				$('#myModal6').modal('show');
+		// 				clearInterval(this.state.intervalId);
+		// 			}
+		// 			this.setState({turnsFree:turnsFree})
+		// 		}else{
+		// 			$('#myModal11').modal('show');
+		// 			this.setState({message_error:'Lỗi hệ thống. Vui lòng thử lại.'})
+		// 		}
+		// 	}else{
+		// 		$('#myModal12').modal('show');
+		// 		this.setState({server_err:true})
+		// 	}
 
-		})
+		// })
 	}
 
 	timeRemain=(times)=>{
@@ -691,6 +650,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	showScore=(totalScore)=>{
+		var user = JSON.parse(localStorage.getItem("user"));
 		var score=totalScore>9?totalScore:'0'+totalScore;
 		const {layer, stage}=this.state;
 		var newH=stage.height() / 2;
@@ -721,6 +681,13 @@ class Lucky_Rotation extends React.Component {
 			score_text.remove()
 			clearInterval(inter)
 		}, 1000);
+
+		this.props.getDartScore(1, totalScore, user.Token).then(()=>{
+			var data=this.props.dataUserSpin;
+			if(data.Status===0){
+				this.setState({countDart: data.Darts, points: data.Points, listTop:data.TopList})
+			}
+		})
 		this.setState({score_text:score_text})
 	}
 
@@ -728,7 +695,8 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {user, image, auto_play, timing}=this.state;
+		const {user, image, auto_play, timing, day, hour, minute, second, data, countDart, points, listTop}=this.state;
+
 
 		return (<div class="bg-page-sanqua position-relative">
 					<div class="phitieu">
@@ -736,7 +704,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div class="tongdiem">
 						<h2 class="font-size-18 text-uppercase font-weight-bold text-center mb-1 text-shadow">Tổng điểm</h2>
-						<h4 class="font-size-18 text-uppercase text-center text-shadow">699669</h4>
+						<h4 class="font-size-18 text-uppercase text-center text-shadow">{points}</h4>
 					</div>
 					<div class="phongtudong font-size-18 font-weight-bold text-uppercase text-shadow">
 						Phóng phi tiêu tự động    
@@ -750,6 +718,8 @@ class Lucky_Rotation extends React.Component {
 						</div>
 						</div>
 					</div> */}
+
+
 					<div class="timing">
 						<div class="media">
 							<img src={icon_clock} class="align-self-center mt-n1" width="32" alt="clock" />
@@ -757,7 +727,7 @@ class Lucky_Rotation extends React.Component {
 								<div class="bg-line-timing">
 									<span style={{background:"#f5950a", width: timing, height: "12px", display: "block", borderRadius: 4}}>&nbsp;</span>
 								</div>
-								<h6 class="text-yellow font-size-16 mt-n1 pl-1 text-shadow">Còn: 2 ngày 10:22:11</h6>
+								<h6 class="text-yellow font-size-16 mt-n1 pl-1 text-shadow">Còn: {day>0 ? `${day} ngay ${hour}:${minute}:${second}` : `${hour}:${minute}:${second}`}</h6>
 							</div>
 						</div>
 					</div>
@@ -770,7 +740,7 @@ class Lucky_Rotation extends React.Component {
 					</div> */}
 					<div class="phitieu-status marquee">
 						<div class="marquee_inner">            
-							<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
+							<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Số phi tiêu còn lại: <strong>{countDart}</strong></span>		
 							<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
 						</div>    	
 					</div>
@@ -778,39 +748,12 @@ class Lucky_Rotation extends React.Component {
 						<h2 class="font-size-18 m-0 font-weight-bold text-shadow text-center">Danh sách TOP</h2>
 						<table class="table table-borderless font-size-14 mb-0 mt-1" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "210%"}}>
 							<tbody>
-							<tr class="bg-border-bottom">
-								<td class="p-0 w-50 font-size-16 text-shadow">ThuyVixxx</td>
-								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>                
-							</tr>
-							<tr class="bg-border-bottom">
-								<td class="p-0 w-50 font-size-16 text-shadow">NgocTrxxx</td>
-								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>
-							</tr>
-							<tr class="bg-border-bottom">
-								<td class="p-0 w-50 font-size-16 text-shadow">ThuyVixxx</td>
-								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>                
-							</tr>
-							<tr class="bg-border-bottom">
-								<td class="p-0 w-50 font-size-16 text-shadow">NgocTrxxx</td>
-								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>
-							</tr>
-							<tr class="bg-border-bottom">
-								<td class="p-0 w-50 font-size-16 text-shadow">ThuyVixxx</td>
-								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>                
-							</tr>
-							<tr class="bg-border-bottom">
-								<td class="p-0 w-50 font-size-16 text-shadow">NgocTrxxx</td>
-								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>
-							</tr>
-							<tr class="bg-border-bottom">
-								<td class="p-0 w-50 font-size-16 text-shadow">ThuyVixxx</td>
-								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>                
-							</tr>
-							<tr>
-								<td class="p-0 w-50 font-size-16 text-shadow">NgocTrxxx</td>
-								<td class="p-0 w-50 font-size-16 text-shadow pl-2">699666</td>
-							</tr>
-											
+								{listTop.map((obj, key) => (
+									<tr class="bg-border-bottom" key={key}>
+										<td class="p-0 w-50 font-size-16 text-shadow">{obj.Username}</td>
+										<td class="p-0 w-50 font-size-16 text-shadow pl-2">{obj.Points}</td>                
+									</tr>
+								))}			
 							</tbody>
 						</table>
 					</div>
@@ -818,6 +761,20 @@ class Lucky_Rotation extends React.Component {
 					
 					<div id="div_checkbox" style={{position:'absolute', top:"90%", left:"37%", zIndex:999999}} onMouseDown={this.check_auto}></div>
 					<div id="div_exit" style={{position:'absolute', top:0, left:"83%", zIndex:999999}} onMouseDown={this.exit}></div>
+					
+					{/* <!-- The Modal Thông báo--> */}
+					<div class="modal fade" id="Modalnone" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
+						<div class="modal-dialog modal-dangnhap">
+							<div class="modal-content bg-transparent border-0">
+
+							<div class="modal-body border-0">
+								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP</h2>
+								<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+							</div>
+
+							</div>
+						</div>
+					</div>
 		</div>
 	)}
 }
@@ -857,7 +814,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getLuckyInfo,
 	getLuckyItems,
 	userLogout,
-	getDataUserSpin
+	getDartScore
 }, dispatch)
 
 

@@ -153,7 +153,7 @@ export const getLuckyInfo = (type, token) => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "darts/current-session/?type="+type
+		var url = Ultilities.base_url() + "darts/user-get-current-session/?type="+type
 		return axios.get(url, header).then(function (response) {
 			console.log(response)
 			dispatch({
@@ -169,7 +169,7 @@ export const getLuckyInfo = (type, token) => {
 }
 
 
-export const getDataUserSpin = (type, points, token) => {
+export const getDartScore = (type, points, token) => {
 	var header = {
 		headers: {
 			"Content-Type": "application/json",
