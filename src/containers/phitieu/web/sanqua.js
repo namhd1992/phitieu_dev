@@ -22,7 +22,6 @@ import {
 	getInfoUser,
 	userLogout,
 	getDartScore,
-	getItemAward
 } from '../../../modules/lucky'
 import {
 	getData
@@ -96,20 +95,11 @@ class Lucky_Rotation extends React.Component {
 
 			auto: false,
 
-			itemOfSpin:[],
-			luckySpin:{},
-
-			turnsFree:0,
 			isLogin:false,
 			day:'00',
 			hour:'00', 
 			minute:'00', 
 			second:'00',
-			itemBonus:{},
-			dataVinhDanh:[],
-			dataTuDo:[],
-			dataCodeBonus:[],
-			listHistory:[],
 			width:0,
 			height:0,
 			img_width:0,
@@ -147,7 +137,8 @@ class Lucky_Rotation extends React.Component {
 			data:{},
 			points:0,
 			countDart:0,
-			listTop:[]
+			listTop:[],
+			isPlay:true
 
 		};
 	}
@@ -290,21 +281,6 @@ class Lucky_Rotation extends React.Component {
 			}
 		})
 
-
-
-		// if (user !== null) {
-		// 	this.setState({isLogin:true, user:user})
-		// 	this.props.getDartScore(1,0,user.Token).then(()=>{
-		// 		var data=this.props.dataUserSpin;
-		// 		if(data!==undefined){
-		// 			if(data.Status===0){
-		// 				this.setState({turnsFree: data.Spins})
-		// 			}
-		// 		}
-
-		// 	})
-		// } 
-		
 		
 		// window.addEventListener('scroll', this.handleScroll);
 	}
@@ -374,32 +350,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	getDetailData=()=>{
-		// const {auto}=this.state;
-		// var user = JSON.parse(localStorage.getItem("user"));
-		// this.props.getDartScore(user.Token).then(()=>{
-		// 	var data=this.props.dataUserSpin;
-		// 	if(data!==undefined){
-		// 		var turnsFree=data.Spins
-		// 		if(data.Status===0){
-		// 			if(turnsFree>0){
-		// 				if(auto){
-		// 					this.start();
-		// 				}
-		// 			}else{
-		// 				$('#myModal6').modal('show');
-		// 				clearInterval(this.state.intervalId);
-		// 			}
-		// 			this.setState({turnsFree:turnsFree})
-		// 		}else{
-		// 			$('#myModal11').modal('show');
-		// 			this.setState({message_error:'Lỗi hệ thống. Vui lòng thử lại.'})
-		// 		}
-		// 	}else{
-		// 		$('#myModal12').modal('show');
-		// 		this.setState({server_err:true})
-		// 	}
-
-		// })
+	
 	}
 
 	timeRemain=(times)=>{
@@ -446,73 +397,57 @@ class Lucky_Rotation extends React.Component {
 
 
 
-	getItem=(user, item)=>{
-		this.props.getItemAward(user.Token, item.AwardId).then(()=>{
-			// $('#Loading').modal('hide');
-			var data=this.props.dataItemAward;
-			award_open=true;
-			if(data!==undefined){
-				if(data.Status===0){
-					// this.setState({listHistory:data.Data, countHistory:data.Totals})
-					this.setState({dataItem:data.Data})
-					$("#MoQua").modal('show');
-				}else if(data.Status===1){
-					$('#myModal11').modal('show');
-					this.setState({message_error:data.Message})
-				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'})
-				}
-			}else{
-				$('#myModal12').modal('show');
-				this.setState({server_err:true})
-			}
-		});
-	}
-
 
 	touchStart=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg, score_text}=this.state;
-		if(JSON.stringify(dartFlightImg) !== '{}'){
-			dartFlightImg.remove();
-		}
-
-		if(JSON.stringify(score_text) !== '{}'){
-			score_text.remove();
+		const {stage, layer, darthVaderImg, dartFlightImg, score_text, isPlay}=this.state;
+		if(isPlay){
+			if(JSON.stringify(dartFlightImg) !== '{}'){
+				dartFlightImg.remove();
+			}
+	
+			if(JSON.stringify(score_text) !== '{}'){
+				score_text.remove();
+			}
+			
+			var touchPos = stage.getPointerPosition();
+			var x= touchPos.x-20;
+			var y= touchPos.y-80;
+			darthVaderImg.x(x);
+			darthVaderImg.y(y);
+			darthVaderImg.show();
+			this.setState({dartPositionY:touchPos.y})
 		}
 		
-		var touchPos = stage.getPointerPosition();
-		var x= touchPos.x-20;
-		var y= touchPos.y-80;
-		darthVaderImg.x(x);
-		darthVaderImg.y(y);
-		darthVaderImg.show();
-		this.setState({dartPositionY:touchPos.y})
 	}
 
 	touchEnd=()=>{
-		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg}=this.state;
-		var touchPos = stage.getPointerPosition();
-		curFrame=0
-		darthVaderImg.hide();
-		if(dartPositionY >touchPos.y){
-			this.draw(touchPos.x, touchPos.y)
-			// console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
-			this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
-		}else{
-			alert("vuốt lên để phi tiêu")
+		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay}=this.state;
+		if(isPlay){
+			var touchPos = stage.getPointerPosition();
+			curFrame=0
+			darthVaderImg.hide();
+			if(dartPositionY >touchPos.y){
+				this.draw(touchPos.x, touchPos.y)
+				// console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
+				this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+			}else{
+				alert("vuốt lên để phi tiêu")
+			}
+			this.setState({isPlay:false})
 		}
 		
 	}
 
 	touchMove=()=>{
-		const {stage, layer, darthVaderImg}=this.state;
-		if(JSON.stringify(darthVaderImg) !== '{}'){
-			var touchPos = stage.getPointerPosition();
-			var x= touchPos.x-20;
-			var y= touchPos.y-100;
-			darthVaderImg.x(x);
-			darthVaderImg.y(y);
+		const {stage, layer, darthVaderImg, isPlay}=this.state;
+		if(isPlay){
+			if(JSON.stringify(darthVaderImg) !== '{}'){
+				var touchPos = stage.getPointerPosition();
+				var x= touchPos.x-20;
+				var y= touchPos.y-100;
+				darthVaderImg.x(x);
+				darthVaderImg.y(y);
+			}
 		}
 	}
 	updateFrame=()=>{
@@ -551,6 +486,7 @@ class Lucky_Rotation extends React.Component {
 			_this.setState({dartFlightImg:dartFlightImg})
 		};
 		dartFlight.src = dart_player;
+		
 	}
 
 	fireDart=(tarX, tarY)=> {
@@ -586,6 +522,7 @@ class Lucky_Rotation extends React.Component {
 
 	generateScore=()=> {
 		var user = JSON.parse(localStorage.getItem("user"));
+		var _this=this;
 		if (SEGMENT_NAMES[segmentType] == 'out') {
 	
 			totalScore = 0; // mimo herni pole
@@ -617,8 +554,9 @@ class Lucky_Rotation extends React.Component {
 		})
 
 		setTimeout(()=>{
+			_this.setState({isPlay:true})
 			this.showScore(totalScore)
-		}, 350);
+		}, 400);
 		
 			// console.log('AA:', totalScore)
 	}
@@ -690,7 +628,7 @@ class Lucky_Rotation extends React.Component {
 		layer.add(score_text)
 		stage.add(layer)
 		setTimeout(()=>{ 
-			score_text.remove()
+			score_text.remove();
 			clearInterval(inter)
 		}, 1000);
 
@@ -702,7 +640,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {user, image, auto_play, timing, day, hour, minute, second, data, countDart, points, listTop}=this.state;
+		const {user, image, auto_play, timing, day, hour, minute, second, data, countDart, points, listTop, isPlay}=this.state;
 
 
 		return (<div class="bg-page-sanqua position-relative">
@@ -764,7 +702,8 @@ class Lucky_Rotation extends React.Component {
 							</tbody>
 						</table>
 					</div>
-					{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>)}
+					<div>{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>)}</div>
+					
 					
 					<div id="div_checkbox" style={{position:'absolute', top:"90%", left:"37%", zIndex:999999}} onMouseDown={this.check_auto}></div>
 					<div id="div_exit" style={{position:'absolute', top:0, left:"83%", zIndex:999999}} onMouseDown={this.exit}></div>
@@ -798,10 +737,7 @@ const mapStateToProps = state => ({
 	dataPick: state.lucky.dataPick,
 	dataDetail: state.lucky.dataDetail,
 	dataTurn: state.lucky.dataTurn,
-	dataTuDo: state.lucky.dataTuDo,
 	dataHistoryTuDo: state.lucky.dataHistoryTuDo,
-	dataVinhDanh: state.lucky.dataVinhDanh,
-	dataCodeBonus: state.lucky.dataCodeBonus,
 	server:state.server.serverError,
 	waiting: state.lucky.waiting,
 })
@@ -813,7 +749,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	pickCard,
 	getInfoUser,
 	buyTurn,
-	getItemAward,
 	getHistoryTuDo,
 	getData,
 	getTuDo,
