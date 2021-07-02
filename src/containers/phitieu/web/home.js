@@ -30,7 +30,9 @@ import btn_dangnhap from './images/btn-dangnhap.png';
 import btn_sanqua from './images/btn-sanqua.png';
 import btn_duatop from './images/btn-duatop.png';
 import btn_vinhdanhsanqua_active from './images/btn-vinhdanhsanqua-active.png';
+import btn_vinhdanhsanqua from './images/btn-vinhdanhsanqua.png';
 import btn_bxhduatop from './images/btn-bxhduatop.png';
+import btn_bxhduatop_active from './images/btn-bxhduatop-active.png';
 import btn_huongdanmuathescoin from './images/btn-huongdanmuathescoin.png';
 import btn_nhanthongbaosukien from './images/btn-nhanthongbaosukien.png';
 import btn_napgame from './images/btn-napgame.png';
@@ -43,7 +45,9 @@ import btn_tudo from './images/btn-tudo.png';
 import img_thescoin200k from './images/img-thescoin200k.png';
 import img_thescoinvoucher from './images/img-thescoinvoucher.png';
 import btn_phanthuong_active from './images/btn-phanthuong-active.png';
+import btn_phanthuong from './images/btn-phanthuong.png';
 import btn_lichsu from './images/btn-lichsu.png';
+import btn_lichsu_active from './images/btn-lichsu-active.png';
 
 
 // import muiten from './images/muiten.png';
@@ -261,6 +265,11 @@ class Lucky_Rotation extends React.Component {
 				this.setState({server_err:true})
 			}
 		});
+		this.setState({duatop: false, vinhdanh:true})
+	}
+
+	getDuaTop=()=>{
+		this.setState({duatop: true, vinhdanh:false})
 	}
 
 	getStatus=(luckySpin)=>{
@@ -558,7 +567,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	render() {
-		const {xacthuc,urlVideo,timeWaiting,height, width, auto, isLogin, day, hour, minute, second,len_auto, code, img_status, message_status, data_auto,message_error,dataItem,startSpin,
+		const {duatop, vinhdanh, xacthuc,urlVideo,timeWaiting,height, width, auto, isLogin, day, hour, minute, second,len_auto, code, img_status, message_status, data_auto,message_error,dataItem,startSpin,
 			waiting, activeTuDo, activeHistory, activeCodeBonus, activeVinhDanh, limit, countCodeBonus, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh,itemBonus, turnsFree, hour_live, minute_live, second_live, isLive, user}=this.state;
 		const { classes } = this.props;
 		return (<div>	
@@ -585,10 +594,10 @@ class Lucky_Rotation extends React.Component {
 								<div class="bxh position-relative mx-auto">
 									<ul class="nav nav-pills nav-justified" role="tablist">
 										<li class="nav-item">
-										<a class="nav-link btn-vinhdanh active p-0" data-toggle="pill" href="#home"><img src={btn_vinhdanhsanqua_active} width="340" hspace="5" id="image-1" /></a>
+											<a class="nav-link btn-vinhdanh p-0" data-toggle="pill" href="#home" onClick={this.getVinhDanh}><img src={vinhdanh?btn_vinhdanhsanqua_active:btn_vinhdanhsanqua} width="340" hspace="5" id="image-1" /></a>
 										</li>
 										<li class="nav-item">
-										<a class="nav-link btn-bxhduatop p-0" data-toggle="pill" href="#menu1"><img src={btn_bxhduatop} width="340" hspace="5" id="image-2" /></a>
+											<a class="nav-link btn-bxhduatop p-0" data-toggle="pill" href="#menu1" onClick={this.getDuaTop}><img src={duatop?btn_bxhduatop_active:btn_bxhduatop} width="340" hspace="5" id="image-2" /></a>
 										</li>
 									</ul>
 									
@@ -635,7 +644,7 @@ class Lucky_Rotation extends React.Component {
 								</div>
 								<div class="btn-h position-relative">
 									<a href="#" title="Hướng dẫn mua thẻ scoin" target="_blank"><img src={btn_huongdanmuathescoin} width="340" hspace="10" /></a>
-									<a href="#" title="Nhận thông báo sự kiện"><img src="images/btn-nhanthongbaosukien.png" width="340" hspace="10" /></a>
+									<a href="#" title="Nhận thông báo sự kiện"><img src={btn_nhanthongbaosukien} width="340" hspace="10" /></a>
 								</div>
 								<div class="btn-h position-relative mt-2">
 									<a href="#" title="Nạp game" target="_blank"><img src={btn_napgame} width="150" hspace="100" /></a>
@@ -673,14 +682,14 @@ class Lucky_Rotation extends React.Component {
 
 
 			{/* <!-- The Modal Thông báo đăng nhập--> */}
-			<div className="modal fade" id="myModal5">
+			<div className="modal fade" id="Modaldangnhap">
 				<div class="modal-dialog modal-dangnhap">
 					<div class="modal-content bg-transparent border-0">
 					<div class="modal-header border-0 p-0 text-dark">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body border-0">
-						<h2 class="font-size-3vw font-weight-bold text-uppercase text-center">Bạn vẫn chưa đăng nhập</h2>
+						<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn vẫn chưa đăng nhập</h2>
 						<p class="text-center"><a title="Đăng nhập" onClick={this.loginAction}><img src={btn_dangnhap} width="30%" alt="" /></a></p>
 					</div>
 
@@ -700,20 +709,20 @@ class Lucky_Rotation extends React.Component {
 					<div class="modal-body border-0 py-0 my-2 px-3 scroll-modal-body">      	
 						<div class="row mx-0 mb-1 border-giaithuong-e">
 							<div class="col-12 text-center text-brown pt-1">
-								<h2 class="font-size-3vw font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
-								<p class="font-size-3vw mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
+								<h2 class="font-size-16 font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
+								<p class="font-size-16 mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
 							</div>
 							<div class="col-4 text-center">
 								<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
-								<p class="font-size-3vw text-phanthuong text-yellow">Topup Scoin 50k</p>
+								<p class="font-size-16 text-yellow">Topup Scoin 50k</p>
 							</div>
 							<div class="col-4 text-center">
 								<p class="m-0"><img src={img_thescoin200k} alt="" width="60%" /></p>
-								<p class="font-size-3vw text-phanthuong text-yellow">Thẻ Scoin 200k</p>
+								<p class="font-size-16 text-yellow">Thẻ Scoin 200k</p>
 							</div>
 							<div class="col-4 text-center">
 								<p class="m-0"><img src={img_thescoinvoucher} alt="" width="60%" /></p>
-								<p class="font-size-3vw text-phanthuong text-yellow">Thẻ Scoin Voucher 10k</p>
+								<p class="font-size-16 text-yellow">Thẻ Scoin Voucher 10k</p>
 							</div>
 						</div>
 					</div>
@@ -730,8 +739,8 @@ class Lucky_Rotation extends React.Component {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 
-					<div class="modal-body border-0 py-0 my-0 px-3 scroll-modal-body">
-						{/* <!-- Nav pills --> */}
+					<div class="modal-body border-0 py-0 my-0 mt-3 px-3 scroll-modal-body">
+
 						<ul class="nav nav-pills nav-justified mx-auto">
 						<li class="nav-item">
 							<a class="nav-link py-0 active" data-toggle="pill" href="#tabphanthuong"><img src={btn_phanthuong_active} width="100%" hspace="5" id="image-3" /></a>
@@ -741,10 +750,10 @@ class Lucky_Rotation extends React.Component {
 						</li>
 
 						</ul>        
-						{/* <!-- Tab panes --> */}
+
 						<div class="tab-content">
 							<div class="tab-pane active" id="tabphanthuong">
-								<table class="table table-borderless text-center font-size-3vw mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
+								<table class="table table-borderless text-center font-size-16 mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
 									<thead>
 									<tr class="bg-border-bottom">
 										<th class="p-1 bg-border-right w-25 valign-middle">Phần thưởng</th>
@@ -772,9 +781,9 @@ class Lucky_Rotation extends React.Component {
 									<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
 								</ul>
 							</div>
-							{/* <!--End tabphanthuong --> */}
+
 							<div class="tab-pane fade" id="tablichsu">
-								<table class="table table-borderless text-center font-size-3vw mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
+								<table class="table table-borderless text-center font-size-16 mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
 									<thead>
 									<tr class="bg-border-bottom">
 										<th class="p-1 bg-border-right w-25 valign-middle">Phần thưởng</th>
@@ -809,70 +818,6 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 
-			{/* <!-- Thông báo --> */}
-
-			{/* <div className="modal fade" id="myModal11" style={{zIndex:10010}}>
-				<div className="modal-dialog">
-					<div className="modal-content popup-phanthuong">
-
-					<div className="modal-header border-bottom-0">
-						<h4 className="modal-title w-100 text-center"><img src={img_thongbao} alt="" /></h4>
-						<button type="button" className="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
-					</div>
-
-					<div className="modal-body">
-						<div className="table-responsive mt-2">              
-							<h5 className="text-thele lead text-center">{message_error}</h5>
-						</div>       
-					</div>
-
-					</div>
-				</div>
-			</div> */}
-
-				
-			{/* <!-- Thông báo bảo trì --> */}
-			{/* <div className="modal fade" id="myModal12" style={{zIndex: 10010}}>
-				<div className="modal-dialog">
-					<div className="modal-content popup-phanthuong">
-					<div className="modal-header border-bottom-0">
-						<h4 className="modal-title w-100 text-center"><img src={img_thongbao} alt="" /></h4>
-						<button type="button" className="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
-					</div>
-
-					<div className="modal-body">
-						<div className="table-responsive mt-2">              
-							<h5 className="text-thele lead text-center">Thông báo bảo trì!</h5>
-							<h5 className="text-thele lead text-center">Chức năng này đang được nâng cấp để tối ưu. Vui lòng quay lại sau 10 phút.</h5>
-							<h5 className="text-thele lead text-center">Xin lỗi vì sự bất tiện này</h5>
-							<button type="button" className="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.closeServerErr}>Xác nhận</button>
-						</div>       
-					</div>
-
-					</div>
-				</div>
-			</div> */}
-
-			{/* <!-- The Modal Thông báo Active tk VIP--> */}
-			{/* <div class="modal fade" id="activeVip">
-				<div class="modal-dialog">
-					<div class="modal-content popup-phanthuong">
-						<div class="modal-header border-bottom-0">
-							<h4 class="modal-title w-100 text-center"><img src={img_thongbao} alt="" /></h4>
-							<button type="button" class="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
-						</div>
-						<div class="modal-body">
-							<div class="table-responsive mt-2">              
-								<h5 class="text-thele lead text-center">Tài khoản của bạn chưa phải là Vip. Hãy kích hoạt tài khoản Vip để chơi.</h5>
-								<a href="https://vip.scoin.vn" type="button" target="_blank" class="btn btn-xacnhan text-white btn-block text-center py-4">Trang chủ VIP</a>
-							</div>       
-						</div>
-
-					</div>
-				</div>
-			</div> */}
-			
-				
 				<ReactResizeDetector handleWidth={true} handleHeight={true} onResize={this.onResize} />
 
 

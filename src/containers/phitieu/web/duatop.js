@@ -779,7 +779,7 @@ class Lucky_Rotation extends React.Component {
 			<h2 class="font-size-14 text-warning m-0 text-center"> VIP Kim Cương</h2>
 		</div>
 
-		<div class="phit1ieu-status marquee">
+		<div class="phitieu-status marquee">
 			<div class="marquee_inner">            
 				<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
 				<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	

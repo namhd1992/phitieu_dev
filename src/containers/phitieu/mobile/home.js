@@ -563,7 +563,7 @@ class Lucky_Rotation extends React.Component {
 		const { classes } = this.props;
 		return (<div>
 					<div class="container page_m position-relative">
-						<div class="login d-flex flex-row-reverse">
+						<div class="d-flex flex-row-reverse">
 							<div class="align-self-center">
 								<a href="#Modaldangnhap" title="Đăng nhập" data-toggle="modal"><img src={btn_dangnhap} alt="" width="100" /></a>
 							</div>
