@@ -141,13 +141,20 @@ export default (state = initialState, action) => {
 	}
 }
 
-export const getLuckyInfo = () => {
+export const getLuckyInfo = (type, token) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"token": token,
+		}
+	}
+
 	return dispatch => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "luckywheel/event-info"
-		return axios.get(url).then(function (response) {
+		var url = Ultilities.base_url() + "darts/current-session/?type="+type
+		return axios.get(url, header).then(function (response) {
 			console.log(response)
 			dispatch({
 				type: LUCKY_INFO,
@@ -160,6 +167,109 @@ export const getLuckyInfo = () => {
 		})
 	}
 }
+
+
+export const getDataUserSpin = (type, points, token) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"token": token,
+		}
+	}
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + `darts/user-throw/?type=${type}&points=${points}`;
+		return axios.get(url, header).then(function (response) {
+			dispatch({
+				type: DATA_USER_SPIN,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
+export const getVinhDanh = (limit, offset, type) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			// "token": token,
+		}
+	}
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "darts/award-table/?type="+type+"&limit=" + limit + "&offset=" + offset;
+		return axios.get(url, header).then(function (response) {
+			dispatch({
+				type: LUCKY_VINH_DANH,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
+export const getTuDo = (token, limit, offset) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"token": token,
+		}
+	}
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "darts/user-awards?offset=" + offset + "&limit=" + limit;
+		return axios.get(url, header).then(function (response) {
+			dispatch({
+				type: LUCKY_TU_DO,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
+
+export const getHistoryTuDo = (token, limit, offset) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"token": token,
+		}
+	}
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "luckywheel/user-spin-history/?offset=" + offset + "&limit=" + limit;
+		return axios.get(url, header).then(function (response) {
+			dispatch({
+				type: LUCKY_HISTORY_TU_DO,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
 
 export const getLuckyItems = () => {
 	return dispatch => {
@@ -181,30 +291,6 @@ export const getLuckyItems = () => {
 	}
 }
 
-export const getVinhDanh = (limit, offset) => {
-	var header = {
-		headers: {
-			"Content-Type": "application/json",
-			// "token": token,
-		}
-	}
-	return dispatch => {
-		dispatch({
-			type: LUCKY_REQUEST
-		})
-		var url = Ultilities.base_url() + "luckywheel/award-table/?limit=" + limit + "&offset=" + offset;
-		return axios.get(url, header).then(function (response) {
-			dispatch({
-				type: LUCKY_VINH_DANH,
-				data: response.data
-			})
-		}).catch(function (error) {
-			dispatch({
-				type: SERVER_ERROR
-			})
-		})
-	}
-}
 
 export const getInfoUser = (token) => {
 	
@@ -234,30 +320,7 @@ export const getInfoUser = (token) => {
 }
 
 
-export const getDataUserSpin = (token) => {
-	var header = {
-		headers: {
-			"Content-Type": "application/json",
-			"token": token,
-		}
-	}
-	return dispatch => {
-		dispatch({
-			type: LUCKY_REQUEST
-		})
-		var url = Ultilities.base_url() + "luckywheel/user-spins";
-		return axios.get(url, header).then(function (response) {
-			dispatch({
-				type: DATA_USER_SPIN,
-				data: response.data
-			})
-		}).catch(function (error) {
-			dispatch({
-				type: SERVER_ERROR
-			})
-		})
-	}
-}
+
 
 
 export const userLogout = (token) => {
@@ -302,56 +365,7 @@ export const pickCard = (token) => {
 	}
 }
 
-export const getTuDo = (token, limit, offset) => {
-	var header = {
-		headers: {
-			"Content-Type": "application/json",
-			"token": token,
-		}
-	}
-	return dispatch => {
-		dispatch({
-			type: LUCKY_REQUEST
-		})
-		var url = Ultilities.base_url() + "luckywheel/user-awards/?offset=" + offset + "&limit=" + limit;
-		return axios.get(url, header).then(function (response) {
-			dispatch({
-				type: LUCKY_TU_DO,
-				data: response.data
-			})
-		}).catch(function (error) {
-			dispatch({
-				type: SERVER_ERROR
-			})
-		})
-	}
-}
 
-
-export const getHistoryTuDo = (token, limit, offset) => {
-	var header = {
-		headers: {
-			"Content-Type": "application/json",
-			"token": token,
-		}
-	}
-	return dispatch => {
-		dispatch({
-			type: LUCKY_REQUEST
-		})
-		var url = Ultilities.base_url() + "luckywheel/user-spin-history/?offset=" + offset + "&limit=" + limit;
-		return axios.get(url, header).then(function (response) {
-			dispatch({
-				type: LUCKY_HISTORY_TU_DO,
-				data: response.data
-			})
-		}).catch(function (error) {
-			dispatch({
-				type: SERVER_ERROR
-			})
-		})
-	}
-}
 
 export const getItemAward = (token, award_id) => {
 	var header = {

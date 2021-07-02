@@ -13,7 +13,6 @@ import {
 	getTuDo,
 	getHistoryTuDo,
 	getCodeBonus,
-	getVinhDanh,
 	getLuckyInfo,
 	getLuckyItems,
 	getInfoUser,
@@ -156,7 +155,6 @@ class Lucky_Rotation extends React.Component {
 		// 	}
 		// })
 
-		// this.getVinhDanh(1);
 
 
 		// if (user !== null) {
@@ -258,26 +256,6 @@ class Lucky_Rotation extends React.Component {
 		}
 	}
 
-	getVinhDanh=(pageNumber)=>{
-		const {limit}=this.state;
-		var offsetVinhDanh=(pageNumber-1)*limit;
-		this.props.getVinhDanh(limit, offsetVinhDanh).then(()=>{
-			var data=this.props.dataVinhDanh;
-			if(data!==undefined){
-				if(data.Status===0){
-					var listVinhDanh=data.Data;
-					console.log(listVinhDanh)
-					this.setState({listVinhDanh:data.Data, countVinhDanh:data.Totals})
-				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Không lấy được dữ liệu bảng vinh danh.'})
-				}
-			}else{
-				$('#myModal12').modal('show');
-				this.setState({server_err:true})
-			}
-		});
-	}
 
 	getStatus=(luckySpin)=>{
 		var StartDate=luckySpin.StartDate;
@@ -378,7 +356,6 @@ class Lucky_Rotation extends React.Component {
 	getDetailData=()=>{
 		const {auto}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
-		this.getVinhDanh(1);
 		this.props.getDataUserSpin(user.Token).then(()=>{
 			var data=this.props.dataUserSpin;
 			if(data!==undefined){
@@ -555,7 +532,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getData,
 	getTuDo,
 	getCodeBonus,
-	getVinhDanh,
 	getLuckyInfo,
 	getLuckyItems,
 	userLogout,

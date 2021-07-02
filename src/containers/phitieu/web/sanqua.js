@@ -17,7 +17,6 @@ import {
 	getTuDo,
 	getHistoryTuDo,
 	getCodeBonus,
-	getVinhDanh,
 	getLuckyInfo,
 	getLuckyItems,
 	getInfoUser,
@@ -124,8 +123,6 @@ class Lucky_Rotation extends React.Component {
 			hour_live:'00', 
 			minute_live:'00', 
 			second_live:'00',
-			linkLiveStream:'',
-			isLive:false,
 			user:{},
 			timeWaiting:0,
 			dataItem:{},
@@ -156,11 +153,6 @@ class Lucky_Rotation extends React.Component {
 		this.setState({innerWidth:window.innerWidth})
 	}
 
-	componentDidUpdate(oldProps) {
-		// if (oldProps.src !== this.props.src) {
-		//   this.loadImage();
-		// }
-	}
 
 
 
@@ -276,8 +268,9 @@ class Lucky_Rotation extends React.Component {
 
 		const {img_width, img_height}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
+		this.setState({user:user})
 
-		this.props.getLuckyInfo().then(()=>{
+		this.props.getLuckyInfo(1, user.Token).then(()=>{
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
@@ -286,21 +279,11 @@ class Lucky_Rotation extends React.Component {
 			}
 		})
 
-		this.props.getLuckyItems().then(()=>{
-			var data=this.props.dataLuckyItems;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.setState({itemOfSpin: data.Data})
-				}
-			}
-		})
-
-		this.getVinhDanh(1);
 
 
 		if (user !== null) {
 			this.setState({isLogin:true, user:user})
-			this.props.getDataUserSpin(user.Token).then(()=>{
+			this.props.getDataUserSpin(1,0,user.Token).then(()=>{
 				var data=this.props.dataUserSpin;
 				if(data!==undefined){
 					if(data.Status===0){
@@ -389,9 +372,6 @@ class Lucky_Rotation extends React.Component {
 		}
 	}
 
-	getVinhDanh=(pageNumber)=>{
-	
-	}
 
 	getStatus=(luckySpin)=>{
 		var StartDate=luckySpin.StartDate;
@@ -437,7 +417,6 @@ class Lucky_Rotation extends React.Component {
 	getDetailData=()=>{
 		const {auto}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
-		this.getVinhDanh(1);
 		this.props.getDataUserSpin(user.Token).then(()=>{
 			var data=this.props.dataUserSpin;
 			if(data!==undefined){
@@ -783,7 +762,7 @@ class Lucky_Rotation extends React.Component {
 						</div>
 					</div>
 					<div class="account-name">
-						<p class="font-size-16 text-white mb-0 text-center">Đặng Lê</p>
+						<p class="font-size-16 text-white mb-0 text-center">{user.Username}</p>
 						<h2 class="font-size-14 text-warning m-0 text-center">VIP Kim Cương</h2>
 					</div>
 					{/* <div class="btn-login">
@@ -875,7 +854,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getData,
 	getTuDo,
 	getCodeBonus,
-	getVinhDanh,
 	getLuckyInfo,
 	getLuckyItems,
 	userLogout,
@@ -887,49 +865,3 @@ export default connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(Lucky_Rotation)
-
-{/* <Stage width={window.innerWidth} height={window.innerHeight}>
-				<Layer>
-					<Image
-						x={150}
-						y={150}
-						image={image}
-						ref={node => {
-							this.imageNode = node;
-						  }}
-						  draggable
-						fill={this.state.isDragging ? 'green' : 'black'}
-						onDragStart={() => {
-						this.setState({
-							isDragging: true
-						});
-						}}
-						onDragEnd={e => {
-						this.setState({
-							isDragging: false,
-							x: e.target.x(),
-							y: e.target.y()
-						});
-						}}
-					/>
-					<Text
-						text="Draggable Text"
-						x={this.state.x}
-						y={this.state.y}
-						draggable
-						fill={this.state.isDragging ? 'green' : 'black'}
-						onDragStart={() => {
-						this.setState({
-							isDragging: true
-						});
-						}}
-						onDragEnd={e => {
-						this.setState({
-							isDragging: false,
-							x: e.target.x(),
-							y: e.target.y()
-						});
-						}}
-					/>
-				</Layer>
-			</Stage> */}

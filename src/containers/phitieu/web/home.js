@@ -27,6 +27,7 @@ import {
 } from '../../../modules/profile'
 
 import btn_dangnhap from './images/btn-dangnhap.png';
+import btn_dangxuat from './images/btn-dangxuat.png';
 import btn_sanqua from './images/btn-sanqua.png';
 import btn_duatop from './images/btn-duatop.png';
 import btn_vinhdanhsanqua_active from './images/btn-vinhdanhsanqua-active.png';
@@ -142,38 +143,11 @@ class Lucky_Rotation extends React.Component {
 		const {img_width, img_height}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 
-		this.props.getLuckyInfo().then(()=>{
-			var data=this.props.dataLuckyInfo;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.getStatus(data.Data)
-				}
-			}
-		})
-
-		this.props.getLuckyItems().then(()=>{
-			var data=this.props.dataLuckyItems;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.setState({itemOfSpin: data.Data})
-				}
-			}
-		})
-
 		this.getVinhDanh(1);
 
 
 		if (user !== null) {
 			this.setState({isLogin:true, user:user})
-			this.props.getDataUserSpin(user.Token).then(()=>{
-				var data=this.props.dataUserSpin;
-				if(data!==undefined){
-					if(data.Status===0){
-						this.setState({turnsFree: data.Spins})
-					}
-				}
-
-			})
 		} 
 		
 		window.addEventListener('scroll', this.handleScroll);
@@ -249,7 +223,7 @@ class Lucky_Rotation extends React.Component {
 	getVinhDanh=(pageNumber)=>{
 		const {limit}=this.state;
 		var offsetVinhDanh=(pageNumber-1)*limit;
-		this.props.getVinhDanh(limit, offsetVinhDanh).then(()=>{
+		this.props.getVinhDanh(limit, offsetVinhDanh, 1).then(()=>{
 			var data=this.props.dataVinhDanh;
 			if(data!==undefined){
 				if(data.Status===0){
@@ -418,13 +392,13 @@ class Lucky_Rotation extends React.Component {
 		var user = JSON.parse(localStorage.getItem("user"));
 		if (user !== null) {
 			if(user.VipLevel!==0){
-				this.getDataTuDo(user);
-				$('#myModal4').modal('hide');
+				// this.getDataTuDo(user);
+				$('#Modaltudo').modal('show');
 			}else{
 				$('#activeVip').modal('show');
 			}
 		}else {
-			$('#myModal5').modal('show');
+			$('#Modaldangnhap').modal('show');
 		}
 	}
 
@@ -566,31 +540,50 @@ class Lucky_Rotation extends React.Component {
 
 	}
 
+	dangNhap=()=>{
+		$('#Modaldangnhap').modal('show');
+	}
+
 	render() {
 		const {duatop, vinhdanh, xacthuc,urlVideo,timeWaiting,height, width, auto, isLogin, day, hour, minute, second,len_auto, code, img_status, message_status, data_auto,message_error,dataItem,startSpin,
 			waiting, activeTuDo, activeHistory, activeCodeBonus, activeVinhDanh, limit, countCodeBonus, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh,itemBonus, turnsFree, hour_live, minute_live, second_live, isLive, user}=this.state;
 		const { classes } = this.props;
 		return (<div>	
 					<div class="container-fluid page position-relative">
-						<div class="login d-flex flex-row-reverse">
+						{(isLogin)?(<div class="login d-flex flex-row-reverse">
 							<div class="align-self-center">
-								<a href="#Modaldangnhap" title="Đăng nhập" data-toggle="modal"><img src={btn_dangnhap} alt="" width="100" /></a>
+								<a title="Đăng nhập" onClick={this.logoutAction} style={{cursor:'pointer'}}><img src={btn_dangxuat} alt="" width="100" /></a>
 							</div>
 							<div class="text-center align-self-center pr-1">
-								<p class="font-size-16 text-white mb-0">Đặng Lê</p>
+								<p class="font-size-16 text-white mb-0">{user.Username}</p>
+								{/* {(user.VipLevel===1)?(<a href="http://vip.scoin.vn" title="VIP Đồng" target="_blank">VIP Đồng <img src={vip_dong} alt="VIP Đồng" width="16" /></a>):(<div></div>)}
+								{(user.VipLevel===2)?(<a href="http://vip.scoin.vn" title="VIP Bạc" target="_blank">VIP Bạc <img src={vip_bac} alt="VIP Bạc" width="16" /></a>):(<div></div>)}
+								{(user.VipLevel===3)?(<a href="http://vip.scoin.vn" title="VIP Vàng" target="_blank">VIP Vàng <img src={vip_vang} alt="VIP Vàng" width="16" /></a>):(<div></div>)}
+								{(user.VipLevel===4)?(<a href="http://vip.scoin.vn" title="VIP bạch kim" target="_blank">VIP Bạch kim <img src={vip_bachkim} alt="VIP Bạch kim" width="16" /></a>):(<div></div>)} */}
 								<h2 class="font-size-14 text-warning m-0">VIP Kim Cương</h2>
 							</div>
-						</div>
+						</div>):(<div class="login d-flex flex-row-reverse">
+							<div class="align-self-center">
+								<a title="Đăng nhập" onClick={this.loginAction} style={{cursor:'pointer'}}><img src={btn_dangnhap} alt="" width="100" /></a>
+							</div>
+						</div>)}
+						
 						<div class="bg-top position-relative">
 							<div class="bg-bottom">
-								<div class="btn-s position-relative">
+								{(isLogin)?(<div class="btn-s position-relative">
 									<Link to="/sanqua">
-										<a><img src={btn_sanqua} width="200px" hspace="10" /></a>
+										<a style={{cursor:'pointer'}}><img src={btn_sanqua} width="200px" hspace="10" /></a>
 									</Link>
 									<Link to="/duatop">
-										<a><img src={btn_duatop} width="200px" hspace="10" /></a>
+										<a style={{cursor:'pointer'}}><img src={btn_duatop} width="200px" hspace="10" /></a>
 									</Link>
+								</div>):(
+								<div class="btn-s position-relative">
+									 	<a title="Săn quà" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_sanqua} width="200" hspace="10" /></a>
+               							<a title="Đua TOP" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_duatop} width="200" hspace="10" /></a>
 								</div>
+								)}
+								
 								<div class="bxh position-relative mx-auto">
 									<ul class="nav nav-pills nav-justified" role="tablist">
 										<li class="nav-item">
@@ -603,7 +596,7 @@ class Lucky_Rotation extends React.Component {
 									
 									<div class="tab-content bg-bxh">
 										<div id="home" class="tab-pane active pt-3 pb-3 px-3">
-										<table class="table table-borderless text-center font-size-16 mb-0 text-red" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "39px"}}>
+										<table class="table table-borderless text-center font-size-16 mb-0 text-red" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "35px"}}>
 											<thead>
 											<tr class="bg-border-bottom">
 												<th class="p-1 bg-border-right w-33">Tài khoản</th>
@@ -617,12 +610,71 @@ class Lucky_Rotation extends React.Component {
 												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
 												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
 											</tr>
+											<tr class="bg-border-bottom">
+												<td class="p-0 bg-border-right w-33">John</td>
+												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
+												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
+											</tr>
+											
+											<tr class="bg-border-bottom">
+												<td class="p-0 bg-border-right w-33">John</td>
+												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
+												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
+											</tr>
+											
+											<tr class="bg-border-bottom">
+												<td class="p-0 bg-border-right w-33">John</td>
+												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
+												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
+											</tr>
+											
+											<tr class="bg-border-bottom">
+												<td class="p-0 bg-border-right w-33">John</td>
+												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
+												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
+											</tr>
+											<tr class="bg-border-bottom">
+												<td class="p-0 bg-border-right w-33">John</td>
+												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
+												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
+											</tr>
+											<tr class="bg-border-bottom">
+												<td class="p-0 bg-border-right w-33">John</td>
+												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
+												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
+											</tr>
+											
+											<tr class="bg-border-bottom">
+												<td class="p-0 bg-border-right w-33">John</td>
+												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
+												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
+											</tr>
+											<tr class="bg-border-bottom">
+												<td class="p-0 bg-border-right w-33">John</td>
+												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
+												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
+											</tr>
+											
+											<tr class="bg-border-bottom">
+												<td class="p-0 bg-border-right w-33">John</td>
+												<td class="p-0 bg-border-right w-33">Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim Gói quà bạch kim</td>
+												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
+											</tr>
+
 											
 											</tbody>
 										</table>
+										<ul class="pagination justify-content-center pag-custom mt-1">
+											<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
+											<li class="page-item"><a class="page-link" href="#">1</a></li>
+											<li class="page-item active"><a class="page-link" href="#">2</a></li>
+											<li class="page-item"><a class="page-link" href="#">3</a></li>
+											<li class="page-item"><a class="page-link" href="#">...</a></li>
+											<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+										</ul>
 										</div>
-										<div id="menu1" class="tab-pane fade pt-3 pb-3">
-										<table class="table table-borderless text-center font-size-16 mb-0 text-red" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "39px"}}>
+										<div id="menu1" class="tab-pane fade pt-3 pb-3 px-3">
+										<table class="table table-borderless text-center font-size-16 mb-0 text-red" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "35px"}}>
 											<thead>
 											<tr class="bg-border-bottom">
 												<th class="p-1 bg-border-right w-33">Tài khoản</th>
@@ -639,6 +691,14 @@ class Lucky_Rotation extends React.Component {
 											
 											</tbody>
 										</table>
+										<ul class="pagination justify-content-center pag-custom mt-1">
+											<li class="page-item"><a class="page-link page-be" href="#">Trang đầu</a></li>
+											<li class="page-item"><a class="page-link" href="#">1</a></li>
+											<li class="page-item active"><a class="page-link" href="#">2</a></li>
+											<li class="page-item"><a class="page-link" href="#">3</a></li>
+											<li class="page-item"><a class="page-link" href="#">...</a></li>
+											<li class="page-item"><a class="page-link page-be" href="#">Trang cuối</a></li>
+										</ul>
 										</div>                
 									</div>
 								</div>
@@ -675,7 +735,7 @@ class Lucky_Rotation extends React.Component {
 									<a href="#Modalgiaithuong" title="Giải thưởng" data-toggle="modal"><p class="mb-0 menu-link"></p></a>
 									<a href="#" title="Lịch sử giao dịch"><p class="mb-0 menu-link"></p></a>
 								</div>
-								<div class="menu-right"><a href="#Modaltudo" title="Tủ đồ" data-toggle="modal"><img src={btn_tudo} width="100%" alt="" /></a></div>
+								<div class="menu-right"><a  title="Tủ đồ" onClick={this.showModalTuDo} style={{cursor:'pointer'}}><img src={btn_tudo} width="100%" alt="" /></a></div>
 							</div>
 						</div> 
 					</div>
@@ -683,6 +743,23 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Thông báo đăng nhập--> */}
 			<div className="modal fade" id="Modaldangnhap">
+				<div class="modal-dialog modal-dangnhap">
+					<div class="modal-content bg-transparent border-0">
+					<div class="modal-header border-0 p-0 text-dark">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body border-0">
+						<h5 class="text-thele lead text-center">Tài khoản của bạn chưa phải là Vip. Hãy kích hoạt tài khoản Vip để chơi.</h5>
+						<a href="https://vip.scoin.vn" type="button" target="_blank" class="btn btn-xacnhan text-white btn-block text-center py-4">Trang chủ VIP</a>
+					</div>
+
+					</div>
+				</div>
+			</div>
+
+			
+			{/* <!-- The Modal Thông báo đăng nhập--> */}
+			<div className="modal fade" id="activeVip">
 				<div class="modal-dialog modal-dangnhap">
 					<div class="modal-content bg-transparent border-0">
 					<div class="modal-header border-0 p-0 text-dark">
@@ -789,7 +866,6 @@ class Lucky_Rotation extends React.Component {
 										<th class="p-1 bg-border-right w-25 valign-middle">Phần thưởng</th>
 										<th class="p-1 bg-border-right w-25 valign-middle">Nội dung</th>
 										<th class="p-1 bg-border-right w-25 valign-middle">Thời gian trúng</th>
-										<th class="p-1 w-25 valign-middle">Mở quà</th>
 									</tr>
 									</thead>
 									<tbody>
@@ -797,7 +873,6 @@ class Lucky_Rotation extends React.Component {
 										<td class="p-0 bg-border-right w-25 valign-middle">John</td>
 										<td class="p-0 bg-border-right w-25 valign-middle">Gói quà bạch kim Gói quà bạch kim</td>
 										<td class="p-0 bg-border-right w-25 valign-middle">12:24:58 19/05/2021</td>
-										<td class="p-1 w-25 valign-middle"><a href="#" title="Mở quà">Mở quà</a></td>
 									</tr>
 									</tbody>
 								</table>

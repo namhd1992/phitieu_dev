@@ -17,7 +17,6 @@ import {
 	getTuDo,
 	getHistoryTuDo,
 	getCodeBonus,
-	getVinhDanh,
 	getLuckyInfo,
 	getLuckyItems,
 	getInfoUser,
@@ -295,8 +294,6 @@ class Lucky_Rotation extends React.Component {
 			}
 		})
 
-		this.getVinhDanh(1);
-
 
 		if (user !== null) {
 			this.setState({isLogin:true, user:user})
@@ -389,9 +386,6 @@ class Lucky_Rotation extends React.Component {
 		}
 	}
 
-	getVinhDanh=(pageNumber)=>{
-	
-	}
 
 	getStatus=(luckySpin)=>{
 		var StartDate=luckySpin.StartDate;
@@ -437,7 +431,6 @@ class Lucky_Rotation extends React.Component {
 	getDetailData=()=>{
 		const {auto}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
-		this.getVinhDanh(1);
 		this.props.getDataUserSpin(user.Token).then(()=>{
 			var data=this.props.dataUserSpin;
 			if(data!==undefined){
@@ -829,7 +822,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getData,
 	getTuDo,
 	getCodeBonus,
-	getVinhDanh,
 	getLuckyInfo,
 	getLuckyItems,
 	userLogout,
