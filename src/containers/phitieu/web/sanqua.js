@@ -283,7 +283,7 @@ class Lucky_Rotation extends React.Component {
 					console.log(data.Data)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
-					$('#Modalnone').modal('show');
+					// $('#Modalnone').modal('show');
 				}else{
 					console.log("Lỗi")
 				}
@@ -585,7 +585,7 @@ class Lucky_Rotation extends React.Component {
 	   }
 
 	generateScore=()=> {
-
+		var user = JSON.parse(localStorage.getItem("user"));
 		if (SEGMENT_NAMES[segmentType] == 'out') {
 	
 			totalScore = 0; // mimo herni pole
@@ -609,7 +609,17 @@ class Lucky_Rotation extends React.Component {
 				if (SEGMENT_NAMES[segmentType] == 'tripple') totalScore *= 3; // prostredni pole - tripple
 			}
 		}
-		this.showScore(totalScore)
+		this.props.getDartScore(1, totalScore, user.Token).then(()=>{
+			var data=this.props.dataUserSpin;
+			if(data.Status===0){
+				this.setState({countDart: data.Darts, points: data.Points, listTop:data.TopList})
+			}
+		})
+
+		setTimeout(()=>{
+			this.showScore(totalScore)
+		}, 350);
+		
 			// console.log('AA:', totalScore)
 	}
 
@@ -640,8 +650,8 @@ class Lucky_Rotation extends React.Component {
 		}
 		var x=this.getRandomInt(startX, endX);
 		var y=this.getRandomInt(startY, endY);
-		this.draw(x,y);
-		this.fireDart(x, y-heightFrame/2 + 12)
+		this.draw(x,y+heightFrame/2);
+		this.fireDart(x, y + 12)
 	}
 
 
@@ -650,7 +660,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	showScore=(totalScore)=>{
-		var user = JSON.parse(localStorage.getItem("user"));
+		
 		var score=totalScore>9?totalScore:'0'+totalScore;
 		const {layer, stage}=this.state;
 		var newH=stage.height() / 2;
@@ -665,6 +675,8 @@ class Lucky_Rotation extends React.Component {
 			text: score,
 			fill: 'yellow',
 			fontStyle:'bold',
+			stroke:'black',
+			strokeWidth: 1.5,
 			text: score,
 		});
 
@@ -682,12 +694,7 @@ class Lucky_Rotation extends React.Component {
 			clearInterval(inter)
 		}, 1000);
 
-		this.props.getDartScore(1, totalScore, user.Token).then(()=>{
-			var data=this.props.dataUserSpin;
-			if(data.Status===0){
-				this.setState({countDart: data.Darts, points: data.Points, listTop:data.TopList})
-			}
-		})
+		
 		this.setState({score_text:score_text})
 	}
 
