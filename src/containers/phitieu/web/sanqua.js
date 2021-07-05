@@ -36,6 +36,12 @@ import img_checkbox_none from './images/img-checkbox-none.png';
 import img_checkbox_checked from './images/img-checkbox-checked.png';
 import btn_thoat from './images/btn-thoat.png';
 import btn_duatop from './images/btn-duatop.png';
+import vip_kimcuong from './images/vip-kimcuong.png';
+import vip_bachkim from './images/vip-bachkim.png';
+import vip_vang from './images/vip-vang.png';
+import vip_bac from './images/vip-bac.png';
+import vip_dong from './images/vip-dong.png';
+
 
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
@@ -276,7 +282,7 @@ class Lucky_Rotation extends React.Component {
 					console.log(data.Data)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
-					this.setState({listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
+					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
 					$('#Modalnone').modal('show');
 				}else{
 					console.log("Lỗi")
@@ -330,7 +336,7 @@ class Lucky_Rotation extends React.Component {
 		var n=end-start;
 		var m=end-time;
 		var timing=m/n * 100
-		this.setState({timing: timing})
+		this.setState({timing: timing+"%"})
 		this.timeRemain(end)
 
 
@@ -560,8 +566,10 @@ class Lucky_Rotation extends React.Component {
 			if(data.Status===0){
 				this.setState({countDart: data.Darts, points: data.Points, listTop:data.TopList})
 			}else if(data.Status===2){
-				this.setState({listTop:data.TopList, msg:' Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'})
-				$('#Modalnone').modal('show');
+				this.setState({listTop:data.TopList, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
+					$('#Modalnone').modal('show');
+				})
+				
 			}
 		})
 
@@ -695,7 +703,10 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div class="account-name">
 						<p class="font-size-16 text-white mb-0 text-center">{user.Username}</p>
-						<h2 class="font-size-14 text-warning m-0 text-center">VIP Kim Cương</h2>
+						{(user.VipLevel===1)?(<h2 class="font-size-14 text-warning m-0 text-center">VIP Đồng <img src={vip_dong} alt="VIP Đồng" width="16" /></h2>):(<div></div>)}
+						{(user.VipLevel===2)?(<h2 class="font-size-14 text-warning m-0 text-center">VIP Bạc <img src={vip_bac} alt="VIP Bạc" width="16" /></h2>):(<div></div>)}
+						{(user.VipLevel===3)?(<h2 class="font-size-14 text-warning m-0 text-center">VIP Vàng <img src={vip_vang} alt="VIP Vàng" width="16" /></h2>):(<div></div>)}
+						{(user.VipLevel===4)?(<h2 class="font-size-14 text-warning m-0 text-center">VIP Bạch kim <img src={vip_bachkim} alt="VIP Bạch kim" width="16" /></h2>):(<div></div>)}
 					</div>
 					{/* <div class="btn-login">
 						<img src={btn_thoat} width="100" alt="" />

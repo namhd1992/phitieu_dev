@@ -36,6 +36,13 @@ import dart_player from './images/dart-player.png';
 import img_checkbox_none from './images/img-checkbox-none.png';
 import img_checkbox_checked from './images/img-checkbox-checked.png';
 import btn_thoat from './images/btn-thoat.png';
+import btn_duatop from './images/btn-duatop.png';
+import vip_kimcuong from './images/vip-kimcuong.png';
+import vip_bachkim from './images/vip-bachkim.png';
+import vip_vang from './images/vip-vang.png';
+import vip_bac from './images/vip-bac.png';
+import vip_dong from './images/vip-dong.png';
+
 
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
@@ -95,20 +102,11 @@ class Lucky_Rotation extends React.Component {
 
 			auto: false,
 
-			itemOfSpin:[],
-			luckySpin:{},
-
-			turnsFree:0,
 			isLogin:false,
 			day:'00',
 			hour:'00', 
 			minute:'00', 
 			second:'00',
-			itemBonus:{},
-			dataVinhDanh:[],
-			dataTuDo:[],
-			dataCodeBonus:[],
-			listHistory:[],
 			width:0,
 			height:0,
 			img_width:0,
@@ -123,8 +121,6 @@ class Lucky_Rotation extends React.Component {
 			hour_live:'00', 
 			minute_live:'00', 
 			second_live:'00',
-			linkLiveStream:'',
-			isLive:false,
 			user:{},
 			timeWaiting:0,
 			dataItem:{},
@@ -144,7 +140,14 @@ class Lucky_Rotation extends React.Component {
 			orientation:'',
 			dartPositionY:0,
 			timing:"10%",
-			score_text:{}
+			score_text:{},
+			data:{},
+			points:0,
+			countDart:0,
+			sessionId:0,
+			highestPoints:0,
+			isPlay:true,
+			msg:''
 
 		};
 	}
@@ -155,11 +158,6 @@ class Lucky_Rotation extends React.Component {
 		this.setState({innerWidth:window.innerWidth})
 	}
 
-	componentDidUpdate(oldProps) {
-		// if (oldProps.src !== this.props.src) {
-		//   this.loadImage();
-		// }
-	}
 
 
 
@@ -275,39 +273,24 @@ class Lucky_Rotation extends React.Component {
 
 		const {img_width, img_height}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
+		this.setState({user:user})
 
-		this.props.getLuckyInfo().then(()=>{
+		this.props.getLuckyInfo(2, user.Token).then(()=>{
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points: data.Data.AddInfo.Points, highestPoints:data.Data.AddInfo.HighestPoints, sessionId: data.Data.SessionId})
+					console.log(data.Data)
 					this.getStatus(data.Data)
+				}else if(data.Status===2){
+					this.setState({msg:'Phiên Đua Top đã kết thúc!'})
+					$('#Modalnone').modal('show');
+				}else{
+					console.log("Lỗi")
 				}
 			}
 		})
 
-		this.props.getLuckyItems().then(()=>{
-			var data=this.props.dataLuckyItems;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.setState({itemOfSpin: data.Data})
-				}
-			}
-		})
-
-
-		if (user !== null) {
-			this.setState({isLogin:true, user:user})
-			this.props.getDartScore(user.Token).then(()=>{
-				var data=this.props.dataUserSpin;
-				if(data!==undefined){
-					if(data.Status===0){
-						this.setState({turnsFree: data.Spins})
-					}
-				}
-
-			})
-		} 
-		
 		
 		// window.addEventListener('scroll', this.handleScroll);
 	}
@@ -340,76 +323,24 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	onResize=()=>{
-		if (window.innerWidth <= 320) {
-			this.setState({ width: 210, height: 235, img_width:170, img_height:170});
-		}
-		if (window.innerWidth > 320 && window.innerWidth <= 360) {
-			this.setState({ width: 252, height: 282, img_width:200, img_height:200});
-		}
-		if (window.innerWidth > 360 && window.innerWidth <= 380) {
-			this.setState({ width: 293, height: 330, img_width:235, img_height:235});
-		}
-		if (window.innerWidth > 380 && window.innerWidth <= 480) {
-			this.setState({ width: 344, height: 383, img_width:275, img_height:275});
-		}
-		if (window.innerWidth > 480 && window.innerWidth <= 600) {
-			this.setState({ width: 335, height: 375, img_width:267, img_height:267});
-		}
-		if (window.innerWidth > 600 && window.innerWidth <= 640) {
-			this.setState({ width: 336, height: 376, img_width:270, img_height:270});
-		}
-		if (window.innerWidth > 640 && window.innerWidth <= 768) {
-			this.setState({ width: 470, height: 525, img_width:375, img_height:375});
-		}
-		if (window.innerWidth > 768 && window.innerWidth < 780) {
-			this.setState({ width: 504, height: 563, img_width:405, img_height:405});
-		}
-
-		if (window.innerWidth >= 780 && window.innerWidth <= 790) {
-			this.setState({ width: 469, height: 524, img_width:375, img_height:375});
-		}
-
-		if (window.innerWidth > 790 && window.innerWidth <= 800) {
-			this.setState({ width: 469, height: 522, img_width:372, img_height:372});
-		}
-
-		if (window.innerWidth > 800 && window.innerWidth <= 900) {
-			this.setState({ width: 504, height: 563, img_width:405, img_height:405});
-		}
-
-		if (window.innerWidth > 900 && window.innerWidth < 1024) {
-			this.setState({ width: 590, height: 653, img_width:470, img_height:470});
-		}
-
-		if (window.innerWidth >= 1024) {
-			this.setState({ width: 586, height: 657, img_width:470, img_height:470});
-		}
+		
 	}
 
 
 	getStatus=(luckySpin)=>{
-		var StartDate=luckySpin.StartDate;
-		var EndDate=luckySpin.EndDate;
+		var StartDate=luckySpin.StartTime;
+		var EndDate=luckySpin.EndTime;
 		var start=StartDate.substring(StartDate.indexOf("(") +1,StartDate.indexOf(")"));
 		var end=EndDate.substring(EndDate.indexOf("(")+1,EndDate.indexOf(")"));
-		// console.log(start, end)
 		var time=Date.now();
 
-		// var distance_3day=start - 3 * 86400 * 1000;
-		// var duration=end-time;
+		var n=end-start;
+		var m=end-time;
+		var timing=m/n * 100
+		this.setState({timing: timing+'%'})
+		this.timeRemain(end)
 
-		if (time < start) {
-			this.timeRemain(start)
-			this.setState({ img_status: 'sapdienra', message_status:"Sự kiện chưa diễn ra."});
-		}
-		if (time > start && time < end) {
-			this.timeRemain(end)
-			this.setState({ img_status: 'sukiendangdienra'});
-		}
-		if (time > end) {
-			this.setState({ img_status: 'ketthuc', message_status:"Sự kiện đã kết thúc."});
-			// $('#myModal14').modal('show');
-		}
+
 	}
 
 	handleScroll = (event) => {
@@ -429,32 +360,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	getDetailData=()=>{
-		const {auto}=this.state;
-		var user = JSON.parse(localStorage.getItem("user"));
-		this.props.getDartScore(user.Token).then(()=>{
-			var data=this.props.dataUserSpin;
-			if(data!==undefined){
-				var turnsFree=data.Spins
-				if(data.Status===0){
-					if(turnsFree>0){
-						if(auto){
-							this.start();
-						}
-					}else{
-						$('#myModal6').modal('show');
-						clearInterval(this.state.intervalId);
-					}
-					this.setState({turnsFree:turnsFree})
-				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Lỗi hệ thống. Vui lòng thử lại.'})
-				}
-			}else{
-				$('#myModal12').modal('show');
-				this.setState({server_err:true})
-			}
-
-		})
+	
 	}
 
 	timeRemain=(times)=>{
@@ -501,73 +407,61 @@ class Lucky_Rotation extends React.Component {
 
 
 
-	getItem=(user, item)=>{
-		this.props.getItemAward(user.Token, item.AwardId).then(()=>{
-			// $('#Loading').modal('hide');
-			var data=this.props.dataItemAward;
-			award_open=true;
-			if(data!==undefined){
-				if(data.Status===0){
-					// this.setState({listHistory:data.Data, countHistory:data.Totals})
-					this.setState({dataItem:data.Data})
-					$("#MoQua").modal('show');
-				}else if(data.Status===1){
-					$('#myModal11').modal('show');
-					this.setState({message_error:data.Message})
-				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'})
-				}
-			}else{
-				$('#myModal12').modal('show');
-				this.setState({server_err:true})
-			}
-		});
-	}
-
 
 	touchStart=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg, score_text}=this.state;
-		if(JSON.stringify(dartFlightImg) !== '{}'){
-			dartFlightImg.remove();
-		}
-
-		if(JSON.stringify(score_text) !== '{}'){
-			score_text.remove();
+		const {stage, layer, darthVaderImg, dartFlightImg, score_text, isPlay}=this.state;
+		if(isPlay){
+			if(JSON.stringify(dartFlightImg) !== '{}'){
+				dartFlightImg.remove();
+			}
+	
+			if(JSON.stringify(score_text) !== '{}'){
+				score_text.remove();
+			}
+			
+			var touchPos = stage.getPointerPosition();
+			var x= touchPos.x-20;
+			var y= touchPos.y-80;
+			darthVaderImg.x(x);
+			darthVaderImg.y(y);
+			darthVaderImg.show();
+			this.setState({dartPositionY:touchPos.y})
 		}
 		
-		var touchPos = stage.getPointerPosition();
-		var x= touchPos.x-20;
-		var y= touchPos.y-80;
-		darthVaderImg.x(x);
-		darthVaderImg.y(y);
-		darthVaderImg.show();
-		this.setState({dartPositionY:touchPos.y})
 	}
 
 	touchEnd=()=>{
-		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg}=this.state;
-		var touchPos = stage.getPointerPosition();
-		curFrame=0
-		darthVaderImg.hide();
-		if(dartPositionY >touchPos.y){
-			this.draw(touchPos.x, touchPos.y)
-			// console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
-			this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
-		}else{
-			alert("vuốt lên để phi tiêu")
+		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
+		if(isPlay){
+			if(countDart>0){
+				var touchPos = stage.getPointerPosition();
+				curFrame=0
+				darthVaderImg.hide();
+				if(dartPositionY >touchPos.y){
+					this.draw(touchPos.x, touchPos.y)
+					// console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
+					this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+				}else{
+					alert("vuốt lên để phi tiêu")
+				}
+				this.setState({isPlay:false})
+			}else{
+				$('#ThongBao').modal('show');
+			}
 		}
 		
 	}
 
 	touchMove=()=>{
-		const {stage, layer, darthVaderImg}=this.state;
-		if(JSON.stringify(darthVaderImg) !== '{}'){
-			var touchPos = stage.getPointerPosition();
-			var x= touchPos.x-20;
-			var y= touchPos.y-100;
-			darthVaderImg.x(x);
-			darthVaderImg.y(y);
+		const {stage, layer, darthVaderImg, isPlay}=this.state;
+		if(isPlay){
+			if(JSON.stringify(darthVaderImg) !== '{}'){
+				var touchPos = stage.getPointerPosition();
+				var x= touchPos.x-20;
+				var y= touchPos.y-100;
+				darthVaderImg.x(x);
+				darthVaderImg.y(y);
+			}
 		}
 	}
 	updateFrame=()=>{
@@ -606,6 +500,7 @@ class Lucky_Rotation extends React.Component {
 			_this.setState({dartFlightImg:dartFlightImg})
 		};
 		dartFlight.src = dart_player;
+		
 	}
 
 	fireDart=(tarX, tarY)=> {
@@ -640,7 +535,9 @@ class Lucky_Rotation extends React.Component {
 	   }
 
 	generateScore=()=> {
-
+		const {sessionId} =this.state;
+		var user = JSON.parse(localStorage.getItem("user"));
+		var _this=this;
 		if (SEGMENT_NAMES[segmentType] == 'out') {
 	
 			totalScore = 0; // mimo herni pole
@@ -664,7 +561,24 @@ class Lucky_Rotation extends React.Component {
 				if (SEGMENT_NAMES[segmentType] == 'tripple') totalScore *= 3; // prostredni pole - tripple
 			}
 		}
-		this.showScore(totalScore)
+
+		this.props.getDartScore(2, totalScore,sessionId, user.Token).then(()=>{
+			var data=this.props.dataUserSpin;
+			if(data.Status===0){
+				this.setState({countDart: data.Darts, points: data.Points, highestPoints:data.HighestPoint})
+			}else if(data.Status===2){
+				this.setState({listTop:data.TopList, msg:'Quà đã có chủ, phiên chơi kết thúc!'}, ()=>{
+					$('#ModalnoneDuaTop').modal('show');
+				})
+				
+			}
+		})
+
+		setTimeout(()=>{
+			_this.setState({isPlay:true})
+			this.showScore(totalScore)
+		}, 400);
+		
 			// console.log('AA:', totalScore)
 	}
 
@@ -688,15 +602,20 @@ class Lucky_Rotation extends React.Component {
 
 	autoPlay=()=>{
 		
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart}=this.state;
 		curFrame=0;
-		if(JSON.stringify(dartFlightImg) !== '{}'){
-			dartFlightImg.remove();
+		if(countDart>0){
+			if(JSON.stringify(dartFlightImg) !== '{}'){
+				dartFlightImg.remove();
+			}
+			var x=this.getRandomInt(startX, endX);
+			var y=this.getRandomInt(startY, endY);
+			this.draw(x,y+heightFrame/2);
+			this.fireDart(x, y + 12)
+		}else{
+			$('#ThongBao').modal('show');
 		}
-		var x=this.getRandomInt(startX, endX);
-		var y=this.getRandomInt(startY, endY);
-		this.draw(x,y);
-		this.fireDart(x, y-heightFrame/2 + 12)
+		
 	}
 
 
@@ -705,6 +624,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	showScore=(totalScore)=>{
+		
 		var score=totalScore>9?totalScore:'0'+totalScore;
 		const {layer, stage}=this.state;
 		var newH=stage.height() / 2;
@@ -719,6 +639,8 @@ class Lucky_Rotation extends React.Component {
 			text: score,
 			fill: 'yellow',
 			fontStyle:'bold',
+			stroke:'black',
+			strokeWidth: 1.5,
 			text: score,
 		});
 
@@ -732,9 +654,11 @@ class Lucky_Rotation extends React.Component {
 		layer.add(score_text)
 		stage.add(layer)
 		setTimeout(()=>{ 
-			score_text.remove()
+			score_text.remove();
 			clearInterval(inter)
 		}, 1000);
+
+		
 		this.setState({score_text:score_text})
 	}
 
@@ -742,7 +666,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {user, image, auto_play, timing}=this.state;
+		const {msg, user, image, auto_play, timing, day, hour, minute, second, data, countDart, points, highestPoints, isPlay}=this.state;
 
 
 		return (<div class="bg-page-duatop position-relative">
@@ -751,7 +675,7 @@ class Lucky_Rotation extends React.Component {
 		</div>
 		<div class="tongdiem">
 			<h2 class="font-size-16 text-uppercase font-weight-bold text-center mb-1 text-shadow">Tổng điểm</h2>
-			<h4 class="font-size-18 text-uppercase text-center text-shadow">699669</h4>
+			<h4 class="font-size-18 text-uppercase text-center text-shadow">{points}</h4>
 		</div>
 		<div class="phongtudong font-size-18 font-weight-bold text-uppercase text-shadow">
 			Phóng phi tiêu tự động
@@ -763,29 +687,62 @@ class Lucky_Rotation extends React.Component {
 					<div class="bg-line-timing">
 						<span style={{background:"#f5950a", width: timing, height: "12px", display: "block", borderRadius: 4}}>&nbsp;</span>
 					</div>
-					<h6 class="text-yellow font-size-16 mt-n1 pl-1 text-shadow">Còn: 2 ngày 10:22:11</h6>
+					<h6 class="text-yellow font-size-16 mt-n1 pl-1 text-shadow">Còn: {day>0 ? `${day} ngay ${hour}:${minute}:${second}` : `${hour}:${minute}:${second}`}</h6>
 				</div>
 			</div>
 		</div>
 		<div class="account-name">
-			<p class="font-size-16 text-white mb-0 text-center">Đặng Lê</p>
-			<h2 class="font-size-14 text-warning m-0 text-center"> VIP Kim Cương</h2>
+			<p class="font-size-16 text-white mb-0 text-center">{user.Username}</p>
+			{(user.VipLevel===1)?(<h2 class="font-size-14 text-warning m-0 text-center">VIP Đồng <img src={vip_dong} alt="VIP Đồng" width="16" /></h2>):(<div></div>)}
+			{(user.VipLevel===2)?(<h2 class="font-size-14 text-warning m-0 text-center">VIP Bạc <img src={vip_bac} alt="VIP Bạc" width="16" /></h2>):(<div></div>)}
+			{(user.VipLevel===3)?(<h2 class="font-size-14 text-warning m-0 text-center">VIP Vàng <img src={vip_vang} alt="VIP Vàng" width="16" /></h2>):(<div></div>)}
+			{(user.VipLevel===4)?(<h2 class="font-size-14 text-warning m-0 text-center">VIP Bạch kim <img src={vip_bachkim} alt="VIP Bạch kim" width="16" /></h2>):(<div></div>)}
+
 		</div>
 
 		<div class="phitieu-status marquee">
 			<div class="marquee_inner">            
-				<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
+				<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Số phi tiêu còn lại: <strong>{countDart}</strong></span>		
 				<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
 			 </div>    	
 		</div>
 		<div class="diemcaonhat">
 			<h2 class="font-size-16 text-uppercase font-weight-bold text-center mb-1 text-shadow">Điểm cao nhất</h2>
-			<h4 class="font-size-18 text-uppercase text-center text-shadow">699669</h4>
+			<h4 class="font-size-18 text-uppercase text-center text-shadow">{highestPoints}</h4>
 		</div>
 		{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>)}
 					
-					<div id="div_checkbox" style={{position:'absolute', top:"90%", left:"37%", zIndex:999999}} onMouseDown={this.check_auto}></div>
-					<div id="div_exit" style={{position:'absolute', top:0, left:"83%", zIndex:999999}} onMouseDown={this.exit}></div>
+		<div id="div_checkbox" style={{position:'absolute', top:"90%", left:"37%", zIndex:999999}} onMouseDown={this.check_auto}></div>
+		<div id="div_exit" style={{position:'absolute', top:0, left:"83%", zIndex:999999}} onMouseDown={this.exit}></div>
+		
+		{/* <!-- The Modal Thông báo--> */}
+		<div class="modal fade" id="ModalnoneDuaTop" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
+			<div class="modal-dialog modal-dangnhap">
+				<div class="modal-content bg-transparent border-0">
+
+				<div class="modal-body border-0">
+					<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+					<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+				</div>
+
+				</div>
+			</div>
+		</div>
+
+							
+		{/* <!-- The Modal Thông báo--> */}
+		<div class="modal fade" id="ThongBao" style={{zIndex:9999999}}>
+			<div class="modal-dialog modal-dangnhap">
+				<div class="modal-content bg-transparent border-0">
+
+				<div class="modal-body border-0">
+					<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn đã hết tiêu</h2>
+					<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+				</div>
+
+				</div>
+			</div>
+		</div>
 	</div>)
 	}
 }
