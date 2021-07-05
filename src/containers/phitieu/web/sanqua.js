@@ -141,7 +141,7 @@ class Lucky_Rotation extends React.Component {
 			timing:"10%",
 			score_text:{},
 			data:{},
-			points:0,
+			points_sanqua:0,
 			countDart:0,
 			sessionId:0,
 			listTop:[],
@@ -278,7 +278,7 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId})
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId})
 					console.log(data.Data)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
@@ -564,7 +564,7 @@ class Lucky_Rotation extends React.Component {
 		this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
 			var data=this.props.dataUserSpin;
 			if(data.Status===0){
-				this.setState({countDart: data.Darts, points: data.Points, listTop:data.TopList})
+				this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
 			}else if(data.Status===2){
 				this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
 					$('#Modalnone').modal('show');
@@ -665,7 +665,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {msg, user, image, auto_play, timing, day, hour, minute, second, data, countDart, points, listTop, isPlay}=this.state;
+		const {msg, user, image, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
 
 
 		return (<div class="bg-page-sanqua position-relative">
@@ -674,7 +674,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div class="tongdiem">
 						<h2 class="font-size-18 text-uppercase font-weight-bold text-center mb-1 text-shadow">Tổng điểm</h2>
-						<h4 class="font-size-18 text-uppercase text-center text-shadow">{points}</h4>
+						<h4 class="font-size-18 text-uppercase text-center text-shadow">{points_sanqua}</h4>
 					</div>
 					<div class="phongtudong font-size-18 font-weight-bold text-uppercase text-shadow">
 						Phóng phi tiêu tự động    

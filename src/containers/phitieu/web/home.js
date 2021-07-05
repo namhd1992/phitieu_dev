@@ -796,8 +796,8 @@ class Lucky_Rotation extends React.Component {
 											{listTuDo.map((obj, key) => (
 												
 													<tr key={key} class="bg-border-bottom">
-														<td className="p-0 bg-border-right w-25 valign-middle">{obj.AwardName}</td>
-														<td className="p-0 bg-border-right w-25 valign-middle">{obj.AwardName}</td>
+														<td className="p-1 bg-border-right w-33 valign-middle" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardName}></span>{obj.AwardName}</td>
+														<td className="p-1 bg-border-right w-33 valign-middle" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardName}></span>{obj.AwardName}</td>
 														<td className="p-0 bg-border-right w-25 valign-middle">{this.timeConverter(obj.RewardTime)}</td>
 														{(obj.AwardName.indexOf("Thêm")===0)?(<td class="p-1 w-auto valign-middle">Mở</td>):(<td class="p-1 w-auto valign-middle"><a class="text-primary"  style={{cursor:'pointer'}} onClick={()=>this.getItem(user, obj)}>Mở</a></td>)}
 														
@@ -830,9 +830,9 @@ class Lucky_Rotation extends React.Component {
 											{listHistory.map((obj, key) => (
 												
 													<tr key={key} class="bg-border-bottom">
-														<td className="p-0 bg-border-right w-33 valign-middle">{obj.AwardName}</td>
-														<td className="p-0 bg-border-right w-33 valign-middle">{obj.AwardDisplay}</td>
-														<td className="p-0 bg-border-right w-33 valign-middle">{this.timeConverter(obj.RewardTime)}</td>
+														<td className="p-1 bg-border-right w-33 valign-middle" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardName}></span>{obj.AwardName}</td>
+														<td className="p-1 bg-border-right w-33 valign-middle" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardDisplay}></span>{obj.AwardDisplay}</td>
+														<td className="p-1 bg-border-right w-33 valign-middle">{this.timeConverter(obj.RewardTime)}</td>
 													</tr>
 												))}				
 										</tbody>
