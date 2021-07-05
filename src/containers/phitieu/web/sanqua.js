@@ -137,6 +137,7 @@ class Lucky_Rotation extends React.Component {
 			data:{},
 			points:0,
 			countDart:0,
+			sessionId:0,
 			listTop:[],
 			isPlay:true
 
@@ -270,7 +271,7 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers})
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId})
 					console.log(data.Data)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
@@ -521,6 +522,7 @@ class Lucky_Rotation extends React.Component {
 	   }
 
 	generateScore=()=> {
+		const {sessionId} =this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var _this=this;
 		if (SEGMENT_NAMES[segmentType] == 'out') {
@@ -546,7 +548,7 @@ class Lucky_Rotation extends React.Component {
 				if (SEGMENT_NAMES[segmentType] == 'tripple') totalScore *= 3; // prostredni pole - tripple
 			}
 		}
-		this.props.getDartScore(1, totalScore, user.Token).then(()=>{
+		this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
 			var data=this.props.dataUserSpin;
 			if(data.Status===0){
 				this.setState({countDart: data.Darts, points: data.Points, listTop:data.TopList})

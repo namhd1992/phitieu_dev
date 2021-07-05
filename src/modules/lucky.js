@@ -169,7 +169,7 @@ export const getLuckyInfo = (type, token) => {
 }
 
 
-export const getDartScore = (type, points, token) => {
+export const getDartScore = (type, points,sessionId,  token) => {
 	var header = {
 		headers: {
 			"Content-Type": "application/json",
@@ -180,7 +180,7 @@ export const getDartScore = (type, points, token) => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + `darts/user-throw/?type=${type}&points=${points}`;
+		var url = Ultilities.base_url() + `darts/user-throw/?type=${type}&points=${points}&sessionId=${sessionId}`;
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: DATA_USER_SPIN,
@@ -256,7 +256,7 @@ export const getHistoryTuDo = (token, limit, offset) => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "luckywheel/user-spin-history/?offset=" + offset + "&limit=" + limit;
+		var url = Ultilities.base_url() + "darts/user-history/?offset=" + offset + "&limit=" + limit;
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: LUCKY_HISTORY_TU_DO,
