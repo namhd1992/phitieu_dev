@@ -831,7 +831,7 @@ class Lucky_Rotation extends React.Component {
 												
 													<tr key={key} class="bg-border-bottom">
 														<td className="p-0 bg-border-right w-33 valign-middle">{obj.AwardName}</td>
-														<td className="p-0 bg-border-right w-33 valign-middle">{obj.AwardName}</td>
+														<td className="p-0 bg-border-right w-33 valign-middle">{obj.AwardDisplay}</td>
 														<td className="p-0 bg-border-right w-33 valign-middle">{this.timeConverter(obj.RewardTime)}</td>
 													</tr>
 												))}				
