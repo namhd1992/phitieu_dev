@@ -139,7 +139,8 @@ class Lucky_Rotation extends React.Component {
 			countDart:0,
 			sessionId:0,
 			listTop:[],
-			isPlay:true
+			isPlay:true,
+			msg:''
 
 		};
 	}
@@ -275,7 +276,8 @@ class Lucky_Rotation extends React.Component {
 					console.log(data.Data)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
-					// $('#Modalnone').modal('show');
+					this.setState({listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
+					$('#Modalnone').modal('show');
 				}else{
 					console.log("Lỗi")
 				}
@@ -422,19 +424,23 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchEnd=()=>{
-		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay}=this.state;
+		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
 		if(isPlay){
-			var touchPos = stage.getPointerPosition();
-			curFrame=0
-			darthVaderImg.hide();
-			if(dartPositionY >touchPos.y){
-				this.draw(touchPos.x, touchPos.y)
-				// console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
-				this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+			if(countDart>0){
+				var touchPos = stage.getPointerPosition();
+				curFrame=0
+				darthVaderImg.hide();
+				if(dartPositionY >touchPos.y){
+					this.draw(touchPos.x, touchPos.y)
+					// console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
+					this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+				}else{
+					alert("vuốt lên để phi tiêu")
+				}
+				this.setState({isPlay:false})
 			}else{
-				alert("vuốt lên để phi tiêu")
+				$('#ThongBao').modal('show');
 			}
-			this.setState({isPlay:false})
 		}
 		
 	}
@@ -548,10 +554,14 @@ class Lucky_Rotation extends React.Component {
 				if (SEGMENT_NAMES[segmentType] == 'tripple') totalScore *= 3; // prostredni pole - tripple
 			}
 		}
+
 		this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
 			var data=this.props.dataUserSpin;
 			if(data.Status===0){
 				this.setState({countDart: data.Darts, points: data.Points, listTop:data.TopList})
+			}else if(data.Status===2){
+				this.setState({listTop:data.TopList, msg:' Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'})
+				$('#Modalnone').modal('show');
 			}
 		})
 
@@ -583,15 +593,20 @@ class Lucky_Rotation extends React.Component {
 
 	autoPlay=()=>{
 		
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart}=this.state;
 		curFrame=0;
-		if(JSON.stringify(dartFlightImg) !== '{}'){
-			dartFlightImg.remove();
+		if(countDart>0){
+			if(JSON.stringify(dartFlightImg) !== '{}'){
+				dartFlightImg.remove();
+			}
+			var x=this.getRandomInt(startX, endX);
+			var y=this.getRandomInt(startY, endY);
+			this.draw(x,y+heightFrame/2);
+			this.fireDart(x, y + 12)
+		}else{
+			$('#ThongBao').modal('show');
 		}
-		var x=this.getRandomInt(startX, endX);
-		var y=this.getRandomInt(startY, endY);
-		this.draw(x,y+heightFrame/2);
-		this.fireDart(x, y + 12)
+		
 	}
 
 
@@ -642,7 +657,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {user, image, auto_play, timing, day, hour, minute, second, data, countDart, points, listTop, isPlay}=this.state;
+		const {msg, user, image, auto_play, timing, day, hour, minute, second, data, countDart, points, listTop, isPlay}=this.state;
 
 
 		return (<div class="bg-page-sanqua position-relative">
@@ -716,7 +731,22 @@ class Lucky_Rotation extends React.Component {
 							<div class="modal-content bg-transparent border-0">
 
 							<div class="modal-body border-0">
-								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP</h2>
+								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+								<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+							</div>
+
+							</div>
+						</div>
+					</div>
+
+										
+					{/* <!-- The Modal Thông báo--> */}
+					<div class="modal fade" id="ThongBao" style={{zIndex:9999999}}>
+						<div class="modal-dialog modal-dangnhap">
+							<div class="modal-content bg-transparent border-0">
+
+							<div class="modal-body border-0">
+								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn đã hết tiêu</h2>
 								<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
 							</div>
 

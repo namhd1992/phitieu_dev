@@ -827,7 +827,7 @@ class Lucky_Rotation extends React.Component {
 										</tr>
 										</thead>
 										<tbody>
-											{listTuDo.map((obj, key) => (
+											{listHistory.map((obj, key) => (
 												
 													<tr key={key} class="bg-border-bottom">
 														<td className="p-0 bg-border-right w-33 valign-middle">{obj.AwardName}</td>
