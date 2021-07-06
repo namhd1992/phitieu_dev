@@ -27,10 +27,13 @@ import {
 } from '../../../modules/profile'
 
 import btn_dangnhap from './images/btn-dangnhap.png';
+import btn_dangxuat from './images/btn-dangxuat.png';
 import btn_sanqua from './images/btn-sanqua.png';
 import btn_duatop from './images/btn-duatop.png';
 import btn_vinhdanhsanqua_active from './images/btn-vinhdanhsanqua-active.png';
+import btn_vinhdanhsanqua from './images/btn-vinhdanhsanqua.png';
 import btn_bxhduatop from './images/btn-bxhduatop.png';
+import btn_bxhduatop_active from './images/btn-bxhduatop-active.png';
 import btn_huongdanmuathescoin from './images/btn-huongdanmuathescoin.png';
 import btn_nhanthongbaosukien from './images/btn-nhanthongbaosukien.png';
 import btn_napgame from './images/btn-napgame.png';
@@ -43,7 +46,16 @@ import btn_tudo from './images/btn-tudo.png';
 import img_thescoin200k from './images/img-thescoin200k.png';
 import img_thescoinvoucher from './images/img-thescoinvoucher.png';
 import btn_phanthuong_active from './images/btn-phanthuong-active.png';
+import btn_phanthuong from './images/btn-phanthuong.png';
 import btn_lichsu from './images/btn-lichsu.png';
+import btn_lichsu_active from './images/btn-lichsu-active.png';
+import btn_activevip from './images/btn-activevip.png';
+import vip_kimcuong from './images/vip-kimcuong.png';
+import vip_bachkim from './images/vip-bachkim.png';
+import vip_vang from './images/vip-vang.png';
+import vip_bac from './images/vip-bac.png';
+import vip_dong from './images/vip-dong.png';
+
 
 
 // import muiten from './images/muiten.png';
@@ -73,56 +85,37 @@ class Lucky_Rotation extends React.Component {
 			numberShow:15,
 			isAll:true,
 			stop:true,
-			auto: false,
 			itemOfSpin:[],
 			luckySpin:{},
-			turnsFree:0,
 			isLogin:false,
-			day:'00',
-			hour:'00', 
-			minute:'00', 
-			second:'00',
-			itemBonus:{},
-			activeCodeBonus:1,
 			activeVinhDanh:1,
 			activeTuDo:1,
 			activeHistory:1,
 			countVinhDanh:0,
 			countHistory:0,
 			countTuDo:0,
-			countCodeBonus:0,
 			dataVinhDanh:[],
 			dataTuDo:[],
 			listVinhDanh:[],
 			listTuDo:[],
 			listHistory:[],
 			width:0,
+			numberPage:2,
 			height:0,
 			img_width:0,
 			img_height:0,
-			code:false,
 			inputValue: '',
-			img_status: "sukiendangdienra",
-			message_status:'',
-			data_auto:[],
 			isSpin:false,
 			closeAuto:true,
 			message_error:'',
 			server_err:false,
 			finished:false,
-			hour_live:'00', 
-			minute_live:'00', 
-			second_live:'00',
-			isLive:false,
 			user:{},
-			xacthuc:false,
-			timeWaiting:0,
 			dataItem:{},
-			startSpin:false,
-			len_auto:0,
 			waiting:false,
-			urlVideo:'',
-			innerWidth:0
+			innerWidth:0,
+			type:1, 
+			tab_tudo: true,
 		};
 	}
 	componentWillMount(){
@@ -135,41 +128,13 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
-		const {img_width, img_height}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 
-		this.props.getLuckyInfo().then(()=>{
-			var data=this.props.dataLuckyInfo;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.getStatus(data.Data)
-				}
-			}
-		})
-
-		this.props.getLuckyItems().then(()=>{
-			var data=this.props.dataLuckyItems;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.setState({itemOfSpin: data.Data})
-				}
-			}
-		})
-
-		this.getVinhDanh(1);
+		this.getVinhDanh(1,1);
 
 
 		if (user !== null) {
 			this.setState({isLogin:true, user:user})
-			this.props.getDartScore(user.Token).then(()=>{
-				var data=this.props.dataUserSpin;
-				if(data!==undefined){
-					if(data.Status===0){
-						this.setState({turnsFree: data.Spins})
-					}
-				}
-
-			})
 		} 
 		
 		window.addEventListener('scroll', this.handleScroll);
@@ -185,7 +150,6 @@ class Lucky_Rotation extends React.Component {
 	}
 	componentWillUnmount() {
 		clearInterval(this.state.intervalId);
-		this.setState({ auto : !this.state.auto});
 	}
 	setScreenOrientation=()=>{
 		const {innerWidth}=this.state;
@@ -242,51 +206,29 @@ class Lucky_Rotation extends React.Component {
 		}
 	}
 
-	getVinhDanh=(pageNumber)=>{
+	getVinhDanh=(type, pageNumber)=>{
 		const {limit}=this.state;
 		var offsetVinhDanh=(pageNumber-1)*limit;
-		this.props.getVinhDanh(limit, offsetVinhDanh).then(()=>{
-			var data=this.props.dataVinhDanh;
-			if(data!==undefined){
-				if(data.Status===0){
-					var listVinhDanh=data.Data;
-					console.log(listVinhDanh)
-					this.setState({listVinhDanh:data.Data, countVinhDanh:data.Totals})
+		this.setState({type:type, listVinhDanh:[], countVinhDanh:0}, ()=>{
+			this.props.getVinhDanh(limit, offsetVinhDanh, type).then(()=>{
+				var data=this.props.dataVinhDanh;
+				if(data!==undefined){
+					if(data.Status===0){
+						var listVinhDanh=data.Data;
+						console.log(listVinhDanh)
+						this.setState({listVinhDanh:data.Data, countVinhDanh:data.Totals})
+					}else{
+						$('#myModal11').modal('show');
+						this.setState({message_error:'Không lấy được dữ liệu bảng vinh danh.'})
+					}
 				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Không lấy được dữ liệu bảng vinh danh.'})
+					$('#myModal12').modal('show');
+					this.setState({server_err:true})
 				}
-			}else{
-				$('#myModal12').modal('show');
-				this.setState({server_err:true})
-			}
-		});
+			});
+		})
 	}
 
-	getStatus=(luckySpin)=>{
-		var StartDate=luckySpin.StartDate;
-		var EndDate=luckySpin.EndDate;
-		var start=StartDate.substring(StartDate.indexOf("(") +1,StartDate.indexOf(")"));
-		var end=EndDate.substring(EndDate.indexOf("(")+1,EndDate.indexOf(")"));
-		console.log(start, end)
-		var time=Date.now();
-
-		// var distance_3day=start - 3 * 86400 * 1000;
-		// var duration=end-time;
-
-		if (time < start) {
-			this.timeRemain(start)
-			this.setState({ img_status: "sapdienra", message_status:"Sự kiện chưa diễn ra."});
-		}
-		if (time > start && time < end) {
-			this.timeRemain(end)
-			this.setState({ img_status: "sukiendangdienra"});
-		}
-		if (time > end) {
-			this.setState({ img_status: "ketthuc", message_status:"Sự kiện đã kết thúc."});
-			// $('#myModal14').modal('show');
-		}
-	}
 
 	handleScroll = (event) => {
 		if (document.body.getBoundingClientRect().top < -300){
@@ -338,19 +280,6 @@ class Lucky_Rotation extends React.Component {
 		})
 	}
 
-	start=()=>{
-		
-	}
-
-	btnStart=()=>{
-	}
-
-
-
-
-	handleChange = () => {
-		this.setState({ auto : !this.state.auto});
-	};
 
 
 	timeRemain=(times)=>{
@@ -368,18 +297,6 @@ class Lucky_Rotation extends React.Component {
 		}, 1000);
 	}
 
-
-	timeWaitings=()=>{
-		const current=this.state.timeWaiting;
-		console.log(current)
-		if(current>=0){
-			var minute=Math.floor(((current%86400)%3600)/60) > 9 ? Math.floor(((current%86400)%3600)/60) : `0${Math.floor(((current%86400)%3600)/60)}`;
-			var second=Math.ceil(((current%86400)%3600)%60) > 9 ? Math.ceil(((current%86400)%3600)%60) : `0${Math.ceil(((current%86400)%3600)%60)}`;
-			this.setState({minute_live: minute, second_live:second, timeWaiting:current-1})
-		}else{
-			clearInterval(this.state.intervalWaiting);
-		}
-	}
 
 	timeConverter=(time)=>{
 		var start=time.substring(time.indexOf("(") +1,time.indexOf(")"));
@@ -410,12 +327,12 @@ class Lucky_Rotation extends React.Component {
 		if (user !== null) {
 			if(user.VipLevel!==0){
 				this.getDataTuDo(user);
-				$('#myModal4').modal('hide');
+				$('#Modaltudo').modal('show');
 			}else{
 				$('#activeVip').modal('show');
 			}
 		}else {
-			$('#myModal5').modal('show');
+			$('#Modaldangnhap').modal('show');
 		}
 	}
 
@@ -423,6 +340,7 @@ class Lucky_Rotation extends React.Component {
 		const {limit, activeTuDo}=this.state;
 		var offsetTuDo=(activeTuDo-1)*limit;
 		// $('#Loading').modal('show');
+		this.setState({tab_tudo: true})
 		this.props.getTuDo(user.Token, limit, offsetTuDo).then(()=>{
 			// $('#Loading').modal('hide');
 			var data=this.props.dataTuDo;
@@ -446,6 +364,7 @@ class Lucky_Rotation extends React.Component {
 		const {limit, activeHistory}=this.state;
 		var offsetHistory=(activeHistory-1)*limit;
 		// $('#Loading').modal('show');
+		this.setState({tab_tudo: false})
 		this.props.getHistoryTuDo(user.Token, limit, offsetHistory).then(()=>{
 			// $('#Loading').modal('hide');
 			var data=this.props.dataHistoryTuDo;
@@ -467,7 +386,6 @@ class Lucky_Rotation extends React.Component {
 		this.props.getItemAward(user.Token, item.AwardId).then(()=>{
 			// $('#Loading').modal('hide');
 			var data=this.props.dataItemAward;
-			award_open=true;
 			if(data!==undefined){
 				if(data.Status===0){
 					// this.setState({listHistory:data.Data, countHistory:data.Totals})
@@ -513,21 +431,21 @@ class Lucky_Rotation extends React.Component {
 	handlePageChangeTuDo=(pageNumber)=> {
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.setState({activeTuDo: pageNumber},()=>{
-			this.getDataTuDo(user, pageNumber)
+			this.getDataTuDo(user)
 		})
 	}
 
 	handlePageChangeHistory=(pageNumber)=> {
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.setState({activeHistory: pageNumber},()=>{
-			this.getHistory(user, pageNumber)
+			this.getHistory(user)
 		})
 	}
 
 
-	handlePageChangeVinhDanh=(pageNumber)=> {
+	handlePageChangeVinhDanh=(type, pageNumber)=> {
 		this.setState({activeVinhDanh: pageNumber},()=>{
-			this.getVinhDanh(pageNumber)
+			this.getVinhDanh(type, pageNumber)
 		})
 
 	}
@@ -557,79 +475,108 @@ class Lucky_Rotation extends React.Component {
 
 	}
 
+	dangNhap=()=>{
+		var user = JSON.parse(localStorage.getItem("user"));
+		if (user !== null) {
+			$('#activeVip').modal('show');
+		}else {
+			$('#Modaldangnhap').modal('show');
+		}
+	}
+
+	showTooltip=()=>{
+		$('[data-toggle="tooltip"]').tooltip();
+	}
+
 	render() {
-		const {xacthuc,urlVideo,timeWaiting,height, width, auto, isLogin, day, hour, minute, second,len_auto, code, img_status, message_status, data_auto,message_error,dataItem,startSpin,
-			waiting, activeTuDo, activeHistory, activeCodeBonus, activeVinhDanh, limit, countCodeBonus, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh,itemBonus, turnsFree, hour_live, minute_live, second_live, isLive, user}=this.state;
+		const {tab_tudo ,type,numberPage, isLogin,message_error,dataItem,
+			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		const { classes } = this.props;
 		return (<div>
 					<div class="container page_m position-relative">
-						<div class="d-flex flex-row-reverse">
+
+						{(isLogin)?(<div class="d-flex flex-row-reverse">
 							<div class="align-self-center">
-								<a href="#Modaldangnhap" title="Đăng nhập" data-toggle="modal"><img src={btn_dangnhap} alt="" width="100" /></a>
+								<a title="Đăng nhập" onClick={this.logoutAction} style={{cursor:'pointer'}}><img src={btn_dangxuat} alt="" width="100" /></a>
 							</div>
 							<div class="text-center align-self-center pr-1">
-								<p class="font-size-3vw_m text-white mb-0">Xin chào</p>
-								<h2 class="font-size-3vw_m text-warning m-0 font-weight-bold">Đặng Lê VIP Kim Cương</h2>
+								<p class="font-size-16 text-white mb-0">{user.Username}</p>
+								{(user.VipLevel===1)?(<h2 class="font-size-14 text-warning m-0">VIP Đồng <img src={vip_dong} alt="VIP Đồng" width="16" /></h2>):(<div></div>)}
+								{(user.VipLevel===2)?(<h2 class="font-size-14 text-warning m-0">VIP Bạc <img src={vip_bac} alt="VIP Bạc" width="16" /></h2>):(<div></div>)}
+								{(user.VipLevel===3)?(<h2 class="font-size-14 text-warning m-0">VIP Vàng <img src={vip_vang} alt="VIP Vàng" width="16" /></h2>):(<div></div>)}
+								{(user.VipLevel===4)?(<h2 class="font-size-14 text-warning m-0">VIP Bạch kim <img src={vip_bachkim} alt="VIP Bạch kim" width="16" /></h2>):(<div></div>)}
 							</div>
-						</div>
+						</div>):(<div class="d-flex flex-row-reverse">
+							<div class="align-self-center">
+								<a title="Đăng nhập" onClick={this.loginAction} style={{cursor:'pointer'}}><img src={btn_dangnhap} alt="" width="100" /></a>
+							</div>
+						</div>)}
+
+
 						<div class="bg-top_m position-relative">
 							<div class="bg-bottom_m">
-								<div class="btn-s_m position-relative">
-									<Link to="/sanqua">
-										<a><img src={btn_sanqua} width="30%" hspace="10" /></a>
+
+								{(isLogin)?(<div class="btn-s_m position-relative">
+									{(user.VipLevel>0)?(<div><Link to="/sanqua">
+										<a style={{cursor:'pointer'}}><img src={btn_sanqua} width="30%" hspace="10" /></a>
 									</Link>
 									<Link to="/duatop">
-										<a><img src={btn_duatop} width="30%" hspace="10" /></a>
-									</Link>
+										<a style={{cursor:'pointer'}}><img src={btn_duatop} width="30%" hspace="10" /></a>
+									</Link></div>):(<div><a title="Săn quà" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_sanqua} width="30%" hspace="10" /></a>
+               							<a title="Đua TOP" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_duatop} width="30%" hspace="10" /></a></div>)}
+									
+								</div>):(
+								<div class="btn-s_m position-relative">
+									 	<a title="Săn quà" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_sanqua} width="30%" hspace="10" /></a>
+               							<a title="Đua TOP" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_duatop} width="30%" hspace="10" /></a>
 								</div>
+								)}
+
+
 								<div class="bxh_m position-relative">
 									<ul class="nav nav-pills_m_m nav-justified_m_m" role="tablist">
 										<li class="nav-item">
-										<a class="nav-link_m btn-vinhdanh_m active p-0" data-toggle="pill" href="#home"><img src={btn_vinhdanhsanqua_active} width="95%" hspace="5" id="image-1" /></a>
+											<a class="nav-link_m btn-vinhdanh_m p-0" onClick={()=>this.getVinhDanh(1,1)}><img src={type===1?btn_vinhdanhsanqua_active:btn_vinhdanhsanqua} width="95%" hspace="5" id="image-1" /></a>
 										</li>
 										<li class="nav-item">
-										<a class="nav-link_m btn-bxhduatop_m p-0" data-toggle="pill" href="#menu1"><img src={btn_bxhduatop} width="95%" hspace="5" id="image-2" /></a>
+											<a class="nav-link_m btn-bxhduatop_m p-0" onClick={()=>this.getVinhDanh(2,1)}><img src={type==2?btn_bxhduatop_active:btn_bxhduatop} width="95%" hspace="5" id="image-2" /></a>
 										</li>
 									</ul>
 									
 									<div class="tab-content bg-bxh_m">
 										<div id="home" class="tab-pane active pt-3vw_m pb-3">
-										<table class="table table-borderless text-center font-size-3vw_m mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
-											<thead>
-											<tr class="bg-border-bottom_m">
-												<th class="p-1 bg-border-right_m w-33">Tài khoản</th>
-												<th class="p-1 bg-border-right_m w-33">Giải thưởng</th>
-												<th class="p-1 w-33">Thời gian trúng</th>
-											</tr>
-											</thead>
-											<tbody>
-											<tr class="bg-border-bottom_m">
-												<td class="p-0 bg-border-right_m w-33">John</td>
-												<td class="p-0 bg-border-right_m w-33">Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-											</tbody>
-										</table>
-										</div>
-										<div id="menu1" class="tab-pane fade pt-3vw_m pb-3">
-										<table class="table table-borderless text-center font-size-3vw_m mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
-											<thead>
-											<tr class="bg-border-bottom_m">
-												<th class="p-1 bg-border-right_m w-33">Tài khoản</th>
-												<th class="p-1 bg-border-right_m w-33">Giải thưởng</th>
-												<th class="p-1 w-33">Thời gian trúng</th>
-											</tr>
-											</thead>
-											<tbody>
-											<tr class="bg-border-bottom_m">
-												<td class="p-0 bg-border-right_m w-33">John</td>
-												<td class="p-0 bg-border-right_m w-33">Gói quà bạch kim Gói quà bạch kim</td>
-												<td class="p-0 w-33 w-33">12:24:58 19/05/2021</td>
-											</tr>
-
-											</tbody>
-										</table>
-										</div>                
+											<table class="table table-borderless text-center font-size-3vw_m mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
+												<thead>
+												<tr class="bg-border-bottom_m">
+													<th class="p-1 bg-border-right_m w-33">Tài khoản</th>
+													<th class="p-1 bg-border-right_m w-33">Giải thưởng</th>
+													<th class="p-1 w-33">Thời gian trúng</th>
+												</tr>
+												</thead>
+												<tbody>
+													{listVinhDanh.map((obj, key) => (
+														<tr key={key} class="bg-border-bottom_m">
+															<td className="p-0 bg-border-right_m w-33">{obj.Username}</td>
+															<td class="p-0 bg-border-right_m w-33" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardName}>{obj.AwardName}</span></td>
+															<td className="p-0 w-33 w-33">{this.timeConverter(obj.RewardTime)}</td>
+														</tr>
+													))}
+												</tbody>
+											</table>
+											<div className="pagination justify-content-center pag-custom">
+												<Pagination
+													activePage={activeVinhDanh}
+													itemsCountPerPage={10}
+													totalItemsCount={countVinhDanh}
+													pageRangeDisplayed={numberPage}
+													lastPageText={'Trang cuối'}
+													firstPageText={'Trang đầu'}
+													itemClass={"page-item"}
+													linkClass={"page-link"}
+													onChange={(v) => this.handlePageChangeVinhDanh(type,v)}
+												/>
+											</div> 
+										</div>             
 									</div>
 								</div>
 								<div class="btn-h_m position-relative">
@@ -660,7 +607,7 @@ class Lucky_Rotation extends React.Component {
 									</p>
 								</div>
 								<div class="menu-left_m">
-									<a href="#" title="Active VIP" target="_blank"><p class="mb-0 menu-link link-first"></p></a>
+									<a href="https://vip.scoin.vn" title="Active VIP" target="_blank"><p class="mb-0 menu-link link-first"></p></a>
 									<a href="#" title="Hướng dẫn chơi"><p class="mb-0 menu-link"></p></a>
 									<a href="#Modalgiaithuong" title="Giải thưởng" data-toggle="modal"><p class="mb-0 menu-link"></p></a>
 									<a href="#" title="Lịch sử giao dịch"><p class="mb-0 menu-link"></p></a>
@@ -673,7 +620,7 @@ class Lucky_Rotation extends React.Component {
 
 
 			{/* <!-- The Modal Thông báo đăng nhập--> */}
-			<div className="modal fade" id="myModal5">
+			<div className="modal fade" id="Modaldangnhap">
 				<div class="modal-dialog modal-dangnhap_m">
 					<div class="modal-content bg-transparent border-0">
 					<div class="modal-header border-0 p-0 text-dark">
@@ -682,6 +629,22 @@ class Lucky_Rotation extends React.Component {
 					<div class="modal-body border-0">
 						<h2 class="font-size-3vw_m font-weight-bold text-uppercase text-center">Bạn vẫn chưa đăng nhập</h2>
 						<p class="text-center"><a title="Đăng nhập" onClick={this.loginAction}><img src={btn_dangnhap} width="30%" alt="" /></a></p>
+					</div>
+
+					</div>
+				</div>
+			</div>
+
+			{/* <!-- The Modal Thông báo active Vip--> */}
+			<div className="modal fade" id="activeVip">
+				<div class="modal-dialog modal-dangnhap_m">
+					<div class="modal-content bg-transparent border-0">
+					<div class="modal-header border-0 p-0 text-dark">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body border-0">
+						<h2 class="font-size-3vw_m font-weight-bold text-uppercase text-center">Bạn cần active tài khoản VIP để chơi.</h2>
+						<p class="text-center"><a href="https://vip.scoin.vn" target="_blank"><img src={btn_activevip} width="120" alt="Active VIP" /></a></p>
 					</div>
 
 					</div>
@@ -726,152 +689,100 @@ class Lucky_Rotation extends React.Component {
 			<div class="modal fade" id="Modaltudo">
 				<div class="modal-dialog modal-tudo_m">
 					<div class="modal-content bg-transparent border-0">
-					<div class="modal-header border-0 p-0 text-dark">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
+						<div class="modal-header border-0 p-0 text-dark">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
 
-					<div class="modal-body border-0 py-0 my-0 px-3 scroll-modal-body">
-						{/* <!-- Nav pills --> */}
-						<ul class="nav nav-pills_m nav-justified_m mx-auto">
-						<li class="nav-item">
-							<a class="nav-link_m py-0 active" data-toggle="pill" href="#tabphanthuong"><img src={btn_phanthuong_active} width="100%" hspace="5" id="image-3" /></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link_m py-0" data-toggle="pill" href="#tablichsu"><img src={btn_lichsu} width="100%" hspace="5" id="image-4" /></a>
-						</li>
-
-						</ul>        
-						{/* <!-- Tab panes --> */}
-						<div class="tab-content">
-							<div class="tab-pane active" id="tabphanthuong">
-								<table class="table table-borderless text-center font-size-3vw_m mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
-									<thead>
-									<tr class="bg-border-bottom_m">
-										<th class="p-1 bg-border-right_m w-25 valign-middle_m">Phần thưởng</th>
-										<th class="p-1 bg-border-right_m w-25 valign-middle_m">Nội dung</th>
-										<th class="p-1 bg-border-right_m w-25 valign-middle_m">Thời gian trúng</th>
-										<th class="p-1 w-25 valign-middle_m">Mở quà</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr class="bg-border-bottom_m">
-										<td class="p-0 bg-border-right_m w-25 valign-middle_m">John</td>
-										<td class="p-0 bg-border-right_m w-25 valign-middle_m">Gói quà bạch kim Gói quà bạch kim</td>
-										<td class="p-0 bg-border-right_m w-25 valign-middle_m">12:24:58 19/05/2021</td>
-										<td class="p-1 w-25 valign-middle_m"><a href="#" title="Mở quà">Mở quà</a></td>
-									</tr>
+						<div class="modal-body border-0 py-0 my-0 px-3 scroll-modal-body">
+							<ul class="nav nav-pills_m nav-justified_m mx-auto">
+								<li class="nav-item">
+									<a class="nav-link_m py-0" onClick={()=>this.getDataTuDo(user)}><img src={tab_tudo ? btn_phanthuong_active: btn_phanthuong} width="100%" hspace="5" id="image-3" /></a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link_m py-0" onClick={()=>this.getHistory(user)}><img src={tab_tudo ? btn_lichsu : btn_lichsu_active} width="100%" hspace="5" id="image-4" /></a>
+								</li>
+							</ul>   
+							<div class="tab-content">
+								<div class="tab-pane active">
+									{(tab_tudo)?(<div><table class="table table-borderless text-center font-size-14 mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
+										<thead>
+										<tr class="bg-border-bottom">
+											<th class="p-1 bg-border-right w-25 valign-middle">Phần thưởng</th>
+											<th class="p-1 bg-border-right w-25 valign-middle">Nội dung</th>
+											<th class="p-1 bg-border-right w-25 valign-middle">Thời gian trúng</th>
+											<th class="p-1 w-25 valign-middle">Mở quà</th>
+										</tr>
+										</thead>
+										<tbody>
+											{listTuDo.map((obj, key) => (
+												
+													<tr key={key} class="bg-border-bottom">
+														<td className="p-1 bg-border-right w-33 valign-middle" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardName}></span>{obj.AwardName}</td>
+														<td className="p-1 bg-border-right w-33 valign-middle" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardName}></span>{obj.AwardName}</td>
+														<td className="p-0 bg-border-right w-25 valign-middle">{this.timeConverter(obj.RewardTime)}</td>
+														{(obj.AwardName.indexOf("Thêm")===0)?(<td class="p-1 w-auto valign-middle">Mở</td>):(<td class="p-1 w-auto valign-middle"><a class="text-primary"  style={{cursor:'pointer'}} onClick={()=>this.getItem(user, obj)}>Mở</a></td>)}
+														
+													</tr>
+												))}				
+										</tbody>
+									</table>
+									<div className="pagination justify-content-center pag-custom mt-1">
+									<Pagination
+										activePage={activeTuDo}
+										itemsCountPerPage={limit}
+										totalItemsCount={countTuDo}
+										pageRangeDisplayed={numberPage}
+										lastPageText={'Trang cuối'}
+										firstPageText={'Trang đầu'}
+										itemClass={"page-item"}
+										linkClass={"page-link"}
+										onChange={(v) => this.handlePageChangeTuDo(v)}
+									/>
+								</div> 
+								</div>):(<div><table class="table table-borderless text-center font-size-14 mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
+										<thead>
+										<tr class="bg-border-bottom">
+											<th class="p-1 bg-border-right w-33 valign-middle">Phần thưởng</th>
+											<th class="p-1 bg-border-right w-33 valign-middle">Nội dung</th>
+											<th class="p-1 bg-border-right w-33 valign-middle">Thời gian trúng</th>
+										</tr>
+										</thead>
+										<tbody>
+											{listHistory.map((obj, key) => (
+												
+													<tr key={key} class="bg-border-bottom">
+														<td className="p-1 bg-border-right w-33 valign-middle" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardName}></span>{obj.AwardName}</td>
+														<td className="p-1 bg-border-right w-33 valign-middle" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardDisplay}></span>{obj.AwardDisplay}</td>
+														<td className="p-1 bg-border-right w-33 valign-middle">{this.timeConverter(obj.RewardTime)}</td>
+													</tr>
+												))}				
+										</tbody>
+									</table>
+									<div className="pagination justify-content-center pag-custom">
+									<Pagination
+										activePage={activeHistory}
+										itemsCountPerPage={limit}
+										totalItemsCount={countHistory}
+										pageRangeDisplayed={numberPage}
+										lastPageText={'Trang cuối'}
+										firstPageText={'Trang đầu'}
+										itemClass={"page-item"}
+										linkClass={"page-link"}
+										onChange={(v) => this.handlePageChangeHistory(v)}
+									/>
+								</div>
+								</div> )}
 									
-									</tbody>
-								</table>
-								<ul class="pagination justify-content-center pag-custom mt-1">
-									<li class="page-item"><a class="page-link_m page-be_m" href="#">Trang đầu</a></li>
-									<li class="page-item"><a class="page-link_m" href="#">1</a></li>
-									<li class="page-item active"><a class="page-link_m" href="#">2</a></li>
-									<li class="page-item"><a class="page-link_m" href="#">3</a></li>
-									<li class="page-item"><a class="page-link_m" href="#">...</a></li>
-									<li class="page-item"><a class="page-link_m page-be_m" href="#">Trang cuối</a></li>
-								</ul>
-							</div>
-							{/* <!--End tabphanthuong --> */}
-							<div class="tab-pane fade" id="tablichsu">
-								<table class="table table-borderless text-center font-size-3vw_m mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
-									<thead>
-									<tr class="bg-border-bottom_m">
-										<th class="p-1 bg-border-right_m w-25 valign-middle_m">Phần thưởng</th>
-										<th class="p-1 bg-border-right_m w-25 valign-middle_m">Nội dung</th>
-										<th class="p-1 bg-border-right_m w-25 valign-middle_m">Thời gian trúng</th>
-										<th class="p-1 w-25 valign-middle_m">Mở quà</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr class="bg-border-bottom_m">
-										<td class="p-0 bg-border-right_m w-25 valign-middle_m">John</td>
-										<td class="p-0 bg-border-right_m w-25 valign-middle_m">Gói quà bạch kim Gói quà bạch kim</td>
-										<td class="p-0 bg-border-right_m w-25 valign-middle_m">12:24:58 19/05/2021</td>
-										<td class="p-1 w-25 valign-middle_m"><a href="#" title="Mở quà">Mở quà</a></td>
-									</tr>
-									</tbody>
-								</table>
-								<ul class="pagination justify-content-center pag-custom mt-1">
-									<li class="page-item"><a class="page-link_m page-be_m" href="#">Trang đầu</a></li>
-									<li class="page-item"><a class="page-link_m" href="#">1</a></li>
-									<li class="page-item active"><a class="page-link_m" href="#">2</a></li>
-									<li class="page-item"><a class="page-link_m" href="#">3</a></li>
-									<li class="page-item"><a class="page-link_m" href="#">...</a></li>
-									<li class="page-item"><a class="page-link_m page-be_m" href="#">Trang cuối</a></li>
-								</ul>
-							</div>
-							</div>
-							
+									
+								</div>
+							</div>							
+
 						</div>
 					</div>
 				</div>
 			</div>
 
 
-			{/* <!-- Thông báo --> */}
-
-			{/* <div className="modal fade" id="myModal11" style={{zIndex:10010}}>
-				<div className="modal-dialog">
-					<div className="modal-content popup-phanthuong">
-
-					<div className="modal-header border-bottom-0">
-						<h4 className="modal-title w-100 text-center"><img src={img_thongbao} alt="" /></h4>
-						<button type="button" className="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
-					</div>
-
-					<div className="modal-body">
-						<div className="table-responsive mt-2">              
-							<h5 className="text-thele lead text-center">{message_error}</h5>
-						</div>       
-					</div>
-
-					</div>
-				</div>
-			</div> */}
-
-				
-			{/* <!-- Thông báo bảo trì --> */}
-			{/* <div className="modal fade" id="myModal12" style={{zIndex: 10010}}>
-				<div className="modal-dialog">
-					<div className="modal-content popup-phanthuong">
-					<div className="modal-header border-bottom-0">
-						<h4 className="modal-title w-100 text-center"><img src={img_thongbao} alt="" /></h4>
-						<button type="button" className="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
-					</div>
-
-					<div className="modal-body">
-						<div className="table-responsive mt-2">              
-							<h5 className="text-thele lead text-center">Thông báo bảo trì!</h5>
-							<h5 className="text-thele lead text-center">Chức năng này đang được nâng cấp để tối ưu. Vui lòng quay lại sau 10 phút.</h5>
-							<h5 className="text-thele lead text-center">Xin lỗi vì sự bất tiện này</h5>
-							<button type="button" className="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.closeServerErr}>Xác nhận</button>
-						</div>       
-					</div>
-
-					</div>
-				</div>
-			</div> */}
-
-			{/* <!-- The Modal Thông báo Active tk VIP--> */}
-			{/* <div class="modal fade" id="activeVip">
-				<div class="modal-dialog">
-					<div class="modal-content popup-phanthuong">
-						<div class="modal-header border-bottom-0">
-							<h4 class="modal-title w-100 text-center"><img src={img_thongbao} alt="" /></h4>
-							<button type="button" class="close" data-dismiss="modal"><img src={btn_close} alt="Đóng" /></button>
-						</div>
-						<div class="modal-body">
-							<div class="table-responsive mt-2">              
-								<h5 class="text-thele lead text-center">Tài khoản của bạn chưa phải là Vip. Hãy kích hoạt tài khoản Vip để chơi.</h5>
-								<a href="https://vip.scoin.vn" type="button" target="_blank" class="btn btn-xacnhan text-white btn-block text-center py-4">Trang chủ VIP</a>
-							</div>       
-						</div>
-
-					</div>
-				</div>
-			</div> */}
-			
 				
 				<ReactResizeDetector handleWidth={true} handleHeight={true} onResize={this.onResize} />
 

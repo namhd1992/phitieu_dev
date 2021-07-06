@@ -70,8 +70,7 @@ const styles = {
 	},
 };
 
-var award_open=true;
-var n=0;
+
 
 class Lucky_Rotation extends React.Component {
 
@@ -85,24 +84,15 @@ class Lucky_Rotation extends React.Component {
 			numberShow:15,
 			isAll:true,
 			stop:true,
-			auto: false,
 			itemOfSpin:[],
 			luckySpin:{},
-			turnsFree:0,
 			isLogin:false,
-			day:'00',
-			hour:'00', 
-			minute:'00', 
-			second:'00',
-			itemBonus:{},
-			activeCodeBonus:1,
 			activeVinhDanh:1,
 			activeTuDo:1,
 			activeHistory:1,
 			countVinhDanh:0,
 			countHistory:0,
 			countTuDo:0,
-			countCodeBonus:0,
 			dataVinhDanh:[],
 			dataTuDo:[],
 			listVinhDanh:[],
@@ -113,28 +103,15 @@ class Lucky_Rotation extends React.Component {
 			height:0,
 			img_width:0,
 			img_height:0,
-			code:false,
 			inputValue: '',
-			img_status: "sukiendangdienra",
-			message_status:'',
-			data_auto:[],
 			isSpin:false,
 			closeAuto:true,
 			message_error:'',
 			server_err:false,
 			finished:false,
-			hour_live:'00', 
-			minute_live:'00', 
-			second_live:'00',
-			isLive:false,
 			user:{},
-			xacthuc:false,
-			timeWaiting:0,
 			dataItem:{},
-			startSpin:false,
-			len_auto:0,
 			waiting:false,
-			urlVideo:'',
 			innerWidth:0,
 			type:1, 
 			tab_tudo: true,
@@ -150,7 +127,6 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
-		const {img_width, img_height}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 
 		this.getVinhDanh(1,1);
@@ -173,7 +149,6 @@ class Lucky_Rotation extends React.Component {
 	}
 	componentWillUnmount() {
 		clearInterval(this.state.intervalId);
-		this.setState({ auto : !this.state.auto});
 	}
 	setScreenOrientation=()=>{
 		const {innerWidth}=this.state;
@@ -254,31 +229,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 
-	getStatus=(luckySpin)=>{
-		var StartDate=luckySpin.StartDate;
-		var EndDate=luckySpin.EndDate;
-		var start=StartDate.substring(StartDate.indexOf("(") +1,StartDate.indexOf(")"));
-		var end=EndDate.substring(EndDate.indexOf("(")+1,EndDate.indexOf(")"));
-		console.log(start, end)
-		var time=Date.now();
-
-		// var distance_3day=start - 3 * 86400 * 1000;
-		// var duration=end-time;
-
-		if (time < start) {
-			this.timeRemain(start)
-			this.setState({ img_status: "sapdienra", message_status:"Sự kiện chưa diễn ra."});
-		}
-		if (time > start && time < end) {
-			this.timeRemain(end)
-			this.setState({ img_status: "sukiendangdienra"});
-		}
-		if (time > end) {
-			this.setState({ img_status: "ketthuc", message_status:"Sự kiện đã kết thúc."});
-			// $('#myModal14').modal('show');
-		}
-	}
-
 	handleScroll = (event) => {
 		if (document.body.getBoundingClientRect().top < -300){
 			$("#button").show();
@@ -329,19 +279,6 @@ class Lucky_Rotation extends React.Component {
 		})
 	}
 
-	start=()=>{
-		
-	}
-
-	btnStart=()=>{
-	}
-
-
-
-
-	handleChange = () => {
-		this.setState({ auto : !this.state.auto});
-	};
 
 
 	timeRemain=(times)=>{
@@ -359,18 +296,6 @@ class Lucky_Rotation extends React.Component {
 		}, 1000);
 	}
 
-
-	timeWaitings=()=>{
-		const current=this.state.timeWaiting;
-		console.log(current)
-		if(current>=0){
-			var minute=Math.floor(((current%86400)%3600)/60) > 9 ? Math.floor(((current%86400)%3600)/60) : `0${Math.floor(((current%86400)%3600)/60)}`;
-			var second=Math.ceil(((current%86400)%3600)%60) > 9 ? Math.ceil(((current%86400)%3600)%60) : `0${Math.ceil(((current%86400)%3600)%60)}`;
-			this.setState({minute_live: minute, second_live:second, timeWaiting:current-1})
-		}else{
-			clearInterval(this.state.intervalWaiting);
-		}
-	}
 
 	timeConverter=(time)=>{
 		var start=time.substring(time.indexOf("(") +1,time.indexOf(")"));
@@ -460,7 +385,6 @@ class Lucky_Rotation extends React.Component {
 		this.props.getItemAward(user.Token, item.AwardId).then(()=>{
 			// $('#Loading').modal('hide');
 			var data=this.props.dataItemAward;
-			award_open=true;
 			if(data!==undefined){
 				if(data.Status===0){
 					// this.setState({listHistory:data.Data, countHistory:data.Totals})
@@ -564,8 +488,8 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	render() {
-		const {tab_tudo ,type,numberPage,duatop, vinhdanh, xacthuc,urlVideo,timeWaiting,height, width, auto, isLogin, day, hour, minute, second,len_auto, code, img_status, message_status, data_auto,message_error,dataItem,startSpin,
-			waiting, activeTuDo, activeHistory, activeCodeBonus, activeVinhDanh, limit, countCodeBonus, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh,itemBonus, turnsFree, hour_live, minute_live, second_live, isLive, user}=this.state;
+		const {tab_tudo ,type,numberPage, isLogin,message_error,dataItem,
+			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		const { classes } = this.props;
 		return (<div>	
 					<div class="container-fluid page position-relative">
