@@ -53,7 +53,7 @@ const styles = {
 	},
 };
 
-var startX=430, endX=805, startY=190, endY=560;
+var startX=500, endX=745, startY=250, endY=490;
 
 var award_open=true;
 var n=0;
@@ -146,13 +146,15 @@ class Lucky_Rotation extends React.Component {
 			sessionId:0,
 			listTop:[],
 			isPlay:true,
-			msg:''
+			msg:'',
+			isChangetab:false
 
 		};
 	}
 	componentWillMount(){
 		this.onResize();
 		window.addEventListener("resize", this.setScreenOrientation);
+		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth})
 	}
@@ -307,6 +309,15 @@ class Lucky_Rotation extends React.Component {
 		this.setState({ auto : !this.state.auto});
 	}
 
+	visibilityChange=()=>{
+		if (document.hidden){
+			this.setState({isChangetab:true})
+		} else {
+			this.setState({isChangetab:false})
+		}
+		
+	}
+
 	getRandomInt=(min, max)=> {
 		min = Math.ceil(min);
 		max = Math.floor(max);
@@ -408,37 +419,34 @@ class Lucky_Rotation extends React.Component {
 
 
 	touchStart=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg, score_text, isPlay}=this.state;
-		if(isPlay){
-			if(JSON.stringify(dartFlightImg) !== '{}'){
-				dartFlightImg.remove();
-			}
-	
-			if(JSON.stringify(score_text) !== '{}'){
-				score_text.remove();
-			}
-			
-			var touchPos = stage.getPointerPosition();
-			var x= touchPos.x-20;
-			var y= touchPos.y-80;
-			darthVaderImg.x(x);
-			darthVaderImg.y(y);
-			darthVaderImg.show();
-			this.setState({dartPositionY:touchPos.y})
+		const {stage, layer, darthVaderImg, dartFlightImg, score_text}=this.state;
+		if(JSON.stringify(dartFlightImg) !== '{}'){
+			dartFlightImg.remove();
 		}
+
+		if(JSON.stringify(score_text) !== '{}'){
+			score_text.remove();
+		}
+		
+		var touchPos = stage.getPointerPosition();
+		var x= touchPos.x-20;
+		var y= touchPos.y-80;
+		darthVaderImg.x(x);
+		darthVaderImg.y(y);
+		darthVaderImg.show();
+		this.setState({dartPositionY:touchPos.y})
 		
 	}
 
 	touchEnd=()=>{
 		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
+		var _this=this;
 		if(isPlay){
 			if(countDart>0){
 				var touchPos = stage.getPointerPosition();
 				curFrame=0
-				darthVaderImg.hide();
 				if(dartPositionY >touchPos.y){
 					this.draw(touchPos.x, touchPos.y)
-					// console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
 					this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
 				}else{
 					alert("vuốt lên để phi tiêu")
@@ -448,19 +456,23 @@ class Lucky_Rotation extends React.Component {
 				$('#ThongBao').modal('show');
 			}
 		}
+		darthVaderImg.hide();
+
+		setTimeout(()=>{
+			_this.setState({isPlay:true})
+		}, 1500);
+		
 		
 	}
 
 	touchMove=()=>{
 		const {stage, layer, darthVaderImg, isPlay}=this.state;
-		if(isPlay){
-			if(JSON.stringify(darthVaderImg) !== '{}'){
-				var touchPos = stage.getPointerPosition();
-				var x= touchPos.x-20;
-				var y= touchPos.y-100;
-				darthVaderImg.x(x);
-				darthVaderImg.y(y);
-			}
+		if(JSON.stringify(darthVaderImg) !== '{}'){
+			var touchPos = stage.getPointerPosition();
+			var x= touchPos.x-20;
+			var y= touchPos.y-100;
+			darthVaderImg.x(x);
+			darthVaderImg.y(y);
 		}
 	}
 	updateFrame=()=>{
@@ -574,7 +586,6 @@ class Lucky_Rotation extends React.Component {
 		})
 
 		setTimeout(()=>{
-			_this.setState({isPlay:true})
 			this.showScore(totalScore)
 		}, 400);
 		
@@ -601,7 +612,7 @@ class Lucky_Rotation extends React.Component {
 
 	autoPlay=()=>{
 		
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart}=this.state;
+		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart, isChangetab}=this.state;
 		curFrame=0;
 		if(countDart>0){
 			if(JSON.stringify(dartFlightImg) !== '{}'){
@@ -614,7 +625,6 @@ class Lucky_Rotation extends React.Component {
 		}else{
 			$('#ThongBao').modal('show');
 		}
-		
 	}
 
 
