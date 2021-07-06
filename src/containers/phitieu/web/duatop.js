@@ -54,8 +54,7 @@ const styles = {
 	},
 };
 
-
-var startX=430, endX=805, startY=190, endY=560;
+var startX=500, endX=745, startY=250, endY=490;
 
 var award_open=true;
 var n=0;
@@ -142,18 +141,20 @@ class Lucky_Rotation extends React.Component {
 			timing:"10%",
 			score_text:{},
 			data:{},
-			points:0,
+			points_sanqua:0,
 			countDart:0,
 			sessionId:0,
-			highestPoints:0,
+			listTop:[],
 			isPlay:true,
-			msg:''
+			msg:'',
+			isChangetab:false
 
 		};
 	}
 	componentWillMount(){
 		this.onResize();
 		window.addEventListener("resize", this.setScreenOrientation);
+		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth})
 	}
@@ -275,16 +276,16 @@ class Lucky_Rotation extends React.Component {
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.setState({user:user})
 
-		this.props.getLuckyInfo(2, user.Token).then(()=>{
+		this.props.getLuckyInfo(1, user.Token).then(()=>{
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points: data.Data.AddInfo.Points, highestPoints:data.Data.AddInfo.HighestPoints, sessionId: data.Data.SessionId})
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId})
 					console.log(data.Data)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
-					this.setState({msg:'Phiên Đua Top đã kết thúc!'})
-					$('#Modalnone').modal('show');
+					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
+					$('#ModalnoneDuaTop').modal('show');
 				}else{
 					console.log("Lỗi")
 				}
@@ -306,6 +307,15 @@ class Lucky_Rotation extends React.Component {
 	componentWillUnmount() {
 		clearInterval(this.state.intervalId);
 		this.setState({ auto : !this.state.auto});
+	}
+
+	visibilityChange=()=>{
+		if (document.hidden){
+			this.setState({isChangetab:true})
+		} else {
+			this.setState({isChangetab:false})
+		}
+		
 	}
 
 	getRandomInt=(min, max)=> {
@@ -337,7 +347,7 @@ class Lucky_Rotation extends React.Component {
 		var n=end-start;
 		var m=end-time;
 		var timing=m/n * 100
-		this.setState({timing: timing+'%'})
+		this.setState({timing: timing+"%"})
 		this.timeRemain(end)
 
 
@@ -409,37 +419,34 @@ class Lucky_Rotation extends React.Component {
 
 
 	touchStart=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg, score_text, isPlay}=this.state;
-		if(isPlay){
-			if(JSON.stringify(dartFlightImg) !== '{}'){
-				dartFlightImg.remove();
-			}
-	
-			if(JSON.stringify(score_text) !== '{}'){
-				score_text.remove();
-			}
-			
-			var touchPos = stage.getPointerPosition();
-			var x= touchPos.x-20;
-			var y= touchPos.y-80;
-			darthVaderImg.x(x);
-			darthVaderImg.y(y);
-			darthVaderImg.show();
-			this.setState({dartPositionY:touchPos.y})
+		const {stage, layer, darthVaderImg, dartFlightImg, score_text}=this.state;
+		if(JSON.stringify(dartFlightImg) !== '{}'){
+			dartFlightImg.remove();
 		}
+
+		if(JSON.stringify(score_text) !== '{}'){
+			score_text.remove();
+		}
+		
+		var touchPos = stage.getPointerPosition();
+		var x= touchPos.x-20;
+		var y= touchPos.y-80;
+		darthVaderImg.x(x);
+		darthVaderImg.y(y);
+		darthVaderImg.show();
+		this.setState({dartPositionY:touchPos.y})
 		
 	}
 
 	touchEnd=()=>{
 		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
+		var _this=this;
 		if(isPlay){
 			if(countDart>0){
 				var touchPos = stage.getPointerPosition();
 				curFrame=0
-				darthVaderImg.hide();
 				if(dartPositionY >touchPos.y){
 					this.draw(touchPos.x, touchPos.y)
-					// console.log('touchPosX:', touchPos.x, 'touchPosY:',touchPos.y)
 					this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
 				}else{
 					alert("vuốt lên để phi tiêu")
@@ -449,19 +456,23 @@ class Lucky_Rotation extends React.Component {
 				$('#ThongBao').modal('show');
 			}
 		}
+		darthVaderImg.hide();
+
+		setTimeout(()=>{
+			_this.setState({isPlay:true})
+		}, 1500);
+		
 		
 	}
 
 	touchMove=()=>{
 		const {stage, layer, darthVaderImg, isPlay}=this.state;
-		if(isPlay){
-			if(JSON.stringify(darthVaderImg) !== '{}'){
-				var touchPos = stage.getPointerPosition();
-				var x= touchPos.x-20;
-				var y= touchPos.y-100;
-				darthVaderImg.x(x);
-				darthVaderImg.y(y);
-			}
+		if(JSON.stringify(darthVaderImg) !== '{}'){
+			var touchPos = stage.getPointerPosition();
+			var x= touchPos.x-20;
+			var y= touchPos.y-100;
+			darthVaderImg.x(x);
+			darthVaderImg.y(y);
 		}
 	}
 	updateFrame=()=>{
@@ -562,12 +573,12 @@ class Lucky_Rotation extends React.Component {
 			}
 		}
 
-		this.props.getDartScore(2, totalScore,sessionId, user.Token).then(()=>{
+		this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
 			var data=this.props.dataUserSpin;
 			if(data.Status===0){
-				this.setState({countDart: data.Darts, points: data.Points, highestPoints:data.HighestPoint})
+				this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
 			}else if(data.Status===2){
-				this.setState({listTop:data.TopList, msg:'Quà đã có chủ, phiên chơi kết thúc!'}, ()=>{
+				this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
 					$('#ModalnoneDuaTop').modal('show');
 				})
 				
@@ -575,7 +586,6 @@ class Lucky_Rotation extends React.Component {
 		})
 
 		setTimeout(()=>{
-			_this.setState({isPlay:true})
 			this.showScore(totalScore)
 		}, 400);
 		
@@ -602,7 +612,7 @@ class Lucky_Rotation extends React.Component {
 
 	autoPlay=()=>{
 		
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart}=this.state;
+		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart, isChangetab}=this.state;
 		curFrame=0;
 		if(countDart>0){
 			if(JSON.stringify(dartFlightImg) !== '{}'){
@@ -615,7 +625,6 @@ class Lucky_Rotation extends React.Component {
 		}else{
 			$('#ThongBao').modal('show');
 		}
-		
 	}
 
 

@@ -706,6 +706,21 @@ class Lucky_Rotation extends React.Component {
 				</div>
 			</div>
 
+			{/* <!-- The Modal Thông báo lỗi--> */}
+			<div className="modal fade" id="myModal11">
+				<div class="modal-dialog modal-dangnhap">
+					<div class="modal-content bg-transparent border-0">
+					<div class="modal-header border-0 p-0 text-dark">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body border-0">
+						<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{message_error}</h2>
+					</div>
+
+					</div>
+				</div>
+			</div>
+
 			
 			{/* <!-- The Modal Thông báo activeVip--> */}
 

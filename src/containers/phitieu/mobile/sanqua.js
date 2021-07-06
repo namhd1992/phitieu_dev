@@ -566,15 +566,7 @@ class Lucky_Rotation extends React.Component {
 						<div class="phongtudong_m font-size-2vw_m font-weight-bold text-uppercase text-shadow_m">
 							<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động
 						</div>
-						{/* <div class="timing_m">
-							<div class="media">
-							<img src={icon_clock} class="align-self-center mt-n1" width="13%" alt="clock" />
-							<div class="media-body">
-								<img class="m-0 p-0 mt-n3" src={line_timing} width="90%" alt="Line" />
-								<h6 class="text-yellow font-size-1vw_m mt-n1n_m pl-1 text-shadow_m">Còn: 2d 10h 22p 11s</h6>
-							</div>
-							</div>
-						</div> */}
+
 						<div class="timing_m">
 							<div class="media">
 								<img src={icon_clock} class="align-self-center mt-n1" width="13%" alt="clock"/>
