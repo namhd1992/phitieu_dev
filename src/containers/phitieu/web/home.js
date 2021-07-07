@@ -517,6 +517,14 @@ class Lucky_Rotation extends React.Component {
 		$('[data-toggle="tooltip"]').tooltip();
 	}
 
+	getTypeGiaiThuong=(type)=>{
+		if(type===1){
+			return "Giải thưởng săn quà"
+		}else if(type===2){
+			return "Giải thưởng đua top"
+		}
+	}
+
 	render() {
 		const {tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
@@ -710,24 +718,19 @@ class Lucky_Rotation extends React.Component {
 						{listSesstions.map((obj, key) => (
 							<div class="row mx-0 mb-1 border-giaithuong-e" key={key}>
 								<div class="col-12 text-center text-brown pt-1">
-									<h2 class="font-size-16 font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
-									<p class="font-size-16 mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
+									<h2 class="font-size-16 font-weight-bold text-uppercase mb-0">{this.getTypeGiaiThuong(obj.SessionType)}</h2>
+									{(user.Status===0)?(<p class="font-size-16 mb-0">Còn: 8h : 22p : 28s</p>):(<div></div>)}
+									{(user.Status===1)?(<p class="font-size-16 mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>):(<div></div>)}
+									{(user.Status===2)?( <p class="font-size-16 mb-0 text-danger">Đã kết thúc</p>):(<div></div>)}
+									
 								</div>
 
-								
-									<div class="col-4 text-center">
+								{obj.Awards.map((v, j) => (
+									<div class="col-4 text-center" key={j}>
 										<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
-										<p class="font-size-16 text-yellow">Topup Scoin 50k</p>
+										<p class="font-size-16 text-yellow">{v.Description}</p>
 									</div>
-									<div class="col-4 text-center">
-										<p class="m-0"><img src={img_card200k} alt="" width="60%" /></p>
-										<p class="font-size-16 text-yellow">Thẻ Scoin 200k</p>
-									</div>
-									<div class="col-4 text-center">
-										<p class="m-0"><img src={img_thescoinvoucher} alt="" width="60%" /></p>
-										<p class="font-size-16 text-yellow">Thẻ Scoin Voucher 10k</p>
-									</div>
-
+								))}
 								
 							</div>
 						))}
