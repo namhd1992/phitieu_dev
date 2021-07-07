@@ -94,13 +94,10 @@ class Lucky_Rotation extends React.Component {
 		super(props);
 		this.state = {
 			limit: 10,
-
 			offsetVinhDanh: 0,
 			isAll:true,
 			stop:true,
-
 			auto: false,
-
 			isLogin:false,
 			day:'00',
 			hour:'00', 
@@ -108,8 +105,6 @@ class Lucky_Rotation extends React.Component {
 			second:'00',
 			width:0,
 			height:0,
-			img_width:0,
-			img_height:0,
 			code:false,
 			message_status:'',
 			data_auto:[],
@@ -272,7 +267,7 @@ class Lucky_Rotation extends React.Component {
 		btnExit.src = btn_thoat;
 
 
-		const {img_width, img_height}=this.state;
+
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.setState({user:user})
 
@@ -388,32 +383,7 @@ class Lucky_Rotation extends React.Component {
 		}, 1000);
 	}
 
-	timeWaitings=()=>{
-		const current=this.state.timeWaiting;
-		// console.log(current)
-		if(current>=0){
-			var minute=Math.floor(((current%86400)%3600)/60) > 9 ? Math.floor(((current%86400)%3600)/60) : `0${Math.floor(((current%86400)%3600)/60)}`;
-			var second=Math.ceil(((current%86400)%3600)%60) > 9 ? Math.ceil(((current%86400)%3600)%60) : `0${Math.ceil(((current%86400)%3600)%60)}`;
-			this.setState({minute_live: minute, second_live:second, timeWaiting:current-1})
-		}else{
-			clearInterval(this.state.intervalWaiting);
-		}
-	}
 
-	timeConverter=(time)=>{
-		var start=time.substring(time.indexOf("(") +1,time.indexOf(")"));
-		var a = new Date(+start);
-		// var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-		var year = a.getFullYear();
-		var m=a.getMonth()+1
-		var month =m > 9 ? m : `0${m}`;
-		var date = a.getDate();
-		var hour = a.getHours();
-		var min = a.getMinutes();
-		var sec = a.getSeconds();
-		var time = date + '/' + month + '/' + year + ' ' + hour + ':' + min + ':' + sec ;
-		return time;
-	  }
 
 
 
@@ -620,7 +590,9 @@ class Lucky_Rotation extends React.Component {
 			}
 			var x=this.getRandomInt(startX, endX);
 			var y=this.getRandomInt(startY, endY);
-			this.draw(x,y+heightFrame/2);
+			if(!isChangetab){
+				this.draw(x,y+heightFrame/2);
+			}
 			this.fireDart(x, y + 12)
 		}else{
 			$('#ThongBao').modal('show');
@@ -707,7 +679,7 @@ class Lucky_Rotation extends React.Component {
 								<div class="bg-line-timing">
 									<span style={{background:"#f5950a", width: timing, height: "12px", display: "block", borderRadius: 4}}>&nbsp;</span>
 								</div>
-								<h6 class="text-yellow font-size-16 mt-n1 pl-1 text-shadow">Còn: {day>0 ? `${day} ngay ${hour}:${minute}:${second}` : `${hour}:${minute}:${second}`}</h6>
+								<h6 class="text-yellow font-size-16 mt-n1 pl-1 text-shadow">Còn: {day>0 ? `${day} ngày ${hour}:${minute}:${second}` : `${hour}:${minute}:${second}`}</h6>
 							</div>
 						</div>
 					</div>

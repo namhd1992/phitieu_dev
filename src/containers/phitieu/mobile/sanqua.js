@@ -31,10 +31,17 @@ import {
 
 import icon_clock from './images/icon-clock.png';
 import line_timing from './images/line-timing.png';
-import btn_thoat from './images/btn-thoat.png';
 import phitieu from './images/phitieu.png';
 import dart_player from './images/dart-player.png';
-import dart_flight from './images/dart-flight.gif';
+import img_checkbox_none from './images/img-checkbox-none.png';
+import img_checkbox_checked from './images/img-checkbox-checked.png';
+import btn_thoat from './images/btn-thoat.png';
+import btn_duatop from './images/btn-duatop.png';
+import vip_kimcuong from './images/vip-kimcuong.png';
+import vip_bachkim from './images/vip-bachkim.png';
+import vip_vang from './images/vip-vang.png';
+import vip_bac from './images/vip-bac.png';
+import vip_dong from './images/vip-dong.png';
 import rotate from './images/rotate.png';
 
 import ReactResizeDetector from 'react-resize-detector'
@@ -47,21 +54,39 @@ const styles = {
 	},
 };
 
+var startX=500, endX=745, startY=250, endY=490;
+
 var award_open=true;
 var n=0;
 var animId;
 var dartTimerId = 1;
 var FLIGHT_ANIM_DELAY = 20;
+var SEGMENT_COUNT = 20;
 var width = window.innerWidth;
 var height = window.innerHeight;
 var curFrame = 0;
-var frameCount = 5; 
-var spriteWidth = 430; 
-var spriteHeight = 197; 
+var frameCount = 13; 
+var spriteWidth = 364; 
+var spriteHeight = 120; 
 var widthFrame = spriteWidth/frameCount; 
 var heightFrame = spriteHeight; 
 var srcX=0; 
 var srcY=0; 
+
+var Dart_Center_X=619;
+var Dart_Center_Y=375;
+var radius=134;
+
+var SEGMENT_SIZE = Math.PI/10.0;
+var SEGMENTS = [8, 15, 73, 83, 124, 134];
+var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
+var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
+
+var segmentIndex = 0; // index vysece
+var segmentType = 0;  // typ policka
+var segment = 0;
+
+var totalScore = 0;
 
 
 
@@ -71,31 +96,17 @@ class Lucky_Rotation extends React.Component {
 		super(props);
 		this.state = {
 			limit: 10,
-
 			offsetVinhDanh: 0,
 			isAll:true,
 			stop:true,
-
 			auto: false,
-
-			itemOfSpin:[],
-			luckySpin:{},
-
-			turnsFree:0,
 			isLogin:false,
 			day:'00',
 			hour:'00', 
 			minute:'00', 
 			second:'00',
-			itemBonus:{},
-			dataVinhDanh:[],
-			dataTuDo:[],
-			dataCodeBonus:[],
-			listHistory:[],
 			width:0,
 			height:0,
-			img_width:0,
-			img_height:0,
 			code:false,
 			message_status:'',
 			data_auto:[],
@@ -106,8 +117,6 @@ class Lucky_Rotation extends React.Component {
 			hour_live:'00', 
 			minute_live:'00', 
 			second_live:'00',
-			linkLiveStream:'',
-			isLive:false,
 			user:{},
 			timeWaiting:0,
 			dataItem:{},
@@ -120,10 +129,23 @@ class Lucky_Rotation extends React.Component {
 			layer:{},
 			darthVaderImg:{},
 			dartFlightImg:{},
+			checkboxImg:{},
+			uncheckboxImg:{},
+			exitImg:{},
+			auto_play:false,
 			orientation:'',
 			dartPositionY:0,
+			timing:"10%",
+			score_text:{},
+			data:{},
+			points_sanqua:0,
+			countDart:0,
+			sessionId:0,
+			listTop:[],
+			isPlay:true,
+			msg:'',
+			isChangetab:false,
 			horizontal:false,
-			timing:"10%"
 
 		};
 	}
@@ -138,16 +160,9 @@ class Lucky_Rotation extends React.Component {
 		}else{
 			this.setState({horizontal: true})
 		}
-		
-		// this.loadImage();
 	}
 
 
-	// componentDidUpdate(oldProps) {
-	// 	if (oldProps.src !== this.props.src) {
-	// 	  this.loadImage();
-	// 	}
-	//   }
 
 
 	componentDidMount(){
@@ -160,6 +175,20 @@ class Lucky_Rotation extends React.Component {
 				height: height,
 			});
 			var layer = new Konva.Layer();
+
+			var stage_checkbox = new Konva.Stage({
+				container: 'div_checkbox',
+				width: 50,
+				height: 30,
+			});
+			var layer_checkbox = new Konva.Layer();
+	
+			var stage_exit = new Konva.Stage({
+				container: 'div_exit',
+				width: 105,
+				height: 42,
+			});
+			var layer_exit = new Konva.Layer();
 	
 			this.setState({stage:stage, layer:layer})
 			var _this=this
@@ -167,10 +196,10 @@ class Lucky_Rotation extends React.Component {
 			imageObj.onload = function () {
 				var darthVaderImg = new Konva.Image({
 					image: imageObj,
-					x: 300,
-					y: 280,
-					width: 200,
-					height: 137,
+					x: 0,
+					y: 0,
+					width: 28,
+					height: 120,
 					draggable: true,
 					visible:false
 					});
@@ -180,43 +209,76 @@ class Lucky_Rotation extends React.Component {
 					_this.setState({darthVaderImg:darthVaderImg})
 			};
 			imageObj.src = phitieu;
+
+			var checkbox = new Image();
+		checkbox.onload = function () {
+			var checkboxImg = new Konva.Image({
+				image: checkbox,
+				x: 0,
+				y: 3,
+				width: 20,
+				height: 20,
+				});
+		
+				layer_checkbox.add(checkboxImg);
+				stage_checkbox.add(layer_checkbox);
+				_this.setState({checkboxImg:checkboxImg})
+		};
+		checkbox.src = img_checkbox_none;
+
+		var uncheckbox = new Image();
+		uncheckbox.onload = function () {
+			var uncheckboxImg = new Konva.Image({
+				image: uncheckbox,
+				x: 0,
+				y: 3,
+				width: 20,
+				height: 20,
+				visible:false
+			});
+	
+			layer_checkbox.add(uncheckboxImg);
+			stage_checkbox.add(layer_checkbox);
+			_this.setState({uncheckboxImg:uncheckboxImg})
+		};
+		uncheckbox.src = img_checkbox_checked;
+
+		var btnExit = new Image();
+		btnExit.onload = function () {
+			var exitImg = new Konva.Image({
+				image: btnExit,
+				x: 0,
+				y: 0,
+				width: 90,
+				height: 35
+			});
+	
+			layer_exit.add(exitImg);
+			stage_exit.add(layer_exit);
+			_this.setState({exitImg:exitImg})
+		};
+		btnExit.src = btn_thoat;
+
 		}
 
 		const {img_width, img_height}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 
-		this.props.getLuckyInfo().then(()=>{
+		this.props.getLuckyInfo(1, user.Token).then(()=>{
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId})
+					console.log(data.Data)
 					this.getStatus(data.Data)
+				}else if(data.Status===2){
+					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
+					$('#Modalnone').modal('show');
+				}else{
+					console.log("Lỗi")
 				}
 			}
 		})
-
-		this.props.getLuckyItems().then(()=>{
-			var data=this.props.dataLuckyItems;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.setState({itemOfSpin: data.Data})
-				}
-			}
-		})
-
-
-
-		if (user !== null) {
-			this.setState({isLogin:true, user:user})
-			this.props.getDartScore(user.Token).then(()=>{
-				var data=this.props.dataUserSpin;
-				if(data!==undefined){
-					if(data.Status===0){
-						this.setState({turnsFree: data.Spins})
-					}
-				}
-
-			})
-		} 
 		
 		
 		// window.addEventListener('scroll', this.handleScroll);
@@ -322,29 +384,18 @@ class Lucky_Rotation extends React.Component {
 	  }
 
 
-	getStatus=(luckySpin)=>{
-		var StartDate=luckySpin.StartDate;
-		var EndDate=luckySpin.EndDate;
+	  getStatus=(luckySpin)=>{
+		var StartDate=luckySpin.StartTime;
+		var EndDate=luckySpin.EndTime;
 		var start=StartDate.substring(StartDate.indexOf("(") +1,StartDate.indexOf(")"));
 		var end=EndDate.substring(EndDate.indexOf("(")+1,EndDate.indexOf(")"));
-		console.log(start, end)
 		var time=Date.now();
 
-		// var distance_3day=start - 3 * 86400 * 1000;
-		// var duration=end-time;
-
-		if (time < start) {
-			this.timeRemain(start)
-			this.setState({ img_status: 'sapdienra', message_status:"Sự kiện chưa diễn ra."});
-		}
-		if (time > start && time < end) {
-			this.timeRemain(end)
-			this.setState({ img_status: 'sukiendangdienra'});
-		}
-		if (time > end) {
-			this.setState({ img_status: 'ketthuc', message_status:"Sự kiện đã kết thúc."});
-			// $('#myModal14').modal('show');
-		}
+		var n=end-start;
+		var m=end-time;
+		var timing=m/n * 100
+		this.setState({timing: timing+"%"})
+		this.timeRemain(end)
 	}
 
 	handleScroll = (event) => {
@@ -356,20 +407,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 
-	start=()=>{
-	
-	}
-
-	btnStart=()=>{
-
-	}
-
-	startSpin=()=>{
-
-	}
-	
-
-
 
 	handleChange = () => {
 		this.setState({ auto : !this.state.auto});
@@ -378,32 +415,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	getDetailData=()=>{
-		const {auto}=this.state;
-		var user = JSON.parse(localStorage.getItem("user"));
-		this.props.getDartScore(user.Token).then(()=>{
-			var data=this.props.dataUserSpin;
-			if(data!==undefined){
-				var turnsFree=data.Spins
-				if(data.Status===0){
-					if(turnsFree>0){
-						if(auto){
-							this.start();
-						}
-					}else{
-						$('#myModal6').modal('show');
-						clearInterval(this.state.intervalId);
-					}
-					this.setState({turnsFree:turnsFree})
-				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Lỗi hệ thống. Vui lòng thử lại.'})
-				}
-			}else{
-				$('#myModal12').modal('show');
-				this.setState({server_err:true})
-			}
-
-		})
+		
 	}
 
 	timeRemain=(times)=>{
@@ -420,34 +432,6 @@ class Lucky_Rotation extends React.Component {
 			}
 		}, 1000);
 	}
-
-	timeWaitings=()=>{
-		const current=this.state.timeWaiting;
-		console.log(current)
-		if(current>=0){
-			var minute=Math.floor(((current%86400)%3600)/60) > 9 ? Math.floor(((current%86400)%3600)/60) : `0${Math.floor(((current%86400)%3600)/60)}`;
-			var second=Math.ceil(((current%86400)%3600)%60) > 9 ? Math.ceil(((current%86400)%3600)%60) : `0${Math.ceil(((current%86400)%3600)%60)}`;
-			this.setState({minute_live: minute, second_live:second, timeWaiting:current-1})
-		}else{
-			clearInterval(this.state.intervalWaiting);
-		}
-	}
-
-	timeConverter=(time)=>{
-		var start=time.substring(time.indexOf("(") +1,time.indexOf(")"));
-		var a = new Date(+start);
-		// var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-		var year = a.getFullYear();
-		var m=a.getMonth()+1
-		var month =m > 9 ? m : `0${m}`;
-		var date = a.getDate();
-		var hour = a.getHours();
-		var min = a.getMinutes();
-		var sec = a.getSeconds();
-		var time = date + '/' + month + '/' + year + ' ' + hour + ':' + min + ':' + sec ;
-		return time;
-	  }
-
 
 
 	getItem=(user, item)=>{
@@ -475,50 +459,70 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchStart=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg}=this.state;
+		const {stage, layer, darthVaderImg, dartFlightImg, score_text}=this.state;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
+
+		if(JSON.stringify(score_text) !== '{}'){
+			score_text.remove();
+		}
 		
 		var touchPos = stage.getPointerPosition();
-		var x= touchPos.x-100;
+		var x= touchPos.x-20;
 		var y= touchPos.y-80;
 		darthVaderImg.x(x);
 		darthVaderImg.y(y);
 		darthVaderImg.show();
 		this.setState({dartPositionY:touchPos.y})
+		
 	}
 
 	touchEnd=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg, dartPositionY}=this.state;
-		var touchPos = stage.getPointerPosition();
-		curFrame=0
-		darthVaderImg.hide();
-		if(dartPositionY >touchPos.y){
-			this.draw()
-		}else{
-			// alert("vuốt lên để phi tiêu")
+		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
+		var _this=this;
+		if(isPlay){
+			if(countDart>0){
+				var touchPos = stage.getPointerPosition();
+				curFrame=0
+				if(dartPositionY >touchPos.y){
+					this.draw(touchPos.x, touchPos.y)
+					this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+				}else{
+					alert("vuốt lên để phi tiêu")
+				}
+				this.setState({isPlay:false})
+			}else{
+				$('#ThongBao').modal('show');
+			}
 		}
-		
+		darthVaderImg.hide();
 
+		setTimeout(()=>{
+			_this.setState({isPlay:true})
+		}, 1500);
+		
+		
 	}
 
 	touchMove=()=>{
-		const {stage, layer, darthVaderImg}=this.state;
-		var touchPos = stage.getPointerPosition();
-		var x= touchPos.x-100;
-		var y= touchPos.y-80;
-		darthVaderImg.x(x);
-		darthVaderImg.y(y);
+		const {stage, layer, darthVaderImg, isPlay}=this.state;
+		if(JSON.stringify(darthVaderImg) !== '{}'){
+			var touchPos = stage.getPointerPosition();
+			var x= touchPos.x-20;
+			var y= touchPos.y-100;
+			darthVaderImg.x(x);
+			darthVaderImg.y(y);
+		}
 	}
 	updateFrame=()=>{
 		srcX=curFrame*widthFrame;
 		srcY=0;
 		curFrame=++curFrame;
-		console.log('curFrame:',curFrame)
 	}
 
-	draw=()=>{
+	draw=(x, y)=>{
+		const {dartFlightImg}=this.state;
 		var _this=this
 		const {stage, layer}=this.state;
 		var touchPos = stage.getPointerPosition();
@@ -527,8 +531,8 @@ class Lucky_Rotation extends React.Component {
 		dartFlight.onload = function () {
 			var dartFlightImg = new Konva.Image({
 				image: dartFlight,
-				x: touchPos.x - widthFrame/2,
-				y: touchPos.y - heightFrame/4,
+				x: x - widthFrame/2,
+				y: y - heightFrame/2,
 				width: widthFrame,
 				height: heightFrame,
 				// visible:false
@@ -537,20 +541,180 @@ class Lucky_Rotation extends React.Component {
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
-			if(curFrame <= 4){
+			if(curFrame <= 12){
 				setTimeout(()=>{
-					_this.draw() 
+					_this.draw(x,y) 
 					dartFlightImg.remove(); 
-				}, 50);
+				}, 23);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
 		};
 		dartFlight.src = dart_player;
+		
+	}
+
+	fireDart=(tarX, tarY)=> {
+		this.computeHit(tarX,tarY);
+		this.generateScore();
+	}
+
+	
+    computeHit=(xpos,ypos)=> {
+
+		var dx = Dart_Center_X - xpos;
+		var dy = Dart_Center_Y - ypos;
+	
+		// var angle = Math.atan2(dx,dy)-angleOffset*2;
+		var angle = Math.atan2(dy,dx);
+		var delta = Math.sqrt(dx*dx+dy*dy);
+
+
+		var sg = 0;
+		for (var i = 0; i < 6; i++) {
+			if (delta > SEGMENTS[i])
+			sg = i+1;
+		}
+
+		segmentType = sg;
+		segmentIndex = Math.round(-angle * (180.0/Math.PI)+180.0);
+	
+	
+		segment = Math.round((segmentIndex)  / (360.0/SEGMENT_COUNT));
+	
+	
+	   }
+
+	generateScore=()=> {
+		const {sessionId} =this.state;
+		var user = JSON.parse(localStorage.getItem("user"));
+		var _this=this;
+		if (SEGMENT_NAMES[segmentType] == 'out') {
+	
+			totalScore = 0; // mimo herni pole
+	
+		} else
+		if (SEGMENT_NAMES[segmentType] == '50') {
+	
+			totalScore = 50; // cisty stred
+	
+			} else {
+	
+			if (SEGMENT_NAMES[segmentType] == '25') {
+	
+				totalScore = 25; // sirsi stred
+	
+			} else {
+	
+				totalScore = SCORE_VALUES[segment];
+	
+				if (SEGMENT_NAMES[segmentType] == 'double') totalScore *= 2;  // vnejsi okraj - double
+				if (SEGMENT_NAMES[segmentType] == 'tripple') totalScore *= 3; // prostredni pole - tripple
+			}
+		}
+
+		this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
+			var data=this.props.dataUserSpin;
+			if(data.Status===0){
+				this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
+			}else if(data.Status===2){
+				this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
+					$('#Modalnone').modal('show');
+				})
+				
+			}
+		})
+
+		setTimeout(()=>{
+			this.showScore(totalScore)
+		}, 400);
+		
+			// console.log('AA:', totalScore)
+	}
+
+
+	check_auto=()=>{
+		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		this.setState({auto_play:!auto_play},()=>{
+			if(this.state.auto_play){
+				checkboxImg.hide();
+				uncheckboxImg.show();
+				var intervalId = setInterval(this.autoPlay, 2000);
+				this.setState({intervalId:intervalId})
+				
+			}else{
+				checkboxImg.show();
+				uncheckboxImg.hide();
+				clearInterval(this.state.intervalId);
+			}
+		})
+	}
+
+	autoPlay=()=>{
+		
+		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart, isChangetab}=this.state;
+		curFrame=0;
+		if(countDart>0){
+			if(JSON.stringify(dartFlightImg) !== '{}'){
+				dartFlightImg.remove();
+			}
+			var x=this.getRandomInt(startX, endX);
+			var y=this.getRandomInt(startY, endY);
+			this.draw(x,y+heightFrame/2);
+			this.fireDart(x, y + 12)
+		}else{
+			$('#ThongBao').modal('show');
+		}
+	}
+
+
+	exit=()=>{
+		console.log('AAAAAAAAAAAA')
+		window.location.replace("/")
+	}
+
+	showScore=(totalScore)=>{
+		
+		var score=totalScore>9?totalScore:'0'+totalScore;
+		const {layer, stage}=this.state;
+		var newH=stage.height() / 2;
+		var size=25;
+	
+		var score_text = new Konva.Text({
+			x: stage.width() / 2 -15,
+			y: stage.height() / 2,
+			text: score,
+			fontSize: size,
+			fontFamily: 'Calibri',
+			text: score,
+			fill: 'yellow',
+			fontStyle:'bold',
+			stroke:'black',
+			strokeWidth: 1.5,
+			text: score,
+		});
+
+		var inter=setInterval(()=>{	
+			newH=newH-1;
+			size=size+0.1;
+			score_text.fontSize(size)
+			score_text.y(newH);
+		}, 20);
+
+		layer.add(score_text)
+		stage.add(layer)
+		setTimeout(()=>{ 
+			score_text.remove();
+			clearInterval(inter)
+		}, 1000);
+
+		
+		this.setState({score_text:score_text})
 	}
 
 	render() {
-		const {user, image, horizontal, timing}=this.state;
+
+		const {msg, user, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
 
 		return (
 				<div id="game" style={{overflowBlock:'hidden'}}>
@@ -582,9 +746,7 @@ class Lucky_Rotation extends React.Component {
 							<p class="font-size-1vw_m text-white mb-0 text-center">Đặng Lê</p>
 							<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Kim Cương</h2>
 						</div>
-						<div class="btn-login_m">
-							<img src={btn_thoat} width="100%" alt="" />
-						</div>
+
 						<div class="phitieu-status_m marquee_m">
 							<div class="marquee_inner_m">            
 								<span class="m-0 font-size-1vw_m font-weight-bold text-shadow_m pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
@@ -631,11 +793,42 @@ class Lucky_Rotation extends React.Component {
 							</table>
     					</div>
 
+						{/* {(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>)} */}
 						<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
-						
+						<div id="div_checkbox" style={{position:'absolute', top:"90%", left:"40%", zIndex:999999}} onTouchStart={this.check_auto}></div>
+						<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
 					</div>):(<div>
 						<img src={rotate} width="100%" alt="" />
 					</div>)}
+
+						{/* <!-- The Modal Thông báo--> */}
+					<div class="modal fade" id="Modalnone" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
+						<div class="modal-dialog modal-dangnhap">
+							<div class="modal-content bg-transparent border-0">
+
+							<div class="modal-body border-0">
+								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+								<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+							</div>
+
+							</div>
+						</div>
+					</div>
+
+										
+					{/* <!-- The Modal Thông báo--> */}
+					<div class="modal fade" id="ThongBao" style={{zIndex:9999999}}>
+						<div class="modal-dialog modal-dangnhap">
+							<div class="modal-content bg-transparent border-0">
+
+							<div class="modal-body border-0">
+								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn đã hết tiêu</h2>
+								<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+							</div>
+
+							</div>
+						</div>
+					</div>
 				</div>
 			)
 	}
@@ -684,49 +877,3 @@ export default connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(Lucky_Rotation)
-
-{/* <Stage width={window.innerWidth} height={window.innerHeight}>
-				<Layer>
-					<Image
-						x={150}
-						y={150}
-						image={image}
-						ref={node => {
-							this.imageNode = node;
-						  }}
-						  draggable
-						fill={this.state.isDragging ? 'green' : 'black'}
-						onDragStart={() => {
-						this.setState({
-							isDragging: true
-						});
-						}}
-						onDragEnd={e => {
-						this.setState({
-							isDragging: false,
-							x: e.target.x(),
-							y: e.target.y()
-						});
-						}}
-					/>
-					<Text
-						text="Draggable Text"
-						x={this.state.x}
-						y={this.state.y}
-						draggable
-						fill={this.state.isDragging ? 'green' : 'black'}
-						onDragStart={() => {
-						this.setState({
-							isDragging: true
-						});
-						}}
-						onDragEnd={e => {
-						this.setState({
-							isDragging: false,
-							x: e.target.x(),
-							y: e.target.y()
-						});
-						}}
-					/>
-				</Layer>
-			</Stage> */}

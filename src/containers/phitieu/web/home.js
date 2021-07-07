@@ -670,7 +670,7 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Giai thuong--> */}
 			<div class="modal fade" id="Modalgiaithuong">
-				<div class="modal-dialog modal-dangnhap modal-dialog-scrollable">
+				<div class="modal-dialog modal-dialog-md modal-dangnhap modal-dialog-scrollable">
 					<div class="modal-content bg-transparent border-0">
 
 					<div class="modal-header border-0 p-0">
@@ -703,7 +703,7 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Tu do--> */}
 			<div class="modal fade" id="Modaltudo">
-				<div class="modal-dialog modal-tudo">
+				<div class="modal-dialog modal-dialog-md modal-tudo">
 					<div class="modal-content bg-transparent border-0">
 						<div class="modal-header border-0 p-0 text-dark">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
