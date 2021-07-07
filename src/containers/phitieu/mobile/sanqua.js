@@ -725,7 +725,7 @@ class Lucky_Rotation extends React.Component {
 						</div>
 						<div class="tongdiem_m">
 							<h2 class="font-size-2vw_m text-uppercase font-weight-bold text-center mb-1 text-shadow_m">Tổng điểm</h2>
-							<h4 class="font-size-2vw_m text-uppercase text-center text-shadow_m">699669</h4>
+							<h4 class="font-size-2vw_m text-uppercase text-center text-shadow_m">{points_sanqua}</h4>
 						</div>
 						<div class="phongtudong_m font-size-2vw_m font-weight-bold text-uppercase text-shadow_m">
 							<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động
@@ -743,13 +743,16 @@ class Lucky_Rotation extends React.Component {
 							</div>
 						</div>
 						<div class="account-name_m">
-							<p class="font-size-1vw_m text-white mb-0 text-center">Đặng Lê</p>
-							<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Kim Cương</h2>
+							<p class="font-size-1vw_m text-white mb-0 text-center">{user.Username}</p>
+							{(user.VipLevel===1)?(<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Đồng <img src={vip_dong} alt="VIP Đồng" width="16" /></h2>):(<div></div>)}
+							{(user.VipLevel===2)?(<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Bạc <img src={vip_bac} alt="VIP Bạc" width="16" /></h2>):(<div></div>)}
+							{(user.VipLevel===3)?(<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Vàng <img src={vip_vang} alt="VIP Vàng" width="16" /></h2>):(<div></div>)}
+							{(user.VipLevel===4)?(<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Bạch kim <img src={vip_bachkim} alt="VIP Bạch kim" width="16" /></h2>):(<div></div>)}
 						</div>
 
 						<div class="phitieu-status_m marquee_m">
 							<div class="marquee_inner_m">            
-								<span class="m-0 font-size-1vw_m font-weight-bold text-shadow_m pr-5">Số phi tiêu còn lại: <strong>9999</strong></span>		
+								<span class="m-0 font-size-1vw_m font-weight-bold text-shadow_m pr-5">Số phi tiêu còn lại: <strong>{countDart}</strong></span>		
 								<span class="m-0 font-size-1vw_m font-weight-bold text-shadow_m pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
 							</div>    	
 						</div>
@@ -760,35 +763,12 @@ class Lucky_Rotation extends React.Component {
 							<h2 class="font-size-2vw_m m-0 font-weight-bold text-shadow text-center">Danh sách TOP</h2>
 							<table class="table table-borderless font-size-3vw_m mb-0 mt-1" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "100%"}}>
 								<tbody>
-									<tr class="bg-border-bottom_m">
-										<td class="p-0 w-50 font-size-1vw_m text-shadow">ThuyVixxx</td>
-										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>                
-									</tr>
-									<tr class="bg-border-bottom_m">
-										<td class="p-0 w-50 font-size-1vw_m text-shadow">NgocTrxxx</td>
-										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>
-									</tr>
-									<tr class="bg-border-bottom_m">
-										<td class="p-0 w-50 font-size-1vw_m text-shadow">ThuyVixxx</td>
-										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>                
-									</tr>
-									<tr class="bg-border-bottom_m">
-										<td class="p-0 w-50 font-size-1vw_m text-shadow">NgocTrxxx</td>
-										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>
-									</tr>
-									<tr class="bg-border-bottom_m">
-										<td class="p-0 w-50 font-size-1vw_m text-shadow">ThuyVixxx</td>
-										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>                
-									</tr>
-									<tr class="bg-border-bottom_m">
-										<td class="p-0 w-50 font-size-1vw_m text-shadow">NgocTrxxx</td>
-										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>
-									</tr>
-									<tr class="bg-border-bottom_m">
-										<td class="p-0 w-50 font-size-1vw_m text-shadow">ThuyVixxx</td>
-										<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">699666</td>                
-									</tr>
-												
+									{listTop.map((obj, key) => (
+										<tr class="bg-border-bottom_m" key={key}>
+											<td class="p-0 w-50 font-size-1vw_m text-shadow">{obj.Username}</td>
+											<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">{obj.Points}</td>                
+										</tr>
+									))}		
 								</tbody>
 							</table>
     					</div>

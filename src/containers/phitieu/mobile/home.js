@@ -488,6 +488,11 @@ class Lucky_Rotation extends React.Component {
 		$('[data-toggle="tooltip"]').tooltip();
 	}
 
+	openGiaiThuong=()=>{
+		console.log("AAAAAAAAAAAAA")
+		$('#Modalgiaithuong').modal('show');
+	}
+
 	render() {
 		const {tab_tudo ,type,numberPage, isLogin,message_error,dataItem,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
@@ -545,7 +550,7 @@ class Lucky_Rotation extends React.Component {
 									
 									<div class="tab-content bg-bxh_m">
 										<div id="home" class="tab-pane active pt-3vw_m pb-3">
-											<table class="table table-borderless text-center font-size-3vw_m mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
+											<table class="table table-borderless text-center font-size-3vw_m mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "150%"}}>
 												<thead>
 												<tr class="bg-border-bottom_m">
 													<th class="p-1 bg-border-right_m w-33">Tài khoản</th>
@@ -607,10 +612,10 @@ class Lucky_Rotation extends React.Component {
 									</p>
 								</div>
 								<div class="menu-left_m">
-									<a href="https://vip.scoin.vn" title="Active VIP" target="_blank"><p class="mb-0 menu-link link-first"></p></a>
-									<a href="#" title="Hướng dẫn chơi"><p class="mb-0 menu-link"></p></a>
-									<a href="#Modalgiaithuong" title="Giải thưởng" data-toggle="modal"><p class="mb-0 menu-link"></p></a>
-									<a href="#" title="Lịch sử giao dịch"><p class="mb-0 menu-link"></p></a>
+									<a href="https://vip.scoin.vn" title="Active VIP" target="_blank"><p class="mb-0 menu-link_m link-first_m"></p></a>
+									<a href="#" title="Hướng dẫn chơi"><p class="mb-0 menu-link_m"></p></a>
+									<a title="Giải thưởng" onClick={this.openGiaiThuong}><p class="mb-0 menu-link_m"></p></a>
+									<a href="#" title="Lịch sử giao dịch"><p class="mb-0 menu-link_m"></p></a>
 								</div>
 								<div class="menu-right_m"><a title="Tủ đồ" data-toggle="modal" onClick={this.showModalTuDo}><img src={btn_tudo} width="100%" alt="" /></a></div>
 							</div>
