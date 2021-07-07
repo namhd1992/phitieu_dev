@@ -568,7 +568,7 @@ class Lucky_Rotation extends React.Component {
 													))}
 												</tbody>
 											</table>
-											<div className="pagination justify-content-center pag-custom">
+											<div className="pagination justify-content-center pag-custom_m font-size-3vw_m" >
 												<Pagination
 													activePage={activeVinhDanh}
 													itemsCountPerPage={10}
@@ -576,8 +576,8 @@ class Lucky_Rotation extends React.Component {
 													pageRangeDisplayed={numberPage}
 													lastPageText={'Trang cuối'}
 													firstPageText={'Trang đầu'}
-													itemClass={"page-item"}
-													linkClass={"page-link"}
+													itemClass={"page-item_m"}
+													linkClass={"page-link_m"}
 													onChange={(v) => this.handlePageChangeVinhDanh(type,v)}
 												/>
 											</div> 

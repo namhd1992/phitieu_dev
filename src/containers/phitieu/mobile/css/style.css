@@ -48,7 +48,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family: Arial, Helvetica, s
 .modal-tudo_m {background:url(../images/bg-popup-tudo.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
 .valign-middle_m {vertical-align: middle !important;}
 .pag-custom_m .page-item_m {margin: 5px;}
-.pag-custom_m .page-link_m {background-color: #fcc316; border-color: #fcc316; border-radius: 4px; color:#FFFFFF; font-size:13px; padding: 2px 10px}
+.pag-custom_m .page-link_m {background-color: #fcc316; border-color: #fcc316; border-radius: 4px; color:#FFFFFF; padding: 1px 5px}
 .pag-custom_m .page-be_m {background-color: #b30101; border-color: #b30101;}
 .pag-custom_m .page-item_m.active .page-link_m {background-color: #b30101; border-color: #b30101;}
 
