@@ -13,6 +13,7 @@ import {
 	buyTurn,
 	getTuDo,
 	getHistoryTuDo,
+	getMoreSessions,
 	getCodeBonus,
 	getVinhDanh,
 	getLuckyInfo,
@@ -126,6 +127,7 @@ class Lucky_Rotation extends React.Component {
 			innerWidth:0,
 			type:1, 
 			tab_tudo: true,
+			listSesstions:[]
 		};
 	}
 	componentWillMount(){
@@ -146,6 +148,23 @@ class Lucky_Rotation extends React.Component {
 		if (user !== null) {
 			this.setState({isLogin:true, user:user})
 		} 
+
+		this.props.getMoreSessions().then(()=>{
+			var data=this.props.dataSesions;
+			if(data!==undefined){
+				if(data.Status===0){
+					this.setState({listSesstions:data.Data})
+				}else if(data.Status===2){
+					this.setState({msg:'Chưa load được dữ liệu'})
+					$('#myModal11').modal('show');
+				}else if(data.Status===3){
+					this.logoutAction();
+				}else{
+					console.log("Lỗi")
+				}
+			}
+		})
+
 		
 		window.addEventListener('scroll', this.handleScroll);
 	}
@@ -499,7 +518,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	render() {
-		const {tab_tudo ,type,numberPage, isLogin,message_error,dataItem,
+		const {tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		const { classes } = this.props;
 		return (<div>	
@@ -687,25 +706,33 @@ class Lucky_Rotation extends React.Component {
 					<div class="modal-header border-0 p-0">
 						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
 					</div>
-					<div class="modal-body border-0 py-0 my-4 px-4 ml-1 scroll-modal-body">      	
-						<div class="row mx-0 mb-1 border-giaithuong-e">
-							<div class="col-12 text-center text-brown pt-1">
-								<h2 class="font-size-16 font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
-								<p class="font-size-16 mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
+					<div class="modal-body border-0 py-0 my-4 px-4 ml-1 scroll-modal-body"> 
+						{listSesstions.map((obj, key) => (
+							<div class="row mx-0 mb-1 border-giaithuong-e" key={key}>
+								<div class="col-12 text-center text-brown pt-1">
+									<h2 class="font-size-16 font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
+									<p class="font-size-16 mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
+								</div>
+
+								
+									<div class="col-4 text-center">
+										<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
+										<p class="font-size-16 text-yellow">Topup Scoin 50k</p>
+									</div>
+									<div class="col-4 text-center">
+										<p class="m-0"><img src={img_card200k} alt="" width="60%" /></p>
+										<p class="font-size-16 text-yellow">Thẻ Scoin 200k</p>
+									</div>
+									<div class="col-4 text-center">
+										<p class="m-0"><img src={img_thescoinvoucher} alt="" width="60%" /></p>
+										<p class="font-size-16 text-yellow">Thẻ Scoin Voucher 10k</p>
+									</div>
+
+								
 							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
-								<p class="font-size-16 text-yellow">Topup Scoin 50k</p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={img_card200k} alt="" width="60%" /></p>
-								<p class="font-size-16 text-yellow">Thẻ Scoin 200k</p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={img_thescoinvoucher} alt="" width="60%" /></p>
-								<p class="font-size-16 text-yellow">Thẻ Scoin Voucher 10k</p>
-							</div>
-						</div>
+						))}
+
+						
 					</div>
 					</div>
 				</div>
@@ -820,6 +847,7 @@ class Lucky_Rotation extends React.Component {
 
 const mapStateToProps = state => ({
 	dataProfile: state.profile.data,
+	dataSesions: state.lucky.dataSesions,
 	dataLuckyInfo: state.lucky.dataLuckyInfo,
 	dataLuckyItems:state.lucky.dataLuckyItems,
 	dataInfoUser:state.lucky.dataInfoUser,
@@ -839,6 +867,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
 	getDetailData,
+	getMoreSessions,
 	getRotationDetailData,
 	getRotationDetailDataUser,
 	pickCard,

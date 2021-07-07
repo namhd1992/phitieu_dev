@@ -153,6 +153,7 @@ class Lucky_Rotation extends React.Component {
 		console.log(document.fullscreenElement)
 		this.onResize();
 		window.addEventListener("resize", this.setScreenOrientation);
+		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth});
 		if(window.innerWidth < window.innerHeight){
@@ -286,6 +287,8 @@ class Lucky_Rotation extends React.Component {
 				}else if(data.Status===2){
 					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
 					$('#Modalnone').modal('show');
+				}else if(data.Status===3){
+					this.logoutAction();
 				}else{
 					console.log("Lỗi")
 				}
@@ -308,6 +311,41 @@ class Lucky_Rotation extends React.Component {
 		clearInterval(this.state.intervalId);
 		this.setState({ auto : !this.state.auto});
 	}
+
+	logoutAction = () => {
+		this.logout();
+		localStorage.removeItem("user");
+		window.location.replace(
+			`https://graph.vtcmobile.vn/oauth/authorize?client_id=92d34808c813f4cd89578c92896651ca&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		);
+
+		// window.location.replace(
+		// 	`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=UH8DN779CWCMnCyeXGrm2BRqiTlJajUyZUEM0Kc&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		// );
+	}
+
+	logout=()=>{
+		var user = JSON.parse(localStorage.getItem("user"));
+		var header = {
+			headers: {
+				"Content-Type": "application/json",
+				"token": user.Token,
+			}
+		}
+		axios.get('https://api.splay.vn/luckywheel/luckywheel/user-signout/', header).then(function (response) {
+			console.log(response)
+		})
+	}
+
+	visibilityChange=()=>{
+		if (document.hidden){
+			this.setState({isChangetab:true})
+		} else {
+			this.setState({isChangetab:false})
+		}
+		
+	}
+
 	setScreenOrientation=()=>{
 		const {innerWidth}=this.state;
 		if(Math.abs(innerWidth - window.innerWidth) >100){
@@ -678,7 +716,9 @@ class Lucky_Rotation extends React.Component {
 			}
 			var x=this.getRandomInt(startX, endX);
 			var y=this.getRandomInt(startY, endY);
-			this.draw(x,y+heightFrame/2);
+			if(!isChangetab){
+				this.draw(x,y+heightFrame/2);
+			}
 			this.fireDart(x, y + 12)
 		}else{
 			$('#ThongBao').modal('show');
@@ -687,7 +727,6 @@ class Lucky_Rotation extends React.Component {
 
 
 	exit=()=>{
-		console.log('AAAAAAAAAAAA')
 		window.location.replace("/")
 	}
 
@@ -752,7 +791,7 @@ class Lucky_Rotation extends React.Component {
 									<div class="bg-line-timing_m">
 									<span style={{background:"#f5950a", width: timing, height: 8, display:"block", borderRadius: 4}}>&nbsp;</span>
 									</div>
-									<h6 class="text-yellow font-size-1vw_m pl-1 text-shadow">Còn: 2 ngày 10h:22p:11s</h6>
+									<h6 class="text-yellow font-size-1vw_m pl-1 text-shadow">Còn: {day>0 ? `${day} ngày ${hour}:${minute}:${second}` : `${hour}:${minute}:${second}`}</h6>
 								</div>
 							</div>
 						</div>

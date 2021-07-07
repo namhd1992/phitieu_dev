@@ -438,13 +438,15 @@ class Lucky_Rotation extends React.Component {
 	touchEnd=()=>{
 		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
 		var _this=this;
+		var x=this.getRandomInt(25, -25);
+		var y=this.getRandomInt(25, -25);
 		if(isPlay){
 			if(countDart>0){
 				var touchPos = stage.getPointerPosition();
 				curFrame=0
 				if(dartPositionY >touchPos.y){
-					this.draw(touchPos.x, touchPos.y)
-					this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+					this.draw(touchPos.x + x, touchPos.y + y)
+					this.fireDart(touchPos.x + x, touchPos.y-heightFrame/2 + 12 + y)
 				}else{
 					alert("vuốt lên để phi tiêu")
 				}
@@ -570,17 +572,30 @@ class Lucky_Rotation extends React.Component {
 			}
 		}
 
-		this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
-			var data=this.props.dataUserSpin;
-			if(data.Status===0){
-				this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
-			}else if(data.Status===2){
-				this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
-					$('#Modalnone').modal('show');
-				})
+		setTimeout(()=>{
+			this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
+				var data=this.props.dataUserSpin;
+				if(data.Status===0){
+					this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
+				}else if(data.Status===2){
+					this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
+						$('#Modalnone').modal('show');
+					})
+					
+				}
+			})
+		}, 400);
+		// this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
+		// 	var data=this.props.dataUserSpin;
+		// 	if(data.Status===0){
+		// 		this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
+		// 	}else if(data.Status===2){
+		// 		this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
+		// 			$('#Modalnone').modal('show');
+		// 		})
 				
-			}
-		})
+		// 	}
+		// })
 
 		setTimeout(()=>{
 			this.showScore(totalScore)

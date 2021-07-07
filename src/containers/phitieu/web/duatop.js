@@ -725,7 +725,7 @@ class Lucky_Rotation extends React.Component {
 					<div class="bg-line-timing">
 						<span style={{background:"#f5950a", width: timing, height: "12px", display: "block", borderRadius: 4}}>&nbsp;</span>
 					</div>
-					<h6 class="text-yellow font-size-16 mt-n1 pl-1 text-shadow">Còn: {day>0 ? `${day} ngay ${hour}:${minute}:${second}` : `${hour}:${minute}:${second}`}</h6>
+					<h6 class="text-yellow font-size-16 mt-n1 pl-1 text-shadow">Còn: {day>0 ? `${day} ngày ${hour}:${minute}:${second}` : `${hour}:${minute}:${second}`}</h6>
 				</div>
 			</div>
 		</div>

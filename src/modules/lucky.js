@@ -19,6 +19,7 @@ export const LUCKY_ITEMS='lucky/LUCKY_ITEMS'
 export const INFO_USER_RESPONSE='lucky/INFO_USER_RESPONSE'
 export const DATA_USER_SPIN='lucky/DATA_USER_SPIN';
 export const ITEM_AWARD='lucky/ITEM_AWARD';
+export const LUCKY_SESSIONS='lucky/LUCKY_SESSIONS';
 
 const initialState = {
 	data: [], 
@@ -136,6 +137,12 @@ export default (state = initialState, action) => {
 				dataItemAward: action.data,
 				waiting: false
 			}
+		case LUCKY_SESSIONS:
+			return {
+				...state,
+				dataSesions: action.data,
+				waiting: false
+			}
 		default:
 			return state
 	}
@@ -168,23 +175,17 @@ export const getLuckyInfo = (type, token) => {
 	}
 }
 
-export const getMoreEvent= (type, token) => {
-	var header = {
-		headers: {
-			"Content-Type": "application/json",
-			"token": token,
-		}
-	}
+export const getMoreSessions= () => {
 
 	return dispatch => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "darts/user-get-current-session/?type="+type
-		return axios.get(url, header).then(function (response) {
+		var url = Ultilities.base_url() + "darts/current-sessions"
+		return axios.get(url).then(function (response) {
 			console.log(response)
 			dispatch({
-				type: LUCKY_INFO,
+				type: LUCKY_SESSIONS,
 				data: response.data
 			})
 		}).catch(function (error) {

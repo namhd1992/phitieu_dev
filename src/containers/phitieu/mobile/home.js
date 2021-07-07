@@ -665,7 +665,7 @@ class Lucky_Rotation extends React.Component {
 					<div class="modal-header border-0 p-0">
 						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
 					</div>
-					<div class="modal-body border-0 py-0 my-2 px-3 scroll-modal-body">      	
+					<div class="modal-body border-0 py-0 my-2 px-3 scroll-modal-body_m">      	
 						<div class="row mx-0 mb-1 border-giaithuong-e_m">
 							<div class="col-12 text-center text-brown pt-1">
 								<h2 class="font-size-3vw_m font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
@@ -698,7 +698,7 @@ class Lucky_Rotation extends React.Component {
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 
-						<div class="modal-body border-0 py-0 my-0 px-3 scroll-modal-body">
+						<div class="modal-body border-0 py-0 my-0 px-3 scroll-modal-body_m">
 							<ul class="nav nav-pills_m nav-justified mx-auto">
 								<li class="nav-item">
 									<a class="nav-link_m py-0" onClick={()=>this.getDataTuDo(user)}><img src={tab_tudo ? btn_phanthuong_active: btn_phanthuong} width="100%" hspace="5" id="image-3" /></a>
