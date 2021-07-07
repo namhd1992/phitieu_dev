@@ -43,16 +43,16 @@ import logo_scoinvip from './images/logo_scoinvip.png';
 import logo_splay from './images/logo_splay.png';
 import btn_tudo from './images/btn-tudo.png';
 // import xiaomi_black from './images/xiaomi-black-shark-2.png';
-import img_thescoin10k from './images/img-thescoin10k.png';
-import img_thescoin20k from './images/img-thescoin20k.png';
-import img_thescoin50k from './images/img-thescoin50k.png';
-import img_thescoin100k from './images/img-thescoin100k.png';
-import img_thescoin200k from './images/img-thescoin200k.png';
-import img_thescoin300k from './images/img-thescoin300k.png';
-import img_thescoin500k from './images/img-thescoin500k.png';
-import img_thescoin1000k from './images/img-thescoin1000k.png';
-import img_thescoin2000k from './images/img-thescoin200k.png';
-import img_thescoin500k from './images/img-thescoin5000k.png';
+import img_card10k from './images/img-card10k.png';
+import img_card20k from './images/img-card20k.png';
+import img_card50k from './images/img-card50k.png';
+import img_card100k from './images/img-card100k.png';
+import img_card200k from './images/img-card200k.png';
+import img_card300k from './images/img-card300k.png';
+import img_card500k from './images/img-card500k.png';
+import img_card1000k from './images/img-card1000k.png';
+import img_card2000k from './images/img-card2000k.png';
+import img_card5000k from './images/img-card5000k.png';
 import img_thescoinvoucher from './images/img-thescoinvoucher.png';
 
 
@@ -698,7 +698,7 @@ class Lucky_Rotation extends React.Component {
 								<p class="font-size-16 text-yellow">Topup Scoin 50k</p>
 							</div>
 							<div class="col-4 text-center">
-								<p class="m-0"><img src={img_thescoin200k} alt="" width="60%" /></p>
+								<p class="m-0"><img src={img_card200k} alt="" width="60%" /></p>
 								<p class="font-size-16 text-yellow">Thẻ Scoin 200k</p>
 							</div>
 							<div class="col-4 text-center">
