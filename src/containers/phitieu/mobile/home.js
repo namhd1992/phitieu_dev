@@ -100,7 +100,7 @@ class Lucky_Rotation extends React.Component {
 			listTuDo:[],
 			listHistory:[],
 			width:0,
-			numberPage:2,
+			numberPage:3,
 			height:0,
 			img_width:0,
 			img_height:0,
@@ -731,7 +731,7 @@ class Lucky_Rotation extends React.Component {
 												))}				
 										</tbody>
 									</table>
-									<div className="pagination justify-content-center pag-custom mt-1">
+									<div className="pagination justify-content-center pag-custom_m font-size-3vw_m">
 									<Pagination
 										activePage={activeTuDo}
 										itemsCountPerPage={limit}
@@ -739,8 +739,8 @@ class Lucky_Rotation extends React.Component {
 										pageRangeDisplayed={numberPage}
 										lastPageText={'Trang cuối'}
 										firstPageText={'Trang đầu'}
-										itemClass={"page-item"}
-										linkClass={"page-link"}
+										itemClass={"page-item_m"}
+										linkClass={"page-link_m"}
 										onChange={(v) => this.handlePageChangeTuDo(v)}
 									/>
 								</div> 
@@ -763,7 +763,7 @@ class Lucky_Rotation extends React.Component {
 												))}				
 										</tbody>
 									</table>
-									<div className="pagination justify-content-center pag-custom">
+									<div className="pagination justify-content-center pag-custom_m font-size-3vw_m">
 									<Pagination
 										activePage={activeHistory}
 										itemsCountPerPage={limit}
@@ -771,8 +771,8 @@ class Lucky_Rotation extends React.Component {
 										pageRangeDisplayed={numberPage}
 										lastPageText={'Trang cuối'}
 										firstPageText={'Trang đầu'}
-										itemClass={"page-item"}
-										linkClass={"page-link"}
+										itemClass={"page-item_m"}
+										linkClass={"page-link_m"}
 										onChange={(v) => this.handlePageChangeHistory(v)}
 									/>
 								</div>
