@@ -534,7 +534,7 @@ class Lucky_Rotation extends React.Component {
 
 
 								<div class="bxh_m position-relative">
-									<ul class="nav nav-pills_m_m nav-justified_m_m" role="tablist">
+									<ul class="nav nav-pills_m nav-justified" role="tablist">
 										<li class="nav-item">
 											<a class="nav-link_m btn-vinhdanh_m p-0" onClick={()=>this.getVinhDanh(1,1)}><img src={type===1?btn_vinhdanhsanqua_active:btn_vinhdanhsanqua} width="95%" hspace="5" id="image-1" /></a>
 										</li>
@@ -612,7 +612,7 @@ class Lucky_Rotation extends React.Component {
 									<a href="#Modalgiaithuong" title="Giải thưởng" data-toggle="modal"><p class="mb-0 menu-link"></p></a>
 									<a href="#" title="Lịch sử giao dịch"><p class="mb-0 menu-link"></p></a>
 								</div>
-								<div class="menu-right_m"><a href="#Modaltudo" title="Tủ đồ" data-toggle="modal"><img src={btn_tudo} width="100%" alt="" /></a></div>
+								<div class="menu-right_m"><a title="Tủ đồ" data-toggle="modal" onClick={this.showModalTuDo}><img src={btn_tudo} width="100%" alt="" /></a></div>
 							</div>
 						</div>
 					
@@ -694,7 +694,7 @@ class Lucky_Rotation extends React.Component {
 						</div>
 
 						<div class="modal-body border-0 py-0 my-0 px-3 scroll-modal-body">
-							<ul class="nav nav-pills_m nav-justified_m mx-auto">
+							<ul class="nav nav-pills_m nav-justified mx-auto">
 								<li class="nav-item">
 									<a class="nav-link_m py-0" onClick={()=>this.getDataTuDo(user)}><img src={tab_tudo ? btn_phanthuong_active: btn_phanthuong} width="100%" hspace="5" id="image-3" /></a>
 								</li>
@@ -706,7 +706,7 @@ class Lucky_Rotation extends React.Component {
 								<div class="tab-pane active">
 									{(tab_tudo)?(<div><table class="table table-borderless text-center font-size-14 mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
 										<thead>
-										<tr class="bg-border-bottom">
+										<tr class="bg-border-bottom_m">
 											<th class="p-1 bg-border-right w-25 valign-middle">Phần thưởng</th>
 											<th class="p-1 bg-border-right w-25 valign-middle">Nội dung</th>
 											<th class="p-1 bg-border-right w-25 valign-middle">Thời gian trúng</th>
@@ -716,7 +716,7 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listTuDo.map((obj, key) => (
 												
-													<tr key={key} class="bg-border-bottom">
+													<tr key={key} class="bg-border-bottom_m">
 														<td className="p-1 bg-border-right w-33 valign-middle" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardName}></span>{obj.AwardName}</td>
 														<td className="p-1 bg-border-right w-33 valign-middle" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardName}></span>{obj.AwardName}</td>
 														<td className="p-0 bg-border-right w-25 valign-middle">{this.timeConverter(obj.RewardTime)}</td>
@@ -741,7 +741,7 @@ class Lucky_Rotation extends React.Component {
 								</div> 
 								</div>):(<div><table class="table table-borderless text-center font-size-14 mb-0" style={{tableLayout: "fixed", borderCollapse: "collapse;", lineHeight: "170%"}}>
 										<thead>
-										<tr class="bg-border-bottom">
+										<tr class="bg-border-bottom_m">
 											<th class="p-1 bg-border-right w-33 valign-middle">Phần thưởng</th>
 											<th class="p-1 bg-border-right w-33 valign-middle">Nội dung</th>
 											<th class="p-1 bg-border-right w-33 valign-middle">Thời gian trúng</th>
@@ -750,7 +750,7 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listHistory.map((obj, key) => (
 												
-													<tr key={key} class="bg-border-bottom">
+													<tr key={key} class="bg-border-bottom_m">
 														<td className="p-1 bg-border-right w-33 valign-middle" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardName}></span>{obj.AwardName}</td>
 														<td className="p-1 bg-border-right w-33 valign-middle" onMouseOver={this.showTooltip} ><span data-toggle="tooltip" data-placement="bottom" title={obj.AwardDisplay}></span>{obj.AwardDisplay}</td>
 														<td className="p-1 bg-border-right w-33 valign-middle">{this.timeConverter(obj.RewardTime)}</td>
