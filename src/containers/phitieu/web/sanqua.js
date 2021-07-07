@@ -438,15 +438,17 @@ class Lucky_Rotation extends React.Component {
 	touchEnd=()=>{
 		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
 		var _this=this;
-		var x=this.getRandomInt(25, -25);
-		var y=this.getRandomInt(25, -25);
+		var arr=[];
 		if(isPlay){
 			if(countDart>0){
 				var touchPos = stage.getPointerPosition();
-				curFrame=0
+				curFrame=0;
+				n=0;
 				if(dartPositionY >touchPos.y){
-					this.draw(touchPos.x + x, touchPos.y + y)
-					this.fireDart(touchPos.x + x, touchPos.y-heightFrame/2 + 12 + y)
+					arr=this.getDealtal(touchPos.x, touchPos.y)
+					console.log(arr)
+					this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
+					this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
 				}else{
 					alert("vuốt lên để phi tiêu")
 				}
@@ -455,8 +457,8 @@ class Lucky_Rotation extends React.Component {
 				$('#ThongBao').modal('show');
 			}
 		}
-		darthVaderImg.hide();
 
+		darthVaderImg.hide();
 		setTimeout(()=>{
 			_this.setState({isPlay:true})
 		}, 1500);
@@ -480,9 +482,14 @@ class Lucky_Rotation extends React.Component {
 		curFrame=++curFrame;
 	}
 
-	draw=(x, y)=>{
+	draw=(x,deltalX, y, deltalY)=>{
 		const {dartFlightImg}=this.state;
-		var _this=this
+		var _this=this;
+		
+
+		var newX=x + deltalX/13*n;
+		var newY=y + deltalY/13*n;
+		console.log("newX:", newX, "newY:",newY)
 		const {stage, layer}=this.state;
 		var touchPos = stage.getPointerPosition();
 		this.updateFrame();
@@ -490,20 +497,21 @@ class Lucky_Rotation extends React.Component {
 		dartFlight.onload = function () {
 			var dartFlightImg = new Konva.Image({
 				image: dartFlight,
-				x: x - widthFrame/2,
-				y: y - heightFrame/2,
+				x: newX - widthFrame/2,
+				y: newY - heightFrame/2,
 				width: widthFrame,
 				height: heightFrame,
 				// visible:false
 				});
-				
+			console.log(dartFlightImg)
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
 			if(curFrame <= 12){
 				setTimeout(()=>{
-					_this.draw(x,y) 
+					_this.draw(x,deltalX,y,deltalY) 
 					dartFlightImg.remove(); 
+					n=n+1
 				}, 23);
 			}
 			
@@ -512,6 +520,32 @@ class Lucky_Rotation extends React.Component {
 		dartFlight.src = dart_player;
 		
 	}
+
+	getDealtal=(xpos,ypos)=>{
+		var dx = Dart_Center_X - xpos;
+		var dy = Dart_Center_Y - ypos;
+		var x=0;
+		var y=0;
+
+		var delta = Math.sqrt(dx*dx+dy*dy);
+
+		if(delta<10){
+			x=this.getRandomInt(25, -25)
+			y=this.getRandomInt(25, -25)
+		}else if(delta >10 && delta <= 60){
+			x=this.getRandomInt(35, -35)
+			y=this.getRandomInt(35, -35)
+		}else if(delta >60 && delta <= 100){
+			x=this.getRandomInt(45, -45)
+			y=this.getRandomInt(45, -45)
+		}else if(delta >100 && delta <= 130){
+			x=this.getRandomInt(50, -50)
+			y=this.getRandomInt(50, -50)
+		}
+		return [x,y];
+	}
+
+
 
 	fireDart=(tarX, tarY)=> {
 		this.computeHit(tarX,tarY);
@@ -573,6 +607,7 @@ class Lucky_Rotation extends React.Component {
 		}
 
 		setTimeout(()=>{
+			this.showScore(totalScore);
 			this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
 				var data=this.props.dataUserSpin;
 				if(data.Status===0){
@@ -584,21 +619,6 @@ class Lucky_Rotation extends React.Component {
 					
 				}
 			})
-		}, 400);
-		// this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
-		// 	var data=this.props.dataUserSpin;
-		// 	if(data.Status===0){
-		// 		this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
-		// 	}else if(data.Status===2){
-		// 		this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
-		// 			$('#Modalnone').modal('show');
-		// 		})
-				
-		// 	}
-		// })
-
-		setTimeout(()=>{
-			this.showScore(totalScore)
 		}, 400);
 		
 			// console.log('AA:', totalScore)
