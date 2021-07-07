@@ -54,8 +54,8 @@ const styles = {
 	},
 };
 
-var startX=500, endX=745, startY=250, endY=490;
-
+var startX=370, endX=587, startY=170, endY=387;
+var img_w=960;
 var award_open=true;
 var n=0;
 var animId;
@@ -73,12 +73,12 @@ var heightFrame = spriteHeight;
 var srcX=0; 
 var srcY=0; 
 
-var Dart_Center_X=619;
-var Dart_Center_Y=375;
-var radius=134;
+var Dart_Center_X=478;
+var Dart_Center_Y=280;
+var radius=108;
 
 var SEGMENT_SIZE = Math.PI/10.0;
-var SEGMENTS = [8, 15, 73, 83, 124, 134];
+var SEGMENTS = [4, 9, 57, 67, 99, 108];
 var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
 var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
 
@@ -160,12 +160,23 @@ class Lucky_Rotation extends React.Component {
 		}else{
 			this.setState({horizontal: true})
 		}
+		var delta=window.innerWidth/img_w;
+		startX=startX*delta;
+		endX=endX*delta;
+		startY=startY*delta;
+		endY=endY*delta;
+		Dart_Center_X=Dart_Center_X*delta;
+		Dart_Center_Y=Dart_Center_Y*delta;
+		SEGMENTS=SEGMENTS.map(v => {
+			return v*delta
+		})
 	}
 
 
 
 
 	componentDidMount(){
+		console.log("startX:", startX)
 		const {horizontal}=this.state;
 		this.toggleFullScreen()
 		if(horizontal){
@@ -261,8 +272,9 @@ class Lucky_Rotation extends React.Component {
 
 		}
 
-		const {img_width, img_height}=this.state;
+
 		var user = JSON.parse(localStorage.getItem("user"));
+		this.setState({user:user})
 
 		this.props.getLuckyInfo(1, user.Token).then(()=>{
 			var data=this.props.dataLuckyInfo;
@@ -396,6 +408,12 @@ class Lucky_Rotation extends React.Component {
 		var timing=m/n * 100
 		this.setState({timing: timing+"%"})
 		this.timeRemain(end)
+	}
+
+	getRandomInt=(min, max)=> {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
 	handleScroll = (event) => {
@@ -719,16 +737,12 @@ class Lucky_Rotation extends React.Component {
 		return (
 				<div id="game" style={{overflowBlock:'hidden'}}>
 					{(horizontal)?(<div class="bg-page-sanqua_m position-relative">
-						
-						<div class="phitieu_m">
-							<div class="img-phitieu_m"></div>
-						</div>
 						<div class="tongdiem_m">
 							<h2 class="font-size-2vw_m text-uppercase font-weight-bold text-center mb-1 text-shadow_m">Tổng điểm</h2>
 							<h4 class="font-size-2vw_m text-uppercase text-center text-shadow_m">{points_sanqua}</h4>
 						</div>
 						<div class="phongtudong_m font-size-2vw_m font-weight-bold text-uppercase text-shadow_m">
-							<input type="checkbox" id="check1" name="option1" value="something" /> Phóng phi tiêu tự động
+							 Phóng phi tiêu tự động
 						</div>
 
 						<div class="timing_m">
@@ -775,7 +789,7 @@ class Lucky_Rotation extends React.Component {
 
 						{/* {(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>)} */}
 						<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
-						<div id="div_checkbox" style={{position:'absolute', top:"90%", left:"40%", zIndex:999999}} onTouchStart={this.check_auto}></div>
+						<div id="div_checkbox" style={{position:'absolute', top:"89%", left:"2%", zIndex:999999}} onTouchStart={this.check_auto}></div>
 						<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
 					</div>):(<div>
 						<img src={rotate} width="100%" alt="" />

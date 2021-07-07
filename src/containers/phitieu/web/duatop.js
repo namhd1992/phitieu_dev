@@ -141,10 +141,10 @@ class Lucky_Rotation extends React.Component {
 			timing:"10%",
 			score_text:{},
 			data:{},
-			points_sanqua:0,
+			points:0,
 			countDart:0,
 			sessionId:0,
-			listTop:[],
+			highestPoints:0,
 			isPlay:true,
 			msg:'',
 			isChangetab:false
@@ -276,17 +276,19 @@ class Lucky_Rotation extends React.Component {
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.setState({user:user})
 
-		this.props.getLuckyInfo(1, user.Token).then(()=>{
+		this.props.getLuckyInfo(2, user.Token).then(()=>{
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId})
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points: data.Data.AddInfo.Points, highestPoints:data.Data.AddInfo.HighestPoints, sessionId: data.Data.SessionId})
 					console.log(data.Data)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
 					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
 					$('#ModalnoneDuaTop').modal('show');
-				}else{
+				}else if(data.Status===3){
+					this.logoutAction();
+				}else {
 					console.log("Lỗi")
 				}
 			}
@@ -307,6 +309,31 @@ class Lucky_Rotation extends React.Component {
 	componentWillUnmount() {
 		clearInterval(this.state.intervalId);
 		this.setState({ auto : !this.state.auto});
+	}
+
+	logoutAction = () => {
+		this.logout();
+		localStorage.removeItem("user");
+		window.location.replace(
+			`https://graph.vtcmobile.vn/oauth/authorize?client_id=92d34808c813f4cd89578c92896651ca&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		);
+
+		// window.location.replace(
+		// 	`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=UH8DN779CWCMnCyeXGrm2BRqiTlJajUyZUEM0Kc&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		// );
+	}
+
+	logout=()=>{
+		var user = JSON.parse(localStorage.getItem("user"));
+		var header = {
+			headers: {
+				"Content-Type": "application/json",
+				"token": user.Token,
+			}
+		}
+		axios.get('https://api.splay.vn/luckywheel/luckywheel/user-signout/', header).then(function (response) {
+			console.log(response)
+		})
 	}
 
 	visibilityChange=()=>{
@@ -573,12 +600,12 @@ class Lucky_Rotation extends React.Component {
 			}
 		}
 
-		this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
+		this.props.getDartScore(2, totalScore,sessionId, user.Token).then(()=>{
 			var data=this.props.dataUserSpin;
 			if(data.Status===0){
-				this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
+				this.setState({countDart: data.Darts, points: data.Points, highestPoints:data.HighestPoint})
 			}else if(data.Status===2){
-				this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
+				this.setState({highestPoints:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc'}, ()=>{
 					$('#ModalnoneDuaTop').modal('show');
 				})
 				
@@ -620,7 +647,9 @@ class Lucky_Rotation extends React.Component {
 			}
 			var x=this.getRandomInt(startX, endX);
 			var y=this.getRandomInt(startY, endY);
-			this.draw(x,y+heightFrame/2);
+			if(!isChangetab){
+				this.draw(x,y+heightFrame/2);
+			}
 			this.fireDart(x, y + 12)
 		}else{
 			$('#ThongBao').modal('show');

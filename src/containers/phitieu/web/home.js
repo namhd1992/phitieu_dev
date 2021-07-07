@@ -43,8 +43,19 @@ import logo_scoinvip from './images/logo_scoinvip.png';
 import logo_splay from './images/logo_splay.png';
 import btn_tudo from './images/btn-tudo.png';
 // import xiaomi_black from './images/xiaomi-black-shark-2.png';
+import img_thescoin10k from './images/img-thescoin10k.png';
+import img_thescoin20k from './images/img-thescoin20k.png';
+import img_thescoin50k from './images/img-thescoin50k.png';
+import img_thescoin100k from './images/img-thescoin100k.png';
 import img_thescoin200k from './images/img-thescoin200k.png';
+import img_thescoin300k from './images/img-thescoin300k.png';
+import img_thescoin500k from './images/img-thescoin500k.png';
+import img_thescoin1000k from './images/img-thescoin1000k.png';
+import img_thescoin2000k from './images/img-thescoin200k.png';
+import img_thescoin500k from './images/img-thescoin5000k.png';
 import img_thescoinvoucher from './images/img-thescoinvoucher.png';
+
+
 import btn_phanthuong_active from './images/btn-phanthuong-active.png';
 import btn_phanthuong from './images/btn-phanthuong.png';
 import btn_lichsu from './images/btn-lichsu.png';
@@ -576,17 +587,17 @@ class Lucky_Rotation extends React.Component {
 									</div>
 								</div>
 								<div class="btn-h position-relative">
-									<a href="#" title="Hướng dẫn mua thẻ scoin" target="_blank"><img src={btn_huongdanmuathescoin} width="340" hspace="10" /></a>
-									<a href="#" title="Nhận thông báo sự kiện"><img src={btn_nhanthongbaosukien} width="340" hspace="10" /></a>
+									<a href="https://daily.scoin.vn/huong-dan-mua-the/" title="Hướng dẫn mua thẻ scoin" target="_blank"><img src={btn_huongdanmuathescoin} width="340" hspace="10" /></a>
+									<a href="https://www.facebook.com/scoinvtcmobile" title="Nhận thông báo sự kiện"><img src={btn_nhanthongbaosukien} width="340" hspace="10" /></a>
 								</div>
 								<div class="btn-h position-relative mt-2">
-									<a href="#" title="Nạp game" target="_blank"><img src={btn_napgame} width="150" hspace="100" /></a>
+									<a href="https://scoin.vn/nap-game" title="Nạp game" target="_blank"><img src={btn_napgame} width="150" hspace="100" /></a>
 									<a href="Tel:19001104" title="Hot line"><img src={img_hotline} width="300" hspace="40" /></a>
 								</div>
 								<div class="btn-h position-relative mt-2">
-									<a href="#" title="Scoin" target="_blank"><img src={logo_scoin} width="150" hspace="30" /></a>
-									<a href="#" title="Scoin VIP" target="_blank"><img src={logo_scoinvip} width="150" hspace="30" /></a>
-									<a href="#" title="Splay"><img src={logo_splay} width="150" hspace="30" /></a>
+									<a href="https://scoin.vn/" title="Scoin" target="_blank"><img src={logo_scoin} width="150" hspace="30" /></a>
+									<a href="https://vip.scoin.vn/" title="Scoin VIP" target="_blank"><img src={logo_scoinvip} width="150" hspace="30" /></a>
+									<a title="Splay"><img src={logo_splay} width="150" hspace="30" /></a>
 								</div>
 								<div class="btn-h position-relative mt-2 pb-2 font-size-16 text-white-50">
 									<p class="text-center">
@@ -603,7 +614,7 @@ class Lucky_Rotation extends React.Component {
 									</p>
 								</div>
 								<div class="menu-left">
-									<a href="#" title="Active VIP" target="_blank"><p class="mb-0 menu-link link-first"></p></a>
+									<a href="https://vip.scoin.vn/" title="Active VIP" target="_blank"><p class="mb-0 menu-link link-first"></p></a>
 									<a href="#" title="Hướng dẫn chơi"><p class="mb-0 menu-link"></p></a>
 									<a href="#Modalgiaithuong" title="Giải thưởng" data-toggle="modal"><p class="mb-0 menu-link"></p></a>
 									<a href="#" title="Lịch sử giao dịch"><p class="mb-0 menu-link"></p></a>

@@ -168,6 +168,33 @@ export const getLuckyInfo = (type, token) => {
 	}
 }
 
+export const getMoreEvent= (type, token) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"token": token,
+		}
+	}
+
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "darts/user-get-current-session/?type="+type
+		return axios.get(url, header).then(function (response) {
+			console.log(response)
+			dispatch({
+				type: LUCKY_INFO,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
 
 export const getDartScore = (type, points,sessionId,  token) => {
 	var header = {

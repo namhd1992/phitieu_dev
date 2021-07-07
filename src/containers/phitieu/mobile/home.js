@@ -585,17 +585,17 @@ class Lucky_Rotation extends React.Component {
 									</div>
 								</div>
 								<div class="btn-h_m position-relative">
-									<a href="#" title="Hướng dẫn mua thẻ scoin" target="_blank"><img src={btn_huongdanmuathescoin} width="40%" hspace="10" /></a>
-									<a href="#" title="Nhận thông báo sự kiện"><img src={btn_nhanthongbaosukien} width="40%" hspace="10" /></a>
+									<a href="https://daily.scoin.vn/huong-dan-mua-the/" title="Hướng dẫn mua thẻ scoin" target="_blank"><img src={btn_huongdanmuathescoin} width="40%" hspace="10" /></a>
+									<a href="https://www.facebook.com/scoinvtcmobile" title="Nhận thông báo sự kiện" target="_blank"><img src={btn_nhanthongbaosukien} width="40%" hspace="10" /></a>
 								</div>
 								<div class="btn-h_m position-relative mt-2">
-									<a href="#" title="Nạp game" target="_blank"><img src={btn_napgame} width="20%" hspace="11%" /></a>
+									<a href="https://scoin.vn/nap-game" title="Nạp game" target="_blank"><img src={btn_napgame} width="20%" hspace="11%" /></a>
 									<a href="Tel:19001104" title="Hot line"><img src={img_hotline} width="40%" hspace="10" /></a>
 								</div>
 								<div class="btn-h_m position-relative mt-2">
-									<a href="#" title="Scoin" target="_blank"><img src={logo_scoin} width="20%" hspace="10" /></a>
-									<a href="#" title="Scoin VIP" target="_blank"><img src={logo_scoinvip} width="20%" hspace="10" /></a>
-									<a href="#" title="Splay"><img src={logo_splay} width="20%" hspace="10" /></a>
+									<a href="https://scoin.vn/" title="Scoin" target="_blank"><img src={logo_scoin} width="20%" hspace="10" /></a>
+									<a href="https://vip.scoin.vn" title="Scoin VIP" target="_blank"><img src={logo_scoinvip} width="20%" hspace="10" /></a>
+									<a title="Splay"><img src={logo_splay} width="20%" hspace="10" /></a>
 								</div>
 								<div class="btn-h_m position-relative mt-2 pb-2 font-size-3vw_m text-white-50">
 									<p class="text-center">

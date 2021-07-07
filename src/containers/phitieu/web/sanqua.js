@@ -281,6 +281,8 @@ class Lucky_Rotation extends React.Component {
 				}else if(data.Status===2){
 					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
 					$('#Modalnone').modal('show');
+				}else if(data.Status===3){
+					this.logoutAction();
 				}else{
 					console.log("Lỗi")
 				}
@@ -302,6 +304,31 @@ class Lucky_Rotation extends React.Component {
 	componentWillUnmount() {
 		clearInterval(this.state.intervalId);
 		this.setState({ auto : !this.state.auto});
+	}
+
+	logoutAction = () => {
+		this.logout();
+		localStorage.removeItem("user");
+		window.location.replace(
+			`https://graph.vtcmobile.vn/oauth/authorize?client_id=92d34808c813f4cd89578c92896651ca&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		);
+
+		// window.location.replace(
+		// 	`http://sandbox.graph.vtcmobile.vn/oauth/authorize?client_id=UH8DN779CWCMnCyeXGrm2BRqiTlJajUyZUEM0Kc&redirect_uri=${window.location.protocol}//${window.location.host}&action=logout&agencyid=0`,
+		// );
+	}
+
+	logout=()=>{
+		var user = JSON.parse(localStorage.getItem("user"));
+		var header = {
+			headers: {
+				"Content-Type": "application/json",
+				"token": user.Token,
+			}
+		}
+		axios.get('https://api.splay.vn/luckywheel/luckywheel/user-signout/', header).then(function (response) {
+			console.log(response)
+		})
 	}
 
 	visibilityChange=()=>{
