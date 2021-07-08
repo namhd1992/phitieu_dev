@@ -659,13 +659,72 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Giai thuong--> */}
 			<div class="modal fade" id="Modalgiaithuong">
-				<div class="modal-dialog modal-dangnhap_m modal-dialog-scrollable">
+				<div class="modal-dialog modal-giaithuong_m modal-dialog-scrollable">
 					<div class="modal-content bg-transparent border-0">
 
 					<div class="modal-header border-0 p-0">
 						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body border-0 py-0 my-2 px-3 scroll-modal-body_m">      	
+						<div class="row mx-0 mb-1 border-giaithuong-e_m">
+							<div class="col-12 text-center text-brown pt-1">
+								<h2 class="font-size-3vw_m font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
+								<p class="font-size-3vw_m mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
+							</div>
+							<div class="col-4 text-center">
+								<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
+								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Topup Scoin 50k</p>
+							</div>
+							<div class="col-4 text-center">
+								<p class="m-0"><img src={img_thescoin200k} alt="" width="60%" /></p>
+								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin 200k</p>
+							</div>
+							<div class="col-4 text-center">
+								<p class="m-0"><img src={img_thescoinvoucher} alt="" width="60%" /></p>
+								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin Voucher 10k</p>
+							</div>
+						</div>
+
+						<div class="row mx-0 mb-1 border-giaithuong-e_m">
+							<div class="col-12 text-center text-brown pt-1">
+								<h2 class="font-size-3vw_m font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
+								<p class="font-size-3vw_m mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
+							</div>
+							<div class="col-4 text-center">
+								<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
+								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Topup Scoin 50k</p>
+							</div>
+							<div class="col-4 text-center">
+								<p class="m-0"><img src={img_thescoin200k} alt="" width="60%" /></p>
+								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin 200k</p>
+							</div>
+							<div class="col-4 text-center">
+								<p class="m-0"><img src={img_thescoinvoucher} alt="" width="60%" /></p>
+								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin Voucher 10k</p>
+							</div>
+						</div>
+
+
+						<div class="row mx-0 mb-1 border-giaithuong-e_m">
+							<div class="col-12 text-center text-brown pt-1">
+								<h2 class="font-size-3vw_m font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
+								<p class="font-size-3vw_m mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
+							</div>
+							<div class="col-4 text-center">
+								<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
+								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Topup Scoin 50k</p>
+							</div>
+							<div class="col-4 text-center">
+								<p class="m-0"><img src={img_thescoin200k} alt="" width="60%" /></p>
+								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin 200k</p>
+							</div>
+							<div class="col-4 text-center">
+								<p class="m-0"><img src={img_thescoinvoucher} alt="" width="60%" /></p>
+								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin Voucher 10k</p>
+							</div>
+						</div>
+
+
 						<div class="row mx-0 mb-1 border-giaithuong-e_m">
 							<div class="col-12 text-center text-brown pt-1">
 								<h2 class="font-size-3vw_m font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>

@@ -805,36 +805,6 @@ class Lucky_Rotation extends React.Component {
 											<p class="font-size-16 text-yellow">{v.Description}</p>
 										</div>
 									))}
-									{obj.Awards.map((v, j) => (
-										<div class="col-4 text-center" key={j}>
-											<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
-											<p class="font-size-16 text-yellow">{v.Description}</p>
-										</div>
-									))}
-									{obj.Awards.map((v, j) => (
-										<div class="col-4 text-center" key={j}>
-											<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
-											<p class="font-size-16 text-yellow">{v.Description}</p>
-										</div>
-									))}
-									{obj.Awards.map((v, j) => (
-										<div class="col-4 text-center" key={j}>
-											<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
-											<p class="font-size-16 text-yellow">{v.Description}</p>
-										</div>
-									))}
-									{obj.Awards.map((v, j) => (
-										<div class="col-4 text-center" key={j}>
-											<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
-											<p class="font-size-16 text-yellow">{v.Description}</p>
-										</div>
-									))}
-									{obj.Awards.map((v, j) => (
-										<div class="col-4 text-center" key={j}>
-											<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
-											<p class="font-size-16 text-yellow">{v.Description}</p>
-										</div>
-									))}
 
 									{(obj.Status===2)?(<img class="img-dacochu" src={img_dacochu} alt="" width="40%" />):(<div></div>)}
 									
