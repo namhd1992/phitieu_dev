@@ -43,7 +43,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family:Arial, Helvetica, sa
 .toplist-account {position: absolute; left: 67.2%; top: 37%; width: 180px;}
 
 
-.modal-dangnhap {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%}
+.modal-dangnhap {background:url(../images/bg-popup-thongbao-login.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%}
 .text-brown {color: #6b5247;}
 .text-yellow {color: #f69310;}
 .text-red {color: #af4138;}
@@ -60,6 +60,8 @@ html {scroll-behavior: smooth; font-size: 26px; font-family:Arial, Helvetica, sa
 .phitieu .img-phitieu {background:url(../images/tieu.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%} */
 .tooltip {font-size: 14px !important;}
 .modal-dialog-md {max-width: 650px !important;}
+.modal-giaithuong {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: contain; display: block; width: 650px !important; height: 650px !important; max-width: 650px !important; }
+.modal-dialog-scrollable.modal-giaithuong .modal-content {max-height: 600px !important;}
 
 
 

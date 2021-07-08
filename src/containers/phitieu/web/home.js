@@ -151,22 +151,7 @@ class Lucky_Rotation extends React.Component {
 			this.setState({isLogin:true, user:user})
 		} 
 
-		this.props.getMoreSessions().then(()=>{
-			var data=this.props.dataSesions;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.setState({listSesstions:data.Data})
-				}else if(data.Status===2){
-					this.setState({msg:'Chưa load được dữ liệu'})
-					$('#myModal11').modal('show');
-				}else if(data.Status===3){
-					this.logoutAction();
-				}else{
-					console.log("Lỗi")
-				}
-			}
-		})
-
+		this.getMoreSessions();
 		
 		window.addEventListener('scroll', this.handleScroll);
 	}
@@ -188,6 +173,25 @@ class Lucky_Rotation extends React.Component {
 			window.location.reload();
 			this.setState({innerWidth:window.innerWidth})
 		}
+	}
+
+
+	getMoreSessions=()=>{
+		this.props.getMoreSessions().then(()=>{
+			var data=this.props.dataSesions;
+			if(data!==undefined){
+				if(data.Status===0){
+					this.setState({listSesstions:data.Data})
+				}else if(data.Status===2){
+					this.setState({msg:'Chưa load được dữ liệu'})
+					$('#myModal11').modal('show');
+				}else if(data.Status===3){
+					this.logoutAction();
+				}else{
+					console.log("Lỗi")
+				}
+			}
+		})
 	}
 
 	onResize=()=>{
@@ -365,6 +369,11 @@ class Lucky_Rotation extends React.Component {
 		}else {
 			$('#Modaldangnhap').modal('show');
 		}
+	}
+
+	showModalGiaiThuong=()=>{
+		this.getMoreSessions();
+		$('#Modalgiaithuong').modal('show');
 	}
 
 	getDataTuDo=(user)=>{
@@ -680,7 +689,7 @@ class Lucky_Rotation extends React.Component {
 								</div>
 								<div class="btn-h position-relative">
 									<a href="https://daily.scoin.vn/huong-dan-mua-the/" title="Hướng dẫn mua thẻ scoin" target="_blank"><img src={btn_huongdanmuathescoin} width="340" hspace="10" /></a>
-									<a href="https://www.facebook.com/scoinvtcmobile" title="Nhận thông báo sự kiện"><img src={btn_nhanthongbaosukien} width="340" hspace="10" /></a>
+									<a href="https://www.facebook.com/scoinvtcmobile" title="Nhận thông báo sự kiện" target="_blank"><img src={btn_nhanthongbaosukien} width="340" hspace="10" /></a>
 								</div>
 								<div class="btn-h position-relative mt-2">
 									<a href="https://scoin.vn/nap-game" title="Nạp game" target="_blank"><img src={btn_napgame} width="150" hspace="100" /></a>
@@ -708,7 +717,7 @@ class Lucky_Rotation extends React.Component {
 								<div class="menu-left">
 									<a href="https://vip.scoin.vn/" title="Active VIP" target="_blank"><p class="mb-0 menu-link link-first"></p></a>
 									<a href="#" title="Hướng dẫn chơi"><p class="mb-0 menu-link"></p></a>
-									<a href="#Modalgiaithuong" title="Giải thưởng" data-toggle="modal"><p class="mb-0 menu-link"></p></a>
+									<a title="Giải thưởng" onClick={this.showModalGiaiThuong}><p class="mb-0 menu-link"></p></a>
 									<a href="#" title="Lịch sử giao dịch"><p class="mb-0 menu-link"></p></a>
 								</div>
 								<div class="menu-right"><a  title="Tủ đồ" onClick={this.showModalTuDo} style={{cursor:'pointer'}}><img src={btn_tudo} width="100%" alt="" /></a></div>
@@ -725,7 +734,7 @@ class Lucky_Rotation extends React.Component {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body border-0">
-						<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn vẫn chưa đăng nhập</h2>
+						<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">Bạn vẫn chưa đăng nhập</h2>
 						<p class="text-center"><a title="Đăng nhập" onClick={this.loginAction}><img src={btn_dangnhap} width="30%" alt="" /></a></p>
 					</div>
 
@@ -741,7 +750,7 @@ class Lucky_Rotation extends React.Component {
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body border-0">
-						<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{message_error}</h2>
+						<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{message_error}</h2>
 					</div>
 
 					</div>
@@ -762,7 +771,7 @@ class Lucky_Rotation extends React.Component {
 
 					{/* <!-- Modal body --> */}
 					<div class="modal-body border-0">
-						<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn cần active tài khoản VIP để chơi.</h2>
+						<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">Bạn cần active tài khoản VIP để chơi.</h2>
 						<p class="text-center"><a href="https://vip.scoin.vn" target="_blank"><img src={btn_activevip} width="120" alt="Active VIP" /></a></p>
 					</div>
 
@@ -773,37 +782,67 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Giai thuong--> */}
 			<div class="modal fade" id="Modalgiaithuong">
-				<div class="modal-dialog modal-dialog-md modal-dangnhap modal-dialog-scrollable">
+				<div class="modal-dialog modal-giaithuong modal-dialog-scrollable">
 					<div class="modal-content bg-transparent border-0">
 
-					<div class="modal-header border-0 p-0">
-						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body border-0 py-0 my-4 px-4 ml-1 scroll-modal-body"> 
-						{listSesstions.map((obj, key) => (
-							<div class="row mx-0 mb-1 border-giaithuong-e" key={key}>
-								<div class="col-12 text-center text-brown pt-1">
-									<h2 class="font-size-16 font-weight-bold text-uppercase mb-0">{this.getTypeGiaiThuong(obj.SessionType)}</h2>
-									{(obj.Status===0)?(<p class="font-size-16 mb-0">Còn: {this.timeModalGiaiThuowng(obj.StartTime)}</p>):(<div></div>)}
-									{(obj.Status===1)?(<p class="font-size-16 mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>):(<div></div>)}
-									{(obj.Status===2)?( <p class="font-size-16 mb-0 text-danger">Đã kết thúc</p>):(<div></div>)}
+						<div class="modal-header border-0 p-0">
+							<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body border-0 py-0 my-4 px-4 ml-2">   
+							{listSesstions.map((obj, key) => (
+								<div class="row mx-0 mb-1 border-giaithuong-e" key={key}>
+									<div class="col-12 text-center text-brown pt-1">
+										<h2 class="font-size-16 font-weight-bold text-uppercase mb-0">{this.getTypeGiaiThuong(obj.SessionType)}</h2>
+										{(obj.Status===0)?(<p class="font-size-16 mb-0">Còn: {this.timeModalGiaiThuowng(obj.StartTime)}</p>):(<div></div>)}
+										{(obj.Status===1)?(<p class="font-size-16 mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>):(<div></div>)}
+										{(obj.Status===2)?( <p class="font-size-16 mb-0 text-danger">Đã kết thúc</p>):(<div></div>)}
+										
+									</div>
+
+									{obj.Awards.map((v, j) => (
+										<div class="col-4 text-center" key={j}>
+											<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
+											<p class="font-size-16 text-yellow">{v.Description}</p>
+										</div>
+									))}
+									{obj.Awards.map((v, j) => (
+										<div class="col-4 text-center" key={j}>
+											<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
+											<p class="font-size-16 text-yellow">{v.Description}</p>
+										</div>
+									))}
+									{obj.Awards.map((v, j) => (
+										<div class="col-4 text-center" key={j}>
+											<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
+											<p class="font-size-16 text-yellow">{v.Description}</p>
+										</div>
+									))}
+									{obj.Awards.map((v, j) => (
+										<div class="col-4 text-center" key={j}>
+											<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
+											<p class="font-size-16 text-yellow">{v.Description}</p>
+										</div>
+									))}
+									{obj.Awards.map((v, j) => (
+										<div class="col-4 text-center" key={j}>
+											<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
+											<p class="font-size-16 text-yellow">{v.Description}</p>
+										</div>
+									))}
+									{obj.Awards.map((v, j) => (
+										<div class="col-4 text-center" key={j}>
+											<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
+											<p class="font-size-16 text-yellow">{v.Description}</p>
+										</div>
+									))}
+
+									{(obj.Status===2)?(<img class="img-dacochu" src={img_dacochu} alt="" width="40%" />):(<div></div>)}
 									
 								</div>
+							))}
 
-								{obj.Awards.map((v, j) => (
-									<div class="col-4 text-center" key={j}>
-										<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
-										<p class="font-size-16 text-yellow">{v.Description}</p>
-									</div>
-								))}
-
-								{(obj.Status===2)?(<img class="img-dacochu" src={img_dacochu} alt="" width="40%" />):(<div></div>)}
-								
-							</div>
-						))}
-
-						
-					</div>
+							
+						</div>
 					</div>
 				</div>
 			</div>

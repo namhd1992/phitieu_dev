@@ -634,19 +634,20 @@ class Lucky_Rotation extends React.Component {
 			}
 		}
 
-		this.props.getDartScore(2, totalScore,sessionId, user.Token).then(()=>{
-			var data=this.props.dataUserSpin;
-			if(data.Status===0){
-				this.setState({countDart: data.Darts, points: data.Points, highestPoints:data.HighestPoint})
-			}else if(data.Status===2){
-				this.setState({highestPoints:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc'}, ()=>{
-					$('#ModalnoneDuaTop').modal('show');
-				})
-				
-			}
-		})
+		
 
 		setTimeout(()=>{
+			this.props.getDartScore(2, totalScore,sessionId, user.Token).then(()=>{
+				var data=this.props.dataUserSpin;
+				if(data.Status===0){
+					this.setState({countDart: data.Darts, points: data.Points, highestPoints:data.HighestPoint})
+				}else if(data.Status===2){
+					this.setState({highestPoints:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc'}, ()=>{
+						$('#ModalnoneDuaTop').modal('show');
+					})
+					
+				}
+			})
 			this.showScore(totalScore)
 		}, 400);
 		
@@ -682,7 +683,7 @@ class Lucky_Rotation extends React.Component {
 			var x=this.getRandomInt(startX, endX);
 			var y=this.getRandomInt(startY, endY);
 			if(!isChangetab){
-				this.draw(x,y+heightFrame/2);
+				this.draw(x,0,y+heightFrame/2,0);
 			}
 			this.fireDart(x, y + 12)
 		}else{
@@ -793,7 +794,7 @@ class Lucky_Rotation extends React.Component {
 				<div class="modal-content bg-transparent border-0">
 
 				<div class="modal-body border-0">
-					<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+					<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{msg}</h2>
 					<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
 				</div>
 
@@ -808,7 +809,7 @@ class Lucky_Rotation extends React.Component {
 				<div class="modal-content bg-transparent border-0">
 
 				<div class="modal-body border-0">
-					<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn đã hết tiêu</h2>
+					<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">Bạn đã hết tiêu</h2>
 					<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
 				</div>
 
