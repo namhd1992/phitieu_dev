@@ -56,6 +56,8 @@ import img_card2000k from './images/img-card2000k.png';
 import img_card5000k from './images/img-card5000k.png';
 import img_thescoinvoucher from './images/img-thescoinvoucher.png';
 
+import img_dacochu from './images/img-dacochu.png';
+
 
 import btn_phanthuong_active from './images/btn-phanthuong-active.png';
 import btn_phanthuong from './images/btn-phanthuong.png';
@@ -340,7 +342,7 @@ class Lucky_Rotation extends React.Component {
 		var sec = a.getSeconds();
 		var time = date + '/' + month + '/' + year + ' ' + hour + ':' + min + ':' + sec ;
 		return time;
-	  }
+	}
 
 
 	showModalRules=()=>{
@@ -523,6 +525,69 @@ class Lucky_Rotation extends React.Component {
 		}else if(type===2){
 			return "Giải thưởng đua top"
 		}
+	}
+
+	getImgItem=(item)=>{
+		var obj;
+		switch (item) {
+			case "ScoinCard10K":
+				obj=img_card10k;
+				break;
+			case "ScoinCard20K":
+				obj=img_card20k;
+				break;
+			case "ScoinCard50K":
+				obj=img_card50k;
+				break;
+			case "ScoinCard100K":
+				obj=img_card100k;
+				break;
+			case "ScoinCard200K":
+				obj=img_card200k;
+				break;
+			case "ScoinCard300K":
+				obj=img_card300k;
+				break;
+			case "ScoinCard500K":
+				obj=img_card500k;
+				break;
+			case "ScoinCard1000K":
+				obj=img_card1000k
+				break;
+			case "ScoinCard2000K":
+				obj=img_card2000k
+				break;
+			case "ScoinCard5000K":
+				obj=img_card5000k;
+				break;
+			case "TopupScoin50K":
+				obj=logo_scoin;
+				break;
+			case "ScoinVoucher10K":
+				obj=img_thescoinvoucher;
+				break;
+			case "BankTransferVoucher20K":
+				obj=img_thescoinvoucher;
+				break;
+			default:
+				obj=logo_scoin;
+				break;
+		}
+		return obj;
+	}
+
+	timeModalGiaiThuowng=(time)=>{
+		var start=time.substring(time.indexOf("(") +1,time.indexOf(")"));
+		var times=(start-Date.now())/1000;
+		var s='0h : 0m :0s';
+		if(times>0){
+			var day=Math.floor(times/86400) > 9 ? Math.floor(times/86400) : `0${Math.floor(times/86400)}`;
+			var hour=Math.floor((times%86400)/3600) > 9 ? Math.floor((times%86400)/3600) : `0${Math.floor((times%86400)/3600)}`;
+			var minute=Math.floor(((times%86400)%3600)/60) > 9 ? Math.floor(((times%86400)%3600)/60) : `0${Math.floor(((times%86400)%3600)/60)}`;
+			var second=Math.ceil(((times%86400)%3600)%60) > 9 ? Math.ceil(((times%86400)%3600)%60) : `0${Math.ceil(((times%86400)%3600)%60)}`;
+			s =`${hour}h : ${minute}m : ${second}s` ;
+		}
+		return s;
 	}
 
 	render() {
@@ -719,18 +784,20 @@ class Lucky_Rotation extends React.Component {
 							<div class="row mx-0 mb-1 border-giaithuong-e" key={key}>
 								<div class="col-12 text-center text-brown pt-1">
 									<h2 class="font-size-16 font-weight-bold text-uppercase mb-0">{this.getTypeGiaiThuong(obj.SessionType)}</h2>
-									{(user.Status===0)?(<p class="font-size-16 mb-0">Còn: 8h : 22p : 28s</p>):(<div></div>)}
-									{(user.Status===1)?(<p class="font-size-16 mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>):(<div></div>)}
-									{(user.Status===2)?( <p class="font-size-16 mb-0 text-danger">Đã kết thúc</p>):(<div></div>)}
+									{(obj.Status===0)?(<p class="font-size-16 mb-0">Còn: {this.timeModalGiaiThuowng(obj.StartTime)}</p>):(<div></div>)}
+									{(obj.Status===1)?(<p class="font-size-16 mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>):(<div></div>)}
+									{(obj.Status===2)?( <p class="font-size-16 mb-0 text-danger">Đã kết thúc</p>):(<div></div>)}
 									
 								</div>
 
 								{obj.Awards.map((v, j) => (
 									<div class="col-4 text-center" key={j}>
-										<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
+										<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
 										<p class="font-size-16 text-yellow">{v.Description}</p>
 									</div>
 								))}
+
+								{(obj.Status===2)?(<img class="img-dacochu" src={img_dacochu} alt="" width="40%" />):(<div></div>)}
 								
 							</div>
 						))}
