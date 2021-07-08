@@ -140,6 +140,7 @@ class Lucky_Rotation extends React.Component {
 			dartPositionY:0,
 			timing:"10%",
 			score_text:{},
+			text_warning:{},
 			data:{},
 			points:0,
 			countDart:0,
@@ -446,7 +447,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	touchStart=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg, score_text}=this.state;
+		const {stage, layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
@@ -454,7 +455,9 @@ class Lucky_Rotation extends React.Component {
 		if(JSON.stringify(score_text) !== '{}'){
 			score_text.remove();
 		}
-		
+		if(JSON.stringify(text_warning) !== '{}'){
+			text_warning.remove();
+		}
 		var touchPos = stage.getPointerPosition();
 		var x= touchPos.x-20;
 		var y= touchPos.y-80;
@@ -480,7 +483,8 @@ class Lucky_Rotation extends React.Component {
 					this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
 					this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
 				}else{
-					alert("vuốt lên để phi tiêu")
+					// alert("vuốt lên để phi tiêu")
+					this.showTextWarning();
 				}
 				this.setState({isPlay:false})
 			}else{
@@ -516,7 +520,6 @@ class Lucky_Rotation extends React.Component {
 		const {dartFlightImg}=this.state;
 		var _this=this;
 		
-
 		var newX=x + deltalX/13*n;
 		var newY=y + deltalY/13*n;
 		console.log("newX:", newX, "newY:",newY)
@@ -733,6 +736,33 @@ class Lucky_Rotation extends React.Component {
 
 		
 		this.setState({score_text:score_text})
+	}
+
+	showTextWarning=()=>{
+		const {layer, stage}=this.state;
+	
+		var text_warning = new Konva.Text({
+			x: stage.width() / 2 -120,
+			y: stage.height() / 2,
+			text: "Vuốt lên để phi tiêu!",
+			fontSize: 30,
+			fontFamily: 'Calibri',
+			text: "Vuốt lên để phi tiêu!",
+			fill: 'yellow',
+			stroke:'black',
+			strokeWidth: 1,
+			text: "Vuốt lên để phi tiêu!",
+		});
+
+
+		layer.add(text_warning)
+		stage.add(layer)
+		setTimeout(()=>{ 
+			text_warning.remove();
+		}, 2000);
+
+		
+		this.setState({text_warning:text_warning})
 	}
 
 
