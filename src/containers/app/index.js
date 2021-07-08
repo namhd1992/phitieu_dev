@@ -6,7 +6,7 @@ import Home_Web from '../phitieu/web/home'
 import SanQua_Web from '../phitieu/web/sanqua'
 import DuaTop_Web from '../phitieu/web/duatop'
 import Home_Mobile from '../phitieu/mobile/home'
-import SanQua_Mobile from '../phitieu/mobile/sanqua'
+import SanQua_Mobile from '../phitieu/mobile/test'
 import DuaTop_Mobile from '../phitieu/mobile/duatop'
 import {
 	isAndroid,
