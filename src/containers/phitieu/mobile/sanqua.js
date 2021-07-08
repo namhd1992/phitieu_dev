@@ -137,6 +137,7 @@ class Lucky_Rotation extends React.Component {
 			dartPositionY:0,
 			timing:"10%",
 			score_text:{},
+			text_warning:{},
 			data:{},
 			points_sanqua:0,
 			countDart:0,
@@ -228,8 +229,8 @@ class Lucky_Rotation extends React.Component {
 				image: checkbox,
 				x: 0,
 				y: 3,
-				width: 20,
-				height: 20,
+				width: 18,
+				height: 18,
 				});
 		
 				layer_checkbox.add(checkboxImg);
@@ -244,8 +245,8 @@ class Lucky_Rotation extends React.Component {
 				image: uncheckbox,
 				x: 0,
 				y: 3,
-				width: 20,
-				height: 20,
+				width: 18,
+				height: 18,
 				visible:false
 			});
 	
@@ -515,13 +516,17 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchStart=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg, score_text}=this.state;
+		const {stage, layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
 
 		if(JSON.stringify(score_text) !== '{}'){
 			score_text.remove();
+		}
+
+		if(JSON.stringify(text_warning) !== '{}'){
+			text_warning.remove();
 		}
 		
 		var touchPos = stage.getPointerPosition();
@@ -545,7 +550,8 @@ class Lucky_Rotation extends React.Component {
 					this.draw(touchPos.x, touchPos.y)
 					this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
 				}else{
-					alert("vuốt lên để phi tiêu")
+					this.showTextWarning()
+					// alert("vuốt lên để phi tiêu")
 				}
 				this.setState({isPlay:false})
 			}else{
@@ -769,6 +775,35 @@ class Lucky_Rotation extends React.Component {
 		this.setState({score_text:score_text})
 	}
 
+
+	showTextWarning=()=>{
+		const {layer, stage}=this.state;
+	
+		var text_warning = new Konva.Text({
+			x: stage.width() / 2 -100,
+			y: stage.height() / 2,
+			text: "Vuốt lên để phi tiêu!",
+			fontSize: 25,
+			fontFamily: 'Calibri',
+			text: "Vuốt lên để phi tiêu!",
+			fill: 'yellow',
+			fontStyle:'bold',
+			stroke:'black',
+			strokeWidth: 1,
+			text: "Vuốt lên để phi tiêu!",
+		});
+
+
+		layer.add(text_warning)
+		stage.add(layer)
+		setTimeout(()=>{ 
+			text_warning.remove();
+		}, 1000);
+
+		
+		this.setState({text_warning:text_warning})
+	}
+
 	render() {
 
 		const {msg, user, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
@@ -828,7 +863,7 @@ class Lucky_Rotation extends React.Component {
 
 						{/* {(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>)} */}
 						<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
-						<div id="div_checkbox" style={{position:'absolute', top:"89%", left:"2%", zIndex:999999}} onTouchStart={this.check_auto}></div>
+						<div id="div_checkbox" style={{position:'absolute', top:"72%", left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
 						<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
 					</div>):(<div>
 						<img src={rotate} width="100%" alt="" />
