@@ -211,6 +211,22 @@ class Lucky_Rotation extends React.Component {
 			this.setState({stage:stage, layer:layer})
 			var _this=this
 
+			var timing = new Image();
+			timing.onload = function () {
+				var timingImg = new Konva.Image({
+					image: timing,
+					x: 100,
+					y: 100,
+					width: 30,
+					height: 30,
+					});
+			
+					layer.add(timingImg);
+					stage.add(layer);
+					_this.setState({timingImg:timingImg})
+			};
+			timing.src = icon_clock;
+			
 			var bggame = new Image();
 			bggame.onload = function () {
 				var bgGameImg = new Konva.Image({
@@ -227,24 +243,11 @@ class Lucky_Rotation extends React.Component {
 			};
 			bggame.src = bg_page_sanqua;
 
+		
 
-			var imageObj = new Image();
-			imageObj.onload = function () {
-				var darthVaderImg = new Konva.Image({
-					image: imageObj,
-					x: 0,
-					y: 0,
-					width: 28,
-					height: 120,
-					draggable: true,
-					visible:false
-					});
+
 			
-					layer.add(darthVaderImg);
-					stage.add(layer);
-					_this.setState({darthVaderImg:darthVaderImg})
-			};
-			imageObj.src = phitieu;
+		
 
 			var checkbox = new Image();
 		checkbox.onload = function () {
@@ -540,6 +543,7 @@ class Lucky_Rotation extends React.Component {
 
 	touchStart=()=>{
 		const {stage, layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
+		var _this=this;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
@@ -551,13 +555,25 @@ class Lucky_Rotation extends React.Component {
 		if(JSON.stringify(text_warning) !== '{}'){
 			text_warning.remove();
 		}
-		
+
 		var touchPos = stage.getPointerPosition();
-		var x= touchPos.x-20;
-		var y= touchPos.y-80;
-		darthVaderImg.x(x);
-		darthVaderImg.y(y);
-		darthVaderImg.show();
+		var imageObj = new Image();
+		imageObj.onload = function () {
+			var darthVaderImg = new Konva.Image({
+				image: imageObj,
+				x: touchPos.x-20,
+				y: touchPos.y-80,
+				width: 28,
+				height: 120,
+				draggable: true,
+				});
+		
+				layer.add(darthVaderImg);
+				stage.add(layer);
+				_this.setState({darthVaderImg:darthVaderImg})
+		};
+		imageObj.src = phitieu;
+		
 		this.setState({dartPositionY:touchPos.y})
 		
 	}
