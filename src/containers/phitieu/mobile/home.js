@@ -13,6 +13,7 @@ import {
 	buyTurn,
 	getTuDo,
 	getHistoryTuDo,
+	getMoreSessions,
 	getCodeBonus,
 	getVinhDanh,
 	getLuckyInfo,
@@ -43,8 +44,20 @@ import logo_scoinvip from './images/logo_scoinvip.png';
 import logo_splay from './images/logo_splay.png';
 import btn_tudo from './images/btn-tudo.png';
 // import xiaomi_black from './images/xiaomi-black-shark-2.png';
-import img_thescoin200k from './images/img-thescoin200k.png';
+import img_card10k from './images/img-card10k.png';
+import img_card20k from './images/img-card20k.png';
+import img_card50k from './images/img-card50k.png';
+import img_card100k from './images/img-card100k.png';
+import img_card200k from './images/img-card200k.png';
+import img_card300k from './images/img-card300k.png';
+import img_card500k from './images/img-card500k.png';
+import img_card1000k from './images/img-card1000k.png';
+import img_card2000k from './images/img-card2000k.png';
+import img_card5000k from './images/img-card5000k.png';
 import img_thescoinvoucher from './images/img-thescoinvoucher.png';
+
+import img_dacochu from './images/img-dacochu.png';
+
 import btn_phanthuong_active from './images/btn-phanthuong-active.png';
 import btn_phanthuong from './images/btn-phanthuong.png';
 import btn_lichsu from './images/btn-lichsu.png';
@@ -116,6 +129,7 @@ class Lucky_Rotation extends React.Component {
 			innerWidth:0,
 			type:1, 
 			tab_tudo: true,
+			listSesstions:[]
 		};
 	}
 	componentWillMount(){
@@ -136,6 +150,8 @@ class Lucky_Rotation extends React.Component {
 		if (user !== null) {
 			this.setState({isLogin:true, user:user})
 		} 
+
+		this.getMoreSessions();
 		
 		window.addEventListener('scroll', this.handleScroll);
 	}
@@ -157,6 +173,24 @@ class Lucky_Rotation extends React.Component {
 			window.location.reload();
 			this.setState({innerWidth:window.innerWidth})
 		}
+	}
+
+	getMoreSessions=()=>{
+		this.props.getMoreSessions().then(()=>{
+			var data=this.props.dataSesions;
+			if(data!==undefined){
+				if(data.Status===0){
+					this.setState({listSesstions:data.Data})
+				}else if(data.Status===2){
+					this.setState({msg:'Chưa load được dữ liệu'})
+					$('#myModal11').modal('show');
+				}else if(data.Status===3){
+					this.logoutAction();
+				}else{
+					console.log("Lỗi")
+				}
+			}
+		})
 	}
 
 	onResize=()=>{
@@ -336,6 +370,11 @@ class Lucky_Rotation extends React.Component {
 		}
 	}
 
+	showModalGiaiThuong=()=>{
+		this.getMoreSessions();
+		$('#Modalgiaithuong').modal('show');
+	}
+
 	getDataTuDo=(user)=>{
 		const {limit, activeTuDo}=this.state;
 		var offsetTuDo=(activeTuDo-1)*limit;
@@ -488,13 +527,81 @@ class Lucky_Rotation extends React.Component {
 		$('[data-toggle="tooltip"]').tooltip();
 	}
 
-	openGiaiThuong=()=>{
-		console.log("AAAAAAAAAAAAA")
-		$('#Modalgiaithuong').modal('show');
+	getTypeGiaiThuong=(type)=>{
+		if(type===1){
+			return "Giải thưởng săn quà"
+		}else if(type===2){
+			return "Giải thưởng đua top"
+		}
 	}
 
+	getImgItem=(item)=>{
+		var obj;
+		switch (item) {
+			case "ScoinCard10K":
+				obj=img_card10k;
+				break;
+			case "ScoinCard20K":
+				obj=img_card20k;
+				break;
+			case "ScoinCard50K":
+				obj=img_card50k;
+				break;
+			case "ScoinCard100K":
+				obj=img_card100k;
+				break;
+			case "ScoinCard200K":
+				obj=img_card200k;
+				break;
+			case "ScoinCard300K":
+				obj=img_card300k;
+				break;
+			case "ScoinCard500K":
+				obj=img_card500k;
+				break;
+			case "ScoinCard1000K":
+				obj=img_card1000k
+				break;
+			case "ScoinCard2000K":
+				obj=img_card2000k
+				break;
+			case "ScoinCard5000K":
+				obj=img_card5000k;
+				break;
+			case "TopupScoin50K":
+				obj=logo_scoin;
+				break;
+			case "ScoinVoucher10K":
+				obj=img_thescoinvoucher;
+				break;
+			case "BankTransferVoucher20K":
+				obj=img_thescoinvoucher;
+				break;
+			default:
+				obj=logo_scoin;
+				break;
+		}
+		return obj;
+	}
+
+	timeModalGiaiThuowng=(time)=>{
+		var start=time.substring(time.indexOf("(") +1,time.indexOf(")"));
+		var times=(start-Date.now())/1000;
+		var s='0h : 0m :0s';
+		if(times>0){
+			var day=Math.floor(times/86400) > 9 ? Math.floor(times/86400) : `0${Math.floor(times/86400)}`;
+			var hour=Math.floor((times%86400)/3600) > 9 ? Math.floor((times%86400)/3600) : `0${Math.floor((times%86400)/3600)}`;
+			var minute=Math.floor(((times%86400)%3600)/60) > 9 ? Math.floor(((times%86400)%3600)/60) : `0${Math.floor(((times%86400)%3600)/60)}`;
+			var second=Math.ceil(((times%86400)%3600)%60) > 9 ? Math.ceil(((times%86400)%3600)%60) : `0${Math.ceil(((times%86400)%3600)%60)}`;
+			s =`${hour}h : ${minute}m : ${second}s` ;
+		}
+		return s;
+	}
+
+
+
 	render() {
-		const {tab_tudo ,type,numberPage, isLogin,message_error,dataItem,
+		const {tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		const { classes } = this.props;
 		return (<div>
@@ -614,7 +721,7 @@ class Lucky_Rotation extends React.Component {
 								<div class="menu-left_m">
 									<a href="https://vip.scoin.vn" title="Active VIP" target="_blank"><p class="mb-0 menu-link_m link-first_m"></p></a>
 									<a href="#" title="Hướng dẫn chơi"><p class="mb-0 menu-link_m"></p></a>
-									<a title="Giải thưởng" onClick={this.openGiaiThuong}><p class="mb-0 menu-link_m"></p></a>
+									<a title="Giải thưởng" onClick={this.showModalGiaiThuong}><p class="mb-0 menu-link_m"></p></a>
 									<a href="#" title="Lịch sử giao dịch"><p class="mb-0 menu-link_m"></p></a>
 								</div>
 								<div class="menu-right_m"><a title="Tủ đồ" data-toggle="modal" onClick={this.showModalTuDo}><img src={btn_tudo} width="100%" alt="" /></a></div>
@@ -662,88 +769,30 @@ class Lucky_Rotation extends React.Component {
 				<div class="modal-dialog modal-giaithuong_m modal-dialog-scrollable">
 					<div class="modal-content bg-transparent border-0">
 
-					<div class="modal-header border-0 p-0">
-						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body border-0 py-0 my-2 px-3 scroll-modal-body_m">      	
-						<div class="row mx-0 mb-1 border-giaithuong-e_m">
-							<div class="col-12 text-center text-brown pt-1">
-								<h2 class="font-size-3vw_m font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
-								<p class="font-size-3vw_m mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
-								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Topup Scoin 50k</p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={img_thescoin200k} alt="" width="60%" /></p>
-								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin 200k</p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={img_thescoinvoucher} alt="" width="60%" /></p>
-								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin Voucher 10k</p>
-							</div>
+						<div class="modal-header border-0 p-0">
+							<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
 						</div>
+						<div class="modal-body border-0 py-0 my-2 px-3 scroll-modal-body_m">
+							{listSesstions.map((obj, key) => (      	
+								<div class="row mx-0 mb-1 border-giaithuong-e_m" key={key}>
+									<div class="col-12 text-center text-brown pt-1">
+										<h2 class="font-size-3vw_m font-weight-bold text-uppercase mb-0">{this.getTypeGiaiThuong(obj.SessionType)}</h2>
+										{(obj.Status===0)?(<p class="font-size-3vw_m">Còn: {this.timeModalGiaiThuowng(obj.StartTime)}</p>):(<div></div>)}
+										{(obj.Status===1)?(<p class="font-size-3vw_m mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>):(<div></div>)}
+										{(obj.Status===2)?( <p class="font-size-3vw_m text-danger">Đã kết thúc</p>):(<div></div>)}
+									</div>
 
-						<div class="row mx-0 mb-1 border-giaithuong-e_m">
-							<div class="col-12 text-center text-brown pt-1">
-								<h2 class="font-size-3vw_m font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
-								<p class="font-size-3vw_m mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
-								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Topup Scoin 50k</p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={img_thescoin200k} alt="" width="60%" /></p>
-								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin 200k</p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={img_thescoinvoucher} alt="" width="60%" /></p>
-								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin Voucher 10k</p>
-							</div>
+									{obj.Awards.map((v, j) => (
+										<div class="col-4 text-center" key={j}>
+											<p class="m-0"><img src={this.getImgItem(v.Name)} alt="" width="60%" /></p>
+											<p class="font-size-3vw_m text-phanthuong_m text-yellow">{v.Description}</p>
+										</div>
+									))}
+
+									{(obj.Status===2)?(<img class="img-dacochu_m" src={img_dacochu} alt="" width="40%" />):(<div></div>)}
+								</div>
+							))}
 						</div>
-
-
-						<div class="row mx-0 mb-1 border-giaithuong-e_m">
-							<div class="col-12 text-center text-brown pt-1">
-								<h2 class="font-size-3vw_m font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
-								<p class="font-size-3vw_m mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
-								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Topup Scoin 50k</p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={img_thescoin200k} alt="" width="60%" /></p>
-								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin 200k</p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={img_thescoinvoucher} alt="" width="60%" /></p>
-								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin Voucher 10k</p>
-							</div>
-						</div>
-
-
-						<div class="row mx-0 mb-1 border-giaithuong-e_m">
-							<div class="col-12 text-center text-brown pt-1">
-								<h2 class="font-size-3vw_m font-weight-bold text-uppercase mb-0">Giải thưởng săn quà</h2>
-								<p class="font-size-3vw_m mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={logo_scoin} alt="" width="60%" /></p>
-								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Topup Scoin 50k</p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={img_thescoin200k} alt="" width="60%" /></p>
-								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin 200k</p>
-							</div>
-							<div class="col-4 text-center">
-								<p class="m-0"><img src={img_thescoinvoucher} alt="" width="60%" /></p>
-								<p class="font-size-3vw_m text-phanthuong_m text-yellow">Thẻ Scoin Voucher 10k</p>
-							</div>
-						</div>
-					</div>
 					</div>
 				</div>
 			</div>
@@ -858,6 +907,7 @@ class Lucky_Rotation extends React.Component {
 const mapStateToProps = state => ({
 	dataProfile: state.profile.data,
 	dataLuckyInfo: state.lucky.dataLuckyInfo,
+	dataSesions: state.lucky.dataSesions,
 	dataLuckyItems:state.lucky.dataLuckyItems,
 	dataInfoUser:state.lucky.dataInfoUser,
 	dataUserSpin:state.lucky.dataUserSpin,
@@ -881,6 +931,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	pickCard,
 	getInfoUser,
 	buyTurn,
+	getMoreSessions,
 	getItemAward,
 	getHistoryTuDo,
 	getData,
