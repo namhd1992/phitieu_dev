@@ -788,9 +788,9 @@ class Lucky_Rotation extends React.Component {
 						<div class="modal-header border-0 p-0">
 							<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
 						</div>
-						<div class="modal-body border-0 py-0 my-4 px-4 ml-2">   
+						<div class="modal-body border-0 py-0 my-4 px-4 ml-2 ">   
 							{listSesstions.map((obj, key) => (
-								<div class="row mx-0 mb-1 border-giaithuong-e" key={key}>
+								<div class="row mx-0 mb-1 border-giaithuong-e position-relative" key={key}>
 									<div class="col-12 text-center text-brown pt-1">
 										<h2 class="font-size-16 font-weight-bold text-uppercase mb-0">{this.getTypeGiaiThuong(obj.SessionType)}</h2>
 										{(obj.Status===0)?(<p class="font-size-16 mb-0">Còn: {this.timeModalGiaiThuowng(obj.StartTime)}</p>):(<div></div>)}
@@ -806,7 +806,7 @@ class Lucky_Rotation extends React.Component {
 										</div>
 									))}
 
-									{(obj.Status===2)?(<img class="img-dacochu" src={img_dacochu} alt="" width="40%" />):(<div></div>)}
+									{(obj.Status===2)?(<img class="img-dacochu" src={img_dacochu} alt="" width="30%" />):(<div></div>)}
 									
 								</div>
 							))}

@@ -49,7 +49,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family:Arial, Helvetica, sa
 .text-red {color: #af4138;}
 .border-giaithuong-e {border: solid 1px #f69310; border-radius: 8px}
 .scroll-modal-body {height: 600px !important; overflow: auto;}
-.img-dacochu {position: absolute; top: 30%; left: 30%}
+.img-dacochu {position: absolute; top: 30%; left: 35%}
 .modal-tudo {background:url(../images/bg-popup-tudo.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%}
 .valign-middle {vertical-align: middle !important;}
 .pag-custom .page-item {margin: 5px;}
