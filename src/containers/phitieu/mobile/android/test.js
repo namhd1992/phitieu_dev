@@ -57,6 +57,7 @@ const styles = {
 
 var startX=370, endX=587, startY=170, endY=387;
 var img_w=960;
+var img_h=450
 var award_open=true;
 var n=0;
 var animId;
@@ -189,6 +190,8 @@ class Lucky_Rotation extends React.Component {
 				width: width,
 				height: height,
 			});
+
+			var group = new Konva.Group();
 			var layer = new Konva.Layer();
 
 			var stage_checkbox = new Konva.Stage({
@@ -208,21 +211,6 @@ class Lucky_Rotation extends React.Component {
 			this.setState({stage:stage, layer:layer})
 			var _this=this
 
-			var timing = new Image();
-			timing.onload = function () {
-				var timingImg = new Konva.Image({
-					image: timing,
-					x: 100,
-					y: 100,
-					width: 30,
-					height: 30,
-					});
-			
-					layer.add(timingImg);
-					stage.add(layer);
-					_this.setState({timingImg:timingImg})
-			};
-			timing.src = icon_clock;
 			
 			var bggame = new Image();
 			bggame.onload = function () {
@@ -234,12 +222,32 @@ class Lucky_Rotation extends React.Component {
 					height: height,
 					});
 			
-					layer.add(bgGameImg);
-					stage.add(layer);
+					group.add(bgGameImg);
+					bgGameImg.setZIndex(0)
 					_this.setState({bgGameImg:bgGameImg})
 			};
 			bggame.src = bg_page_sanqua;
 
+			
+			var timing = new Image();
+			timing.onload = function () {
+				var timingImg = new Konva.Image({
+					image: timing,
+					x: 300,
+					y: 70,
+					width: 30,
+					height: 30,
+					});
+					
+					group.add(timingImg);
+					timingImg.setZIndex(1)
+					_this.setState({timingImg:timingImg})
+			};
+			timing.src = icon_clock;
+			
+
+			layer.add(group);
+			stage.add(layer);
 		
 
 
@@ -539,7 +547,8 @@ class Lucky_Rotation extends React.Component {
 		});
 	}
 
-	touchStart=()=>{
+	touchStart=(e)=>{
+		console.log("touchStart",e.touches)
 		const {stage, layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
 		var _this=this;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
@@ -576,7 +585,8 @@ class Lucky_Rotation extends React.Component {
 		
 	}
 
-	touchEnd=()=>{
+	touchEnd=(e)=>{
+		console.log("touchEnd", e.touches)
 		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
 		var _this=this;
 		// if(isPlay){
@@ -614,7 +624,8 @@ class Lucky_Rotation extends React.Component {
 		
 	}
 
-	touchMove=()=>{
+	touchMove=(e)=>{
+		console.log("touchMove",e.touches)
 		const {stage, layer, darthVaderImg, isPlay}=this.state;
 		if(JSON.stringify(darthVaderImg) !== '{}'){
 			var touchPos = stage.getPointerPosition();
@@ -861,9 +872,14 @@ class Lucky_Rotation extends React.Component {
 
 		return (
 				<div id="game">
-						<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
-						<div id="div_checkbox" style={{position:'absolute', top:"72%", left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
+					{(horizontal)?(<div>
+						<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div>
+						<div id="div_checkbox" style={{position:'absolute', top:"88%", left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
 						<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
+						</div>):(<div>
+						<img src={rotate} width="100%" alt="" />
+					</div>)}
+						
 				</div>
 			)
 	}
