@@ -181,9 +181,20 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
-		console.log("startX:", startX)
 		const {horizontal}=this.state;
-		this.toggleFullScreen()
+		var deltal_img=img_w/img_h;
+		var deltal_device=width/height;
+		var bg_x=0, bg_y=0;
+
+		// this.toggleFullScreen();
+		if(width/height > 2){
+			bg_x=width;
+			bg_y=height*deltal_img/deltal_device;
+		}else{
+			bg_x=width;
+			bg_y=height*deltal_device/deltal_img;
+		}
+
 		if(horizontal){
 			var stage = new Konva.Stage({
 				container: 'canvas',
@@ -218,8 +229,8 @@ class Lucky_Rotation extends React.Component {
 					image: bggame,
 					x: 0,
 					y: 0,
-					width: width,
-					height: height,
+					width: bg_x,
+					height: bg_y,
 					});
 			
 					group.add(bgGameImg);
@@ -792,9 +803,11 @@ class Lucky_Rotation extends React.Component {
 
 	exit=()=>{
 		this.toggleFullScreen();
+
 		setTimeout(()=>{
+			console.log('BBBBBB')
 			this.toggleFullScreen();
-		}, 10);
+		}, 200);
 		// window.location.replace("/")
 	}
 
