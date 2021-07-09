@@ -6,7 +6,7 @@ import { render } from 'react-dom';
 // import { Stage, Layer, Image, Text } from 'react-konva';
 import Konva from 'konva';
 import { connect } from 'react-redux'
-import './css/style.css';
+import '../css/style.css';
 import DeviceOrientation, { Orientation } from 'react-screen-orientation';
 import {
 	getDetailData,
@@ -23,26 +23,23 @@ import {
 	userLogout,
 	getDartScore,
 	getItemAward
-} from '../../../modules/lucky'
-import {
-	getData
-} from '../../../modules/profile';
+} from '../../../../modules/lucky'
 
 
-import icon_clock from './images/icon-clock.png';
-import line_timing from './images/line-timing.png';
-import phitieu from './images/phitieu.png';
-import dart_player from './images/dart-player.png';
-import img_checkbox_none from './images/img-checkbox-none.png';
-import img_checkbox_checked from './images/img-checkbox-checked.png';
-import btn_thoat from './images/btn-thoat.png';
-import btn_duatop from './images/btn-duatop.png';
-import vip_kimcuong from './images/vip-kimcuong.png';
-import vip_bachkim from './images/vip-bachkim.png';
-import vip_vang from './images/vip-vang.png';
-import vip_bac from './images/vip-bac.png';
-import vip_dong from './images/vip-dong.png';
-import rotate from './images/rotate.png';
+import icon_clock from '../images/icon-clock.png';
+import line_timing from '../images/line-timing.png';
+import phitieu from '../images/phitieu.png';
+import dart_player from '../images/dart-player.png';
+import img_checkbox_none from '../images/img-checkbox-none.png';
+import img_checkbox_checked from '../images/img-checkbox-checked.png';
+import btn_thoat from '../images/btn-thoat.png';
+import btn_duatop from '../images/btn-duatop.png';
+import vip_kimcuong from '../images/vip-kimcuong.png';
+import vip_bachkim from '../images/vip-bachkim.png';
+import vip_vang from '../images/vip-vang.png';
+import vip_bac from '../images/vip-bac.png';
+import vip_dong from '../images/vip-dong.png';
+import rotate from '../images/rotate.png';
 
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
@@ -931,7 +928,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	buyTurn,
 	getItemAward,
 	getHistoryTuDo,
-	getData,
 	getTuDo,
 	getCodeBonus,
 	getLuckyInfo,

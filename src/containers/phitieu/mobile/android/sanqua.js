@@ -6,7 +6,7 @@ import { render } from 'react-dom';
 // import { Stage, Layer, Image, Text } from 'react-konva';
 import Konva from 'konva';
 import { connect } from 'react-redux'
-import './css/style.css';
+import '../css/style.css';
 import DeviceOrientation, { Orientation } from 'react-screen-orientation';
 import {
 	getDetailData,
@@ -23,30 +23,23 @@ import {
 	userLogout,
 	getDartScore,
 	getItemAward
-} from '../../../modules/lucky'
-import {
-	getData
-} from '../../../modules/profile';
+} from '../../../../modules/lucky'
 
 
-import icon_clock from './images/icon-clock.png';
-import line_timing from './images/line-timing.png';
-import phitieu from './images/phitieu.png';
-import dart_player from './images/dart-player.png';
-import img_checkbox_none from './images/img-checkbox-none.png';
-import img_checkbox_checked from './images/img-checkbox-checked.png';
-import btn_thoat from './images/btn-thoat.png';
-import btn_duatop from './images/btn-duatop.png';
-import vip_kimcuong from './images/vip-kimcuong.png';
-import vip_bachkim from './images/vip-bachkim.png';
-import vip_vang from './images/vip-vang.png';
-import vip_bac from './images/vip-bac.png';
-import vip_dong from './images/vip-dong.png';
-import rotate from './images/rotate.png';
-
-import bg_page_sanqua from './images/bg-page-sanqua.png';
-
-
+import icon_clock from '../images/icon-clock.png';
+import line_timing from '../images/line-timing.png';
+import phitieu from '../images/phitieu.png';
+import dart_player from '../images/dart-player.png';
+import img_checkbox_none from '../images/img-checkbox-none.png';
+import img_checkbox_checked from '../images/img-checkbox-checked.png';
+import btn_thoat from '../images/btn-thoat.png';
+import btn_duatop from '../images/btn-duatop.png';
+import vip_kimcuong from '../images/vip-kimcuong.png';
+import vip_bachkim from '../images/vip-bachkim.png';
+import vip_vang from '../images/vip-vang.png';
+import vip_bac from '../images/vip-bac.png';
+import vip_dong from '../images/vip-dong.png';
+import rotate from '../images/rotate.png';
 
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
@@ -151,7 +144,6 @@ class Lucky_Rotation extends React.Component {
 			msg:'',
 			isChangetab:false,
 			horizontal:false,
-			bgGameImg:{}
 
 		};
 	}
@@ -210,44 +202,23 @@ class Lucky_Rotation extends React.Component {
 	
 			this.setState({stage:stage, layer:layer})
 			var _this=this
-
-			var timing = new Image();
-			timing.onload = function () {
-				var timingImg = new Konva.Image({
-					image: timing,
-					x: 100,
-					y: 100,
-					width: 30,
-					height: 30,
-					});
-			
-					layer.add(timingImg);
-					stage.add(layer);
-					_this.setState({timingImg:timingImg})
-			};
-			timing.src = icon_clock;
-			
-			var bggame = new Image();
-			bggame.onload = function () {
-				var bgGameImg = new Konva.Image({
-					image: bggame,
+			var imageObj = new Image();
+			imageObj.onload = function () {
+				var darthVaderImg = new Konva.Image({
+					image: imageObj,
 					x: 0,
 					y: 0,
-					width: width,
-					height: height,
+					width: 28,
+					height: 120,
+					draggable: true,
+					visible:false
 					});
 			
-					layer.add(bgGameImg);
+					layer.add(darthVaderImg);
 					stage.add(layer);
-					_this.setState({bgGameImg:bgGameImg})
+					_this.setState({darthVaderImg:darthVaderImg})
 			};
-			bggame.src = bg_page_sanqua;
-
-		
-
-
-			
-		
+			imageObj.src = phitieu;
 
 			var checkbox = new Image();
 		checkbox.onload = function () {
@@ -444,7 +415,6 @@ class Lucky_Rotation extends React.Component {
 	//   }
 
 	toggleFullScreen() {
-		console.log('AAAAAAAAAAAAA')
 		var elem = document.getElementById("game");
 		if (elem.requestFullscreen) {
 			elem.requestFullscreen().catch(err => {
@@ -544,7 +514,6 @@ class Lucky_Rotation extends React.Component {
 
 	touchStart=()=>{
 		const {stage, layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
-		var _this=this;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
@@ -556,25 +525,13 @@ class Lucky_Rotation extends React.Component {
 		if(JSON.stringify(text_warning) !== '{}'){
 			text_warning.remove();
 		}
-
+		
 		var touchPos = stage.getPointerPosition();
-		var imageObj = new Image();
-		imageObj.onload = function () {
-			var darthVaderImg = new Konva.Image({
-				image: imageObj,
-				x: touchPos.x-20,
-				y: touchPos.y-80,
-				width: 28,
-				height: 120,
-				draggable: true,
-				});
-		
-				layer.add(darthVaderImg);
-				stage.add(layer);
-				_this.setState({darthVaderImg:darthVaderImg})
-		};
-		imageObj.src = phitieu;
-		
+		var x= touchPos.x-20;
+		var y= touchPos.y-80;
+		darthVaderImg.x(x);
+		darthVaderImg.y(y);
+		darthVaderImg.show();
 		this.setState({dartPositionY:touchPos.y})
 		
 	}
@@ -582,25 +539,9 @@ class Lucky_Rotation extends React.Component {
 	touchEnd=()=>{
 		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
 		var _this=this;
-		// if(isPlay){
-		// 	if(countDart>0){
-		// 		var touchPos = stage.getPointerPosition();
-		// 		curFrame=0
-		// 		if(dartPositionY >touchPos.y){
-		// 			this.draw(touchPos.x, touchPos.y)
-		// 			this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
-		// 		}else{
-		// 			this.showTextWarning()
-		// 			// alert("vuốt lên để phi tiêu")
-		// 		}
-		// 		this.setState({isPlay:false})
-		// 	}else{
-		// 		$('#ThongBao').modal('show');
-		// 	}
-		// }
-		darthVaderImg.hide();
-
-		var touchPos = stage.getPointerPosition();
+		if(isPlay){
+			if(countDart>0){
+				var touchPos = stage.getPointerPosition();
 				curFrame=0
 				if(dartPositionY >touchPos.y){
 					this.draw(touchPos.x, touchPos.y)
@@ -610,6 +551,12 @@ class Lucky_Rotation extends React.Component {
 					// alert("vuốt lên để phi tiêu")
 				}
 				this.setState({isPlay:false})
+			}else{
+				$('#ThongBao').modal('show');
+			}
+		}
+		darthVaderImg.hide();
+
 		setTimeout(()=>{
 			_this.setState({isPlay:true})
 		}, 1500);
@@ -783,11 +730,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	exit=()=>{
-		this.toggleFullScreen();
-		setTimeout(()=>{
-			this.toggleFullScreen();
-		}, 10);
-		// window.location.replace("/")
+		window.location.replace("/")
 	}
 
 	showScore=(totalScore)=>{
@@ -863,10 +806,94 @@ class Lucky_Rotation extends React.Component {
 		const {msg, user, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
 
 		return (
-				<div id="game">
+				<div id="game" style={{overflowBlock:'hidden'}}>
+					{(horizontal)?(<div class="bg-page-sanqua_m position-relative">
+						<div class="tongdiem_m">
+							<h2 class="font-size-2vw_m text-uppercase font-weight-bold text-center mb-1 text-shadow_m">Tổng điểm</h2>
+							<h4 class="font-size-2vw_m text-uppercase text-center text-shadow_m">{points_sanqua}</h4>
+						</div>
+						<div class="phongtudong_m font-size-2vw_m font-weight-bold text-uppercase text-shadow_m">
+							 Phóng phi tiêu tự động
+						</div>
+
+						<div class="timing_m">
+							<div class="media">
+								<img src={icon_clock} class="align-self-center mt-n1" width="13%" alt="clock"/>
+								<div class="media-body">
+									<div class="bg-line-timing_m">
+									<span style={{background:"#f5950a", width: timing, height: 8, display:"block", borderRadius: 4}}>&nbsp;</span>
+									</div>
+									<h6 class="text-yellow font-size-1vw_m pl-1 text-shadow">Còn: {day>0 ? `${day} ngày ${hour}:${minute}:${second}` : `${hour}:${minute}:${second}`}</h6>
+								</div>
+							</div>
+						</div>
+						<div class="account-name_m">
+							<p class="font-size-1vw_m text-white mb-0 text-center">{user.Username}</p>
+							{(user.VipLevel===1)?(<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Đồng <img src={vip_dong} alt="VIP Đồng" width="16" /></h2>):(<div></div>)}
+							{(user.VipLevel===2)?(<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Bạc <img src={vip_bac} alt="VIP Bạc" width="16" /></h2>):(<div></div>)}
+							{(user.VipLevel===3)?(<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Vàng <img src={vip_vang} alt="VIP Vàng" width="16" /></h2>):(<div></div>)}
+							{(user.VipLevel===4)?(<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Bạch kim <img src={vip_bachkim} alt="VIP Bạch kim" width="16" /></h2>):(<div></div>)}
+						</div>
+
+						<div class="phitieu-status_m marquee_m">
+							<div class="marquee_inner_m">            
+								<span class="m-0 font-size-1vw_m font-weight-bold text-shadow_m pr-5">Số phi tiêu còn lại: <strong>{countDart}</strong></span>		
+								<span class="m-0 font-size-1vw_m font-weight-bold text-shadow_m pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
+							</div>    	
+						</div>
+
+						
+						
+						<div class="toplist-account_m">
+							<h2 class="font-size-2vw_m m-0 font-weight-bold text-shadow text-center">Danh sách TOP</h2>
+							<table class="table table-borderless font-size-3vw_m mb-0 mt-1" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "100%"}}>
+								<tbody>
+									{listTop.map((obj, key) => (
+										<tr class="bg-border-bottom_m" key={key}>
+											<td class="p-0 w-50 font-size-1vw_m text-shadow">{obj.Username}</td>
+											<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">{obj.Points}</td>                
+										</tr>
+									))}		
+								</tbody>
+							</table>
+    					</div>
+
+						{/* {(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>)} */}
 						<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
 						<div id="div_checkbox" style={{position:'absolute', top:"72%", left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
 						<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
+					</div>):(<div>
+						<img src={rotate} width="100%" alt="" />
+					</div>)}
+
+						{/* <!-- The Modal Thông báo--> */}
+					<div class="modal fade" id="Modalnone" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
+						<div class="modal-dialog modal-dangnhap">
+							<div class="modal-content bg-transparent border-0">
+
+							<div class="modal-body border-0">
+								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+								<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+							</div>
+
+							</div>
+						</div>
+					</div>
+
+										
+					{/* <!-- The Modal Thông báo--> */}
+					<div class="modal fade" id="ThongBao" style={{zIndex:9999999}}>
+						<div class="modal-dialog modal-dangnhap">
+							<div class="modal-content bg-transparent border-0">
+
+							<div class="modal-body border-0">
+								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn đã hết tiêu</h2>
+								<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+							</div>
+
+							</div>
+						</div>
+					</div>
 				</div>
 			)
 	}
@@ -901,7 +928,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	buyTurn,
 	getItemAward,
 	getHistoryTuDo,
-	getData,
 	getTuDo,
 	getCodeBonus,
 	getLuckyInfo,

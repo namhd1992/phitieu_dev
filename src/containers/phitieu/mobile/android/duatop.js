@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import Pagination from "react-js-pagination";
 import axios from 'axios';
 import { connect } from 'react-redux'
-import './css/style.css';
+import '../css/style.css';
 import {
 	getDetailData,
 	getRotationDetailData,
@@ -19,25 +19,23 @@ import {
 	userLogout,
 	getDartScore,
 	getItemAward
-} from '../../../modules/lucky'
-import {
-	getData
-} from '../../../modules/profile'
+} from '../../../../modules/lucky'
 
 
 
 
-// import muiten from './images/muiten.png';
+
+// import muiten from '../images/muiten.png';
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
 import 'bootstrap';
 
-import icon_clock from './images/icon-clock.png';
-import line_timing from './images/line-timing.png';
-import btn_thoat from './images/btn-thoat.png';
-import phitieu from './images/phitieu.png';
-import dart_player from './images/dart-player.png';
-import dart_flight from './images/dart-flight.gif';
+import icon_clock from '../images/icon-clock.png';
+import line_timing from '../images/line-timing.png';
+import btn_thoat from '../images/btn-thoat.png';
+import phitieu from '../images/phitieu.png';
+import dart_player from '../images/dart-player.png';
+import dart_flight from '../images/dart-flight.gif';
 
 
 const styles = {
@@ -529,7 +527,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	buyTurn,
 	getItemAward,
 	getHistoryTuDo,
-	getData,
 	getTuDo,
 	getCodeBonus,
 	getLuckyInfo,
