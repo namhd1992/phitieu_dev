@@ -164,7 +164,7 @@ class Lucky_Rotation extends React.Component {
 		}else{
 			this.setState({horizontal: true})
 		}
-		var delta=window.innerWidth/img_w;
+		var delta=window.screen.width/img_w;
 		startX=startX*delta;
 		endX=endX*delta;
 		startY=startY*delta;
