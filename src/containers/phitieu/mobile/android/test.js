@@ -841,7 +841,6 @@ class Lucky_Rotation extends React.Component {
 				_this.setState({day:day, hour: hour, minute: minute, second:second})
 				var txt_time= day>0 ? `${day} ngày ${hour}h:${minute}m:${second}s` : `${hour}h:${minute}m:${second}s`
 				tg_conlai.text(`Còn: ${txt_time}`);
-				this.getStatus(data)
 				// _this.setState({hour_live: hour, minute_live: minute, second_live:second})
 			}
 		}, 1000); 
@@ -931,6 +930,7 @@ class Lucky_Rotation extends React.Component {
 				$('#ThongBao').modal('show');
 			}
 		}
+		
 		darthVaderImg.hide();
 		setTimeout(()=>{
 			_this.setState({isPlay:true})
