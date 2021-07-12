@@ -7,7 +7,7 @@ import SanQua_Web from '../phitieu/web/sanqua'
 import DuaTop_Web from '../phitieu/web/duatop'
 import Home_Mobile from '../phitieu/mobile/home'
 
-import SanQua_Mobile_Android from '../phitieu/mobile/android/test'
+import SanQua_Mobile_Android from '../phitieu/mobile/android/sanqua'
 import DuaTop_Mobile_Android from '../phitieu/mobile/android/duatop'
 
 import SanQua_Mobile_IOS from '../phitieu/mobile/ios/test'

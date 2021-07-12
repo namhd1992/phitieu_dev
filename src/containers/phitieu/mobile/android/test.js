@@ -293,7 +293,7 @@ class Lucky_Rotation extends React.Component {
 			var rect_timing = new Konva.Rect({
 				x: bg_x*0.41,
 				y: 5,
-				width: 90,
+				width: 110,
 				height: 6,
 				fill: 'yellow',
 				shadowBlur: 10,
@@ -325,7 +325,7 @@ class Lucky_Rotation extends React.Component {
 
 			var tg_conlai = new Konva.Text({
 				x: bg_x*0.40,
-				y: 5,
+				y: bg_y*0.02,
 				text:"Còn: 0h : 0p : 0s",
 				fontSize: 14,
 				fontFamily: 'Calibri',
@@ -337,7 +337,7 @@ class Lucky_Rotation extends React.Component {
 
 			 var tieuconlai = new Konva.Text({
 				x: bg_x*0.41,
-				y: 33,
+				y: bg_y*0.10,
 				text:"Số phi tiêu còn lại: 0",
 				fontSize: 14,
 				fontFamily: 'Calibri',
@@ -349,7 +349,7 @@ class Lucky_Rotation extends React.Component {
 
 			 var giaithuong = new Konva.Text({
 				x: bg_x*0.35,
-				y: 50,
+				y: bg_y*0.15,
 				text:"Nhanh tay giật giải IP12 trị giá 50 củ",
 				fontSize: 14,
 				fontFamily: 'Calibri',
@@ -400,8 +400,8 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var ds_top = new Konva.Text({
-				x: bg_x*0.705,
-				y: bg_y*0.25,
+				x: bg_x*0.71,
+				y: bg_y*0.27,
 				text:"DANH SÁCH TOP",
 				fontSize: 15,
 				fontFamily: 'Calibri',
@@ -413,8 +413,8 @@ class Lucky_Rotation extends React.Component {
 
 
 			var top_1 = new Konva.Text({
-				x: bg_x*0.705,
-				y: bg_y*0.34,
+				x: bg_x*0.71,
+				y: bg_y*0.36,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -426,7 +426,7 @@ class Lucky_Rotation extends React.Component {
 
 			var top_2 = new Konva.Text({
 				x: bg_x*0.705,
-				y: bg_y*0.39,
+				y: bg_y*0.41,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -438,7 +438,7 @@ class Lucky_Rotation extends React.Component {
 
 			var top_3 = new Konva.Text({
 				x: bg_x*0.705,
-				y: bg_y*0.44,
+				y: bg_y*0.46,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -450,7 +450,7 @@ class Lucky_Rotation extends React.Component {
 
 			var top_4 = new Konva.Text({
 				x: bg_x*0.705,
-				y: bg_y*0.49,
+				y: bg_y*0.51,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -462,7 +462,7 @@ class Lucky_Rotation extends React.Component {
 
 			var top_5 = new Konva.Text({
 				x: bg_x*0.705,
-				y: bg_y*0.54,
+				y: bg_y*0.56,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -474,7 +474,7 @@ class Lucky_Rotation extends React.Component {
 
 			var top_6 = new Konva.Text({
 				x: bg_x*0.705,
-				y: bg_y*0.59,
+				y: bg_y*0.61,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -486,7 +486,7 @@ class Lucky_Rotation extends React.Component {
 
 			var top_7 = new Konva.Text({
 				x: bg_x*0.705,
-				y: bg_y*0.64,
+				y: bg_y*0.66,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -499,7 +499,7 @@ class Lucky_Rotation extends React.Component {
 
 			var top_8 = new Konva.Text({
 				x: bg_x*0.705,
-				y: bg_y*0.69,
+				y: bg_y*0.71,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -511,7 +511,7 @@ class Lucky_Rotation extends React.Component {
 
 			var top_9 = new Konva.Text({
 				x: bg_x*0.705,
-				y: bg_y*0.74,
+				y: bg_y*0.76,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -523,7 +523,7 @@ class Lucky_Rotation extends React.Component {
 
 			var top_10 = new Konva.Text({
 				x: bg_x*0.705,
-				y: bg_y*0.79,
+				y: bg_y*0.81,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -874,7 +874,7 @@ class Lucky_Rotation extends React.Component {
 
 	touchStart=(e)=>{
 		console.log('AAAAAAAAAA')
-		console.log("touchStart",e.touches)
+		// console.log("touchStart",e.touches)
 		const {stage, layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
 		var _this=this;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
@@ -912,7 +912,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchEnd=(e)=>{
-		console.log("touchEnd", e.touches)
+		// console.log("touchEnd", e.touches)
 		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
 		var _this=this;
 		if(isPlay){
@@ -940,7 +940,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchMove=(e)=>{
-		console.log("touchMove",e.touches)
+		// console.log("touchMove",e.touches)
 		const {stage, layer, darthVaderImg, isPlay}=this.state;
 		if(JSON.stringify(darthVaderImg) !== '{}'){
 			var touchPos = e.touches[0];
@@ -1198,21 +1198,23 @@ class Lucky_Rotation extends React.Component {
 
 		return (
 				<div id="game">
+					{/* <div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div>
+					<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
+					<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
+					<div id="div_fullScreen"></div> */}
 					{(fullScreen)?(<div>{(horizontal)?(<div>
 						{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div>)}
-						{/* <div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div> */}
 						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
-						<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
+						<div id="div_exit" style={{position:'absolute', top:0, left:"87%", zIndex:999999}} onTouchStart={this.exit}></div>
 						<div id="div_fullScreen"></div>
 						</div>):(<div>
 						<img src={rotate} width="100%" alt="" />
 					</div>)}</div>):(<div>
 						{(horizontal)?(<div>
 						{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>)}
-						{/* <div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div> */}
 						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}}></div>
-						<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
-						<div id="div_fullScreen" style={{position:'absolute', top:"45%", left:"39%", zIndex:999999}} onTouchStart={this.openFullScreen}></div>
+						<div id="div_exit" style={{position:'absolute', top:0, left:"87%", zIndex:999999}} onTouchStart={this.exit}></div>
+						<div id="div_fullScreen" style={{position:'absolute', top:"50%", left:"45%", zIndex:999999}} onTouchStart={this.openFullScreen}></div>
 						</div>):(<div>
 						<img src={rotate} width="100%" alt="" />
 					</div>)}
