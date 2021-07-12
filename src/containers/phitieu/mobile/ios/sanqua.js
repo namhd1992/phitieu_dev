@@ -27,7 +27,8 @@ import {
 
 
 import icon_clock from '../images/icon-clock.png';
-import line_timing from '../images/line-timing.png';
+import line_timing from '../images/bg-line-timing.png';
+import btn_fullscreen from '../images/btn-fullscreen.png';
 import phitieu from '../images/phitieu.png';
 import dart_player from '../images/dart-player.png';
 import img_checkbox_none from '../images/img-checkbox-none.png';
@@ -41,6 +42,10 @@ import vip_bac from '../images/vip-bac.png';
 import vip_dong from '../images/vip-dong.png';
 import rotate from '../images/rotate.png';
 
+import bg_page_sanqua from '../images/bg-page-sanqua.png';
+
+
+
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
 import 'bootstrap';
@@ -53,6 +58,7 @@ const styles = {
 
 var startX=370, endX=587, startY=170, endY=387;
 var img_w=960;
+var img_h=450
 var award_open=true;
 var n=0;
 var animId;
@@ -82,6 +88,7 @@ var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 
 var segmentIndex = 0; // index vysece
 var segmentType = 0;  // typ policka
 var segment = 0;
+var width_bgImg=0;
 
 var totalScore = 0;
 
@@ -144,6 +151,14 @@ class Lucky_Rotation extends React.Component {
 			msg:'',
 			isChangetab:false,
 			horizontal:false,
+			bgGameImg:{},
+			rect_timing:{},
+			username:{}, 
+			vip_level:{}, 
+			tg_conlai: {}, 
+			txt_points:{},
+			list_top_user:[],
+			fullScreen:false,
 
 		};
 	}
@@ -175,15 +190,29 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
-		console.log("startX:", startX)
 		const {horizontal}=this.state;
-		this.toggleFullScreen()
+		var deltal_img=img_w/img_h;
+		var deltal_device=width/height;
+		var bg_x=0, bg_y=0;
+		var list_top_user=[];
+
+		// this.toggleFullScreen();
+		if(width/height > 2){
+			bg_x=width;
+			bg_y=height*deltal_img/deltal_device;
+		}else{
+			bg_x=width;
+			bg_y=height*deltal_device/deltal_img;
+		}
+		width_bgImg=bg_y;
+
 		if(horizontal){
 			var stage = new Konva.Stage({
 				container: 'canvas',
 				width: width,
 				height: height,
 			});
+
 			var layer = new Konva.Layer();
 
 			var stage_checkbox = new Konva.Stage({
@@ -199,75 +228,406 @@ class Lucky_Rotation extends React.Component {
 				height: 42,
 			});
 			var layer_exit = new Konva.Layer();
+
+			var stage_full = new Konva.Stage({
+				container: 'div_fullScreen',
+				width: 140,
+				height: 45,
+			});
+			var layer_full = new Konva.Layer();
 	
 			this.setState({stage:stage, layer:layer})
 			var _this=this
-			var imageObj = new Image();
-			imageObj.onload = function () {
-				var darthVaderImg = new Konva.Image({
-					image: imageObj,
+
+			
+			var bggame = new Image();
+			bggame.onload = function () {
+				var bgGameImg = new Konva.Image({
+					image: bggame,
 					x: 0,
 					y: 0,
-					width: 28,
-					height: 120,
-					draggable: true,
-					visible:false
+					width: bg_x,
+					height: bg_y,
 					});
 			
-					layer.add(darthVaderImg);
-					stage.add(layer);
-					_this.setState({darthVaderImg:darthVaderImg})
+					layer.add(bgGameImg);
+					bgGameImg.setZIndex(0)
+					_this.setState({bgGameImg:bgGameImg})
 			};
-			imageObj.src = phitieu;
+			bggame.src = bg_page_sanqua;
 
+			
+			var timing = new Image();
+			timing.onload = function () {
+				var timingImg = new Konva.Image({
+					image: timing,
+					x: bg_x*0.37,
+					y: 5,
+					width: 25,
+					height: 25,
+					});
+					
+					layer.add(timingImg);
+					timingImg.setZIndex(1)
+					_this.setState({timingImg:timingImg})
+			};
+			timing.src = icon_clock;
+
+			var bg_timing = new Image();
+			bg_timing.onload = function () {
+				var rect_bg_timing = new Konva.Image({
+					image: bg_timing,
+					x: bg_x*0.41,
+					y: 5,
+					width: 110,
+					height: 6,
+					});
+					
+					layer.add(rect_bg_timing);
+					rect_bg_timing.setZIndex(1)
+					_this.setState({rect_bg_timing:rect_bg_timing})
+			};
+			bg_timing.src = line_timing;
+
+
+			var rect_timing = new Konva.Rect({
+				x: bg_x*0.41,
+				y: 5,
+				width: 110,
+				height: 6,
+				fill: 'yellow',
+				shadowBlur: 10,
+				cornerRadius: 10,
+			});
+
+			var username = new Konva.Text({
+				x: bg_x*0.65,
+				y: 5,
+				text:"Hello",
+				fontSize: 13,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 150,
+				align: 'center',
+			 });
+
+
+			 var vip_level = new Konva.Text({
+				x: bg_x*0.65,
+				y: 20,
+				text:"Vip Kim Cương",
+				fontSize: 12,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 150,
+				align: 'center',
+			 });
+
+			var tg_conlai = new Konva.Text({
+				x: bg_x*0.40,
+				y: bg_y*0.02,
+				text:"Còn: 0h : 0p : 0s",
+				fontSize: 14,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 10,
+				align: 'left',
+			 });
+
+			 var tieuconlai = new Konva.Text({
+				x: bg_x*0.41,
+				y: bg_y*0.10,
+				text:"Số phi tiêu còn lại: 0",
+				fontSize: 14,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 380,
+				padding: 10,
+				align: 'left',
+			 });
+
+			 var giaithuong = new Konva.Text({
+				x: bg_x*0.35,
+				y: bg_y*0.15,
+				text:"Nhanh tay giật giải IP12 trị giá 50 củ",
+				fontSize: 14,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 380,
+				padding: 10,
+				align: 'left',
+			 });
+
+
+
+			var auto_text = new Konva.Text({
+				x: 35,
+				y: bg_y*0.90,
+				text: "PHÓNG TIÊU TỰ ĐỘNG",
+				fontSize: 15,
+				fontStyle:"bold",
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				align: 'left',
+			});
+
+			var tong_diem = new Konva.Text({
+				x: bg_x*0.1,
+				y: bg_y*0.55,
+				text: "TỔNG ĐIỂM",
+				fontSize: 15,
+				fontStyle:"bold",
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+			
+
+			var txt_points = new Konva.Text({
+				x: bg_x*0.1,
+				y: bg_y*0.65,
+				text: "0000",
+				fontSize: 16,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 110,
+				padding: 10,
+				align: 'center',
+			});
+
+			var ds_top = new Konva.Text({
+				x: bg_x*0.71,
+				y: bg_y*0.27,
+				text:"DANH SÁCH TOP",
+				fontSize: 15,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+
+			var top_1 = new Konva.Text({
+				x: bg_x*0.71,
+				y: bg_y*0.36,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_2 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.41,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_3 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.46,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_4 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.51,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_5 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.56,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_6 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.61,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_7 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.66,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+
+			var top_8 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.71,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_9 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.76,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_10 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.81,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			layer.add(giaithuong)
+			layer.add(tieuconlai)
+			layer.add(rect_timing);
+			layer.add(username);
+			layer.add(vip_level);
+			layer.add(tg_conlai);
+			layer.add(auto_text);
+			layer.add(tong_diem);
+			layer.add(txt_points);
+			layer.add(ds_top);
+			layer.add(top_1);
+			layer.add(top_2);
+			layer.add(top_3);
+			layer.add(top_4);
+			layer.add(top_5);
+			layer.add(top_6);
+			layer.add(top_7);
+			layer.add(top_8);
+			layer.add(top_9);
+			layer.add(top_10);
+			list_top_user.push(top_1, top_2, top_3, top_4, top_5, top_6, top_7, top_8, top_9, top_10)
+
+			stage.add(layer);
+			this.setState({tieuconlai:tieuconlai,rect_timing:rect_timing, username:username, vip_level:vip_level, tg_conlai: tg_conlai, txt_points:txt_points, list_top_user:list_top_user},()=>{
+				this.getLuckyInfo(1);
+			})
+		
+
+
+			
 			var checkbox = new Image();
-		checkbox.onload = function () {
-			var checkboxImg = new Konva.Image({
-				image: checkbox,
-				x: 0,
-				y: 3,
-				width: 18,
-				height: 18,
+			checkbox.onload = function () {
+				var checkboxImg = new Konva.Image({
+					image: checkbox,
+					x: 0,
+					y: 3,
+					width: 18,
+					height: 18,
+					});
+			
+					layer_checkbox.add(checkboxImg);
+					stage_checkbox.add(layer_checkbox);
+					_this.setState({checkboxImg:checkboxImg})
+			};
+			checkbox.src = img_checkbox_none;
+
+			var uncheckbox = new Image();
+			uncheckbox.onload = function () {
+				var uncheckboxImg = new Konva.Image({
+					image: uncheckbox,
+					x: 0,
+					y: 3,
+					width: 18,
+					height: 18,
+					visible:false
 				});
 		
-				layer_checkbox.add(checkboxImg);
+				layer_checkbox.add(uncheckboxImg);
 				stage_checkbox.add(layer_checkbox);
-				_this.setState({checkboxImg:checkboxImg})
-		};
-		checkbox.src = img_checkbox_none;
+				_this.setState({uncheckboxImg:uncheckboxImg})
+			};
+			uncheckbox.src = img_checkbox_checked;
 
-		var uncheckbox = new Image();
-		uncheckbox.onload = function () {
-			var uncheckboxImg = new Konva.Image({
-				image: uncheckbox,
-				x: 0,
-				y: 3,
-				width: 18,
-				height: 18,
-				visible:false
-			});
-	
-			layer_checkbox.add(uncheckboxImg);
-			stage_checkbox.add(layer_checkbox);
-			_this.setState({uncheckboxImg:uncheckboxImg})
-		};
-		uncheckbox.src = img_checkbox_checked;
+			var btnExit = new Image();
+			btnExit.onload = function () {
+				var exitImg = new Konva.Image({
+					image: btnExit,
+					x: 0,
+					y: 0,
+					width: 90,
+					height: 35
+				});
+		
+				layer_exit.add(exitImg);
+				stage_exit.add(layer_exit);
+				_this.setState({exitImg:exitImg})
+			};
+			btnExit.src = btn_thoat;
 
-		var btnExit = new Image();
-		btnExit.onload = function () {
-			var exitImg = new Konva.Image({
-				image: btnExit,
-				x: 0,
-				y: 0,
-				width: 90,
-				height: 35
-			});
-	
-			layer_exit.add(exitImg);
-			stage_exit.add(layer_exit);
-			_this.setState({exitImg:exitImg})
-		};
-		btnExit.src = btn_thoat;
+
+			var btnFullScreen = new Image();
+			btnFullScreen.onload = function () {
+				var FullImg = new Konva.Image({
+					image: btnFullScreen,
+					x: 0,
+					y: 0,
+					width: 140,
+					height: 45
+				});
+		
+				layer_full.add(FullImg);
+				stage_full.add(layer_full);
+				_this.setState({FullImg:FullImg})
+			};
+			btnFullScreen.src = btn_fullscreen;
 
 		}
 
@@ -275,24 +635,6 @@ class Lucky_Rotation extends React.Component {
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.setState({user:user})
 
-		this.props.getLuckyInfo(1, user.Token).then(()=>{
-			var data=this.props.dataLuckyInfo;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId})
-					console.log(data.Data)
-					this.getStatus(data.Data)
-				}else if(data.Status===2){
-					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
-					$('#Modalnone').modal('show');
-				}else if(data.Status===3){
-					this.logoutAction();
-				}else{
-					console.log("Lỗi")
-				}
-			}
-		})
-		
 		
 		// window.addEventListener('scroll', this.handleScroll);
 	}
@@ -308,6 +650,60 @@ class Lucky_Rotation extends React.Component {
 	componentWillUnmount() {
 		clearInterval(this.state.intervalId);
 		this.setState({ auto : !this.state.auto});
+	}
+
+	getLuckyInfo=(type)=>{
+		const {tieuconlai, username, vip_level, txt_points, tg_conlai, list_top_user}=this.state;
+		console.log(username)
+		var user = JSON.parse(localStorage.getItem("user"));
+		this.props.getLuckyInfo(type, user.Token).then(()=>{
+			var data=this.props.dataLuckyInfo;
+			if(data!==undefined){
+				if(data.Status===0){
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId})
+					
+					username.text(user.Username)
+
+					switch(user.VipLevel) {
+						case 1:
+							vip_level.text("VIP Đồng")
+						  	break;
+						case 2:
+							vip_level.text("VIP Bạc")
+						  	break;
+						case 3:
+							vip_level.text("VIP Vàng")
+							break;
+						case 4:
+							vip_level.text("VIP Bạch kim")
+						  	break;
+						default:
+							vip_level.text("VIP Đồng")
+					}
+					tieuconlai.text(`Số phi tiêu còn lại: ${data.Data.AddInfo.Darts}`)
+					txt_points.text(data.Data.AddInfo.Points)
+					var list_top=data.Data.AddInfo.TopUsers;
+					for (let i = 0; i < list_top.length; i++) {
+						list_top_user[i].text(this.formatText(list_top[i]))
+					}
+					this.getStatus(data.Data)
+				}else if(data.Status===2){
+					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
+					$('#Modalnone').modal('show');
+				}else if(data.Status===3){
+					this.logoutAction();
+				}else{
+					console.log("Lỗi")
+				}
+			}
+		})
+	}
+
+	formatText=(data)=>{
+		var name=data.Username + ' '.repeat(5+ (14-data.Username.length)*2)
+		var str=name+data.Points;
+		return str;
+
 	}
 
 	logoutAction = () => {
@@ -354,50 +750,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	onResize=()=>{
-		if (window.innerWidth <= 320) {
-			this.setState({ width: 210, height: 235, img_width:170, img_height:170});
-		}
-		if (window.innerWidth > 320 && window.innerWidth <= 360) {
-			this.setState({ width: 252, height: 282, img_width:200, img_height:200});
-		}
-		if (window.innerWidth > 360 && window.innerWidth <= 380) {
-			this.setState({ width: 293, height: 330, img_width:235, img_height:235});
-		}
-		if (window.innerWidth > 380 && window.innerWidth <= 480) {
-			this.setState({ width: 344, height: 383, img_width:275, img_height:275});
-		}
-		if (window.innerWidth > 480 && window.innerWidth <= 600) {
-			this.setState({ width: 335, height: 375, img_width:267, img_height:267});
-		}
-		if (window.innerWidth > 600 && window.innerWidth <= 640) {
-			this.setState({ width: 336, height: 376, img_width:270, img_height:270});
-		}
-		if (window.innerWidth > 640 && window.innerWidth <= 768) {
-			this.setState({ width: 470, height: 525, img_width:375, img_height:375});
-		}
-		if (window.innerWidth > 768 && window.innerWidth < 780) {
-			this.setState({ width: 504, height: 563, img_width:405, img_height:405});
-		}
-
-		if (window.innerWidth >= 780 && window.innerWidth <= 790) {
-			this.setState({ width: 469, height: 524, img_width:375, img_height:375});
-		}
-
-		if (window.innerWidth > 790 && window.innerWidth <= 800) {
-			this.setState({ width: 469, height: 522, img_width:372, img_height:372});
-		}
-
-		if (window.innerWidth > 800 && window.innerWidth <= 900) {
-			this.setState({ width: 504, height: 563, img_width:405, img_height:405});
-		}
-
-		if (window.innerWidth > 900 && window.innerWidth < 1024) {
-			this.setState({ width: 590, height: 653, img_width:470, img_height:470});
-		}
-
-		if (window.innerWidth >= 1024) {
-			this.setState({ width: 586, height: 657, img_width:470, img_height:470});
-		}
+	
 	}
 
 
@@ -415,6 +768,7 @@ class Lucky_Rotation extends React.Component {
 	//   }
 
 	toggleFullScreen() {
+		console.log('AAAAAAAAAAAAA', document.fullscreenElement)
 		var elem = document.getElementById("game");
 		if (elem.requestFullscreen) {
 			elem.requestFullscreen().catch(err => {
@@ -433,6 +787,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	  getStatus=(luckySpin)=>{
+		const {rect_timing}=this.state;
 		var StartDate=luckySpin.StartTime;
 		var EndDate=luckySpin.EndTime;
 		var start=StartDate.substring(StartDate.indexOf("(") +1,StartDate.indexOf(")"));
@@ -441,7 +796,8 @@ class Lucky_Rotation extends React.Component {
 
 		var n=end-start;
 		var m=end-time;
-		var timing=m/n * 100
+		var timing=m/n * 110;
+		rect_timing.width(timing)
 		this.setState({timing: timing+"%"})
 		this.timeRemain(end)
 	}
@@ -473,6 +829,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	timeRemain=(times)=>{
+		const {tg_conlai, data}=this.state;
 		var _this=this;
 		setInterval(()=>{
 			var time=(times-Date.now())/1000;
@@ -482,9 +839,11 @@ class Lucky_Rotation extends React.Component {
 				var minute=Math.floor(((time%86400)%3600)/60) > 9 ? Math.floor(((time%86400)%3600)/60) : `0${Math.floor(((time%86400)%3600)/60)}`;
 				var second=Math.ceil(((time%86400)%3600)%60) > 9 ? Math.ceil(((time%86400)%3600)%60) : `0${Math.ceil(((time%86400)%3600)%60)}`;
 				_this.setState({day:day, hour: hour, minute: minute, second:second})
+				var txt_time= day>0 ? `${day} ngày ${hour}h:${minute}m:${second}s` : `${hour}h:${minute}m:${second}s`
+				tg_conlai.text(`Còn: ${txt_time}`);
 				// _this.setState({hour_live: hour, minute_live: minute, second_live:second})
 			}
-		}, 1000);
+		}, 1000); 
 	}
 
 
@@ -512,8 +871,11 @@ class Lucky_Rotation extends React.Component {
 		});
 	}
 
-	touchStart=()=>{
+	touchStart=(e)=>{
+		console.log('AAAAAAAAAA')
+		// console.log("touchStart",e.touches)
 		const {stage, layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
+		var _this=this;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
@@ -525,18 +887,31 @@ class Lucky_Rotation extends React.Component {
 		if(JSON.stringify(text_warning) !== '{}'){
 			text_warning.remove();
 		}
+
+		var touchPos = e.touches[0];
+		var imageObj = new Image();
+		imageObj.onload = function () {
+			var darthVaderImg = new Konva.Image({
+				image: imageObj,
+				x: touchPos.clientX-20,
+				y: touchPos.clientY-80,
+				width: 28,
+				height: 120,
+				draggable: true,
+				});
 		
-		var touchPos = stage.getPointerPosition();
-		var x= touchPos.x-20;
-		var y= touchPos.y-80;
-		darthVaderImg.x(x);
-		darthVaderImg.y(y);
-		darthVaderImg.show();
-		this.setState({dartPositionY:touchPos.y})
+				layer.add(darthVaderImg);
+				stage.add(layer);
+				_this.setState({darthVaderImg:darthVaderImg})
+		};
+		imageObj.src = phitieu;
+		
+		this.setState({dartPositionY:touchPos.clientY})
 		
 	}
 
-	touchEnd=()=>{
+	touchEnd=(e)=>{
+		// console.log("touchEnd", e.touches)
 		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
 		var _this=this;
 		if(isPlay){
@@ -555,8 +930,8 @@ class Lucky_Rotation extends React.Component {
 				$('#ThongBao').modal('show');
 			}
 		}
+		
 		darthVaderImg.hide();
-
 		setTimeout(()=>{
 			_this.setState({isPlay:true})
 		}, 1500);
@@ -564,12 +939,13 @@ class Lucky_Rotation extends React.Component {
 		
 	}
 
-	touchMove=()=>{
+	touchMove=(e)=>{
+		// console.log("touchMove",e.touches)
 		const {stage, layer, darthVaderImg, isPlay}=this.state;
 		if(JSON.stringify(darthVaderImg) !== '{}'){
-			var touchPos = stage.getPointerPosition();
-			var x= touchPos.x-20;
-			var y= touchPos.y-100;
+			var touchPos = e.touches[0];
+			var x= touchPos.clientX-20;
+			var y= touchPos.clientY-100;
 			darthVaderImg.x(x);
 			darthVaderImg.y(y);
 		}
@@ -584,7 +960,6 @@ class Lucky_Rotation extends React.Component {
 		const {dartFlightImg}=this.state;
 		var _this=this
 		const {stage, layer}=this.state;
-		var touchPos = stage.getPointerPosition();
 		this.updateFrame();
 		var dartFlight = new Image();
 		dartFlight.onload = function () {
@@ -645,7 +1020,7 @@ class Lucky_Rotation extends React.Component {
 	   }
 
 	generateScore=()=> {
-		const {sessionId} =this.state;
+		const {tieuconlai, txt_points, sessionId, list_top_user}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var _this=this;
 		if (SEGMENT_NAMES[segmentType] == 'out') {
@@ -672,20 +1047,27 @@ class Lucky_Rotation extends React.Component {
 			}
 		}
 
-		this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
-			var data=this.props.dataUserSpin;
-			if(data.Status===0){
-				this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
-			}else if(data.Status===2){
-				this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
-					$('#Modalnone').modal('show');
-				})
-				
-			}
-		})
+		
 
 		setTimeout(()=>{
-			this.showScore(totalScore)
+			this.showScore(totalScore);
+			this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
+				var data=this.props.dataUserSpin;
+				if(data.Status===0){
+					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
+					txt_points.text(data.Points)
+					var list_top=data.TopList;
+					for (let i = 0; i < list_top.length; i++) {
+						list_top_user[i].text(this.formatText(list_top[i]))
+					}
+					this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
+				}else if(data.Status===2){
+					this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
+						$('#Modalnone').modal('show');
+					})
+					
+				}
+			})
 		}, 400);
 		
 			// console.log('AA:', totalScore)
@@ -710,7 +1092,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	autoPlay=()=>{
-		
 		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart, isChangetab}=this.state;
 		curFrame=0;
 		if(countDart>0){
@@ -731,6 +1112,16 @@ class Lucky_Rotation extends React.Component {
 
 	exit=()=>{
 		window.location.replace("/")
+	}
+
+	openFullScreen=()=>{
+		this.toggleFullScreen();
+
+		setTimeout(()=>{
+			console.log('BBBBBB')
+			this.toggleFullScreen();
+			this.setState({fullScreen:true})
+		}, 200);
 	}
 
 	showScore=(totalScore)=>{
@@ -803,97 +1194,33 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {msg, user, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
+		const {msg, user, fullScreen, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
 
 		return (
-				<div id="game" style={{overflowBlock:'hidden'}}>
-					{(horizontal)?(<div class="bg-page-sanqua_m position-relative">
-						<div class="tongdiem_m">
-							<h2 class="font-size-2vw_m text-uppercase font-weight-bold text-center mb-1 text-shadow_m">Tổng điểm</h2>
-							<h4 class="font-size-2vw_m text-uppercase text-center text-shadow_m">{points_sanqua}</h4>
-						</div>
-						<div class="phongtudong_m font-size-2vw_m font-weight-bold text-uppercase text-shadow_m">
-							 Phóng phi tiêu tự động
-						</div>
-
-						<div class="timing_m">
-							<div class="media">
-								<img src={icon_clock} class="align-self-center mt-n1" width="13%" alt="clock"/>
-								<div class="media-body">
-									<div class="bg-line-timing_m">
-									<span style={{background:"#f5950a", width: timing, height: 8, display:"block", borderRadius: 4}}>&nbsp;</span>
-									</div>
-									<h6 class="text-yellow font-size-1vw_m pl-1 text-shadow">Còn: {day>0 ? `${day} ngày ${hour}:${minute}:${second}` : `${hour}:${minute}:${second}`}</h6>
-								</div>
-							</div>
-						</div>
-						<div class="account-name_m">
-							<p class="font-size-1vw_m text-white mb-0 text-center">{user.Username}</p>
-							{(user.VipLevel===1)?(<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Đồng <img src={vip_dong} alt="VIP Đồng" width="16" /></h2>):(<div></div>)}
-							{(user.VipLevel===2)?(<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Bạc <img src={vip_bac} alt="VIP Bạc" width="16" /></h2>):(<div></div>)}
-							{(user.VipLevel===3)?(<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Vàng <img src={vip_vang} alt="VIP Vàng" width="16" /></h2>):(<div></div>)}
-							{(user.VipLevel===4)?(<h2 class="font-size-1vw_m text-warning m-0 text-center">VIP Bạch kim <img src={vip_bachkim} alt="VIP Bạch kim" width="16" /></h2>):(<div></div>)}
-						</div>
-
-						<div class="phitieu-status_m marquee_m">
-							<div class="marquee_inner_m">            
-								<span class="m-0 font-size-1vw_m font-weight-bold text-shadow_m pr-5">Số phi tiêu còn lại: <strong>{countDart}</strong></span>		
-								<span class="m-0 font-size-1vw_m font-weight-bold text-shadow_m pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
-							</div>    	
-						</div>
-
-						
-						
-						<div class="toplist-account_m">
-							<h2 class="font-size-2vw_m m-0 font-weight-bold text-shadow text-center">Danh sách TOP</h2>
-							<table class="table table-borderless font-size-3vw_m mb-0 mt-1" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "100%"}}>
-								<tbody>
-									{listTop.map((obj, key) => (
-										<tr class="bg-border-bottom_m" key={key}>
-											<td class="p-0 w-50 font-size-1vw_m text-shadow">{obj.Username}</td>
-											<td class="p-0 w-50 font-size-1vw_m text-shadow pl-2">{obj.Points}</td>                
-										</tr>
-									))}		
-								</tbody>
-							</table>
-    					</div>
-
-						{/* {(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>)} */}
-						<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={this.touchStart} onTouchEnd={this.touchEnd} onTouchMove={this.touchMove}></div>
-						<div id="div_checkbox" style={{position:'absolute', top:"72%", left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
-						<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
-					</div>):(<div>
+				<div id="game">
+					{/* <div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div>
+					<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
+					<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
+					<div id="div_fullScreen"></div> */}
+					{(fullScreen)?(<div>{(horizontal)?(<div>
+						{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div>)}
+						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
+						<div id="div_exit" style={{position:'absolute', top:0, left:"87%", zIndex:999999}} onTouchStart={this.exit}></div>
+						<div id="div_fullScreen"></div>
+						</div>):(<div>
+						<img src={rotate} width="100%" alt="" />
+					</div>)}</div>):(<div>
+						{(horizontal)?(<div>
+						{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>)}
+						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}}></div>
+						<div id="div_exit" style={{position:'absolute', top:0, left:"87%", zIndex:999999}} onTouchStart={this.exit}></div>
+						<div id="div_fullScreen" style={{position:'absolute', top:"50%", left:"45%", zIndex:999999}} onTouchStart={this.openFullScreen}></div>
+						</div>):(<div>
 						<img src={rotate} width="100%" alt="" />
 					</div>)}
-
-						{/* <!-- The Modal Thông báo--> */}
-					<div class="modal fade" id="Modalnone" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
-						<div class="modal-dialog modal-dangnhap">
-							<div class="modal-content bg-transparent border-0">
-
-							<div class="modal-body border-0">
-								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
-								<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
-							</div>
-
-							</div>
-						</div>
-					</div>
-
-										
-					{/* <!-- The Modal Thông báo--> */}
-					<div class="modal fade" id="ThongBao" style={{zIndex:9999999}}>
-						<div class="modal-dialog modal-dangnhap">
-							<div class="modal-content bg-transparent border-0">
-
-							<div class="modal-body border-0">
-								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn đã hết tiêu</h2>
-								<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
-							</div>
-
-							</div>
-						</div>
-					</div>
+					</div>)}
+					
+						
 				</div>
 			)
 	}
