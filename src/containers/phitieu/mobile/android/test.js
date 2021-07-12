@@ -27,7 +27,8 @@ import {
 
 
 import icon_clock from '../images/icon-clock.png';
-import line_timing from '../images/line-timing.png';
+import line_timing from '../images/bg-line-timing.png';
+import btn_fullscreen from '../images/btn-fullscreen.png';
 import phitieu from '../images/phitieu.png';
 import dart_player from '../images/dart-player.png';
 import img_checkbox_none from '../images/img-checkbox-none.png';
@@ -155,7 +156,9 @@ class Lucky_Rotation extends React.Component {
 			username:{}, 
 			vip_level:{}, 
 			tg_conlai: {}, 
-			txt_points:{}
+			txt_points:{},
+			list_top_user:[],
+			fullScreen:false,
 
 		};
 	}
@@ -191,6 +194,7 @@ class Lucky_Rotation extends React.Component {
 		var deltal_img=img_w/img_h;
 		var deltal_device=width/height;
 		var bg_x=0, bg_y=0;
+		var list_top_user=[];
 
 		// this.toggleFullScreen();
 		if(width/height > 2){
@@ -224,6 +228,13 @@ class Lucky_Rotation extends React.Component {
 				height: 42,
 			});
 			var layer_exit = new Konva.Layer();
+
+			var stage_full = new Konva.Stage({
+				container: 'div_fullScreen',
+				width: 140,
+				height: 45,
+			});
+			var layer_full = new Konva.Layer();
 	
 			this.setState({stage:stage, layer:layer})
 			var _this=this
@@ -262,23 +273,29 @@ class Lucky_Rotation extends React.Component {
 			};
 			timing.src = icon_clock;
 
+			var bg_timing = new Image();
+			bg_timing.onload = function () {
+				var rect_bg_timing = new Konva.Image({
+					image: bg_timing,
+					x: bg_x*0.41,
+					y: 5,
+					width: 110,
+					height: 6,
+					});
+					
+					layer.add(rect_bg_timing);
+					rect_bg_timing.setZIndex(1)
+					_this.setState({rect_bg_timing:rect_bg_timing})
+			};
+			bg_timing.src = line_timing;
 
-			var rect_bg_timing = new Konva.Rect({
-				x: bg_x*0.41,
-				y: 5,
-				width: 110,
-				height: 6,
-				fill: 'yellow',
-				shadowBlur: 10,
-				cornerRadius: 10,
-			});
 
 			var rect_timing = new Konva.Rect({
 				x: bg_x*0.41,
 				y: 5,
 				width: 90,
 				height: 6,
-				fill: 'red',
+				fill: 'yellow',
 				shadowBlur: 10,
 				cornerRadius: 10,
 			});
@@ -286,7 +303,7 @@ class Lucky_Rotation extends React.Component {
 			var username = new Konva.Text({
 				x: bg_x*0.65,
 				y: 5,
-				text:"Đăng Lê",
+				text:"Hello",
 				fontSize: 13,
 				fontFamily: 'Calibri',
 				fill: 'yellow',
@@ -393,9 +410,131 @@ class Lucky_Rotation extends React.Component {
 				padding: 20,
 				align: 'left',
 			});
+
+
+			var top_1 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.34,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_2 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.39,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_3 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.44,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_4 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.49,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_5 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.54,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_6 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.59,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_7 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.64,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+
+			var top_8 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.69,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_9 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.74,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
+			var top_10 = new Konva.Text({
+				x: bg_x*0.705,
+				y: bg_y*0.79,
+				text:"",
+				fontSize: 11,
+				fontFamily: 'Calibri',
+				fill: 'yellow',
+				width: 300,
+				padding: 20,
+				align: 'left',
+			});
+
 			layer.add(giaithuong)
 			layer.add(tieuconlai)
-			layer.add(rect_bg_timing);
 			layer.add(rect_timing);
 			layer.add(username);
 			layer.add(vip_level);
@@ -404,9 +543,20 @@ class Lucky_Rotation extends React.Component {
 			layer.add(tong_diem);
 			layer.add(txt_points);
 			layer.add(ds_top);
+			layer.add(top_1);
+			layer.add(top_2);
+			layer.add(top_3);
+			layer.add(top_4);
+			layer.add(top_5);
+			layer.add(top_6);
+			layer.add(top_7);
+			layer.add(top_8);
+			layer.add(top_9);
+			layer.add(top_10);
+			list_top_user.push(top_1, top_2, top_3, top_4, top_5, top_6, top_7, top_8, top_9, top_10)
 
 			stage.add(layer);
-			this.setState({tieuconlai:tieuconlai,rect_timing:rect_timing, username:username, vip_level:vip_level, tg_conlai: tg_conlai, txt_points:txt_points},()=>{
+			this.setState({tieuconlai:tieuconlai,rect_timing:rect_timing, username:username, vip_level:vip_level, tg_conlai: tg_conlai, txt_points:txt_points, list_top_user:list_top_user},()=>{
 				this.getLuckyInfo(1);
 			})
 		
@@ -462,16 +612,29 @@ class Lucky_Rotation extends React.Component {
 			};
 			btnExit.src = btn_thoat;
 
+
+			var btnFullScreen = new Image();
+			btnFullScreen.onload = function () {
+				var FullImg = new Konva.Image({
+					image: btnFullScreen,
+					x: 0,
+					y: 0,
+					width: 140,
+					height: 45
+				});
+		
+				layer_full.add(FullImg);
+				stage_full.add(layer_full);
+				_this.setState({FullImg:FullImg})
+			};
+			btnFullScreen.src = btn_fullscreen;
+
 		}
 
 
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.setState({user:user})
 
-		
-
-		
-		
 		
 		// window.addEventListener('scroll', this.handleScroll);
 	}
@@ -490,7 +653,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	getLuckyInfo=(type)=>{
-		const {tieuconlai, username, vip_level, txt_points, tg_conlai}=this.state;
+		const {tieuconlai, username, vip_level, txt_points, tg_conlai, list_top_user}=this.state;
 		console.log(username)
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.props.getLuckyInfo(type, user.Token).then(()=>{
@@ -516,9 +679,13 @@ class Lucky_Rotation extends React.Component {
 						  	break;
 						default:
 							vip_level.text("VIP Đồng")
-					  }
-					  tieuconlai.text(`Số phi tiêu còn lại: ${data.Data.AddInfo.Darts}`)
-					  txt_points.text(data.Data.AddInfo.Points)
+					}
+					tieuconlai.text(`Số phi tiêu còn lại: ${data.Data.AddInfo.Darts}`)
+					txt_points.text(data.Data.AddInfo.Points)
+					var list_top=data.Data.AddInfo.TopUsers;
+					for (let i = 0; i < list_top.length; i++) {
+						list_top_user[i].text(this.formatText(list_top[i]))
+					}
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
 					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
@@ -530,6 +697,13 @@ class Lucky_Rotation extends React.Component {
 				}
 			}
 		})
+	}
+
+	formatText=(data)=>{
+		var name=data.Username + ' '.repeat(5+ (14-data.Username.length)*2)
+		var str=name+data.Points;
+		return str;
+
 	}
 
 	logoutAction = () => {
@@ -576,50 +750,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	onResize=()=>{
-		if (window.innerWidth <= 320) {
-			this.setState({ width: 210, height: 235, img_width:170, img_height:170});
-		}
-		if (window.innerWidth > 320 && window.innerWidth <= 360) {
-			this.setState({ width: 252, height: 282, img_width:200, img_height:200});
-		}
-		if (window.innerWidth > 360 && window.innerWidth <= 380) {
-			this.setState({ width: 293, height: 330, img_width:235, img_height:235});
-		}
-		if (window.innerWidth > 380 && window.innerWidth <= 480) {
-			this.setState({ width: 344, height: 383, img_width:275, img_height:275});
-		}
-		if (window.innerWidth > 480 && window.innerWidth <= 600) {
-			this.setState({ width: 335, height: 375, img_width:267, img_height:267});
-		}
-		if (window.innerWidth > 600 && window.innerWidth <= 640) {
-			this.setState({ width: 336, height: 376, img_width:270, img_height:270});
-		}
-		if (window.innerWidth > 640 && window.innerWidth <= 768) {
-			this.setState({ width: 470, height: 525, img_width:375, img_height:375});
-		}
-		if (window.innerWidth > 768 && window.innerWidth < 780) {
-			this.setState({ width: 504, height: 563, img_width:405, img_height:405});
-		}
-
-		if (window.innerWidth >= 780 && window.innerWidth <= 790) {
-			this.setState({ width: 469, height: 524, img_width:375, img_height:375});
-		}
-
-		if (window.innerWidth > 790 && window.innerWidth <= 800) {
-			this.setState({ width: 469, height: 522, img_width:372, img_height:372});
-		}
-
-		if (window.innerWidth > 800 && window.innerWidth <= 900) {
-			this.setState({ width: 504, height: 563, img_width:405, img_height:405});
-		}
-
-		if (window.innerWidth > 900 && window.innerWidth < 1024) {
-			this.setState({ width: 590, height: 653, img_width:470, img_height:470});
-		}
-
-		if (window.innerWidth >= 1024) {
-			this.setState({ width: 586, height: 657, img_width:470, img_height:470});
-		}
+	
 	}
 
 
@@ -637,7 +768,7 @@ class Lucky_Rotation extends React.Component {
 	//   }
 
 	toggleFullScreen() {
-		console.log('AAAAAAAAAAAAA')
+		console.log('AAAAAAAAAAAAA', document.fullscreenElement)
 		var elem = document.getElementById("game");
 		if (elem.requestFullscreen) {
 			elem.requestFullscreen().catch(err => {
@@ -708,7 +839,7 @@ class Lucky_Rotation extends React.Component {
 				var minute=Math.floor(((time%86400)%3600)/60) > 9 ? Math.floor(((time%86400)%3600)/60) : `0${Math.floor(((time%86400)%3600)/60)}`;
 				var second=Math.ceil(((time%86400)%3600)%60) > 9 ? Math.ceil(((time%86400)%3600)%60) : `0${Math.ceil(((time%86400)%3600)%60)}`;
 				_this.setState({day:day, hour: hour, minute: minute, second:second})
-				var txt_time= day>0 ? `${day} ngày ${hour}:${minute}:${second}` : `${hour}:${minute}:${second}`
+				var txt_time= day>0 ? `${day} ngày ${hour}h:${minute}m:${second}s` : `${hour}h:${minute}m:${second}s`
 				tg_conlai.text(`Còn: ${txt_time}`);
 				this.getStatus(data)
 				// _this.setState({hour_live: hour, minute_live: minute, second_live:second})
@@ -742,6 +873,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchStart=(e)=>{
+		console.log('AAAAAAAAAA')
 		console.log("touchStart",e.touches)
 		const {stage, layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
 		var _this=this;
@@ -757,13 +889,13 @@ class Lucky_Rotation extends React.Component {
 			text_warning.remove();
 		}
 
-		var touchPos = stage.getPointerPosition();
+		var touchPos = e.touches[0];
 		var imageObj = new Image();
 		imageObj.onload = function () {
 			var darthVaderImg = new Konva.Image({
 				image: imageObj,
-				x: touchPos.x-20,
-				y: touchPos.y-80,
+				x: touchPos.clientX-20,
+				y: touchPos.clientY-80,
 				width: 28,
 				height: 120,
 				draggable: true,
@@ -775,7 +907,7 @@ class Lucky_Rotation extends React.Component {
 		};
 		imageObj.src = phitieu;
 		
-		this.setState({dartPositionY:touchPos.y})
+		this.setState({dartPositionY:touchPos.clientY})
 		
 	}
 
@@ -783,25 +915,9 @@ class Lucky_Rotation extends React.Component {
 		console.log("touchEnd", e.touches)
 		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
 		var _this=this;
-		// if(isPlay){
-		// 	if(countDart>0){
-		// 		var touchPos = stage.getPointerPosition();
-		// 		curFrame=0
-		// 		if(dartPositionY >touchPos.y){
-		// 			this.draw(touchPos.x, touchPos.y)
-		// 			this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
-		// 		}else{
-		// 			this.showTextWarning()
-		// 			// alert("vuốt lên để phi tiêu")
-		// 		}
-		// 		this.setState({isPlay:false})
-		// 	}else{
-		// 		$('#ThongBao').modal('show');
-		// 	}
-		// }
-		darthVaderImg.hide();
-
-		var touchPos = stage.getPointerPosition();
+		if(isPlay){
+			if(countDart>0){
+				var touchPos = stage.getPointerPosition();
 				curFrame=0
 				if(dartPositionY >touchPos.y){
 					this.draw(touchPos.x, touchPos.y)
@@ -811,6 +927,11 @@ class Lucky_Rotation extends React.Component {
 					// alert("vuốt lên để phi tiêu")
 				}
 				this.setState({isPlay:false})
+			}else{
+				$('#ThongBao').modal('show');
+			}
+		}
+		darthVaderImg.hide();
 		setTimeout(()=>{
 			_this.setState({isPlay:true})
 		}, 1500);
@@ -822,9 +943,9 @@ class Lucky_Rotation extends React.Component {
 		console.log("touchMove",e.touches)
 		const {stage, layer, darthVaderImg, isPlay}=this.state;
 		if(JSON.stringify(darthVaderImg) !== '{}'){
-			var touchPos = stage.getPointerPosition();
-			var x= touchPos.x-20;
-			var y= touchPos.y-100;
+			var touchPos = e.touches[0];
+			var x= touchPos.clientX-20;
+			var y= touchPos.clientY-100;
 			darthVaderImg.x(x);
 			darthVaderImg.y(y);
 		}
@@ -839,7 +960,6 @@ class Lucky_Rotation extends React.Component {
 		const {dartFlightImg}=this.state;
 		var _this=this
 		const {stage, layer}=this.state;
-		var touchPos = stage.getPointerPosition();
 		this.updateFrame();
 		var dartFlight = new Image();
 		dartFlight.onload = function () {
@@ -900,7 +1020,7 @@ class Lucky_Rotation extends React.Component {
 	   }
 
 	generateScore=()=> {
-		const {tieuconlai, username, vip_level, txt_points, tg_conlai, sessionId}=this.state;
+		const {tieuconlai, txt_points, sessionId, list_top_user}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var _this=this;
 		if (SEGMENT_NAMES[segmentType] == 'out') {
@@ -936,6 +1056,10 @@ class Lucky_Rotation extends React.Component {
 				if(data.Status===0){
 					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
 					txt_points.text(data.Points)
+					var list_top=data.TopList;
+					for (let i = 0; i < list_top.length; i++) {
+						list_top_user[i].text(this.formatText(list_top[i]))
+					}
 					this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
 				}else if(data.Status===2){
 					this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
@@ -968,7 +1092,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	autoPlay=()=>{
-		console.log('AAAAAA')
 		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart, isChangetab}=this.state;
 		curFrame=0;
 		if(countDart>0){
@@ -988,13 +1111,17 @@ class Lucky_Rotation extends React.Component {
 
 
 	exit=()=>{
+		window.location.replace("/")
+	}
+
+	openFullScreen=()=>{
 		this.toggleFullScreen();
 
 		setTimeout(()=>{
 			console.log('BBBBBB')
 			this.toggleFullScreen();
+			this.setState({fullScreen:true})
 		}, 200);
-		// window.location.replace("/")
 	}
 
 	showScore=(totalScore)=>{
@@ -1067,17 +1194,30 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {msg, user, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
+		const {msg, user, fullScreen, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
 
 		return (
 				<div id="game">
-					{(horizontal)?(<div>
-						<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div>
+					{(fullScreen)?(<div>{(horizontal)?(<div>
+						{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div>)}
+						{/* <div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div> */}
 						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
 						<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
+						<div id="div_fullScreen"></div>
+						</div>):(<div>
+						<img src={rotate} width="100%" alt="" />
+					</div>)}</div>):(<div>
+						{(horizontal)?(<div>
+						{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>)}
+						{/* <div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div> */}
+						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}}></div>
+						<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
+						<div id="div_fullScreen" style={{position:'absolute', top:"45%", left:"39%", zIndex:999999}} onTouchStart={this.openFullScreen}></div>
 						</div>):(<div>
 						<img src={rotate} width="100%" alt="" />
 					</div>)}
+					</div>)}
+					
 						
 				</div>
 			)
