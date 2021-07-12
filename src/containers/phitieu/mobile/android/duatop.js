@@ -337,28 +337,28 @@ class Lucky_Rotation extends React.Component {
 			 });
 
 			 var tieuconlai = new Konva.Text({
-				x: bg_x*0.41,
-				y: bg_y*0.10,
+				x: bg_x*0.34,
+				y: bg_y*0.14,
 				text:"Số phi tiêu còn lại: 0",
 				fontSize: 14,
 				fontFamily: 'Calibri',
 				fill: 'yellow',
-				width: 380,
+				width: 250,
 				padding: 10,
-				align: 'left',
+				align: 'center',
 			 });
 
-			 var giaithuong = new Konva.Text({
-				x: bg_x*0.35,
-				y: bg_y*0.15,
-				text:"Nhanh tay giật giải IP12 trị giá 50 củ",
-				fontSize: 14,
-				fontFamily: 'Calibri',
-				fill: 'yellow',
-				width: 380,
-				padding: 10,
-				align: 'left',
-			 });
+			//  var giaithuong = new Konva.Text({
+			// 	x: bg_x*0.35,
+			// 	y: bg_y*0.15,
+			// 	text:"Nhanh tay giật giải IP12 trị giá 50 củ",
+			// 	fontSize: 14,
+			// 	fontFamily: 'Calibri',
+			// 	fill: 'yellow',
+			// 	width: 380,
+			// 	padding: 10,
+			// 	align: 'left',
+			//  });
 
 
 
@@ -427,7 +427,7 @@ class Lucky_Rotation extends React.Component {
 
 			
 
-			layer.add(giaithuong)
+			// layer.add(giaithuong)
 			layer.add(tieuconlai)
 			layer.add(rect_timing);
 			layer.add(username);
@@ -937,6 +937,9 @@ class Lucky_Rotation extends React.Component {
 				var data=this.props.dataUserSpin;
 				if(data.Status===0){
 					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
+					setTimeout(()=>{
+						tieuconlai.text(`Nhanh tay giật giải IP12 trị giá 50 triệu`)
+					}, 5000);
 					txt_points.text(data.Points)
 					hight_score.text(data.HighestPoint)
 
