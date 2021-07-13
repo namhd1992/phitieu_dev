@@ -602,7 +602,6 @@ class Lucky_Rotation extends React.Component {
 	render() {
 		const {tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
-		const { classes } = this.props;
 		return (<div>	
 					<div class="container-fluid page position-relative">
 						{(isLogin)?(<div class="login d-flex flex-row-reverse">

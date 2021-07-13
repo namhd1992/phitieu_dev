@@ -7,7 +7,6 @@ import { render } from 'react-dom';
 import Konva from 'konva';
 import { connect } from 'react-redux'
 import './css/style_web.css';
-import DeviceOrientation, { Orientation } from 'react-screen-orientation';
 import {
 	getDetailData,
 	getRotationDetailData,

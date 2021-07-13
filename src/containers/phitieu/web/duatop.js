@@ -1,13 +1,11 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
-import Pagination from "react-js-pagination";
 import axios from 'axios';
 import { render } from 'react-dom';
 // import { Stage, Layer, Image, Text } from 'react-konva';
 import Konva from 'konva';
 import { connect } from 'react-redux'
 import './css/style_web.css';
-import DeviceOrientation, { Orientation } from 'react-screen-orientation';
 import {
 	getDetailData,
 	getRotationDetailData,
@@ -43,8 +41,6 @@ import vip_vang from './images/vip-vang.png';
 import vip_bac from './images/vip-bac.png';
 import vip_dong from './images/vip-dong.png';
 
-
-import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
 import 'bootstrap';
 

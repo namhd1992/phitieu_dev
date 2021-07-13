@@ -875,7 +875,7 @@ class Lucky_Rotation extends React.Component {
 	touchStart=(e)=>{
 		console.log('AAAAAAAAAA')
 		// console.log("touchStart",e.touches)
-		const {stage, layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
+		const {stage, layer, dartFlightImg, score_text, text_warning}=this.state;
 		var _this=this;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
@@ -919,7 +919,7 @@ class Lucky_Rotation extends React.Component {
 
 	touchEnd=(e)=>{
 		// console.log("touchEnd", e.touches)
-		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, none_multi, countDart}=this.state;
+		const {stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart}=this.state;
 		var _this=this;
 
 		if(none_multi){
@@ -950,7 +950,7 @@ class Lucky_Rotation extends React.Component {
 		
 	}
 	touchMove=(e)=>{
-		const {stage, layer, darthVaderImg, isPlay, none_multi}=this.state;
+		const {stage, darthVaderImg, none_multi}=this.state;
 		if(none_multi){
 			if(JSON.stringify(darthVaderImg) !== '{}'){
 				var touchPos = stage.getPointerPosition();
@@ -969,7 +969,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	draw=(x, y)=>{
-		const {dartFlightImg}=this.state;
 		var _this=this
 		const {stage, layer}=this.state;
 		this.updateFrame();
@@ -1090,7 +1089,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	check_auto=()=>{
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		const {checkboxImg, uncheckboxImg, auto_play}=this.state;
 		this.setState({auto_play:!auto_play},()=>{
 			if(this.state.auto_play){
 				checkboxImg.hide();
@@ -1107,7 +1106,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	autoPlay=()=>{
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart, isChangetab}=this.state;
+		const {dartFlightImg, countDart, isChangetab}=this.state;
 		curFrame=0;
 		if(countDart>0){
 			if(JSON.stringify(dartFlightImg) !== '{}'){
@@ -1209,7 +1208,7 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {msg, user, fullScreen, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
+		const {fullScreen, horizontal, auto_play}=this.state;
 
 		return (
 				<div id="game">

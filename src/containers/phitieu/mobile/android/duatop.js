@@ -7,7 +7,6 @@ import { render } from 'react-dom';
 import Konva from 'konva';
 import { connect } from 'react-redux'
 import '../css/style.css';
-import DeviceOrientation, { Orientation } from 'react-screen-orientation';
 import {
 	getDetailData,
 	getRotationDetailData,
@@ -35,11 +34,6 @@ import img_checkbox_none from '../images/img-checkbox-none.png';
 import img_checkbox_checked from '../images/img-checkbox-checked.png';
 import btn_thoat from '../images/btn-thoat.png';
 import btn_duatop from '../images/btn-duatop.png';
-import vip_kimcuong from '../images/vip-kimcuong.png';
-import vip_bachkim from '../images/vip-bachkim.png';
-import vip_vang from '../images/vip-vang.png';
-import vip_bac from '../images/vip-bac.png';
-import vip_dong from '../images/vip-dong.png';
 import rotate from '../images/rotate.png';
 
 import bg_page_duatop from '../images/bg-page-duatop.png';
@@ -849,7 +843,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	draw=(x, y)=>{
-		const {dartFlightImg}=this.state;
 		var _this=this
 		const {stage, layer}=this.state;
 		this.updateFrame();
@@ -968,7 +961,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	check_auto=()=>{
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		const {checkboxImg, uncheckboxImg, auto_play}=this.state;
 		this.setState({auto_play:!auto_play},()=>{
 			if(this.state.auto_play){
 				checkboxImg.hide();
@@ -985,7 +978,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	autoPlay=()=>{
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart, isChangetab}=this.state;
+		const {dartFlightImg, countDart, isChangetab}=this.state;
 		curFrame=0;
 		if(countDart>0){
 			if(JSON.stringify(dartFlightImg) !== '{}'){
@@ -1087,7 +1080,7 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {msg, user, fullScreen, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
+		const {fullScreen, horizontal, auto_play}=this.state;
 
 		return (
 				<div id="game">
