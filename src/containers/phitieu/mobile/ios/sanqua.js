@@ -980,8 +980,8 @@ class Lucky_Rotation extends React.Component {
 			stage.add(layer);
 			if(curFrame <= 12){
 				setTimeout(()=>{
-					_this.draw(x,y) 
 					dartFlightImg.remove(); 
+					_this.draw(x,y) 
 				}, 15);
 			}
 			
