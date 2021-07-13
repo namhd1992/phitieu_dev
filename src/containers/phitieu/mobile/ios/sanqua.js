@@ -158,8 +158,7 @@ class Lucky_Rotation extends React.Component {
 			tg_conlai: {}, 
 			txt_points:{},
 			list_top_user:[],
-			fullScreen:false,
-
+			none_multi:false
 		};
 	}
 	componentWillMount(){
@@ -196,7 +195,7 @@ class Lucky_Rotation extends React.Component {
 		var bg_x=0, bg_y=0;
 		var list_top_user=[];
 
-		// this.toggleFullScreen();
+		this.toggleFullScreen();
 		if(width/height > 2){
 			bg_x=width;
 			bg_y=height*deltal_img/deltal_device;
@@ -229,12 +228,6 @@ class Lucky_Rotation extends React.Component {
 			});
 			var layer_exit = new Konva.Layer();
 
-			var stage_full = new Konva.Stage({
-				container: 'div_fullScreen',
-				width: 140,
-				height: 45,
-			});
-			var layer_full = new Konva.Layer();
 	
 			this.setState({stage:stage, layer:layer})
 			var _this=this
@@ -623,8 +616,6 @@ class Lucky_Rotation extends React.Component {
 					height: 45
 				});
 		
-				layer_full.add(FullImg);
-				stage_full.add(layer_full);
 				_this.setState({FullImg:FullImg})
 			};
 			btnFullScreen.src = btn_fullscreen;
@@ -888,48 +879,56 @@ class Lucky_Rotation extends React.Component {
 			text_warning.remove();
 		}
 
-		var touchPos = e.touches[0];
-		var imageObj = new Image();
-		imageObj.onload = function () {
-			var darthVaderImg = new Konva.Image({
-				image: imageObj,
-				x: touchPos.clientX-20,
-				y: touchPos.clientY-80,
-				width: 28,
-				height: 120,
-				draggable: true,
-				});
-		
-				layer.add(darthVaderImg);
-				stage.add(layer);
-				_this.setState({darthVaderImg:darthVaderImg})
-		};
-		imageObj.src = phitieu;
-		
-		this.setState({dartPositionY:touchPos.clientY})
+		if(e.touches.length===1){
+			var touchPos = stage.getPointerPosition();
+			var imageObj = new Image();
+			imageObj.onload = function () {
+				var darthVaderImg = new Konva.Image({
+					image: imageObj,
+					x: touchPos.x-20,
+					y: touchPos.y-80,
+					width: 28,
+					height: 120,
+					draggable: true,
+					});
+			
+					layer.add(darthVaderImg);
+					stage.add(layer);
+					_this.setState({darthVaderImg:darthVaderImg})
+			};
+			imageObj.src = phitieu;
+			
+			this.setState({dartPositionY:touchPos.y, none_multi:true})
+		}else{
+			this.setState({none_multi:false})
+		}
 		
 	}
 
 	touchEnd=(e)=>{
 		// console.log("touchEnd", e.touches)
-		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
+		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart, none_multi}=this.state;
 		var _this=this;
-		if(isPlay){
-			if(countDart>0){
-				var touchPos = stage.getPointerPosition();
-				curFrame=0
-				if(dartPositionY >touchPos.y){
-					this.draw(touchPos.x, touchPos.y)
-					this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+
+		if(none_multi){
+			if(isPlay){
+				if(countDart>0){
+					var touchPos = stage.getPointerPosition();
+					curFrame=0
+					if(dartPositionY >touchPos.y){
+						this.draw(touchPos.x, touchPos.y)
+						this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+					}else{
+						this.showTextWarning()
+						// alert("vuốt lên để phi tiêu")
+					}
+					this.setState({isPlay:false})
 				}else{
-					this.showTextWarning()
-					// alert("vuốt lên để phi tiêu")
+					$('#ThongBao').modal('show');
 				}
-				this.setState({isPlay:false})
-			}else{
-				$('#ThongBao').modal('show');
 			}
 		}
+	
 		
 		darthVaderImg.hide();
 		setTimeout(()=>{
@@ -941,14 +940,18 @@ class Lucky_Rotation extends React.Component {
 
 	touchMove=(e)=>{
 		// console.log("touchMove",e.touches)
-		const {stage, layer, darthVaderImg, isPlay}=this.state;
-		if(JSON.stringify(darthVaderImg) !== '{}'){
-			var touchPos = e.touches[0];
-			var x= touchPos.clientX-20;
-			var y= touchPos.clientY-100;
-			darthVaderImg.x(x);
-			darthVaderImg.y(y);
+		const {stage, layer, darthVaderImg, isPlay, none_multi}=this.state;
+
+		if(none_multi){
+			if(JSON.stringify(darthVaderImg) !== '{}'){
+				var touchPos = e.touches[0];
+				var x= touchPos.clientX-20;
+				var y= touchPos.clientY-100;
+				darthVaderImg.x(x);
+				darthVaderImg.y(y);
+			}
 		}
+		
 	}
 	updateFrame=()=>{
 		srcX=curFrame*widthFrame;
@@ -1114,15 +1117,6 @@ class Lucky_Rotation extends React.Component {
 		window.location.replace("/")
 	}
 
-	openFullScreen=()=>{
-		this.toggleFullScreen();
-
-		setTimeout(()=>{
-			console.log('BBBBBB')
-			this.toggleFullScreen();
-			this.setState({fullScreen:true})
-		}, 200);
-	}
 
 	showScore=(totalScore)=>{
 		
@@ -1194,32 +1188,21 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {msg, user, fullScreen, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
+		const {msg, user, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
+
+		if(!horizontal){
+			return (
+				<div>
+					<img src={rotate} width="100%" alt="" />
+				</div>
+			)
+		}
 
 		return (
-				<div id="game">
-					{/* <div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div>
-					<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
-					<div id="div_exit" style={{position:'absolute', top:0, left:"85%", zIndex:999999}} onTouchStart={this.exit}></div>
-					<div id="div_fullScreen"></div> */}
-					{(fullScreen)?(<div>{(horizontal)?(<div>
-						{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div>)}
+				<div id="game" style={{backgroundColor:'black'}}>
+						{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999, backgroundColor:'black'}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999, backgroundColor:'black'}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div>)}
 						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
 						<div id="div_exit" style={{position:'absolute', top:0, left:"87%", zIndex:999999}} onTouchStart={this.exit}></div>
-						<div id="div_fullScreen"></div>
-						</div>):(<div>
-						<img src={rotate} width="100%" alt="" />
-					</div>)}</div>):(<div>
-						{(horizontal)?(<div>
-						{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>)}
-						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}}></div>
-						<div id="div_exit" style={{position:'absolute', top:0, left:"87%", zIndex:999999}} onTouchStart={this.exit}></div>
-						<div id="div_fullScreen" style={{position:'absolute', top:"50%", left:"45%", zIndex:999999}} onTouchStart={this.openFullScreen}></div>
-						</div>):(<div>
-						<img src={rotate} width="100%" alt="" />
-					</div>)}
-					</div>)}
-					
 						
 				</div>
 			)

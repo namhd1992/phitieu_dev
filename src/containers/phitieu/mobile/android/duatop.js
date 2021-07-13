@@ -160,6 +160,7 @@ class Lucky_Rotation extends React.Component {
 			hight_score:{},
 			fullScreen:false,
 			highestPoints:0,
+			none_multi:false
 
 		};
 	}
@@ -770,46 +771,52 @@ class Lucky_Rotation extends React.Component {
 			text_warning.remove();
 		}
 
-		var touchPos = e.touches[0];
-		var imageObj = new Image();
-		imageObj.onload = function () {
-			var darthVaderImg = new Konva.Image({
-				image: imageObj,
-				x: touchPos.clientX-20,
-				y: touchPos.clientY-80,
-				width: 28,
-				height: 120,
-				draggable: true,
-				});
-		
-				layer.add(darthVaderImg);
-				stage.add(layer);
-				_this.setState({darthVaderImg:darthVaderImg})
-		};
-		imageObj.src = phitieu;
-		
-		this.setState({dartPositionY:touchPos.clientY})
+		if(e.touches.length===1){
+			var touchPos = stage.getPointerPosition();
+			var imageObj = new Image();
+			imageObj.onload = function () {
+				var darthVaderImg = new Konva.Image({
+					image: imageObj,
+					x: touchPos.x-20,
+					y: touchPos.y-80,
+					width: 28,
+					height: 120,
+					draggable: true,
+					});
+			
+					layer.add(darthVaderImg);
+					stage.add(layer);
+					_this.setState({darthVaderImg:darthVaderImg})
+			};
+			imageObj.src = phitieu;
+			
+			this.setState({dartPositionY:touchPos.y, none_multi:true})
+		}else{
+			this.setState({none_multi:false})
+		}
 		
 	}
 
 	touchEnd=(e)=>{
 		// console.log("touchEnd", e.touches)
-		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
+		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart, none_multi}=this.state;
 		var _this=this;
-		if(isPlay){
-			if(countDart>0){
-				var touchPos = stage.getPointerPosition();
-				curFrame=0
-				if(dartPositionY >touchPos.y){
-					this.draw(touchPos.x, touchPos.y)
-					this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+		if(none_multi){
+			if(isPlay){
+				if(countDart>0){
+					var touchPos = stage.getPointerPosition();
+					curFrame=0
+					if(dartPositionY >touchPos.y){
+						this.draw(touchPos.x, touchPos.y)
+						this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+					}else{
+						this.showTextWarning()
+						// alert("vuốt lên để phi tiêu")
+					}
+					this.setState({isPlay:false})
 				}else{
-					this.showTextWarning()
-					// alert("vuốt lên để phi tiêu")
+					$('#ThongBao').modal('show');
 				}
-				this.setState({isPlay:false})
-			}else{
-				$('#ThongBao').modal('show');
 			}
 		}
 		
@@ -823,14 +830,17 @@ class Lucky_Rotation extends React.Component {
 
 	touchMove=(e)=>{
 		// console.log("touchMove",e.touches)
-		const {stage, layer, darthVaderImg, isPlay}=this.state;
-		if(JSON.stringify(darthVaderImg) !== '{}'){
-			var touchPos = e.touches[0];
-			var x= touchPos.clientX-20;
-			var y= touchPos.clientY-100;
-			darthVaderImg.x(x);
-			darthVaderImg.y(y);
+		const {stage, layer, darthVaderImg, isPlay, none_multi}=this.state;
+		if(none_multi){
+			if(JSON.stringify(darthVaderImg) !== '{}'){
+				var touchPos = e.touches[0];
+				var x= touchPos.clientX-20;
+				var y= touchPos.clientY-100;
+				darthVaderImg.x(x);
+				darthVaderImg.y(y);
+			}
 		}
+		
 	}
 	updateFrame=()=>{
 		srcX=curFrame*widthFrame;
