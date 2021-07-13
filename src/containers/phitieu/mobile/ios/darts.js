@@ -38,8 +38,8 @@ var animId;
 var dartTimerId = 1;
 var FLIGHT_ANIM_DELAY = 20;
 var SEGMENT_COUNT = 20;
-var width = window.screen.width;
-var height = window.screen.height;
+var width = window.innerWidth;
+var height = window.innerHeight;
 var curFrame = 0;
 var frameCount = 13; 
 var spriteWidth = 364; 
@@ -301,7 +301,7 @@ class Lucky_Rotation extends React.Component {
                 setTimeout(()=>{
                     _this.draw(x,y) 
                     dartFlightImg.remove(); 
-                }, 23);
+                }, 10);
             }
             
             _this.setState({dartFlightImg:dartFlightImg})
