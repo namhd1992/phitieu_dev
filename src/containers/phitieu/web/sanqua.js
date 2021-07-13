@@ -153,6 +153,10 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth})
+		
+		if ((window.screen.height - window.innerHeight) > 150) {
+			window.location.replace("/")
+		}
 	}
 
 
@@ -353,10 +357,14 @@ class Lucky_Rotation extends React.Component {
 			window.location.reload();
 			this.setState({innerWidth:window.innerWidth})
 		}
+
+		if ((window.screen.height - window.innerHeight) > 150) {
+			window.location.replace("/")
+		}
 	}
 
 	onResize=()=>{
-		
+
 	}
 
 
