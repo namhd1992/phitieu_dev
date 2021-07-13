@@ -29,8 +29,9 @@ import {
 import icon_clock from '../images/icon-clock.png';
 import line_timing from '../images/bg-line-timing.png';
 import btn_fullscreen from '../images/btn-fullscreen.png';
-import phitieu from '../images/phitieu.png';
-import dart_player from '../images/dart-player.png';
+// import phitieu from '../images/phitieu.png';
+import phitieu from '../images/test1.png';
+import dart_player from '../images/dart-player1.png';
 import img_checkbox_none from '../images/img-checkbox-none.png';
 import img_checkbox_checked from '../images/img-checkbox-checked.png';
 import btn_thoat from '../images/btn-thoat.png';
@@ -68,8 +69,8 @@ var SEGMENT_COUNT = 20;
 var width = window.innerWidth;
 var height = window.innerHeight;
 var curFrame = 0;
-var frameCount = 13; 
-var spriteWidth = 364; 
+var frameCount = 5; 
+var spriteWidth = 262; 
 var spriteHeight = 120; 
 var widthFrame = spriteWidth/frameCount; 
 var heightFrame = spriteHeight; 
@@ -978,7 +979,7 @@ class Lucky_Rotation extends React.Component {
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
-			if(curFrame <= 12){
+			if(curFrame <= 4){
 				setTimeout(()=>{
 					dartFlightImg.remove(); 
 					_this.draw(x,y) 
