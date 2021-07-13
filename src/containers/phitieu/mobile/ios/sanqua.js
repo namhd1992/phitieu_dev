@@ -195,7 +195,7 @@ class Lucky_Rotation extends React.Component {
 		var bg_x=0, bg_y=0;
 		var list_top_user=[];
 
-		this.toggleFullScreen();
+		// this.toggleFullScreen();
 		if(width/height > 2){
 			bg_x=width;
 			bg_y=height*deltal_img/deltal_device;
@@ -737,7 +737,7 @@ class Lucky_Rotation extends React.Component {
 			window.location.reload();
 			this.setState({innerWidth:window.innerWidth})
 		}
-		this.toggleFullScreen() 
+		// this.toggleFullScreen() 
 	}
 
 	onResize=()=>{
@@ -982,7 +982,7 @@ class Lucky_Rotation extends React.Component {
 				setTimeout(()=>{
 					_this.draw(x,y) 
 					dartFlightImg.remove(); 
-				}, 15);
+				}, 5);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
