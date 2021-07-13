@@ -960,7 +960,6 @@ class Lucky_Rotation extends React.Component {
 				y: y - heightFrame/2,
 				width: widthFrame,
 				height: heightFrame,
-				// visible:false
 				});
 				
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
@@ -970,7 +969,7 @@ class Lucky_Rotation extends React.Component {
 				setTimeout(()=>{
 					dartFlightImg.remove(); 
 					_this.draw(x,y) 
-				}, 20);
+				}, 5);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
