@@ -984,7 +984,7 @@ class Lucky_Rotation extends React.Component {
 				}, 25);
 				setTimeout(()=>{
 					dartFlightImg.remove(); 
-				}, 30);
+				}, 50);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
