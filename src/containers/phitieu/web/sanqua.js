@@ -629,6 +629,9 @@ class Lucky_Rotation extends React.Component {
 			this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
 				var data=this.props.dataUserSpin;
 				if(data.Status===0){
+					if(data.Darts===0){
+						$('#ThongBao').modal('show');
+					}
 					this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
 				}else if(data.Status===2){
 					this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
