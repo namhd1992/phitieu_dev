@@ -960,7 +960,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	draw=(x, y)=>{
-		const {dartFlightImg}=this.state;
 		var _this=this
 		const {stage, layer}=this.state;
 		
@@ -980,9 +979,12 @@ class Lucky_Rotation extends React.Component {
 			stage.add(layer);
 			if(curFrame <= 12){
 				setTimeout(()=>{
-					dartFlightImg.remove(); 
+					// dartFlightImg.remove(); 
 					_this.draw(x,y) 
-				}, 15);
+				}, 25);
+				setTimeout(()=>{
+					dartFlightImg.remove(); 
+				}, 30);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})

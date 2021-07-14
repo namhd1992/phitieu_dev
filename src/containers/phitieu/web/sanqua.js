@@ -158,7 +158,7 @@ class Lucky_Rotation extends React.Component {
 		// if (!this.isConsoleOpen) {
 		// 	window.location.replace("/")
 		// }
-		this.isConsoleOpen();
+		// this.isConsoleOpen();
 	}
 
 
@@ -314,36 +314,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 
-
-	detectDevTool=(allow)=> {
-		if(isNaN(+allow)) allow = 100;
-		  var start = +new Date();
-		  debugger;
-		  var end = +new Date();
-		  if(isNaN(start) || isNaN(end) || end - start > allow) {
-			  window.location.replace("/")
-		  }
-	}
-
-	isConsoleOpen=()=> {
-		this.detectDevTool()
-		if(window.attachEvent) {
-			if (document.readyState === "complete" || document.readyState === "interactive") {
-				this.detectDevTool();
-			window.attachEvent('onresize', this.detectDevTool);
-			window.attachEvent('onmousemove', this.detectDevTool);
-			window.attachEvent('onfocus', this.detectDevTool);
-			window.attachEvent('onblur', this.detectDevTool);
-			}
-		} else {
-			window.addEventListener('load', this.detectDevTool);
-			window.addEventListener('resize', this.detectDevTool);
-			window.addEventListener('mousemove', this.detectDevTool);
-			window.addEventListener('focus', this.detectDevTool);
-			window.addEventListener('blur', this.detectDevTool);
-		}
-	};
-
 	logoutAction = () => {
 		this.logout();
 		localStorage.removeItem("user");
@@ -394,7 +364,7 @@ class Lucky_Rotation extends React.Component {
 		// if (!this.isConsoleOpen) {
 		// 	window.location.replace("/")
 		// }
-		this.isConsoleOpen();
+		// this.isConsoleOpen();
 	}
 
 	onResize=()=>{
