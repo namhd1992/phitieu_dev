@@ -1,11 +1,13 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
+import Pagination from "react-js-pagination";
 import axios from 'axios';
 import { render } from 'react-dom';
 // import { Stage, Layer, Image, Text } from 'react-konva';
 import Konva from 'konva';
 import { connect } from 'react-redux'
 import '../css/style.css';
+import DeviceOrientation, { Orientation } from 'react-screen-orientation';
 import {
 	getDetailData,
 	getRotationDetailData,
@@ -32,10 +34,19 @@ import dart_player from '../images/dart-player.png';
 import img_checkbox_none from '../images/img-checkbox-none.png';
 import img_checkbox_checked from '../images/img-checkbox-checked.png';
 import btn_thoat from '../images/btn-thoat.png';
+import btn_duatop from '../images/btn-duatop.png';
+import vip_kimcuong from '../images/vip-kimcuong.png';
+import vip_bachkim from '../images/vip-bachkim.png';
+import vip_vang from '../images/vip-vang.png';
+import vip_bac from '../images/vip-bac.png';
+import vip_dong from '../images/vip-dong.png';
 import rotate from '../images/rotate.png';
 
 import bg_page_sanqua from '../images/bg-page-sanqua.png';
 
+
+
+import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
 import 'bootstrap';
 
@@ -633,7 +644,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	getLuckyInfo=(type)=>{
-		const {tieuconlai, username, vip_level, txt_points, list_top_user}=this.state;
+		const {tieuconlai, username, vip_level, txt_points, tg_conlai, list_top_user}=this.state;
 		console.log(username)
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.props.getLuckyInfo(type, user.Token).then(()=>{
@@ -874,8 +885,8 @@ class Lucky_Rotation extends React.Component {
 			imageObj.onload = function () {
 				var darthVaderImg = new Konva.Image({
 					image: imageObj,
-					x: touchPos.x-20,
-					y: touchPos.y-80,
+					x: touchPos.x-widthFrame/2,
+					y: touchPos.y-heightFrame/2,
 					width: 28,
 					height: 120,
 					draggable: true,
@@ -934,8 +945,8 @@ class Lucky_Rotation extends React.Component {
 		if(none_multi){
 			if(JSON.stringify(darthVaderImg) !== '{}'){
 				var touchPos = e.touches[0];
-				var x= touchPos.clientX-20;
-				var y= touchPos.clientY-100;
+				var x= touchPos.clientX-widthFrame/2;
+				var y= touchPos.clientY-heightFrame/2;
 				darthVaderImg.x(x);
 				darthVaderImg.y(y);
 			}
@@ -949,6 +960,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	draw=(x, y)=>{
+		const {dartFlightImg}=this.state;
 		var _this=this
 		const {stage, layer}=this.state;
 		
@@ -960,6 +972,7 @@ class Lucky_Rotation extends React.Component {
 				y: y - heightFrame/2,
 				width: widthFrame,
 				height: heightFrame,
+				// visible:false
 				});
 				
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
@@ -969,13 +982,12 @@ class Lucky_Rotation extends React.Component {
 				setTimeout(()=>{
 					dartFlightImg.remove(); 
 					_this.draw(x,y) 
-				}, 5);
+				}, 15);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
 		};
 		dartFlight.src = dart_player;
-
 		this.updateFrame();
 		
 	}
@@ -1067,7 +1079,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	check_auto=()=>{
-		const {checkboxImg, uncheckboxImg, auto_play}=this.state;
+		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
 		this.setState({auto_play:!auto_play},()=>{
 			if(this.state.auto_play){
 				checkboxImg.hide();
@@ -1084,7 +1096,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	autoPlay=()=>{
-		const {dartFlightImg, countDart, isChangetab}=this.state;
+		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart, isChangetab}=this.state;
 		curFrame=0;
 		if(countDart>0){
 			if(JSON.stringify(dartFlightImg) !== '{}'){
@@ -1177,7 +1189,7 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {horizontal, auto_play}=this.state;
+		const {msg, user, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
 
 		if(!horizontal){
 			return (

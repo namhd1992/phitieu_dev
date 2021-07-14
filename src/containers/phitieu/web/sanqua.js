@@ -152,10 +152,13 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth})
+		console.log("window.screen.height", window.screen.height)
+		console.log("window.innerHeight", window.innerHeight)
 		
-		if ((window.screen.height - window.innerHeight) > 150) {
-			window.location.replace("/")
-		}
+		// if (!this.isConsoleOpen) {
+		// 	window.location.replace("/")
+		// }
+		this.isConsoleOpen();
 	}
 
 
@@ -310,6 +313,36 @@ class Lucky_Rotation extends React.Component {
 		this.setState({ auto : !this.state.auto});
 	}
 
+
+
+
+	isConsoleOpen=()=> {
+		function detectDevTool(allow) {
+		  if(isNaN(+allow)) allow = 100;
+			var start = +new Date();
+			debugger;
+			var end = +new Date();
+			if(isNaN(start) || isNaN(end) || end - start > allow) {
+				window.location.replace("/")
+			}
+		}
+		if(window.attachEvent) {
+			if (document.readyState === "complete" || document.readyState === "interactive") {
+				detectDevTool();
+			window.attachEvent('onresize', detectDevTool);
+			window.attachEvent('onmousemove', detectDevTool);
+			window.attachEvent('onfocus', detectDevTool);
+			window.attachEvent('onblur', detectDevTool);
+			}
+		} else {
+			window.addEventListener('load', detectDevTool);
+			window.addEventListener('resize', detectDevTool);
+			window.addEventListener('mousemove', detectDevTool);
+			window.addEventListener('focus', detectDevTool);
+			window.addEventListener('blur', detectDevTool);
+		}
+	};
+
 	logoutAction = () => {
 		this.logout();
 		localStorage.removeItem("user");
@@ -357,9 +390,10 @@ class Lucky_Rotation extends React.Component {
 			this.setState({innerWidth:window.innerWidth})
 		}
 
-		if ((window.screen.height - window.innerHeight) > 150) {
-			window.location.replace("/")
-		}
+		// if (!this.isConsoleOpen) {
+		// 	window.location.replace("/")
+		// }
+		this.isConsoleOpen();
 	}
 
 	onResize=()=>{
