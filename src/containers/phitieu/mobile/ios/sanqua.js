@@ -910,40 +910,6 @@ class Lucky_Rotation extends React.Component {
 		}
 		
 	}
-
-	touchEnd=(e)=>{
-		// console.log("touchEnd", e.touches)
-		const {stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart}=this.state;
-		var _this=this;
-		var arr=[];
-		if(none_multi){
-			if(isPlay){
-				if(countDart>0){
-					var touchPos = stage.getPointerPosition();
-					curFrame=0;
-					n=0;
-					if(dartPositionY >touchPos.y){
-						arr=this.getDealtal(touchPos.x, touchPos.y)
-						this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
-						this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
-					}else{
-						this.showTextWarning()
-						// alert("vuốt lên để phi tiêu")
-					}
-					this.setState({isPlay:false})
-				}else{
-					$('#ThongBao').modal('show');
-				}
-			}
-		}
-		
-		
-		darthVaderImg.hide();
-		setTimeout(()=>{
-			_this.setState({isPlay:true})
-		}, 1500);
-	}
-
 	
 	touchEnd=(e)=>{
 		// console.log("touchEnd", e.touches)
@@ -1059,18 +1025,11 @@ class Lucky_Rotation extends React.Component {
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
-			if(curFrame <= 12){
-				setTimeout(()=>{
-					_this.draw(x,deltalX,y,deltalY) 
-					dartFlightImg.remove(); 
-					n=n+1
-				}, 23);
-			}
 
 			if(curFrame <= 12){
 				setTimeout(()=>{
 					// dartFlightImg.remove(); 
-					_this.draw(x,y) 
+					_this.draw(x,deltalX,y,deltalY) 
 					n=n+1
 				}, 25);
 				setTimeout(()=>{

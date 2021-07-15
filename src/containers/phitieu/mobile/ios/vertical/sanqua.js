@@ -168,11 +168,11 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth});
-		if(window.innerWidth < window.innerHeight){
-			this.setState({horizontal: false})
-		}else{
-			this.setState({horizontal: true})
-		}
+		// if(window.innerWidth < window.innerHeight){
+		// 	this.setState({horizontal: false})
+		// }else{
+		// 	this.setState({horizontal: true})
+		// }
 		var delta=window.innerWidth/img_w;
 		startX=startX*delta;
 		endX=endX*delta;
@@ -183,6 +183,7 @@ class Lucky_Rotation extends React.Component {
 		SEGMENTS=SEGMENTS.map(v => {
 			return v*delta
 		})
+		console.log('Dart_Center_X',Dart_Center_X)
 	}
 
 
@@ -205,8 +206,6 @@ class Lucky_Rotation extends React.Component {
 			bg_y=height*deltal_device/deltal_img;
 		}
 		width_bgImg=bg_y;
-
-		if(horizontal){
 			var stage = new Konva.Stage({
 				container: 'canvas',
 				width: width,
@@ -621,7 +620,6 @@ class Lucky_Rotation extends React.Component {
 			};
 			btnFullScreen.src = btn_fullscreen;
 
-		}
 
 
 		
@@ -944,39 +942,6 @@ class Lucky_Rotation extends React.Component {
 		}, 1500);
 	}
 
-	
-	touchEnd=(e)=>{
-		// console.log("touchEnd", e.touches)
-		const {stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart}=this.state;
-		var _this=this;
-		var arr=[];
-		if(none_multi){
-			if(isPlay){
-				if(countDart>0){
-					var touchPos = stage.getPointerPosition();
-					curFrame=0;
-					n=0;
-					if(dartPositionY >touchPos.y){
-						arr=this.getDealtal(touchPos.x, touchPos.y)
-						this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
-						this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
-					}else{
-						this.showTextWarning()
-						// alert("vuốt lên để phi tiêu")
-					}
-					this.setState({isPlay:false})
-				}else{
-					$('#ThongBao').modal('show');
-				}
-			}
-		}
-		
-		
-		darthVaderImg.hide();
-		setTimeout(()=>{
-			_this.setState({isPlay:true})
-		}, 1500);
-	}
 
 	touchMove=(e)=>{
 		// console.log("touchMove",e.touches)
@@ -999,46 +964,10 @@ class Lucky_Rotation extends React.Component {
 		curFrame=++curFrame;
 	}
 
-	// draw=(x, y)=>{
-	// 	var _this=this
-	// 	const {stage, layer}=this.state;
-		
-	// 	var dartFlight = new Image();
-	// 	dartFlight.onload = function () {
-	// 		var dartFlightImg = new Konva.Image({
-	// 			image: dartFlight,
-	// 			x: x - widthFrame/2,
-	// 			y: y - heightFrame/2,
-	// 			width: widthFrame,
-	// 			height: heightFrame,
-	// 			// visible:false
-	// 			});
-				
-	// 		dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
-	// 		layer.add(dartFlightImg);
-	// 		stage.add(layer);
-	// 		if(curFrame <= 12){
-	// 			setTimeout(()=>{
-	// 				// dartFlightImg.remove(); 
-	// 				_this.draw(x,y) 
-	// 			}, 25);
-	// 			setTimeout(()=>{
-	// 				dartFlightImg.remove(); 
-	// 			}, 50);
-	// 		}
-			
-	// 		_this.setState({dartFlightImg:dartFlightImg})
-	// 	};
-	// 	dartFlight.src = dart_player;
-	// 	this.updateFrame();
-		
-	// }
 
 	draw=(x,deltalX, y, deltalY)=>{
-		const {dartFlightImg}=this.state;
+		console.log('deltalX:', deltalX)
 		var _this=this;
-		
-
 		var newX=x + deltalX/13*n;
 		var newY=y + deltalY/13*n;
 		console.log("newX:", newX, "newY:",newY)
@@ -1059,18 +988,11 @@ class Lucky_Rotation extends React.Component {
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
-			if(curFrame <= 12){
-				setTimeout(()=>{
-					_this.draw(x,deltalX,y,deltalY) 
-					dartFlightImg.remove(); 
-					n=n+1
-				}, 23);
-			}
 
 			if(curFrame <= 12){
 				setTimeout(()=>{
 					// dartFlightImg.remove(); 
-					_this.draw(x,y) 
+					_this.draw(x,deltalX,y,deltalY) 
 					n=n+1
 				}, 25);
 				setTimeout(()=>{
@@ -1310,13 +1232,13 @@ class Lucky_Rotation extends React.Component {
 
 		const {msg, user, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
 
-		if(!horizontal){
-			return (
-				<div>
-					<img src={rotate} width="100%" alt="" />
-				</div>
-			)
-		}
+		// if(!horizontal){
+		// 	return (
+		// 		<div>
+		// 			<img src={rotate} width="100%" alt="" />
+		// 		</div>
+		// 	)
+		// }
 
 		return (
 				<div id="game" style={{backgroundColor:'black'}}>
