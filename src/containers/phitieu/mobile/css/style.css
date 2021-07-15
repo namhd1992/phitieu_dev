@@ -53,6 +53,12 @@ html {scroll-behavior: smooth; font-size: 26px; font-family: Arial, Helvetica, s
 .pag-custom_m .page-be_m {background-color: #b30101; border-color: #b30101;}
 .pag-custom_m .page-item_m.active .page-link_m {background-color: #b30101; border-color: #b30101;}
 
+.bg-chucmung_m {background-image: url(../images/bg-chucmung.png); background-repeat: no-repeat; background-position: top; background-size: 100%; width: 400px; margin: 0 auto;}
+.content-chucmung_m {width: 280px; height: 350px; padding-top: 55px;}
+.text-chucmung_m {border-radius: 4px; padding: 8px 0;}
+.font-size-14_m {font-size: 14px;}
+.font-size-18_m {font-size: 18px;}
+
 
 
 

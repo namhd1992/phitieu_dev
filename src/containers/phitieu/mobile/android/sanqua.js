@@ -41,6 +41,7 @@ import vip_vang from '../images/vip-vang.png';
 import vip_bac from '../images/vip-bac.png';
 import vip_dong from '../images/vip-dong.png';
 import rotate from '../images/rotate.png';
+import btn_nap_scoin from '../images/btn-nap-scoin.png';
 
 import bg_page_sanqua from '../images/bg-page-sanqua.png';
 
@@ -196,6 +197,7 @@ class Lucky_Rotation extends React.Component {
 		var deltal_device=width/height;
 		var bg_x=0, bg_y=0;
 		var list_top_user=[];
+		var user = JSON.parse(localStorage.getItem("user"));
 
 		// this.toggleFullScreen();
 		if(width/height > 2){
@@ -304,7 +306,7 @@ class Lucky_Rotation extends React.Component {
 			var username = new Konva.Text({
 				x: bg_x*0.65,
 				y: 5,
-				text:"Hello",
+				text:user.Username,
 				fontSize: 13,
 				fontFamily: 'Calibri',
 				fill: 'yellow',
@@ -316,7 +318,7 @@ class Lucky_Rotation extends React.Component {
 			 var vip_level = new Konva.Text({
 				x: bg_x*0.65,
 				y: 20,
-				text:"Vip Kim Cương",
+				text:this.getLevelUser(user),
 				fontSize: 12,
 				fontFamily: 'Calibri',
 				fill: 'yellow',
@@ -633,7 +635,7 @@ class Lucky_Rotation extends React.Component {
 		}
 
 
-		var user = JSON.parse(localStorage.getItem("user"));
+		
 		this.setState({user:user})
 
 		
@@ -664,23 +666,7 @@ class Lucky_Rotation extends React.Component {
 					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId})
 					
 					username.text(user.Username)
-
-					switch(user.VipLevel) {
-						case 1:
-							vip_level.text("VIP Đồng")
-						  	break;
-						case 2:
-							vip_level.text("VIP Bạc")
-						  	break;
-						case 3:
-							vip_level.text("VIP Vàng")
-							break;
-						case 4:
-							vip_level.text("VIP Bạch kim")
-						  	break;
-						default:
-							vip_level.text("VIP Đồng")
-					}
+					vip_level.text(this.getLevelUser(user))
 					tieuconlai.text(`Số phi tiêu còn lại: ${data.Data.AddInfo.Darts}`)
 					txt_points.text(data.Data.AddInfo.Points)
 					var list_top=data.Data.AddInfo.TopUsers;
@@ -698,6 +684,27 @@ class Lucky_Rotation extends React.Component {
 				}
 			}
 		})
+	}
+
+	getLevelUser=(user)=>{
+		var txt=''
+		switch(user.VipLevel) {
+			case 1:
+				txt="VIP Đồng";
+				  break;
+			case 2:
+				txt="VIP Bạc";
+				  break;
+			case 3:
+				txt="VIP Vàng";
+				break;
+			case 4:
+				txt="VIP Bạch kim";
+				  break;
+			default:
+				txt="VIP Đồng"
+		}
+		return txt;
 	}
 
 	formatText=(data)=>{
@@ -921,15 +928,17 @@ class Lucky_Rotation extends React.Component {
 		// console.log("touchEnd", e.touches)
 		const {stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart}=this.state;
 		var _this=this;
-
+		var arr=[];
 		if(none_multi){
 			if(isPlay){
 				if(countDart>0){
 					var touchPos = stage.getPointerPosition();
-					curFrame=0
+					curFrame=0;
+					n=0;
 					if(dartPositionY >touchPos.y){
-						this.draw(touchPos.x, touchPos.y)
-						this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+						arr=this.getDealtal(touchPos.x, touchPos.y)
+						this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
+						this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
 					}else{
 						this.showTextWarning()
 						// alert("vuốt lên để phi tiêu")
@@ -946,9 +955,8 @@ class Lucky_Rotation extends React.Component {
 		setTimeout(()=>{
 			_this.setState({isPlay:true})
 		}, 1500);
-		
-		
 	}
+
 	touchMove=(e)=>{
 		const {stage, darthVaderImg, none_multi}=this.state;
 		if(none_multi){
@@ -968,35 +976,97 @@ class Lucky_Rotation extends React.Component {
 		curFrame=++curFrame;
 	}
 
-	draw=(x, y)=>{
-		var _this=this
+	// draw=(x, y)=>{
+	// 	var _this=this
+	// 	const {stage, layer}=this.state;
+	// 	this.updateFrame();
+	// 	var dartFlight = new Image();
+	// 	dartFlight.onload = function () {
+	// 		var dartFlightImg = new Konva.Image({
+	// 			image: dartFlight,
+	// 			x: x - widthFrame/2,
+	// 			y: y - heightFrame/2,
+	// 			width: widthFrame,
+	// 			height: heightFrame,
+	// 			// visible:false
+	// 			});
+				
+	// 		dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
+	// 		layer.add(dartFlightImg);
+	// 		stage.add(layer);
+	// 		if(curFrame <= 12){
+	// 			setTimeout(()=>{
+	// 				_this.draw(x,y) 
+	// 				dartFlightImg.remove(); 
+	// 			}, 23);
+	// 		}
+			
+	// 		_this.setState({dartFlightImg:dartFlightImg})
+	// 	};
+	// 	dartFlight.src = dart_player;
+		
+	// }
+
+	draw=(x,deltalX, y, deltalY)=>{
+		const {dartFlightImg}=this.state;
+		var _this=this;
+		
+
+		var newX=x + deltalX/13*n;
+		var newY=y + deltalY/13*n;
+		console.log("newX:", newX, "newY:",newY)
 		const {stage, layer}=this.state;
+		var touchPos = stage.getPointerPosition();
 		this.updateFrame();
 		var dartFlight = new Image();
 		dartFlight.onload = function () {
 			var dartFlightImg = new Konva.Image({
 				image: dartFlight,
-				x: x - widthFrame/2,
-				y: y - heightFrame/2,
+				x: newX - widthFrame/2,
+				y: newY - heightFrame/2,
 				width: widthFrame,
 				height: heightFrame,
 				// visible:false
 				});
-				
+			console.log(dartFlightImg)
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
 			if(curFrame <= 12){
 				setTimeout(()=>{
-					_this.draw(x,y) 
+					_this.draw(x,deltalX,y,deltalY) 
 					dartFlightImg.remove(); 
+					n=n+1
 				}, 23);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
 		};
 		dartFlight.src = dart_player;
-		
+	}
+
+	getDealtal=(xpos,ypos)=>{
+		var dx = Dart_Center_X - xpos;
+		var dy = Dart_Center_Y - ypos;
+		var x=0;
+		var y=0;
+
+		var delta = Math.sqrt(dx*dx+dy*dy);
+
+		if(delta<10){
+			x=this.getRandomInt(25, -25)
+			y=this.getRandomInt(25, -25)
+		}else if(delta >10 && delta <= 60){
+			x=this.getRandomInt(35, -35)
+			y=this.getRandomInt(35, -35)
+		}else if(delta >60 && delta <= 100){
+			x=this.getRandomInt(45, -45)
+			y=this.getRandomInt(45, -45)
+		}else if(delta >100 && delta <= 130){
+			x=this.getRandomInt(50, -50)
+			y=this.getRandomInt(50, -50)
+		}
+		return [x,y];
 	}
 
 	fireDart=(tarX, tarY)=> {
@@ -1065,6 +1135,9 @@ class Lucky_Rotation extends React.Component {
 			this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
 				var data=this.props.dataUserSpin;
 				if(data.Status===0){
+					if(data.Darts===0){
+						$('#ThongBao').modal('show');
+					}
 					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
 					setTimeout(()=>{
 						tieuconlai.text(`Nhanh tay giật giải IP12 trị giá 50 triệu`)
@@ -1208,7 +1281,7 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {fullScreen, horizontal, auto_play}=this.state;
+		const {fullScreen, horizontal, auto_play, msg}=this.state;
 
 		return (
 				<div id="game">
@@ -1233,6 +1306,59 @@ class Lucky_Rotation extends React.Component {
 						<img src={rotate} width="100%" alt="" />
 					</div>)}
 					</div>)}
+
+
+					<div class="modal fade" id="Modalnone" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
+						<div class="modal-dialog modal-dangnhap">
+							<div class="modal-content bg-transparent border-0">
+
+							<div class="modal-body border-0">
+								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+								<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+							</div>
+
+							</div>
+						</div>
+					</div>
+
+										
+					{/* <!-- The Modal Thông báo--> */}
+					<div class="modal fade" id="ThongBao" style={{zIndex:9999999}}>
+						<div class="modal-dialog modal-dangnhap">
+							<div class="modal-content bg-transparent border-0">
+
+							<div class="modal-body border-0">
+								<h2 class="font-size-3vw pt-4 font-weight-bold text-uppercase text-center">Bạn đã hết Phi Tiêu.</h2>
+								<p class="font-size-3vw font-weight-bold text-uppercase text-center"> Vui lòng nạp thêm Scoin để nhận Phi Tiêu và tiếp tục chơi.</p>
+								<p class="text-center"><a href="https://scoin.vn/" title="Nạp Scoin" target="_blank"><img src={btn_nap_scoin} width="30%" hspace="10" alt="" /></a><a href="#" title="Thoát"><img src="images/btn-thoat.png" width="30%" alt="" /></a></p>
+							</div>
+
+							</div>
+						</div>
+					</div>
+
+					{/* <!-- The Modal Thông báo chúc mừng--> */}
+					<div class="modal" id="myModalchucmung">
+						<div class="modal-dialog">
+							<div class="modal-content bg-transparent border-0">
+
+							{/* <!-- Modal body --> */}
+							<div class="modal-body bg-chucmung_m justify-content-center">
+								<div class="card bg-transparent border-0">
+								<div class="card-body content-chucmung_m mx-auto">
+									<div class="text-chucmung_m text-center">
+										<span class="text-shadow font-weight-bold font-size-18_m">Bạn đã đoạt giải Săn Quà</span>
+									</div>
+									<p class="small pt-2 mb-2 text-center text-shadow font-size-14_m">(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /></p>
+									<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14_m" data-dismiss="modal">Xác nhận</button>
+								</div>
+								</div>
+								
+							</div>
+
+							</div>
+						</div>
+					</div>
 					
 						
 				</div>

@@ -194,6 +194,7 @@ class Lucky_Rotation extends React.Component {
 		var deltal_device=width/height;
 		var bg_x=0, bg_y=0;
 		var list_top_user=[];
+		var user = JSON.parse(localStorage.getItem("user"));
 
 		// this.toggleFullScreen();
 		if(width/height > 2){
@@ -296,7 +297,7 @@ class Lucky_Rotation extends React.Component {
 			var username = new Konva.Text({
 				x: bg_x*0.65,
 				y: 5,
-				text:"Hello",
+				text:user.Username,
 				fontSize: 13,
 				fontFamily: 'Calibri',
 				fill: 'yellow',
@@ -308,7 +309,7 @@ class Lucky_Rotation extends React.Component {
 			 var vip_level = new Konva.Text({
 				x: bg_x*0.65,
 				y: 20,
-				text:"Vip Kim Cương",
+				text:this.getLevelUser(user),
 				fontSize: 12,
 				fontFamily: 'Calibri',
 				fill: 'yellow',
@@ -623,7 +624,7 @@ class Lucky_Rotation extends React.Component {
 		}
 
 
-		var user = JSON.parse(localStorage.getItem("user"));
+		
 		this.setState({user:user})
 
 		
@@ -654,23 +655,7 @@ class Lucky_Rotation extends React.Component {
 					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId})
 					
 					username.text(user.Username)
-
-					switch(user.VipLevel) {
-						case 1:
-							vip_level.text("VIP Đồng")
-						  	break;
-						case 2:
-							vip_level.text("VIP Bạc")
-						  	break;
-						case 3:
-							vip_level.text("VIP Vàng")
-							break;
-						case 4:
-							vip_level.text("VIP Bạch kim")
-						  	break;
-						default:
-							vip_level.text("VIP Đồng")
-					}
+					this.getLevelUser(user)
 					tieuconlai.text(`Số phi tiêu còn lại: ${data.Data.AddInfo.Darts}`)
 					txt_points.text(data.Data.AddInfo.Points)
 					var list_top=data.Data.AddInfo.TopUsers;
@@ -688,6 +673,27 @@ class Lucky_Rotation extends React.Component {
 				}
 			}
 		})
+	}
+	
+	getLevelUser=(user)=>{
+		var txt=''
+		switch(user.VipLevel) {
+			case 1:
+				txt="VIP Đồng";
+				  break;
+			case 2:
+				txt="VIP Bạc";
+				  break;
+			case 3:
+				txt="VIP Vàng";
+				break;
+			case 4:
+				txt="VIP Bạch kim";
+				  break;
+			default:
+				txt="VIP Đồng"
+		}
+		return txt;
 	}
 
 	formatText=(data)=>{
@@ -907,17 +913,19 @@ class Lucky_Rotation extends React.Component {
 
 	touchEnd=(e)=>{
 		// console.log("touchEnd", e.touches)
-		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart, none_multi}=this.state;
+		const {stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart}=this.state;
 		var _this=this;
-
+		var arr=[];
 		if(none_multi){
 			if(isPlay){
 				if(countDart>0){
 					var touchPos = stage.getPointerPosition();
-					curFrame=0
+					curFrame=0;
+					n=0;
 					if(dartPositionY >touchPos.y){
-						this.draw(touchPos.x, touchPos.y)
-						this.fireDart(touchPos.x, touchPos.y-heightFrame/2 + 12)
+						arr=this.getDealtal(touchPos.x, touchPos.y)
+						this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
+						this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
 					}else{
 						this.showTextWarning()
 						// alert("vuốt lên để phi tiêu")
@@ -928,14 +936,46 @@ class Lucky_Rotation extends React.Component {
 				}
 			}
 		}
-	
+		
 		
 		darthVaderImg.hide();
 		setTimeout(()=>{
 			_this.setState({isPlay:true})
 		}, 1500);
+	}
+
+	
+	touchEnd=(e)=>{
+		// console.log("touchEnd", e.touches)
+		const {stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart}=this.state;
+		var _this=this;
+		var arr=[];
+		if(none_multi){
+			if(isPlay){
+				if(countDart>0){
+					var touchPos = stage.getPointerPosition();
+					curFrame=0;
+					n=0;
+					if(dartPositionY >touchPos.y){
+						arr=this.getDealtal(touchPos.x, touchPos.y)
+						this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
+						this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
+					}else{
+						this.showTextWarning()
+						// alert("vuốt lên để phi tiêu")
+					}
+					this.setState({isPlay:false})
+				}else{
+					$('#ThongBao').modal('show');
+				}
+			}
+		}
 		
 		
+		darthVaderImg.hide();
+		setTimeout(()=>{
+			_this.setState({isPlay:true})
+		}, 1500);
 	}
 
 	touchMove=(e)=>{
@@ -959,28 +999,79 @@ class Lucky_Rotation extends React.Component {
 		curFrame=++curFrame;
 	}
 
-	draw=(x, y)=>{
-		var _this=this
-		const {stage, layer}=this.state;
+	// draw=(x, y)=>{
+	// 	var _this=this
+	// 	const {stage, layer}=this.state;
 		
+	// 	var dartFlight = new Image();
+	// 	dartFlight.onload = function () {
+	// 		var dartFlightImg = new Konva.Image({
+	// 			image: dartFlight,
+	// 			x: x - widthFrame/2,
+	// 			y: y - heightFrame/2,
+	// 			width: widthFrame,
+	// 			height: heightFrame,
+	// 			// visible:false
+	// 			});
+				
+	// 		dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
+	// 		layer.add(dartFlightImg);
+	// 		stage.add(layer);
+	// 		if(curFrame <= 12){
+	// 			setTimeout(()=>{
+	// 				// dartFlightImg.remove(); 
+	// 				_this.draw(x,y) 
+	// 			}, 25);
+	// 			setTimeout(()=>{
+	// 				dartFlightImg.remove(); 
+	// 			}, 50);
+	// 		}
+			
+	// 		_this.setState({dartFlightImg:dartFlightImg})
+	// 	};
+	// 	dartFlight.src = dart_player;
+	// 	this.updateFrame();
+		
+	// }
+
+	draw=(x,deltalX, y, deltalY)=>{
+		const {dartFlightImg}=this.state;
+		var _this=this;
+		
+
+		var newX=x + deltalX/13*n;
+		var newY=y + deltalY/13*n;
+		console.log("newX:", newX, "newY:",newY)
+		const {stage, layer}=this.state;
+		var touchPos = stage.getPointerPosition();
+		this.updateFrame();
 		var dartFlight = new Image();
 		dartFlight.onload = function () {
 			var dartFlightImg = new Konva.Image({
 				image: dartFlight,
-				x: x - widthFrame/2,
-				y: y - heightFrame/2,
+				x: newX - widthFrame/2,
+				y: newY - heightFrame/2,
 				width: widthFrame,
 				height: heightFrame,
 				// visible:false
 				});
-				
+			console.log(dartFlightImg)
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
 			if(curFrame <= 12){
 				setTimeout(()=>{
+					_this.draw(x,deltalX,y,deltalY) 
+					dartFlightImg.remove(); 
+					n=n+1
+				}, 23);
+			}
+
+			if(curFrame <= 12){
+				setTimeout(()=>{
 					// dartFlightImg.remove(); 
 					_this.draw(x,y) 
+					n=n+1
 				}, 25);
 				setTimeout(()=>{
 					dartFlightImg.remove(); 
@@ -990,8 +1081,31 @@ class Lucky_Rotation extends React.Component {
 			_this.setState({dartFlightImg:dartFlightImg})
 		};
 		dartFlight.src = dart_player;
-		this.updateFrame();
-		
+	}
+
+
+	getDealtal=(xpos,ypos)=>{
+		var dx = Dart_Center_X - xpos;
+		var dy = Dart_Center_Y - ypos;
+		var x=0;
+		var y=0;
+
+		var delta = Math.sqrt(dx*dx+dy*dy);
+
+		if(delta<10){
+			x=this.getRandomInt(25, -25)
+			y=this.getRandomInt(25, -25)
+		}else if(delta >10 && delta <= 60){
+			x=this.getRandomInt(35, -35)
+			y=this.getRandomInt(35, -35)
+		}else if(delta >60 && delta <= 100){
+			x=this.getRandomInt(45, -45)
+			y=this.getRandomInt(45, -45)
+		}else if(delta >100 && delta <= 130){
+			x=this.getRandomInt(50, -50)
+			y=this.getRandomInt(50, -50)
+		}
+		return [x,y];
 	}
 
 	fireDart=(tarX, tarY)=> {
@@ -1023,7 +1137,7 @@ class Lucky_Rotation extends React.Component {
 		segment = Math.round((segmentIndex)  / (360.0/SEGMENT_COUNT));
 	
 	
-	   }
+	}
 
 	generateScore=()=> {
 		const {tieuconlai, txt_points, sessionId, list_top_user}=this.state;
@@ -1060,6 +1174,9 @@ class Lucky_Rotation extends React.Component {
 			this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
 				var data=this.props.dataUserSpin;
 				if(data.Status===0){
+					if(data.Darts===0){
+						$('#ThongBao').modal('show');
+					}
 					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
 					txt_points.text(data.Points)
 					var list_top=data.TopList;
@@ -1206,6 +1323,35 @@ class Lucky_Rotation extends React.Component {
 						{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999, backgroundColor:'black'}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999, backgroundColor:'black'}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div>)}
 						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
 						<div id="div_exit" style={{position:'absolute', top:0, left:"87%", zIndex:999999}} onTouchStart={this.exit}></div>
+
+						<div class="modal fade" id="Modalnone" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
+							<div class="modal-dialog modal-dangnhap">
+								<div class="modal-content bg-transparent border-0">
+
+								<div class="modal-body border-0">
+									<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+									<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+								</div>
+
+								</div>
+							</div>
+						</div>
+
+											
+						{/* <!-- The Modal Thông báo--> */}
+						<div class="modal fade" id="ThongBao" style={{zIndex:9999999}}>
+							<div class="modal-dialog modal-dangnhap">
+								<div class="modal-content bg-transparent border-0">
+
+								<div class="modal-body border-0">
+									<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn đã hết tiêu</h2>
+									<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+								</div>
+
+								</div>
+							</div>
+						</div>
+						
 						
 				</div>
 			)

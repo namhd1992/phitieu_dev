@@ -63,6 +63,10 @@ html {scroll-behavior: smooth; font-size: 26px; font-family:Arial, Helvetica, sa
 .modal-giaithuong {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: contain; display: block; width: 650px !important; height: 650px !important; max-width: 650px !important; }
 .modal-dialog-scrollable.modal-giaithuong .modal-content {max-height: 600px !important;}
 
+.bg-chucmung {background-image: url(../images/bg-chucmung.png); background-repeat: no-repeat; background-position: center; background-size: 100%; width: 480px; margin: 0 auto;}
+.content-chucmung {width: 260px; height: 350px; padding-top: 85px;}
+.text-chucmung {border-radius: 4px; padding: 8px 0;}
+
 
 
 .text-blink {animation: blinker 1s linear infinite;}

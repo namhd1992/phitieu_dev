@@ -70,6 +70,20 @@ import vip_vang from './images/vip-vang.png';
 import vip_bac from './images/vip-bac.png';
 import vip_dong from './images/vip-dong.png';
 
+import nem_phi_tieu from './images/nem-phi-tieu.png';
+import huy_nem_tieu from './images/huy-nem-tieu.png';
+import khu_vuc_1 from './images/khu-vuc-1.png';
+import khu_vuc_2 from './images/khu-vuc-2.png';
+import khu_vuc_3 from './images/khu-vuc-3.png';
+import vong_tron_ngoai from './images/vong-tron-ngoai.png';
+import vong_tron_trong from './images/vong-tron-trong.png';
+import voucher_scoin from './images/voucher-scoin.png';
+import nap_ngan_hang from './images/nap-ngan-hang.png';
+import ck_ngan_hang from './images/ck-ngan-hang.png';
+import topup_scoin from './images/topup-scoin.png';
+import the_scoin from './images/the-scoin.png';
+import nap_voucher_scoin from './images/nap-voucher-scoin.png';
+
 
 
 // import muiten from './images/muiten.png';
@@ -374,6 +388,10 @@ class Lucky_Rotation extends React.Component {
 	showModalGiaiThuong=()=>{
 		this.getMoreSessions();
 		$('#Modalgiaithuong').modal('show');
+	}
+
+	showModalHuongDan=()=>{
+		$('#Modalhuongdan').modal('show');
 	}
 
 	getDataTuDo=(user)=>{
@@ -715,7 +733,7 @@ class Lucky_Rotation extends React.Component {
 								</div>
 								<div class="menu-left">
 									<a href="https://vip.scoin.vn/" title="Active VIP" target="_blank"><p class="mb-0 menu-link link-first"></p></a>
-									<a href="#" title="Hướng dẫn chơi"><p class="mb-0 menu-link"></p></a>
+									<a title="Hướng dẫn chơi" onClick={this.showModalHuongDan}><p class="mb-0 menu-link"></p></a>
 									<a title="Giải thưởng" onClick={this.showModalGiaiThuong}><p class="mb-0 menu-link"></p></a>
 									<a href="#" title="Lịch sử giao dịch"><p class="mb-0 menu-link"></p></a>
 								</div>
@@ -913,6 +931,185 @@ class Lucky_Rotation extends React.Component {
 						</div>
 					</div>
 				</div>
+			</div>
+
+
+			{/* <!-- The Modal Huong Dan--> */}
+			<div class="modal fade" id="Modalhuongdan">
+				<div class="modal-dialog modal-giaithuong modal-dialog-scrollable">
+					<div class="modal-content bg-transparent border-0">
+
+					{/* <!-- Modal Header --> */}
+					<div class="modal-header border-0 p-0">
+						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
+					</div>
+
+					{/* <!-- Modal body --> */}
+					<div class="modal-body order-0 py-0 my-4 px-4 ml-2 scroll-modal-body">
+						<h4 class="font-size-16 font-weight-bold">1. Cách thức tham gia</h4>
+						<dl class="font-size-16">
+							<dt>- Đối tượng tham gia:</dt>
+							<dd> &bull; Toàn bộ khách hàng đã active tài khoản khách hàng VIP.</dd>
+							<dd> &bull; Nếu chưa là khách hàng VIP, bạn vui lòng thực hiện active và trở thành VIP <a class="text-primary" href="https://vip.scoin.vn/" title="Active VIP" target="_blank">tại đây</a></dd>
+							<dt>- Cách thức tham gia:</dt>
+							<dd> &bull; Trong thời gian diễn ra sự kiện, với mỗi lần nạp ingame/nạp ví scoin bằng thẻ scoin và chuyển khoản ngân hàng thành công, tài khoản sẽ nhận được phi tiêu để tham gia game, số phi tiêu được quy định như sau: </dd>
+							<dd> 
+								<table class="table table-bordered table-hover mx-auto" style={{width: "90%"}}>
+									<thead>
+									<tr>
+										<th class="p-1">Số tiền nạp thẻ Scoin</th>
+										<th class="p-1">Số phi tiêu nhận</th>
+
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td class="p-1">10k</td>
+										<td class="p-1">1</td>
+									</tr>
+									<tr>
+										<td class="p-1">20k</td>
+										<td class="p-1">2</td>
+									</tr>
+									<tr>
+										<td class="p-1">50k</td>
+										<td class="p-1">5</td>
+									</tr>
+									<tr>
+										<td class="p-1">100k</td>
+										<td class="p-1">10</td>
+									</tr>
+									<tr>
+										<td class="p-1">200k</td>
+										<td class="p-1">20</td>
+									</tr>
+									<tr>
+										<td class="p-1">300k</td>
+										<td class="p-1">30</td>
+									</tr>
+									<tr>
+										<td class="p-1">500k</td>
+										<td class="p-1">50</td>
+									</tr>
+									<tr>
+										<td class="p-1">1000k</td>
+										<td class="p-1">100</td>
+									</tr>
+									<tr>
+										<td class="p-1">2000k</td>
+										<td class="p-1">200</td>
+									</tr>
+									<tr>
+										<td class="p-1">5000k</td>
+										<td class="p-1">500</td>
+									</tr>
+									</tbody>
+								</table>
+								<table class="table table-bordered table-hover mx-auto" style={{width: "90%"}}>
+									<thead>
+									<tr>
+										<th class="p-1">Số tiền nạp chuyển khoản ngân hàng </th>
+										<th class="p-1">Số phi tiêu nhận</th>
+
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td class="p-1">&lt; 10k</td>
+										<td class="p-1">0</td>
+									</tr>
+									<tr>
+										<td class="p-1">10k &lt; nạp &lt; 50k</td>
+										<td class="p-1">3</td>
+									</tr>
+									<tr>
+										<td class="p-1">50k &lt; nạp &lt; 100k</td>
+										<td class="p-1">8</td>
+									</tr>
+									<tr>
+										<td class="p-1">100k &lt; nạp &lt; 500k</td>
+										<td class="p-1">35</td>
+									</tr>
+									<tr>
+										<td class="p-1">500k &lt; nạp &lt; 1000k</td>
+										<td class="p-1">60</td>
+									</tr>
+									<tr>
+										<td class="p-1">1000k &lt; nạp &lt; 2000k</td>
+										<td class="p-1">120</td>
+									</tr>
+									<tr>
+										<td class="p-1">2000k &lt; nạp &lt; 5000k</td>
+										<td class="p-1">250</td>
+									</tr>                      
+									</tbody>
+								</table>
+							</dd>            
+							<dd> - Sau khi nhận được Phi tiêu, khách hàng truy cập trang sự kiện, chọn chế độ chơi Săn quà hoặc Đua top để chơi.</dd>
+							<dd> - Khách hàng sử dụng chuột (chơi trên PC) hoặc vuốt màn hình (chơi trên điện thoại) để ném phi tiêu vào bảng</dd>
+							<dd> <img src={nem_phi_tieu} class="img-fluid" alt="" /></dd>
+							<dd> <img src={huy_nem_tieu} class="img-fluid" alt="" /></dd>
+							<dd> - Vị trí phi tiêu tương ứng với số điểm người chơi nhận được như sau:</dd>
+							<dd> <img src={khu_vuc_1} class="img-fluid" alt="" /></dd>
+							<dd> <img src={khu_vuc_2} class="img-fluid" alt="" /></dd>
+							<dd> <img src={khu_vuc_3} class="img-fluid" alt="" /></dd>
+							<dd> <img src={vong_tron_ngoai} class="img-fluid" alt="" /></dd>
+							<dd> <img src={vong_tron_trong} class="img-fluid" alt="" /></dd>
+						</dl> 
+						<h4 class="font-size-16 font-weight-bold">2. Săn quà</h4>
+						<dl class="font-size-16">
+							<dd>- Thời gian của phiên <strong>Săn quà</strong> diễn ra trong 1 ngày và giải thưởng của phiên đó được cập nhật liên tục tại <a href="#Modalgiaithuong" title="Giải thưởng" data-toggle="modal" data-dismiss="modal">Giải thưởng</a></dd>
+							<dd>- Trong thời gian diễn ra Phiên săn quà, người chơi chọn Chế độ <strong>Săn quà</strong> tại Trang chủ để tham gia.</dd>
+							<dd>- Mỗi tài khoản có số điểm mặc định ban đầu là <strong>501 điểm</strong>.</dd>
+							<dd>- Người chơi sử dụng số Phi tiêu mình có để ném vào bảng, số điểm nhận được sau mỗi lần ném sẽ được trừ dần vào số điểm 501 ban đầu.</dd>
+							<dd>- Trong thời gian quy định, tài khoản nào đưa được tổng điểm về 0 sớm nhất sẽ là người thắng cuộc và nhận được giải thưởng của phiên chơi đó, đồng thời phiên chơi sẽ kết thúc, tất cả các tài khoản còn lại sẽ được tiếp tục tham gia ở Phiên săn quà tiếp theo.</dd>
+							<dd>- Trường hợp có nhiều tài khoản cùng đưa được điểm về 0 tại cùng thời điểm, giải thưởng sẽ được chia đều cho các tài khoản.</dd>
+							<dd>- Trường hợp trong thời gian quy định, không có người chơi nào đưa được điểm về 0, người thắng cuộc là người có số điểm còn lại ít nhất.</dd>           
+						</dl>
+						<h4 class="font-size-16 font-weight-bold">3. Đua TOP</h4>
+						<dl class="font-size-16">
+							<dd>- Trong thời gian diễn ra Phiên Đua top, người chơi chọn Chế độ <strong>Đua top</strong> tại Trang chủ để tham gia.</dd>
+							<dd>- Mỗi tài khoản có số điểm mặc định ban đầu là <strong>0 điểm</strong>.</dd>
+							<dd>- Người chơi sử dụng số Phi tiêu mình có để ném vào bảng, số điểm nhận được sau mỗi lần ném sẽ được cộng dồn vào tổng điểm đang có.</dd>
+							<dd>- Kết thúc Phiên Đua top, tài khoản có tổng điểm cao nhất sẽ là người thắng cuộc và nhận được giải thưởng.</dd>
+							<dd>- Trường hợp nhiều người chơi có tổng điểm cao nhất bằng nhau, người thắng cuộc là người có số lượt ném Phi tiêu nhiều nhất.</dd>
+							<dd>- Trường hợp nhiều người chơi có tổng điểm cao nhất bằng nhau và số lượt ném phi tiêu bằng nhau, giải thưởng được chia đều cho các tài khoản.</dd>         
+						</dl>
+						<h4 class="font-size-16 font-weight-bold">4. Hướng dẫn sử dụng giải thưởng</h4>
+						<dl class="font-size-16">
+							<dt>- Voucher Scoin:</dt>
+							<dd> &bull; Khách hàng truy cập <strong>Tủ đồ</strong>, chọn <strong>Phần thưởng</strong>, chọn giải thưởng <strong>Thẻ voucher Scoin</strong> và click <span class="text-primary">Mở</span>.</dd>
+							<dd> <img src={voucher_scoin} class="img-fluid" alt="" /></dd>
+							<dd> &bull; Copy mã Thẻ và số serial của thẻ:</dd>
+							<dd> &bull; Truy cập <a href="https://scoin.vn/" title="Scoin.vn" target="_blank">https://scoin.vn/</a> , chọn Nạp game/Điền Tên tài khoản và server/ Chọn phương thức nạp Thẻ cào/ Chọn loại thẻ Scoin và điền mã Thẻ và số serial đã copy ở trên.</dd>
+							<dd> <img src={nap_voucher_scoin} class="img-fluid" alt="" /></dd>
+							<dd class="font-italic">* Lưu ý: Giải thưởng thẻ voucher có hiệu lực trong vòng 1 tháng kể từ thời điểm kết thúc sự kiện. Hết thời gian kể trên, giải thưởng không còn giá trị.</dd>
+							<dt>- Voucher chuyển khoản ngân hàng:</dt>
+							<dd> &bull; Khách hàng truy cập <strong>Tủ đồ</strong>, chọn <strong>Phần thưởng</strong>, chọn giải thưởng <strong>Thẻ voucher chuyển khoản ngân hàng</strong> và click <span class="text-primary">Mở</span>.</dd>
+							<dd> <img src={voucher_scoin} class="img-fluid" alt="" /></dd>
+							<dd> &bull; Ấn <strong>“Nạp ngay”</strong></dd>
+							<dd> &bull; Truy cập <a href="https://scoin.vn/" title="Scoin.vn" target="_blank">https://scoin.vn/</a> , chọn Phương thức nạp Ngân hàng</dd>
+							<dd> <img src={nap_ngan_hang} class="img-fluid" alt="" /></dd>
+							<dd> &bull; Copy <strong>Nội dung chuyển khoản</strong> và paste vào mục <strong>Nội dung</strong> khi bạn thực hiện chuyển khoản vào tài khoản VTC Mobile, số tiền trong voucher sẽ được cộng trực tiếp vào ví sau khi bạn chuyển khoản thành công.</dd>
+							<dd> <img src={ck_ngan_hang} class="img-fluid" alt="" /></dd>
+							<dd class="font-italic">* Lưu ý: Giải thưởng thẻ voucher có hiệu lực trong vòng 1 tháng kể từ thời điểm kết thúc sự kiện. Hết thời gian kể trên, giải thưởng không còn giá trị.</dd>
+							<dt>- Topup 50k:</dt>
+							<dd> &bull; Khách hàng truy cập <strong>Tủ đồ</strong>, chọn <strong>Phần thưởng</strong>, chọn giải thưởng <strong>Topup Scoin</strong> và click <span class="text-primary">Mở</span>.</dd>
+							<dd> <img src={topup_scoin} class="img-fluid" alt="" /></dd>
+							<dd> &bull; Scoin được tự động cộng vào Ví Scoin của tài khoản </dd>
+							<dt>- Thẻ Scoin:</dt>
+							<dd> &bull; Khách hàng truy cập <strong>Tủ đồ</strong>, chọn <strong>Phần thưởng</strong>, chọn <strong>giải thưởng Thẻ Scoin</strong> và click <span class="text-primary">Mở</span>.</dd>
+							<dd> <img src={the_scoin} class="img-fluid" alt="" /></dd>
+							<dd> &bull; Copy mã Thẻ và số serial của thẻ:</dd>
+							<dd> &bull; Truy cập <a href="https://scoin.vn/" title="Scoin.vn" target="_blank">https://scoin.vn/</a> , chọn Nạp game/Điền Tên tài khoản và server/ Chọn phương thức nạp Thẻ cào/ Chọn loại thẻ Scoin và điền mã Thẻ và số serial đã copy ở trên.</dd>
+							<dd> <img src={nap_voucher_scoin} class="img-fluid" alt="" /></dd>
+
+						</dl> 
+						
+					</div>
+					{/* <!--End Modal body --> */}
+					</div>
+				</div>			
 			</div>
 
 

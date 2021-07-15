@@ -40,7 +40,7 @@ import vip_bachkim from './images/vip-bachkim.png';
 import vip_vang from './images/vip-vang.png';
 import vip_bac from './images/vip-bac.png';
 import vip_dong from './images/vip-dong.png';
-
+import btn_nap_scoin from './images/btn-nap-scoin.png';
 
 import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
@@ -536,7 +536,6 @@ class Lucky_Rotation extends React.Component {
 			_this.setState({dartFlightImg:dartFlightImg})
 		};
 		dartFlight.src = dart_player;
-		
 	}
 
 	getDealtal=(xpos,ypos)=>{
@@ -849,8 +848,31 @@ class Lucky_Rotation extends React.Component {
 							<div class="modal-content bg-transparent border-0">
 
 							<div class="modal-body border-0">
-								<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">Bạn đã hết tiêu</h2>
-								<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn đã hết Phi Tiêu.</h2>
+								<p class="font-size-16 font-weight-bold text-uppercase text-center"> Vui lòng nạp thêm Scoin để nhận Phi Tiêu và tiếp tục chơi.</p>
+								<p class="text-center"><a href="https://scoin.vn/" title="Nạp Scoin" target="_blank"><img src={btn_nap_scoin} width="100" hspace="10" alt="" /></a><a title="Thoát" onClick={this.exit}><img src={btn_thoat} width="100" alt="" /></a></p>
+							</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="modal" id="myModalchucmung">
+						<div class="modal-dialog">
+							<div class="modal-content bg-transparent border-0">
+
+							{/* <!-- Modal body --> */}
+							<div class="modal-body bg-chucmung justify-content-center">
+								<div class="card bg-transparent border-0">
+								<div class="card-body content-chucmung mx-auto">
+									<div class="text-chucmung text-center">
+										<span class="text-shadow font-weight-bold">Bạn đã đoạt giải Săn Quà</span>
+									</div>
+									<p class="small pt-2 mb-2 text-center text-shadow font-size-14">(Phần thưởng đã được chuyển vào tủ đồ sự kiện)</p>
+									<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14" data-dismiss="modal">Xác nhận</button>
+								</div>
+								</div>
+								
 							</div>
 
 							</div>
