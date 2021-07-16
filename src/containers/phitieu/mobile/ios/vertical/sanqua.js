@@ -56,7 +56,7 @@ const styles = {
 	},
 };
 
-var startX=370, endX=587, startY=170, endY=387;
+var startX=190, endX=485, startY=368, endY=665;
 var img_w=682;
 var img_h=1280
 var award_open=true;
@@ -939,7 +939,7 @@ class Lucky_Rotation extends React.Component {
 		darthVaderImg.hide();
 		setTimeout(()=>{
 			_this.setState({isPlay:true})
-		}, 1500);
+		}, 1800);
 	}
 
 
@@ -1146,7 +1146,7 @@ class Lucky_Rotation extends React.Component {
 			var x=this.getRandomInt(startX, endX);
 			var y=this.getRandomInt(startY, endY);
 			if(!isChangetab){
-				this.draw(x,y+heightFrame/2);
+				this.draw(x,0,y+heightFrame/2,0);
 			}
 			this.fireDart(x, y + 12)
 		}else{

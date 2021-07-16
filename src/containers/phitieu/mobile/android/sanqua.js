@@ -1188,7 +1188,7 @@ class Lucky_Rotation extends React.Component {
 			var x=this.getRandomInt(startX, endX);
 			var y=this.getRandomInt(startY, endY);
 			if(!isChangetab){
-				this.draw(x,y+heightFrame/2);
+				this.draw(x,0,y+heightFrame/2,0);
 			}
 			this.fireDart(x, y + 12)
 		}else{
