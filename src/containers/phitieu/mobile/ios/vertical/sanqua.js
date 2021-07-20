@@ -204,7 +204,6 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
-		$('#myModalchucmung').modal('show');
 		console.log('width:', width)
 		console.log('height:', height)
 		const {vertical, mg_left}=this.state;
