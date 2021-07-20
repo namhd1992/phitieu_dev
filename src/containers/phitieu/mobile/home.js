@@ -824,13 +824,13 @@ class Lucky_Rotation extends React.Component {
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 
-						<div class="modal-body border-0 py-0 my-0 px-3 scroll-modal-body_m fixed-height_m">
+						<div class="modal-body border-0 py-0 my-0 px-3 scroll-modal-body_m">
 							<ul class="nav nav-pills_m nav-justified mx-auto">
 								<li class="nav-item">
-									<a class="nav-link_m py-0" onClick={()=>this.getDataTuDo(user)}><img src={tab_tudo ? btn_phanthuong_active: btn_phanthuong} width="100%" hspace="5" id="image-3" /></a>
+									<a class="nav-link_m py-0" onClick={()=>this.getDataTuDo(user)}><img src={tab_tudo ? btn_phanthuong_active: btn_phanthuong} width="60%" hspace="5" id="image-3" /></a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link_m py-0" onClick={()=>this.getHistory(user)}><img src={tab_tudo ? btn_lichsu : btn_lichsu_active} width="100%" hspace="5" id="image-4" /></a>
+									<a class="nav-link_m py-0" onClick={()=>this.getHistory(user)}><img src={tab_tudo ? btn_lichsu : btn_lichsu_active} width="60%" hspace="5" id="image-4" /></a>
 								</li>
 							</ul>   
 							<div class="tab-content">
@@ -925,7 +925,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 
 					{/* <!-- Modal body --> */}
-					<div class="modal-body border-0 py-0 mb-2 mt-3 px-3 scroll-modal-body">
+					<div class="modal-body border-0 py-0 mb-2 mt-3 px-3 scroll-modal-body_m">
 						<h4 class="font-size-3vw_m font-weight-bold">1. Cách thức tham gia</h4>
 						<dl class="font-size-3vw_m">
 							<dt>- Đối tượng tham gia:</dt>
