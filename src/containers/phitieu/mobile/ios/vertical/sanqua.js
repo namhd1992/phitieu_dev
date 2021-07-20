@@ -42,7 +42,9 @@ import vip_bac from '../../images/vip-bac.png';
 import vip_dong from '../../images/vip-dong.png';
 import rotate from '../../images/rotate.png';
 
-import bg_page_sanqua from '../../images/bg_sanqua_dung.jpg';
+import btn_nap_scoin from '../../images/btn-nap-scoin.png';
+
+import bg_page_sanqua from '../../images/bg_sanqua_dung.png';
 
 
 
@@ -56,9 +58,9 @@ const styles = {
 	},
 };
 
-var startX=190, endX=485, startY=368, endY=665;
-var img_w=682;
-var img_h=1280
+var startX=300, endX=828, startY=640, endY=1168;
+var img_w=960;
+var img_h=1800
 var award_open=true;
 var n=0;
 var animId;
@@ -76,12 +78,12 @@ var heightFrame = spriteHeight;
 var srcX=0; 
 var srcY=0; 
 
-var Dart_Center_X=338;
-var Dart_Center_Y=518;
+var Dart_Center_X=565;
+var Dart_Center_Y=900;
 var radius=108;
 
 var SEGMENT_SIZE = Math.PI/10.0;
-var SEGMENTS = [6, 16, 78, 90, 136, 148];
+var SEGMENTS = [17, 27, 143, 163, 243, 263];
 var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
 var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
 
@@ -150,7 +152,7 @@ class Lucky_Rotation extends React.Component {
 			isPlay:true,
 			msg:'',
 			isChangetab:false,
-			horizontal:false,
+			vertical:false,
 			bgGameImg:{},
 			rect_timing:{},
 			username:{}, 
@@ -158,7 +160,8 @@ class Lucky_Rotation extends React.Component {
 			tg_conlai: {}, 
 			txt_points:{},
 			list_top_user:[],
-			none_multi:false
+			none_multi:false,
+			mg_left:0
 		};
 	}
 	componentWillMount(){
@@ -168,18 +171,29 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth});
-		// if(window.innerWidth < window.innerHeight){
-		// 	this.setState({horizontal: false})
-		// }else{
-		// 	this.setState({horizontal: true})
-		// }
 		var delta=window.innerWidth/img_w;
+		if(height/width < 2){
+			this.setState({mg_left:10});
+			Dart_Center_X=(Dart_Center_X + 10)*delta;
+			Dart_Center_Y=(Dart_Center_Y - 18)*delta;
+		}else{
+
+			Dart_Center_X=Dart_Center_X*delta;
+			Dart_Center_Y=Dart_Center_Y*delta;
+		}
+		if(window.innerWidth > window.innerHeight){
+			this.setState({vertical: false})
+		}else{
+			this.setState({vertical: true})
+		}
+		
+		
 		startX=startX*delta;
 		endX=endX*delta;
 		startY=startY*delta;
 		endY=endY*delta;
-		Dart_Center_X=Dart_Center_X*delta;
-		Dart_Center_Y=Dart_Center_Y*delta;
+		
+		
 		SEGMENTS=SEGMENTS.map(v => {
 			return v*delta
 		})
@@ -190,7 +204,10 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
-		const {horizontal}=this.state;
+		$('#myModalchucmung').modal('show');
+		console.log('width:', width)
+		console.log('height:', height)
+		const {vertical, mg_left}=this.state;
 		var deltal_img=img_w/img_h;
 		var deltal_device=width/height;
 		var bg_x=0, bg_y=0;
@@ -198,14 +215,15 @@ class Lucky_Rotation extends React.Component {
 		var user = JSON.parse(localStorage.getItem("user"));
 
 		// this.toggleFullScreen();
-		if(width/height > 2){
-			bg_x=width;
-			bg_y=height*deltal_img/deltal_device;
-		}else{
+		if(height/width > 2){
 			bg_x=width;
 			bg_y=height*deltal_device/deltal_img;
+		}else{
+			bg_y=height;
+			bg_x=width*deltal_img/deltal_device;
 		}
 		width_bgImg=bg_y;
+		if(vertical){
 			var stage = new Konva.Stage({
 				container: 'canvas',
 				width: width,
@@ -237,7 +255,7 @@ class Lucky_Rotation extends React.Component {
 			bggame.onload = function () {
 				var bgGameImg = new Konva.Image({
 					image: bggame,
-					x: 0,
+					x: mg_left,
 					y: 0,
 					width: bg_x,
 					height: bg_y,
@@ -255,7 +273,7 @@ class Lucky_Rotation extends React.Component {
 				var timingImg = new Konva.Image({
 					image: timing,
 					x: bg_x*0.37,
-					y: 5,
+					y: bg_y*0.17,
 					width: 25,
 					height: 25,
 					});
@@ -270,8 +288,8 @@ class Lucky_Rotation extends React.Component {
 			bg_timing.onload = function () {
 				var rect_bg_timing = new Konva.Image({
 					image: bg_timing,
-					x: bg_x*0.41,
-					y: 5,
+					x: bg_x*0.43,
+					y: bg_y*0.165,
 					width: 110,
 					height: 6,
 					});
@@ -284,17 +302,17 @@ class Lucky_Rotation extends React.Component {
 
 
 			var rect_timing = new Konva.Rect({
-				x: bg_x*0.41,
-				y: 5,
+				x: bg_x*0.43,
+				y: bg_y*0.165,
 				width: 110,
-				height: 6,
+				height: 5.5,
 				fill: 'yellow',
 				shadowBlur: 10,
 				cornerRadius: 10,
 			});
 
 			var username = new Konva.Text({
-				x: bg_x*0.65,
+				x: bg_x*0.63,
 				y: 5,
 				text:user.Username,
 				fontSize: 13,
@@ -306,7 +324,7 @@ class Lucky_Rotation extends React.Component {
 
 
 			 var vip_level = new Konva.Text({
-				x: bg_x*0.65,
+				x: bg_x*0.63,
 				y: 20,
 				text:this.getLevelUser(user),
 				fontSize: 12,
@@ -318,45 +336,45 @@ class Lucky_Rotation extends React.Component {
 
 			var tg_conlai = new Konva.Text({
 				x: bg_x*0.40,
-				y: bg_y*0.02,
+				y: bg_y*0.17,
 				text:"Còn: 0h : 0p : 0s",
 				fontSize: 14,
 				fontFamily: 'Calibri',
-				fill: 'yellow',
+				fill: '#4a2101',
 				width: 300,
 				padding: 10,
 				align: 'left',
 			 });
 
 			 var tieuconlai = new Konva.Text({
-				x: bg_x*0.41,
-				y: bg_y*0.10,
+				x: bg_x*0.08,
+				y: bg_y*0.23,
 				text:"Số phi tiêu còn lại: 0",
 				fontSize: 14,
 				fontFamily: 'Calibri',
-				fill: 'yellow',
+				fill: '#4a2101',
 				width: 380,
 				padding: 10,
-				align: 'left',
+				align: 'center',
 			 });
 
-			 var giaithuong = new Konva.Text({
-				x: bg_x*0.35,
-				y: bg_y*0.15,
-				text:"Nhanh tay giật giải IP12 trị giá 50 củ",
-				fontSize: 14,
-				fontFamily: 'Calibri',
-				fill: 'yellow',
-				width: 380,
-				padding: 10,
-				align: 'left',
-			 });
+			//  var giaithuong = new Konva.Text({
+			// 	x: bg_x*0.35,
+			// 	y: bg_y*0.15,
+			// 	text:"Nhanh tay giật giải IP12 trị giá 50 củ",
+			// 	fontSize: 14,
+			// 	fontFamily: 'Calibri',
+			// 	fill: 'yellow',
+			// 	width: 380,
+			// 	padding: 10,
+			// 	align: 'left',
+			//  });
 
 
 
 			var auto_text = new Konva.Text({
 				x: 35,
-				y: bg_y*0.90,
+				y: bg_y*0.855,
 				text: "PHÓNG TIÊU TỰ ĐỘNG",
 				fontSize: 15,
 				fontStyle:"bold",
@@ -367,8 +385,8 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var tong_diem = new Konva.Text({
-				x: bg_x*0.1,
-				y: bg_y*0.55,
+				x: bg_x*0.15,
+				y: bg_y*0.685,
 				text: "TỔNG ĐIỂM",
 				fontSize: 15,
 				fontStyle:"bold",
@@ -381,8 +399,8 @@ class Lucky_Rotation extends React.Component {
 			
 
 			var txt_points = new Konva.Text({
-				x: bg_x*0.1,
-				y: bg_y*0.65,
+				x: bg_x*0.15,
+				y: bg_y*0.74,
 				text: "0000",
 				fontSize: 16,
 				fontFamily: 'Calibri',
@@ -393,8 +411,8 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var ds_top = new Konva.Text({
-				x: bg_x*0.71,
-				y: bg_y*0.27,
+				x: bg_x*0.52,
+				y: bg_y*0.69,
 				text:"DANH SÁCH TOP",
 				fontSize: 15,
 				fontFamily: 'Calibri',
@@ -406,8 +424,8 @@ class Lucky_Rotation extends React.Component {
 
 
 			var top_1 = new Konva.Text({
-				x: bg_x*0.71,
-				y: bg_y*0.36,
+				x: bg_x*0.53,
+				y: bg_y*0.735,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -418,8 +436,8 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_2 = new Konva.Text({
-				x: bg_x*0.705,
-				y: bg_y*0.41,
+				x: bg_x*0.53,
+				y: bg_y*0.755,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -430,8 +448,8 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_3 = new Konva.Text({
-				x: bg_x*0.705,
-				y: bg_y*0.46,
+				x: bg_x*0.53,
+				y: bg_y*0.775,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -442,8 +460,8 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_4 = new Konva.Text({
-				x: bg_x*0.705,
-				y: bg_y*0.51,
+				x: bg_x*0.53,
+				y: bg_y*0.795,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -454,8 +472,8 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_5 = new Konva.Text({
-				x: bg_x*0.705,
-				y: bg_y*0.56,
+				x: bg_x*0.53,
+				y: bg_y*0.815,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -466,8 +484,8 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_6 = new Konva.Text({
-				x: bg_x*0.705,
-				y: bg_y*0.61,
+				x: bg_x*0.53,
+				y: bg_y*0.835,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -478,8 +496,8 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_7 = new Konva.Text({
-				x: bg_x*0.705,
-				y: bg_y*0.66,
+				x: bg_x*0.53,
+				y: bg_y*0.855,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -491,8 +509,8 @@ class Lucky_Rotation extends React.Component {
 
 
 			var top_8 = new Konva.Text({
-				x: bg_x*0.705,
-				y: bg_y*0.71,
+				x: bg_x*0.53,
+				y: bg_y*0.875,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -503,8 +521,8 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_9 = new Konva.Text({
-				x: bg_x*0.705,
-				y: bg_y*0.76,
+				x: bg_x*0.53,
+				y: bg_y*0.895,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -515,8 +533,8 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_10 = new Konva.Text({
-				x: bg_x*0.705,
-				y: bg_y*0.81,
+				x: bg_x*0.53,
+				y: bg_y*0.915,
 				text:"",
 				fontSize: 11,
 				fontFamily: 'Calibri',
@@ -526,7 +544,7 @@ class Lucky_Rotation extends React.Component {
 				align: 'left',
 			});
 
-			layer.add(giaithuong)
+			// layer.add(giaithuong)
 			layer.add(tieuconlai)
 			layer.add(rect_timing);
 			layer.add(username);
@@ -619,9 +637,7 @@ class Lucky_Rotation extends React.Component {
 				_this.setState({FullImg:FullImg})
 			};
 			btnFullScreen.src = btn_fullscreen;
-
-
-
+		}
 		
 		this.setState({user:user})
 
@@ -698,7 +714,6 @@ class Lucky_Rotation extends React.Component {
 		var name=data.Username + ' '.repeat(5+ (14-data.Username.length)*2)
 		var str=name+data.Points;
 		return str;
-
 	}
 
 	logoutAction = () => {
@@ -1027,7 +1042,7 @@ class Lucky_Rotation extends React.Component {
 			x=this.getRandomInt(50, -50)
 			y=this.getRandomInt(50, -50)
 		}
-		return [x,y];
+		return [0,0];
 	}
 
 	fireDart=(tarX, tarY)=> {
@@ -1099,7 +1114,15 @@ class Lucky_Rotation extends React.Component {
 					if(data.Darts===0){
 						$('#ThongBao').modal('show');
 					}
+					if(data.Points===0){
+						console.log('AAAAAAAAAA')
+						$('#myModalchucmung').modal('show');
+					}
 					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
+
+					setTimeout(()=>{
+						tieuconlai.text(`Nhanh tay giật giải IP12 trị giá 50 triệu`)
+					}, 5000);
 					txt_points.text(data.Points)
 					var list_top=data.TopList;
 					for (let i = 0; i < list_top.length; i++) {
@@ -1164,12 +1187,12 @@ class Lucky_Rotation extends React.Component {
 		
 		var score=totalScore>9?totalScore:'0'+totalScore;
 		const {layer, stage}=this.state;
-		var newH=stage.height() / 2;
+		var newH=stage.height() / 2-60;
 		var size=25;
 	
 		var score_text = new Konva.Text({
-			x: stage.width() / 2 -15,
-			y: stage.height() / 2,
+			x: stage.width() / 2 +30,
+			y: stage.height() / 2 -60,
 			text: score,
 			fontSize: size,
 			fontFamily: 'Calibri',
@@ -1205,7 +1228,7 @@ class Lucky_Rotation extends React.Component {
 	
 		var text_warning = new Konva.Text({
 			x: stage.width() / 2 -100,
-			y: stage.height() / 2,
+			y: stage.height() / 2 -100,
 			text: "Vuốt lên để phi tiêu!",
 			fontSize: 25,
 			fontFamily: 'Calibri',
@@ -1230,28 +1253,28 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {msg, user, image, horizontal, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
+		const {msg, user, image, vertical, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
 
-		// if(!horizontal){
-		// 	return (
-		// 		<div>
-		// 			<img src={rotate} width="100%" alt="" />
-		// 		</div>
-		// 	)
-		// }
+		if(!vertical){
+			return (
+				<div style={{top:"45%"}}>
+					<p style={{textAlign:'center'}}>Xoay dọc để chơi nhé.</p>
+				</div>
+			)
+		}
 
 		return (
-				<div id="game" style={{backgroundColor:'black'}}>
+				<div id="game" style={{backgroundColor:'#000000'}}>
 						{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999, backgroundColor:'black'}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999, backgroundColor:'black'}} onTouchStart={(e) =>this.touchStart(e)} onTouchEnd={(e)=>this.touchEnd(e)} onTouchMove={(e)=>this.touchMove(e)}></div>)}
-						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
-						<div id="div_exit" style={{position:'absolute', top:0, left:"87%", zIndex:999999}} onTouchStart={this.exit}></div>
+						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.85, left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
+						<div id="div_exit" style={{position:'absolute', top:40, left:"72%", zIndex:999999}} onTouchStart={this.exit}></div>
 
 						<div class="modal fade" id="Modalnone" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
 							<div class="modal-dialog modal-dangnhap">
 								<div class="modal-content bg-transparent border-0">
 
 								<div class="modal-body border-0">
-									<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+									<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{msg}</h2>
 									<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
 								</div>
 
@@ -1266,13 +1289,38 @@ class Lucky_Rotation extends React.Component {
 								<div class="modal-content bg-transparent border-0">
 
 								<div class="modal-body border-0">
-									<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn đã hết tiêu</h2>
-									<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+									<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">Bạn đã hết Phi Tiêu.</h2>
+									<p class="font-size-14 font-weight-bold text-uppercase text-center" style={{marginBottom:10}}> Vui lòng nạp thêm Scoin để nhận Phi Tiêu và tiếp tục chơi.</p>
+									<p class="text-center"><a href="https://scoin.vn/" title="Nạp Scoin" target="_blank"><img src={btn_nap_scoin} width="30%" hspace="10" alt="" /></a><a href="#" title="Thoát"><img src="images/btn-thoat.png" width="30%" alt="" /></a></p>
 								</div>
 
 								</div>
 							</div>
 						</div>
+
+						{/* <!-- The Modal Thông báo chúc mừng--> */}
+						<div class="modal" id="myModalchucmung" style={{zIndex:9999999}}>
+							<div class="modal-dialog">
+								<div class="modal-content bg-transparent border-0">
+
+								{/* <!-- Modal body --> */}
+								<div class="modal-body bg-chucmung_m justify-content-center">
+									<div class="card bg-transparent border-0">
+									<div class="card-body content-chucmung_m mx-auto">
+										<div class="text-chucmung_m text-center">
+											<span class="text-shadow font-weight-bold font-size-18_m">Bạn đã đoạt giải Săn Quà</span>
+										</div>
+										<p class="pt-2 mb-2 text-center text-shadow" style={{fontSize:14}}>(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /></p>
+										<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14_m" data-dismiss="modal">Xác nhận</button>
+									</div>
+									</div>
+									
+								</div>
+
+								</div>
+							</div>
+						</div>
+					
 						
 						
 				</div>

@@ -631,6 +631,9 @@ class Lucky_Rotation extends React.Component {
 					if(data.Darts===0){
 						$('#ThongBao').modal('show');
 					}
+					if(data.Points===0){
+						$('#myModalchucmung').modal('show');
+					}
 					this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
 				}else if(data.Status===2){
 					this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
@@ -868,7 +871,7 @@ class Lucky_Rotation extends React.Component {
 									<div class="text-chucmung text-center">
 										<span class="text-shadow font-weight-bold">Bạn đã đoạt giải Săn Quà</span>
 									</div>
-									<p class="small pt-2 mb-2 text-center text-shadow font-size-14">(Phần thưởng đã được chuyển vào tủ đồ sự kiện)</p>
+									<p class="pt-2 mb-2 text-center text-shadow" style={{fontSize:14}}>(Phần thưởng đã được chuyển vào tủ đồ sự kiện)</p>
 									<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14" data-dismiss="modal">Xác nhận</button>
 								</div>
 								</div>

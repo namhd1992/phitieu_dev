@@ -43,6 +43,7 @@ import vip_dong from '../images/vip-dong.png';
 import rotate from '../images/rotate.png';
 
 import bg_page_sanqua from '../images/bg-page-sanqua.png';
+import btn_nap_scoin from '../images/btn-nap-scoin.png';
 
 
 
@@ -330,28 +331,28 @@ class Lucky_Rotation extends React.Component {
 			 });
 
 			 var tieuconlai = new Konva.Text({
-				x: bg_x*0.41,
-				y: bg_y*0.10,
+				x: bg_x*0.34,
+				y: bg_y*0.14,
 				text:"Số phi tiêu còn lại: 0",
 				fontSize: 14,
 				fontFamily: 'Calibri',
 				fill: 'yellow',
-				width: 380,
+				width: 250,
 				padding: 10,
-				align: 'left',
+				align: 'center',
 			 });
 
-			 var giaithuong = new Konva.Text({
-				x: bg_x*0.35,
-				y: bg_y*0.15,
-				text:"Nhanh tay giật giải IP12 trị giá 50 củ",
-				fontSize: 14,
-				fontFamily: 'Calibri',
-				fill: 'yellow',
-				width: 380,
-				padding: 10,
-				align: 'left',
-			 });
+			//  var giaithuong = new Konva.Text({
+			// 	x: bg_x*0.35,
+			// 	y: bg_y*0.15,
+			// 	text:"Nhanh tay giật giải IP12 trị giá 50 củ",
+			// 	fontSize: 14,
+			// 	fontFamily: 'Calibri',
+			// 	fill: 'yellow',
+			// 	width: 380,
+			// 	padding: 10,
+			// 	align: 'left',
+			//  });
 
 
 
@@ -527,7 +528,7 @@ class Lucky_Rotation extends React.Component {
 				align: 'left',
 			});
 
-			layer.add(giaithuong)
+			// layer.add(giaithuong)
 			layer.add(tieuconlai)
 			layer.add(rect_timing);
 			layer.add(username);
@@ -1136,7 +1137,14 @@ class Lucky_Rotation extends React.Component {
 					if(data.Darts===0){
 						$('#ThongBao').modal('show');
 					}
-					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
+
+					if(data.Points===0){
+						$('#myModalchucmung').modal('show');
+					}
+					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`);
+					setTimeout(()=>{
+						tieuconlai.text(`Nhanh tay giật giải IP12 trị giá 50 triệu`)
+					}, 5000);
 					txt_points.text(data.Points)
 					var list_top=data.TopList;
 					for (let i = 0; i < list_top.length; i++) {
@@ -1303,13 +1311,38 @@ class Lucky_Rotation extends React.Component {
 								<div class="modal-content bg-transparent border-0">
 
 								<div class="modal-body border-0">
-									<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn đã hết tiêu</h2>
-									<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+									<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn đã hết Phi Tiêu.</h2>
+									<p class="font-size-14 pt-1 font-weight-bold text-uppercase text-center"> Vui lòng nạp thêm Scoin để nhận Phi Tiêu và tiếp tục chơi.</p>
+									<p class="text-center"><a href="https://scoin.vn/" title="Nạp Scoin" target="_blank"><img src={btn_nap_scoin} width="30%" hspace="10" alt="" /></a><a href="#" title="Thoát"><img src="images/btn-thoat.png" width="30%" alt="" /></a></p>
 								</div>
 
 								</div>
 							</div>
 						</div>
+
+						{/* <!-- The Modal Thông báo chúc mừng--> */}
+						<div class="modal" id="myModalchucmung" style={{zIndex:9999999}}>
+							<div class="modal-dialog">
+								<div class="modal-content bg-transparent border-0">
+
+								{/* <!-- Modal body --> */}
+								<div class="modal-body bg-chucmung_m justify-content-center">
+									<div class="card bg-transparent border-0">
+									<div class="card-body content-chucmung_m mx-auto">
+										<div class="text-chucmung_m text-center">
+											<span class="text-shadow font-weight-bold font-size-18_m">Bạn đã đoạt giải Săn Quà</span>
+										</div>
+										<p class="pt-2 mb-2 text-center text-shadow" style={{fontSize:14}}>(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /></p>
+										<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14_m" data-dismiss="modal">Xác nhận</button>
+									</div>
+									</div>
+									
+								</div>
+
+								</div>
+							</div>
+						</div>
+					
 						
 						
 				</div>

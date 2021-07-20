@@ -166,6 +166,7 @@ class Lucky_Rotation extends React.Component {
 	}
 	componentWillMount(){
 		console.log(document.fullscreenElement)
+		
 		this.onResize();
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.addEventListener("visibilitychange", this.visibilityChange);
@@ -192,6 +193,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
+		
 		const {horizontal}=this.state;
 		var deltal_img=img_w/img_h;
 		var deltal_device=width/height;
@@ -1138,6 +1140,9 @@ class Lucky_Rotation extends React.Component {
 					if(data.Darts===0){
 						$('#ThongBao').modal('show');
 					}
+					if(data.Points===0){
+						$('#myModalchucmung').modal('show');
+					}
 					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
 					setTimeout(()=>{
 						tieuconlai.text(`Nhanh tay giật giải IP12 trị giá 50 triệu`)
@@ -1338,7 +1343,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 
 					{/* <!-- The Modal Thông báo chúc mừng--> */}
-					<div class="modal" id="myModalchucmung">
+					<div class="modal" id="myModalchucmung" style={{zIndex:9999999}}>
 						<div class="modal-dialog">
 							<div class="modal-content bg-transparent border-0">
 
@@ -1349,7 +1354,7 @@ class Lucky_Rotation extends React.Component {
 									<div class="text-chucmung_m text-center">
 										<span class="text-shadow font-weight-bold font-size-18_m">Bạn đã đoạt giải Săn Quà</span>
 									</div>
-									<p class="small pt-2 mb-2 text-center text-shadow font-size-14_m">(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /></p>
+									<p class="pt-2 mb-2 text-center text-shadow" style={{fontSize:14}}>(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /></p>
 									<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14_m" data-dismiss="modal">Xác nhận</button>
 								</div>
 								</div>
