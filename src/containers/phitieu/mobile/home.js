@@ -818,13 +818,13 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Tu do--> */}
 			<div class="modal fade" id="Modaltudo">
-				<div class="modal-dialog modal-tudo_m">
+				<div class="modal-dialog modal-tudo_m  modal-dialog-scrollable">
 					<div class="modal-content bg-transparent border-0">
 						<div class="modal-header border-0 p-0 text-dark">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 
-						<div class="modal-body border-0 py-0 my-0 px-3 scroll-modal-body_m">
+						<div class="modal-body border-0 py-0 my-0 px-3 scroll-modal-body_m fixed-height_m">
 							<ul class="nav nav-pills_m nav-justified mx-auto">
 								<li class="nav-item">
 									<a class="nav-link_m py-0" onClick={()=>this.getDataTuDo(user)}><img src={tab_tudo ? btn_phanthuong_active: btn_phanthuong} width="100%" hspace="5" id="image-3" /></a>
@@ -916,7 +916,7 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Huong Dan--> */}
 			<div class="modal fade" id="Modalhuongdan">
-				<div class="modal-dialog modal-giaithuong modal-dialog-scrollable">
+				<div class="modal-dialog modal-giaithuong_m modal-dialog-scrollable">
 					<div class="modal-content bg-transparent border-0">
 
 					{/* <!-- Modal Header --> */}
@@ -926,8 +926,8 @@ class Lucky_Rotation extends React.Component {
 
 					{/* <!-- Modal body --> */}
 					<div class="modal-body border-0 py-0 mb-2 mt-3 px-3 scroll-modal-body">
-						<h4 class="font-size-3vw font-weight-bold">1. Cách thức tham gia</h4>
-						<dl class="font-size-3vw">
+						<h4 class="font-size-3vw_m font-weight-bold">1. Cách thức tham gia</h4>
+						<dl class="font-size-3vw_m">
 							<dt>- Đối tượng tham gia:</dt>
 							<dd> &bull; Toàn bộ khách hàng đã active tài khoản khách hàng VIP.</dd>
 							<dd> &bull; Nếu chưa là khách hàng VIP, bạn vui lòng thực hiện active và trở thành VIP <a class="text-primary" href="https://vip.scoin.vn/" title="Active VIP" target="_blank">tại đây</a></dd>
@@ -1036,8 +1036,8 @@ class Lucky_Rotation extends React.Component {
 							<dd> <img src={vong_tron_ngoai} class="img-fluid" alt="" /></dd>
 							<dd> <img src={vong_tron_trong} class="img-fluid" alt="" /></dd>
 						</dl> 
-						<h4 class="font-size-3vw font-weight-bold">2. Săn quà</h4>
-						<dl class="font-size-3vw">
+						<h4 class="font-size-3vw_m font-weight-bold">2. Săn quà</h4>
+						<dl class="font-size-3vw_m">
 							<dd>- Thời gian của phiên <strong>Săn quà</strong> diễn ra trong 1 ngày và giải thưởng của phiên đó được cập nhật liên tục tại <a href="#Modalgiaithuong" title="Giải thưởng" data-toggle="modal" data-dismiss="modal">Giải thưởng</a></dd>
 							<dd>- Trong thời gian diễn ra Phiên săn quà, người chơi chọn Chế độ <strong>Săn quà</strong> tại Trang chủ để tham gia.</dd>
 							<dd>- Mỗi tài khoản có số điểm mặc định ban đầu là <strong>501 điểm</strong>.</dd>
@@ -1046,8 +1046,8 @@ class Lucky_Rotation extends React.Component {
 							<dd>- Trường hợp có nhiều tài khoản cùng đưa được điểm về 0 tại cùng thời điểm, giải thưởng sẽ được chia đều cho các tài khoản.</dd>
 							<dd>- Trường hợp trong thời gian quy định, không có người chơi nào đưa được điểm về 0, người thắng cuộc là người có số điểm còn lại ít nhất.</dd>           
 						</dl>
-						<h4 class="font-size-3vw font-weight-bold">3. Đua TOP</h4>
-						<dl class="font-size-3vw">
+						<h4 class="font-size-3vw_m font-weight-bold">3. Đua TOP</h4>
+						<dl class="font-size-3vw_m">
 							<dd>- Trong thời gian diễn ra Phiên Đua top, người chơi chọn Chế độ <strong>Đua top</strong> tại Trang chủ để tham gia.</dd>
 							<dd>- Mỗi tài khoản có số điểm mặc định ban đầu là <strong>0 điểm</strong>.</dd>
 							<dd>- Người chơi sử dụng số Phi tiêu mình có để ném vào bảng, số điểm nhận được sau mỗi lần ném sẽ được cộng dồn vào tổng điểm đang có.</dd>
@@ -1055,8 +1055,8 @@ class Lucky_Rotation extends React.Component {
 							<dd>- Trường hợp nhiều người chơi có tổng điểm cao nhất bằng nhau, người thắng cuộc là người có số lượt ném Phi tiêu nhiều nhất.</dd>
 							<dd>- Trường hợp nhiều người chơi có tổng điểm cao nhất bằng nhau và số lượt ném phi tiêu bằng nhau, giải thưởng được chia đều cho các tài khoản.</dd>         
 						</dl>
-						<h4 class="font-size-3vw font-weight-bold">4. Hướng dẫn sử dụng giải thưởng</h4>
-						<dl class="font-size-3vw">
+						<h4 class="font-size-3vw_m font-weight-bold">4. Hướng dẫn sử dụng giải thưởng</h4>
+						<dl class="font-size-3vw_m">
 							<dt>- Voucher Scoin:</dt>
 							<dd> &bull; Khách hàng truy cập <strong>Tủ đồ</strong>, chọn <strong>Phần thưởng</strong>, chọn giải thưởng <strong>Thẻ voucher Scoin</strong> và click <span class="text-primary">Mở</span>.</dd>
 							<dd> <img src={voucher_scoin} class="img-fluid" alt="" /></dd>

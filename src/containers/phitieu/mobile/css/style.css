@@ -39,12 +39,14 @@ html {scroll-behavior: smooth; font-size: 26px; font-family: Arial, Helvetica, s
 .toplist-account_m {position: absolute; right: 9vw; top: 15vw; width: 18.6%;}
 .text-elipsis-toplist-account_m {width: 100%; overflow: hidden; white-space:nowrap; text-overflow: ellipsis;}
 .modal-dangnhap_m {background:url(../images/bg-popup-thongbao-login.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%}
-.modal-giaithuong_m {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100% !important; height: 100% !important}
+/* .modal-giaithuong_m {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100% !important; height: 100% !important} */
+.modal-giaithuong_m {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
 .text-brown_m {color: #6b5247;}
 .text-yellow_m {color: #f69310;}
 .border-giaithuong-e_m {border: solid 1px #f69310; border-radius: 8px}
 
-.scroll-modal-body_m {height: 75vw !important; overflow: auto;}
+/* .scroll-modal-body_m {height: 75vw !important; overflow: auto;} */
+.scroll-modal-body_m.fixed-height_m {height: 75vw !important; overflow: auto !important;}
 .img-dacochu_m {position: absolute; top: 30%; left: 30%}
 .modal-tudo_m {background:url(../images/bg-popup-tudo.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
 .valign-middle_m {vertical-align: middle !important;}

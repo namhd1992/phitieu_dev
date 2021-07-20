@@ -1268,17 +1268,22 @@ class Lucky_Rotation extends React.Component {
 						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.85, left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
 						<div id="div_exit" style={{position:'absolute', top:40, left:"72%", zIndex:999999}} onTouchStart={this.exit}></div>
 
+						{/* <!-- The Modal Thông báo--> */}
 						<div class="modal fade" id="Modalnone" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
-							<div class="modal-dialog modal-dangnhap">
-								<div class="modal-content bg-transparent border-0">
+						<div class="modal-dialog modal-dangnhap">
+							<div class="modal-content bg-transparent border-0">
 
-								<div class="modal-body border-0">
-									<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{msg}</h2>
-									<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
-								</div>
-
-								</div>
+							<div class="modal-header border-0 p-0 text-dark">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
+
+							<div class="modal-body border-0">
+								<h2 class="font-size-14 pt-2 font-weight-bold text-uppercase text-center">{msg}</h2>
+								<p class="text-center"><a href="dua-top"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+							</div>
+
+							</div>
+						</div>
 						</div>
 
 											
