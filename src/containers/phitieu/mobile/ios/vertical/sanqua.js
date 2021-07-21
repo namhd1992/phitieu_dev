@@ -161,7 +161,9 @@ class Lucky_Rotation extends React.Component {
 			txt_points:{},
 			list_top_user:[],
 			none_multi:false,
-			mg_left:0
+			mg_left:0,
+			delta:0,
+			height_plus:0
 		};
 	}
 	componentWillMount(){
@@ -173,16 +175,20 @@ class Lucky_Rotation extends React.Component {
 		this.setState({innerWidth:window.innerWidth});
 		var delta=window.innerWidth/img_w;
 		if(height/width < 2){
-			this.setState({mg_left:10});
+			this.setState({mg_left:10, height_plus: 22});
+		}else{
+			this.setState({height_plus: 5});
 		}
 		if(window.innerWidth > window.innerHeight){
 			this.setState({vertical: false})
 		}else{
 			this.setState({vertical: true})
 		}
+
+		this.setState({delta:delta})
 		
 		Dart_Center_X=Dart_Center_X*delta;
-			Dart_Center_Y=Dart_Center_Y*delta;
+		Dart_Center_Y=Dart_Center_Y*delta;
 		startX=startX*delta;
 		endX=endX*delta;
 		startY=startY*delta;
@@ -190,7 +196,7 @@ class Lucky_Rotation extends React.Component {
 		
 		
 		SEGMENTS=SEGMENTS.map(v => {
-			return v*delta
+			return (v-5)*delta
 		})
 		console.log('Dart_Center_X',Dart_Center_X)
 	}
@@ -920,7 +926,7 @@ class Lucky_Rotation extends React.Component {
 
 	touchEnd=(e)=>{
 		// console.log("touchEnd", e.touches)
-		const {stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart, mg_left}=this.state;
+		const {stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart, mg_left, delta,height_plus}=this.state;
 		var _this=this;
 		var arr=[];
 		if(none_multi){
@@ -932,7 +938,7 @@ class Lucky_Rotation extends React.Component {
 					if(dartPositionY >touchPos.y){
 						arr=this.getDealtal(touchPos.x, touchPos.y)
 						this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
-						this.fireDart(touchPos.x + arr[0] -1, touchPos.y-heightFrame/2 + 5 + arr[1])
+						this.fireDart(touchPos.x + arr[0] -1, touchPos.y-heightFrame/2 +  arr[1] + height_plus)
 					}else{
 						this.showTextWarning()
 						// alert("vuốt lên để phi tiêu")
@@ -1036,7 +1042,7 @@ class Lucky_Rotation extends React.Component {
 			x=this.getRandomInt(50, -50)
 			y=this.getRandomInt(50, -50)
 		}
-		return [0,0];
+		return [x,y];
 	}
 
 	fireDart=(tarX, tarY)=> {
