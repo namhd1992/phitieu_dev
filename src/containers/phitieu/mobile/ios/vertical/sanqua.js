@@ -174,12 +174,6 @@ class Lucky_Rotation extends React.Component {
 		var delta=window.innerWidth/img_w;
 		if(height/width < 2){
 			this.setState({mg_left:10});
-			Dart_Center_X=(Dart_Center_X + 10)*delta;
-			Dart_Center_Y=(Dart_Center_Y - 18)*delta;
-		}else{
-
-			Dart_Center_X=Dart_Center_X*delta;
-			Dart_Center_Y=Dart_Center_Y*delta;
 		}
 		if(window.innerWidth > window.innerHeight){
 			this.setState({vertical: false})
@@ -187,7 +181,8 @@ class Lucky_Rotation extends React.Component {
 			this.setState({vertical: true})
 		}
 		
-		
+		Dart_Center_X=Dart_Center_X*delta;
+			Dart_Center_Y=Dart_Center_Y*delta;
 		startX=startX*delta;
 		endX=endX*delta;
 		startY=startY*delta;
@@ -925,7 +920,7 @@ class Lucky_Rotation extends React.Component {
 
 	touchEnd=(e)=>{
 		// console.log("touchEnd", e.touches)
-		const {stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart}=this.state;
+		const {stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart, mg_left}=this.state;
 		var _this=this;
 		var arr=[];
 		if(none_multi){
@@ -937,7 +932,7 @@ class Lucky_Rotation extends React.Component {
 					if(dartPositionY >touchPos.y){
 						arr=this.getDealtal(touchPos.x, touchPos.y)
 						this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
-						this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
+						this.fireDart(touchPos.x + arr[0] -1, touchPos.y-heightFrame/2 + 5 + arr[1])
 					}else{
 						this.showTextWarning()
 						// alert("vuốt lên để phi tiêu")
@@ -1107,34 +1102,34 @@ class Lucky_Rotation extends React.Component {
 
 		setTimeout(()=>{
 			this.showScore(totalScore);
-			this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
-				var data=this.props.dataUserSpin;
-				if(data.Status===0){
-					if(data.Darts===0){
-						$('#ThongBao').modal('show');
-					}
-					if(data.Points===0){
-						console.log('AAAAAAAAAA')
-						$('#myModalchucmung').modal('show');
-					}
-					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
+			// this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
+			// 	var data=this.props.dataUserSpin;
+			// 	if(data.Status===0){
+			// 		if(data.Darts===0){
+			// 			$('#ThongBao').modal('show');
+			// 		}
+			// 		if(data.Points===0){
+			// 			console.log('AAAAAAAAAA')
+			// 			$('#myModalchucmung').modal('show');
+			// 		}
+			// 		tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
 
-					setTimeout(()=>{
-						tieuconlai.text(`Nhanh tay giật giải IP12 trị giá 50 triệu`)
-					}, 5000);
-					txt_points.text(data.Points)
-					var list_top=data.TopList;
-					for (let i = 0; i < list_top.length; i++) {
-						list_top_user[i].text(this.formatText(list_top[i]))
-					}
-					this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
-				}else if(data.Status===2){
-					this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
-						$('#Modalnone').modal('show');
-					})
+			// 		setTimeout(()=>{
+			// 			tieuconlai.text(`Nhanh tay giật giải IP12 trị giá 50 triệu`)
+			// 		}, 5000);
+			// 		txt_points.text(data.Points)
+			// 		var list_top=data.TopList;
+			// 		for (let i = 0; i < list_top.length; i++) {
+			// 			list_top_user[i].text(this.formatText(list_top[i]))
+			// 		}
+			// 		this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
+			// 	}else if(data.Status===2){
+			// 		this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
+			// 			$('#Modalnone').modal('show');
+			// 		})
 					
-				}
-			})
+			// 	}
+			// })
 		}, 400);
 		
 			// console.log('AA:', totalScore)

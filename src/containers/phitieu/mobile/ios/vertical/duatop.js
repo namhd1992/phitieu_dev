@@ -174,12 +174,6 @@ class Lucky_Rotation extends React.Component {
 		var delta=window.innerWidth/img_w;
 		if(height/width < 2){
 			this.setState({mg_left:10});
-			Dart_Center_X=(Dart_Center_X + 10)*delta;
-			Dart_Center_Y=(Dart_Center_Y - 18)*delta;
-		}else{
-
-			Dart_Center_X=Dart_Center_X*delta;
-			Dart_Center_Y=Dart_Center_Y*delta;
 		}
 		if(window.innerWidth > window.innerHeight){
 			this.setState({vertical: false})
@@ -187,7 +181,8 @@ class Lucky_Rotation extends React.Component {
 			this.setState({vertical: true})
 		}
 		
-		
+		Dart_Center_X=Dart_Center_X*delta;
+		Dart_Center_Y=Dart_Center_Y*delta;
 		startX=startX*delta;
 		endX=endX*delta;
 		startY=startY*delta;
@@ -817,7 +812,7 @@ class Lucky_Rotation extends React.Component {
 					if(dartPositionY >touchPos.y){
 						arr=this.getDealtal(touchPos.x, touchPos.y)
 						this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
-						this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
+						this.fireDart(touchPos.x + arr[0] -1, touchPos.y-heightFrame/2 + 5 + arr[1])
 					}else{
 						this.showTextWarning()
 						// alert("vuốt lên để phi tiêu")
