@@ -406,7 +406,7 @@ export const getItemAward = (token, award_id) => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "luckywheel/user-get-award?award-id=" + award_id;
+		var url = Ultilities.base_url() + "darts/user-get-award?award-id=" + award_id;
 		return axios.get(url, header).then(function (response) {
 			dispatch({
 				type: ITEM_AWARD,

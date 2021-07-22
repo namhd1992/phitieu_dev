@@ -760,7 +760,7 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			{/* <!-- The Modal Thông báo lỗi--> */}
-			<div className="modal fade" id="myModal11">
+			<div className="modal fade" id="myModal11" style={{zIndex:99999}}>
 				<div class="modal-dialog modal-dangnhap">
 					<div class="modal-content bg-transparent border-0">
 					<div class="modal-header border-0 p-0 text-dark">

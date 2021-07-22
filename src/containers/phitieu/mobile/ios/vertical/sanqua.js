@@ -163,7 +163,8 @@ class Lucky_Rotation extends React.Component {
 			none_multi:false,
 			mg_left:0,
 			delta:0,
-			height_plus:0
+			height_plus:0,
+			awardsContent:""
 		};
 	}
 	componentWillMount(){
@@ -666,7 +667,7 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId})
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
 					
 					username.text(user.Username)
 					this.getLevelUser(user)
@@ -1077,7 +1078,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	generateScore=()=> {
-		const {tieuconlai, txt_points, sessionId, list_top_user}=this.state;
+		const {tieuconlai, txt_points, sessionId, list_top_user, awardsContent}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var _this=this;
 		if (SEGMENT_NAMES[segmentType] == 'out') {
@@ -1108,34 +1109,34 @@ class Lucky_Rotation extends React.Component {
 
 		setTimeout(()=>{
 			this.showScore(totalScore);
-			// this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
-			// 	var data=this.props.dataUserSpin;
-			// 	if(data.Status===0){
-			// 		if(data.Darts===0){
-			// 			$('#ThongBao').modal('show');
-			// 		}
-			// 		if(data.Points===0){
-			// 			console.log('AAAAAAAAAA')
-			// 			$('#myModalchucmung').modal('show');
-			// 		}
-			// 		tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
+			this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
+				var data=this.props.dataUserSpin;
+				if(data.Status===0){
+					if(data.Darts===0){
+						$('#ThongBao').modal('show');
+					}
+					if(data.Points===0){
+						console.log('AAAAAAAAAA')
+						$('#myModalchucmung').modal('show');
+					}
+					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
 
-			// 		setTimeout(()=>{
-			// 			tieuconlai.text(`Nhanh tay giật giải IP12 trị giá 50 triệu`)
-			// 		}, 5000);
-			// 		txt_points.text(data.Points)
-			// 		var list_top=data.TopList;
-			// 		for (let i = 0; i < list_top.length; i++) {
-			// 			list_top_user[i].text(this.formatText(list_top[i]))
-			// 		}
-			// 		this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
-			// 	}else if(data.Status===2){
-			// 		this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
-			// 			$('#Modalnone').modal('show');
-			// 		})
+					setTimeout(()=>{
+						tieuconlai.text(awardsContent)
+					}, 5000);
+					txt_points.text(data.Points)
+					var list_top=data.TopList;
+					for (let i = 0; i < list_top.length; i++) {
+						list_top_user[i].text(this.formatText(list_top[i]))
+					}
+					this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
+				}else if(data.Status===2){
+					this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
+						$('#Modalnone').modal('show');
+					})
 					
-			// 	}
-			// })
+				}
+			})
 		}, 400);
 		
 			// console.log('AA:', totalScore)
@@ -1280,7 +1281,7 @@ class Lucky_Rotation extends React.Component {
 
 							<div class="modal-body border-0">
 								<h2 class="font-size-14 pt-2 font-weight-bold text-uppercase text-center">{msg}</h2>
-								<p class="text-center"><a href="dua-top"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+								<p class="text-center"><a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
 							</div>
 
 							</div>

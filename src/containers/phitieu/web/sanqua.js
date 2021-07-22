@@ -142,7 +142,8 @@ class Lucky_Rotation extends React.Component {
 			listTop:[],
 			isPlay:true,
 			msg:'',
-			isChangetab:false
+			isChangetab:false,
+			awardsContent:""
 
 		};
 	}
@@ -282,7 +283,7 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId})
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
 					console.log(data.Data)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
@@ -759,7 +760,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {msg, user, image, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay}=this.state;
+		const {msg, user, image, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay, awardsContent}=this.state;
 
 
 		return (<div class="bg-page-sanqua position-relative">
@@ -808,7 +809,7 @@ class Lucky_Rotation extends React.Component {
 					<div class="phitieu-status marquee">
 						<div class="marquee_inner">            
 							<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Số phi tiêu còn lại: <strong>{countDart}</strong></span>		
-							<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">Nhanh tay giật giải IP12 trị giá 50 củ</span>	
+							<span class="m-0 font-size-16 font-weight-bold text-shadow pr-5">{awardsContent}</span>	
 						</div>    	
 					</div>
 					<div class="toplist-account text-center">

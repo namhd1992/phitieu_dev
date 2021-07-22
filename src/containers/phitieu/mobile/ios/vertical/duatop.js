@@ -162,7 +162,8 @@ class Lucky_Rotation extends React.Component {
 			list_top_user:[],
 			none_multi:false,
 			mg_left:0,
-			height_plus:0
+			height_plus:0,
+			awardsContent: ""
 		};
 	}
 	componentWillMount(){
@@ -546,7 +547,7 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, highestPoints:data.Data.AddInfo.HighestPoints, sessionId: data.Data.SessionId})
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, highestPoints:data.Data.AddInfo.HighestPoints, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
 					
 					username.text(user.Username)
 					this.getLevelUser(user)
@@ -954,7 +955,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	generateScore=()=> {
-		const {tieuconlai, txt_points, sessionId, hight_score}=this.state;
+		const {tieuconlai, txt_points, sessionId, hight_score, awardsContent}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var _this=this;
 		if (SEGMENT_NAMES[segmentType] == 'out') {
@@ -997,7 +998,7 @@ class Lucky_Rotation extends React.Component {
 					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
 
 					setTimeout(()=>{
-						tieuconlai.text(`Nhanh tay giật giải IP12 trị giá 50 triệu`)
+						tieuconlai.text(awardsContent)
 					}, 5000);
 					txt_points.text(data.Points)
 					hight_score.text(data.HighestPoint)
