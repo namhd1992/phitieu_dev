@@ -927,7 +927,7 @@ class Lucky_Rotation extends React.Component {
 					if(dartPositionY >touchPos.y){
 						arr=this.getDealtal(touchPos.x, touchPos.y)
 						this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
-						this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
+						this.fireDart(touchPos.x + arr[0] -1, touchPos.y-heightFrame/2 + 4 + arr[1])
 					}else{
 						this.showTextWarning()
 						// alert("vuốt lên để phi tiêu")
