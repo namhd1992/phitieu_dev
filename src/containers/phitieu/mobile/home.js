@@ -1106,7 +1106,7 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Mở quà--> */}
 			<div class="modal fade" id="Modalmoqua">
-				<div class="modal-dialog modal-moqua">
+				<div class="modal-dialog modal-moqua_m">
 					<div class="modal-content bg-transparent border-0">
 
 					<div class="modal-header border-0 p-0">
@@ -1164,7 +1164,7 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Mở quà Voucher--> */}
 			<div class="modal fade" id="Modalmoquavoucher">
-				<div class="modal-dialog modal-moqua">
+				<div class="modal-dialog modal-moqua_m">
 					<div class="modal-content bg-transparent border-0">
 
 					<div class="modal-header border-0 p-0">

@@ -15,6 +15,7 @@ import {
 	pickCard,
 	buyTurn,
 	getTuDo,
+	getMoreSessions,
 	getHistoryTuDo,
 	getCodeBonus,
 	getLuckyInfo,
@@ -161,7 +162,9 @@ class Lucky_Rotation extends React.Component {
 			list_top_user:[],
 			fullScreen:false,
 			none_multi:true,
-			awardsContent: ""
+			awardsContent: "",
+			duatop:false,
+			isLoading:true,
 
 		};
 	}
@@ -566,6 +569,7 @@ class Lucky_Rotation extends React.Component {
 				this.getLuckyInfo(1);
 			})
 		
+			this.getMoreSessions();
 
 
 			
@@ -666,7 +670,7 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points,isLoading:true, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
 					
 					username.text(user.Username)
 					vip_level.text(this.getLevelUser(user))
@@ -680,6 +684,28 @@ class Lucky_Rotation extends React.Component {
 				}else if(data.Status===2){
 					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
 					$('#Modalnone').modal('show');
+				}else if(data.Status===3){
+					this.logoutAction();
+				}else{
+					console.log("Lỗi")
+				}
+			}
+		})
+	}
+
+	getMoreSessions=()=>{
+		this.props.getMoreSessions().then(()=>{
+			var data=this.props.dataSesions;
+			if(data!==undefined){
+				if(data.Status===0){
+					var list=data.Data.filter( i => i.SessionType===2 );
+					console.log(list)
+					var pos = list.map(function(e) { return e.Status; }).indexOf(1);
+					if(pos>0){
+						this.setState({duatop:true})
+					}else{
+						this.setState({msg:"Phiên chơi đã kết thúc!"})
+					}
 				}else if(data.Status===3){
 					this.logoutAction();
 				}else{
@@ -1156,7 +1182,7 @@ class Lucky_Rotation extends React.Component {
 					}
 					this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
 				}else if(data.Status===2){
-					this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
+					this.setState({listTop:data.TopList,isLoading:false, duatop:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
 						$('#Modalnone').modal('show');
 					})
 					
@@ -1290,7 +1316,7 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {fullScreen, horizontal, auto_play, msg}=this.state;
+		const {fullScreen, horizontal, auto_play, msg, listTop, isPlay, awardsContent, duatop, isLoading}=this.state;
 
 		return (
 				<div id="game">
@@ -1322,8 +1348,15 @@ class Lucky_Rotation extends React.Component {
 							<div class="modal-content bg-transparent border-0">
 
 							<div class="modal-body border-0">
+							{(duatop)?(<div class="modal-body border-0">
 								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
-								<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+								<p class="text-center pt-1"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+							</div>):(<div class="modal-body border-0">
+								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+								{(!isLoading)?(<h2 class="font-size-16 font-weight-bold text-uppercase text-center">Giải này đã thuộc về tài khoản <span class="text-shadow">{listTop[0].Username}</span></h2>):(<div></div>)}
+								
+								<p class="text-center"> <a href="/"><img src={btn_thoat} width="120" alt="Active VIP" /></a></p>
+							</div>)}
 							</div>
 
 							</div>
@@ -1379,6 +1412,7 @@ const mapStateToProps = state => ({
 	dataProfile: state.profile.data,
 	dataLuckyInfo: state.lucky.dataLuckyInfo,
 	dataLuckyItems:state.lucky.dataLuckyItems,
+	dataSesions: state.lucky.dataSesions,
 	dataInfoUser:state.lucky.dataInfoUser,
 	dataUserSpin:state.lucky.dataUserSpin,
 	dataItemAward:state.lucky.dataItemAward,
@@ -1399,6 +1433,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getDetailData,
 	getRotationDetailData,
 	getRotationDetailDataUser,
+	getMoreSessions,
 	pickCard,
 	getInfoUser,
 	buyTurn,

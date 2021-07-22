@@ -10,6 +10,7 @@ import {
 	getDetailData,
 	getRotationDetailData,
 	getRotationDetailDataUser,
+	getMoreSessions,
 	pickCard,
 	buyTurn,
 	getTuDo,
@@ -34,7 +35,7 @@ import dart_player from './images/dart-player.png';
 import img_checkbox_none from './images/img-checkbox-none.png';
 import img_checkbox_checked from './images/img-checkbox-checked.png';
 import btn_thoat from './images/btn-thoat.png';
-import btn_duatop from './images/btn-duatop.png';
+import btn_sanqua from './images/btn-sanqua.png';
 import vip_kimcuong from './images/vip-kimcuong.png';
 import vip_bachkim from './images/vip-bachkim.png';
 import vip_vang from './images/vip-vang.png';
@@ -146,7 +147,9 @@ class Lucky_Rotation extends React.Component {
 			isPlay:true,
 			msg:'',
 			isChangetab:false,
-			awardsContent:""
+			awardsContent:"",
+			sanqua:false,
+			isLoading:true,
 
 		};
 	}
@@ -284,7 +287,7 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points: data.Data.AddInfo.Points, highestPoints:data.Data.AddInfo.HighestPoints, sessionId: data.Data.SessionId, awardsContent:data.Data.Awards})
+					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points: data.Data.AddInfo.Points,isLoading:true, highestPoints:data.Data.AddInfo.HighestPoints, sessionId: data.Data.SessionId, awardsContent:data.Data.Awards})
 					console.log(data.Data)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
@@ -297,7 +300,7 @@ class Lucky_Rotation extends React.Component {
 				}
 			}
 		})
-
+		this.getMoreSessions();
 		
 		// window.addEventListener('scroll', this.handleScroll);
 	}
@@ -313,6 +316,29 @@ class Lucky_Rotation extends React.Component {
 	componentWillUnmount() {
 		clearInterval(this.state.intervalId);
 		this.setState({ auto : !this.state.auto});
+	}
+
+
+	getMoreSessions=()=>{
+		this.props.getMoreSessions().then(()=>{
+			var data=this.props.dataSesions;
+			if(data!==undefined){
+				if(data.Status===0){
+					var list=data.Data.filter( i => i.SessionType===1 );
+					console.log(list)
+					var pos = list.map(function(e) { return e.Status; }).indexOf(1);
+					if(pos>0){
+						this.setState({sanqua:true})
+					}else{
+						this.setState({msg:"Phiên chơi đã kết thúc!"})
+					}
+				}else if(data.Status===3){
+					this.logoutAction();
+				}else{
+					console.log("Lỗi")
+				}
+			}
+		})
 	}
 
 	isConsoleOpen=()=> {
@@ -679,10 +705,12 @@ class Lucky_Rotation extends React.Component {
 				if(data.Status===0){
 					this.setState({countDart: data.Darts, points: data.Points, highestPoints:data.HighestPoint})
 				}else if(data.Status===2){
-					this.setState({highestPoints:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc'}, ()=>{
+					this.setState({highestPoints:data.Data, sanqua:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
 						$('#ModalnoneDuaTop').modal('show');
 					})
 					
+				}else if(data.Status===3){
+					this.logoutAction();
 				}
 			})
 			this.showScore(totalScore)
@@ -803,7 +831,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {msg, user, image, auto_play, timing, day, hour, minute, second, data, countDart, points, highestPoints, isPlay, awardsContent}=this.state;
+		const {msg, user, image, auto_play, timing, day, hour, minute, second, data, countDart, points, highestPoints, isPlay, awardsContent, sanqua}=this.state;
 
 
 		return (<div class="bg-page-duatop position-relative">
@@ -858,8 +886,13 @@ class Lucky_Rotation extends React.Component {
 				<div class="modal-content bg-transparent border-0">
 
 				<div class="modal-body border-0">
-					<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
-					<p class="text-center pt-1"> <a href="/"><img src={btn_thoat} width="120" alt="Active VIP" /></a></p>
+						{(sanqua)?(<div class="modal-body border-0">
+								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+								<p class="text-center pt-1"> <a href="duatop"><img src={btn_sanqua} width="120" alt="Active VIP" /></a></p>
+							</div>):(<div class="modal-body border-0">
+								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+								<p class="text-center"> <a href="/"><img src={btn_thoat} width="120" alt="Active VIP" /></a></p>
+							</div>)}
 				</div>
 
 				</div>
@@ -911,6 +944,7 @@ const mapStateToProps = state => ({
 	dataProfile: state.profile.data,
 	dataLuckyInfo: state.lucky.dataLuckyInfo,
 	dataLuckyItems:state.lucky.dataLuckyItems,
+	dataSesions: state.lucky.dataSesions,
 	dataInfoUser:state.lucky.dataInfoUser,
 	dataUserSpin:state.lucky.dataUserSpin,
 	dataItemAward:state.lucky.dataItemAward,
@@ -931,6 +965,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getDetailData,
 	getRotationDetailData,
 	getRotationDetailDataUser,
+	getMoreSessions,
 	pickCard,
 	getInfoUser,
 	buyTurn,
