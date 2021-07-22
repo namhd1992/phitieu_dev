@@ -779,8 +779,8 @@ class Lucky_Rotation extends React.Component {
 			imageObj.onload = function () {
 				var darthVaderImg = new Konva.Image({
 					image: imageObj,
-					x: touchPos.x-20,
-					y: touchPos.y-80,
+					x: touchPos.x-widthFrame/2,
+					y: touchPos.y-heightFrame/2,
 					width: 28,
 					height: 120,
 					draggable: true,
@@ -837,9 +837,9 @@ class Lucky_Rotation extends React.Component {
 		const {stage, layer, darthVaderImg, isPlay, none_multi}=this.state;
 		if(none_multi){
 			if(JSON.stringify(darthVaderImg) !== '{}'){
-				var touchPos = e.touches[0];
-				var x= touchPos.clientX-20;
-				var y= touchPos.clientY-100;
+				var touchPos = stage.getPointerPosition();
+				var x= touchPos.x-widthFrame/2;
+				var y= touchPos.y-heightFrame/2;
 				darthVaderImg.x(x);
 				darthVaderImg.y(y);
 			}
@@ -1190,7 +1190,7 @@ class Lucky_Rotation extends React.Component {
 										<span class="text-shadow font-weight-bold font-size-18_m">Bạn đã đoạt giải Săn Quà</span>
 									</div>
 									<p class="pt-2 mb-2 text-center text-shadow" style={{fontSize:14}}>(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /></p>
-									<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14_m" data-dismiss="modal">Xác nhận</button>
+									<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14_m" data-dismiss="modal" onClick={this.exit}>Xác nhận</button>
 								</div>
 								</div>
 								

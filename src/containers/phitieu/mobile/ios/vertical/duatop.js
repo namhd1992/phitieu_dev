@@ -1185,7 +1185,7 @@ class Lucky_Rotation extends React.Component {
 											<span class="text-shadow font-weight-bold font-size-18_m">Bạn đã đoạt giải Săn Quà</span>
 										</div>
 										<p class="pt-2 mb-2 text-center text-shadow" style={{fontSize:14}}>(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /></p>
-										<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14_m" data-dismiss="modal">Xác nhận</button>
+										<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14_m" data-dismiss="modal" onClick={this.exit}>Xác nhận</button>
 									</div>
 									</div>
 									

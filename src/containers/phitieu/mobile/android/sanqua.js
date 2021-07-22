@@ -905,8 +905,8 @@ class Lucky_Rotation extends React.Component {
 			imageObj.onload = function () {
 				var darthVaderImg = new Konva.Image({
 					image: imageObj,
-					x: touchPos.x-20,
-					y: touchPos.y-80,
+					x: touchPos.x-widthFrame/2,
+					y: touchPos.y-heightFrame/2,
 					width: 28,
 					height: 120,
 					draggable: true,
@@ -941,7 +941,7 @@ class Lucky_Rotation extends React.Component {
 					if(dartPositionY >touchPos.y){
 						arr=this.getDealtal(touchPos.x, touchPos.y)
 						this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
-						this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
+						this.fireDart(touchPos.x + arr[0] -1, touchPos.y-heightFrame/2 + 4 + arr[1])
 					}else{
 						this.showTextWarning()
 						// alert("vuốt lên để phi tiêu")
@@ -965,8 +965,8 @@ class Lucky_Rotation extends React.Component {
 		if(none_multi){
 			if(JSON.stringify(darthVaderImg) !== '{}'){
 				var touchPos = stage.getPointerPosition();
-				var x= touchPos.x-20;
-				var y= touchPos.y-100;
+				var x= touchPos.x-widthFrame/2;
+				var y= touchPos.y-heightFrame/2;
 				darthVaderImg.x(x);
 				darthVaderImg.y(y);
 			}
@@ -1049,6 +1049,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	getDealtal=(xpos,ypos)=>{
+		console.log('KKKKKKK')
 		var dx = Dart_Center_X - xpos;
 		var dy = Dart_Center_Y - ypos;
 		var x=0;
@@ -1069,7 +1070,7 @@ class Lucky_Rotation extends React.Component {
 			x=this.getRandomInt(50, -50)
 			y=this.getRandomInt(50, -50)
 		}
-		return [x,y];
+		return [0,0];
 	}
 
 	fireDart=(tarX, tarY)=> {
@@ -1356,7 +1357,7 @@ class Lucky_Rotation extends React.Component {
 										<span class="text-shadow font-weight-bold font-size-18_m">Bạn đã đoạt giải Săn Quà</span>
 									</div>
 									<p class="pt-2 mb-2 text-center text-shadow" style={{fontSize:14}}>(Phần thưởng đã được chuyển vào tủ đồ sự kiện) <br /></p>
-									<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14_m" data-dismiss="modal">Xác nhận</button>
+									<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14_m" data-dismiss="modal" onClick={this.exit}>Xác nhận</button>
 								</div>
 								</div>
 								

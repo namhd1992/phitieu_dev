@@ -40,7 +40,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family: Arial, Helvetica, s
 .text-elipsis-toplist-account_m {width: 100%; overflow: hidden; white-space:nowrap; text-overflow: ellipsis;}
 .modal-dangnhap_m {background:url(../images/bg-popup-thongbao-login.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%}
 /* .modal-giaithuong_m {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100% !important; height: 100% !important} */
-.modal-giaithuong_m {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
+/* .modal-giaithuong_m {background:url(../images/bg-popup-thongbao.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%} */
 .text-brown_m {color: #6b5247;}
 .text-yellow_m {color: #f69310;}
 .border-giaithuong-e_m {border: solid 1px #f69310; border-radius: 8px}
@@ -59,6 +59,8 @@ html {scroll-behavior: smooth; font-size: 26px; font-family: Arial, Helvetica, s
 .text-chucmung_m {border-radius: 4px; padding: 8px 0;}
 .font-size-14_m {font-size: 14px;}
 .font-size-18_m {font-size: 18px;}
+
+.modal-giaithuong_m {background:url(../images/bg-popup-huongdan.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
 
 
 
