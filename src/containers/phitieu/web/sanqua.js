@@ -325,8 +325,9 @@ class Lucky_Rotation extends React.Component {
 				if(data.Status===0){
 					var list=data.Data.filter( i => i.SessionType===2 );
 					console.log(list)
-					var pos = list.map(function(e) { return e.Status; }).indexOf(1);
-					if(pos>0){
+					var pos = list.map((e)=> { return e.Status; }).indexOf(1);
+					console.log(pos)
+					if(pos!==-1){
 						this.setState({duatop:true})
 					}else{
 						this.setState({msg:"Phiên chơi đã kết thúc!"})

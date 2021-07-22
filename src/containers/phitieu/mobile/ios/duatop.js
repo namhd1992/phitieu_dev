@@ -569,7 +569,7 @@ class Lucky_Rotation extends React.Component {
 					var list=data.Data.filter( i => i.SessionType===1 );
 					console.log(list)
 					var pos = list.map(function(e) { return e.Status; }).indexOf(1);
-					if(pos>0){
+					if(pos!==-1){
 						this.setState({sanqua:true})
 					}else{
 						this.setState({msg:"Phiên chơi đã kết thúc!"})
