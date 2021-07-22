@@ -1135,6 +1135,8 @@ class Lucky_Rotation extends React.Component {
 						$('#Modalnone').modal('show');
 					})
 					
+				}else if(data.Status===3){
+					this.logoutAction();
 				}
 			})
 		}, 400);

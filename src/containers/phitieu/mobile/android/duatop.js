@@ -552,8 +552,9 @@ class Lucky_Rotation extends React.Component {
 				
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
-					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
-					$('#Modalnone').modal('show');
+					this.setState({msg:data.Message}, ()=>{
+						$('#ModalnoneDuaTop').modal('show');
+					})
 				}else if(data.Status===3){
 					this.logoutAction();
 				}else{
@@ -990,10 +991,12 @@ class Lucky_Rotation extends React.Component {
 
 					this.setState({countDart: data.Darts, points_sanqua: data.Points, highestPoints:data.HighestPoint})
 				}else if(data.Status===2){
-					this.setState({highestPoints:data.HighestPoint, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
-						$('#Modalnone').modal('show');
+					this.setState({highestPoints:data.HighestPoint, msg:'Quà đã có chủ, phiên chơi kết thúc.'}, ()=>{
+						$('#ModalnoneDuaTop').modal('show');
 					})
 					
+				}else if(data.Status===3){
+					this.logoutAction();
 				}
 			})
 		}, 400);
@@ -1148,7 +1151,7 @@ class Lucky_Rotation extends React.Component {
 					</div>)}
 					</div>)}
 
-					<div class="modal fade" id="Modalnone" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
+					<div class="modal fade" id="ModalnoneDuaTop" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
 						<div class="modal-dialog modal-dangnhap">
 							<div class="modal-content bg-transparent border-0">
 

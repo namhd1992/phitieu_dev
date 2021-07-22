@@ -405,6 +405,8 @@ class Lucky_Rotation extends React.Component {
 				if(data.Status===0){
 					$('#myModal2').modal('show');
 					this.setState({listTuDo:data.Data, countTuDo:data.Totals, noti_tudo:false})
+				}else if(data.Status===3){
+					this.logoutAction();
 				}else{
 					$('#myModal11').modal('show');
 					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'})
@@ -428,6 +430,8 @@ class Lucky_Rotation extends React.Component {
 			if(data!==undefined){
 				if(data.Status===0){
 					this.setState({listHistory:data.Data, countHistory:data.Totals})
+				}else if(data.Status===3){
+					this.logoutAction();
 				}else{
 					$('#myModal11').modal('show');
 					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'})
@@ -445,12 +449,20 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataItemAward;
 			if(data!==undefined){
 				if(data.Status===0){
-					// this.setState({listHistory:data.Data, countHistory:data.Totals})
-					this.setState({dataItem:data.Data})
-					$("#MoQua").modal('show');
+					if(data.Data.Type ==='BankTransferVoucher'){
+						this.setState({dataItem:data.Data},()=>{
+							$("#Modalmoquavoucher").modal('show');
+						})
+					}else{
+						this.setState({dataItem:data.Data},()=>{
+							$("#Modalmoqua").modal('show');
+						})
+					}
 				}else if(data.Status===1){
 					$('#myModal11').modal('show');
 					this.setState({message_error:data.Message})
+				}else if(data.Status===3){
+					this.logoutAction();
 				}else{
 					$('#myModal11').modal('show');
 					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'})
@@ -1088,6 +1100,98 @@ class Lucky_Rotation extends React.Component {
 						
 					</div>
 					{/* <!--End Modal body --> */}
+					</div>
+				</div>
+			</div>
+
+			{/* <!-- The Modal Mở quà--> */}
+			<div class="modal fade" id="Modalmoqua">
+				<div class="modal-dialog modal-moqua">
+					<div class="modal-content bg-transparent border-0">
+
+					<div class="modal-header border-0 p-0">
+						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
+					</div>
+					
+
+					<div class="modal-body border-0">
+						<div class="mx-auto font-size-14" style={{width: "90%"}}>
+						{(dataItem.Type==='TopupScoin')?(<p style={{textAlign:'center', fontSize:20, color:'green'}}>{dataItem.Message}</p>):(<div></div>)}
+							{(dataItem.Type==='Darts')?(<p style={{textAlign:'center', fontSize:20, color:'green'}}>{dataItem.Message}</p>):(<div></div>)}
+							{(dataItem.Type==='ScoinCard')?(<div class="card-body p-0 text-center">
+								<p class="card-text mb-3 font-size-18 font-weight-bold text-shadow">Thẻ Scoin mệnh giá: <br /> {dataItem.Amount ? this.numberWithCommas(dataItem.Amount) : 0} vnđ</p>
+								<table class="table table-borderless">
+									<tbody>
+									<tr class="border-bottom">
+										<td class="p-1">Mã code:</td>
+										<td class="p-1">{dataItem.Code}</td>
+									</tr>
+									<tr class="border-bottom">
+										<td class="p-1">Serial:</td>
+										<td class="p-1">{dataItem.Serial}</td>
+									</tr>
+									</tbody>
+								</table>
+								<p class="card-text text-secondary">Ngày kết thúc: {dataItem.Expires}</p>
+								<p class="card-text"></p>
+							</div>):(<div></div>)}
+
+							{(dataItem.Type==='ScoinVoucher')?(<div class="card-body p-0 text-center">
+								<p class="card-text mb-3 font-size-18 font-weight-bold text-shadow">Thẻ ScoinVoucher mệnh giá: <br /> {dataItem.Amount ? this.numberWithCommas(dataItem.Amount) : 0} vnđ</p>
+								<table class="table table-borderless">
+									<tbody>
+									<tr class="border-bottom">
+										<td class="p-1">Mã code:</td>
+										<td class="p-1">{dataItem.Code}</td>
+									</tr>
+									<tr class="border-bottom">
+										<td class="p-1">Serial:</td>
+										<td class="p-1">{dataItem.Serial}</td>
+									</tr>
+									</tbody>
+								</table>
+								<p class="card-text text-secondary">Ngày bắt đầu: {dataItem.StartDate} <br />Ngày kết thúc: {dataItem.EndDate}</p>
+								<p class="card-text"></p>
+							</div>):(<div></div>)}
+							
+						</div>
+					</div>
+
+					</div>
+				</div>
+			</div>
+
+
+			{/* <!-- The Modal Mở quà Voucher--> */}
+			<div class="modal fade" id="Modalmoquavoucher">
+				<div class="modal-dialog modal-moqua">
+					<div class="modal-content bg-transparent border-0">
+
+					<div class="modal-header border-0 p-0">
+						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
+					</div>
+					
+
+					<div class="modal-body border-0">
+						<div class="mx-auto font-size-14" style={{width: "90%"}}>
+							<div class="card-body p-0 text-center">
+								<p class="card-text mb-3 font-size-14 font-weight-bold text-shadow">Tài khoản <span class="text-dark">{dataItem.AccountName}</span> nhận được thẻ Scoin Voucher 20K khi nạp Scoin qua Chuyển khoản Ngân hàng. </p>
+								<table class="table table-borderless mb-2">
+									<tbody>
+									<tr class="border-bottom">
+										<td class="p-1 font-size-14">Bạn hãy nạp Scoin để nhận khuyến mại nhé!</td>
+									</tr>
+									<tr class="border-bottom">
+										<td class="p-1 text-secondary">Hạn sử dụng: {dataItem.ExpiredDate}</td>
+
+									</tr>
+									</tbody>
+								</table>
+								<p class="text-center"><a href="https://scoin.vn/" title="Nạp Scoin" target="_blank"><img src="images/btn-nap-scoin.png" width="80" hspace="10" alt="" /></a></p>
+							</div>
+						</div>
+					</div>
+
 					</div>
 				</div>
 			</div>

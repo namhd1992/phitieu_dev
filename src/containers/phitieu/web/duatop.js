@@ -160,7 +160,7 @@ class Lucky_Rotation extends React.Component {
 		// 	window.location.replace("/")
 		// }
 
-		this.isConsoleOpen();
+		// this.isConsoleOpen();
 	}
 
 
@@ -288,7 +288,7 @@ class Lucky_Rotation extends React.Component {
 					console.log(data.Data)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
-					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
+					this.setState({msg:data.Message})
 					$('#ModalnoneDuaTop').modal('show');
 				}else if(data.Status===3){
 					this.logoutAction();
@@ -391,7 +391,7 @@ class Lucky_Rotation extends React.Component {
 		// if ((window.screen.height - window.innerHeight) > 150) {
 		// 	window.location.replace("/")
 		// }
-		this.isConsoleOpen();
+		// this.isConsoleOpen();
 	}
 
 	onResize=()=>{
@@ -853,13 +853,13 @@ class Lucky_Rotation extends React.Component {
 		<div id="div_exit" style={{position:'absolute', top:0, left:"83%", zIndex:999999}} onMouseDown={this.exit}></div>
 		
 		{/* <!-- The Modal Thông báo--> */}
-		<div class="modal fade" id="Modalnone" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
+		<div class="modal fade" id="ModalnoneDuaTop" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
 			<div class="modal-dialog modal-dangnhap">
 				<div class="modal-content bg-transparent border-0">
 
 				<div class="modal-body border-0">
-					<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{msg}</h2>
-					<p class="text-center"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
+					<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+					<p class="text-center pt-1"> <a href="/"><img src={btn_thoat} width="120" alt="Active VIP" /></a></p>
 				</div>
 
 				</div>

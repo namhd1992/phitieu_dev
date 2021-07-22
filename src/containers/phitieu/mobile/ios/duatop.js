@@ -545,8 +545,9 @@ class Lucky_Rotation extends React.Component {
 					hight_score.text(data.Data.AddInfo.HighestPoints)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
-					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
-					$('#Modalnone').modal('show');
+					this.setState({msg:data.Message}, ()=>{
+						$('#ModalnoneDuaTop').modal('show');
+					})
 				}else if(data.Status===3){
 					this.logoutAction();
 				}else{
@@ -1029,10 +1030,12 @@ class Lucky_Rotation extends React.Component {
 					}, 5000);
 					this.setState({countDart: data.Darts, points_sanqua: data.Points,  highestPoints:data.HighestPoint})
 				}else if(data.Status===2){
-					this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc, mời bạn sang tham gia Đua TOP'}, ()=>{
-						$('#Modalnone').modal('show');
+					this.setState({listTop:data.Data, msg:'Quà đã có chủ, phiên chơi kết thúc.'}, ()=>{
+						$('#ModalnoneDuaTop').modal('show');
 					})
 					
+				}else if(data.Status===3){
+					this.logoutAction();
 				}
 			})
 		}, 400);
@@ -1168,7 +1171,7 @@ class Lucky_Rotation extends React.Component {
 						<div id="div_checkbox" style={{position:'absolute', top:width_bgImg*0.88, left:"1%", zIndex:999999}} onTouchStart={this.check_auto}></div>
 						<div id="div_exit" style={{position:'absolute', top:0, left:"87%", zIndex:999999}} onTouchStart={this.exit}></div>
 
-						<div class="modal fade" id="Modalnone" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
+						<div class="modal fade" id="ModalnoneDuaTop" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
 							<div class="modal-dialog modal-dangnhap">
 								<div class="modal-content bg-transparent border-0">
 
