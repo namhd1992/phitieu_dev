@@ -637,7 +637,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	getLuckyInfo=(type)=>{
-		const {tieuconlai, username, vip_level, txt_points, tg_conlai, list_top_user}=this.state;
+		const {tieuconlai, username, txt_points, list_top_user}=this.state;
 		console.log(username)
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.props.getLuckyInfo(type, user.Token).then(()=>{
@@ -842,7 +842,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	timeRemain=(times)=>{
-		const {tg_conlai, data}=this.state;
+		const {tg_conlai}=this.state;
 		var _this=this;
 		setInterval(()=>{
 			var time=(times-Date.now())/1000;
@@ -886,7 +886,7 @@ class Lucky_Rotation extends React.Component {
 	touchStart=(e)=>{
 		console.log('AAAAAAAAAA')
 		// console.log("touchStart",e.touches)
-		const {stage, layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
+		const {stage, layer, dartFlightImg, score_text, text_warning}=this.state;
 		var _this=this;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
@@ -961,7 +961,7 @@ class Lucky_Rotation extends React.Component {
 
 	touchMove=(e)=>{
 		// console.log("touchMove",e.touches)
-		const {stage, layer, darthVaderImg, isPlay, none_multi}=this.state;
+		const {darthVaderImg, none_multi}=this.state;
 
 		if(none_multi){
 			if(JSON.stringify(darthVaderImg) !== '{}'){
@@ -1016,7 +1016,6 @@ class Lucky_Rotation extends React.Component {
 	// }
 
 	draw=(x,deltalX, y, deltalY)=>{
-		const {dartFlightImg}=this.state;
 		var _this=this;
 		
 
@@ -1116,7 +1115,6 @@ class Lucky_Rotation extends React.Component {
 	generateScore=()=> {
 		const {tieuconlai, txt_points, sessionId, list_top_user, awardsContent}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
-		var _this=this;
 		if (SEGMENT_NAMES[segmentType] == 'out') {
 	
 			totalScore = 0; // mimo herni pole
@@ -1181,7 +1179,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	check_auto=()=>{
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		const {checkboxImg, uncheckboxImg, auto_play}=this.state;
 		this.setState({auto_play:!auto_play},()=>{
 			if(this.state.auto_play){
 				checkboxImg.hide();
@@ -1198,7 +1196,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	autoPlay=()=>{
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart, isChangetab, duatop, isLoading}=this.state;
+		const {dartFlightImg, countDart, isChangetab}=this.state;
 		curFrame=0;
 		if(countDart>0){
 			if(JSON.stringify(dartFlightImg) !== '{}'){

@@ -446,7 +446,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	touchStart=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg, text_warning, score_text}=this.state;
+		const {stage, darthVaderImg, dartFlightImg, text_warning, score_text}=this.state;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
@@ -470,7 +470,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchEnd=()=>{
-		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
+		const {stage, darthVaderImg, dartPositionY, isPlay, countDart}=this.state;
 		var _this=this;
 		var arr=[];
 		if(isPlay){
@@ -502,7 +502,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchMove=()=>{
-		const {stage, layer, darthVaderImg, isPlay}=this.state;
+		const {stage, darthVaderImg}=this.state;
 		if(JSON.stringify(darthVaderImg) !== '{}'){
 			var touchPos = stage.getPointerPosition();
 			var x= touchPos.x-20;
@@ -518,7 +518,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	draw=(x,deltalX, y, deltalY)=>{
-		const {dartFlightImg}=this.state;
 		var _this=this;
 		
 
@@ -615,7 +614,6 @@ class Lucky_Rotation extends React.Component {
 	generateScore=()=> {
 		const {sessionId} =this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
-		var _this=this;
 		if (SEGMENT_NAMES[segmentType] == 'out') {
 	
 			totalScore = 0; // mimo herni pole
@@ -666,7 +664,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	check_auto=()=>{
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		const {checkboxImg, uncheckboxImg, auto_play}=this.state;
 		this.setState({auto_play:!auto_play},()=>{
 			if(this.state.auto_play){
 				checkboxImg.hide();
@@ -684,7 +682,7 @@ class Lucky_Rotation extends React.Component {
 
 	autoPlay=()=>{
 		
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart, isChangetab}=this.state;
+		const {dartFlightImg, countDart, isChangetab}=this.state;
 		curFrame=0;
 		if(countDart>0){
 			if(JSON.stringify(dartFlightImg) !== '{}'){
@@ -776,7 +774,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {msg, user, image, auto_play, timing, day, hour, minute, second, data, countDart, points_sanqua, listTop, isPlay, awardsContent, duatop, isLoading}=this.state;
+		const {msg, user, auto_play, timing, day, hour, minute, second, countDart, points_sanqua, listTop, awardsContent, duatop, isLoading}=this.state;
 
 
 		return (<div class="bg-page-sanqua position-relative">

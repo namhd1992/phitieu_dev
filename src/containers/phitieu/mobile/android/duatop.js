@@ -52,8 +52,7 @@ const styles = {
 
 var startX=370, endX=587, startY=170, endY=387;
 var img_w=960;
-var img_h=450
-var award_open=true;
+var img_h=450;
 var n=0;
 var SEGMENT_COUNT = 20;
 var width = window.screen.width;
@@ -754,7 +753,6 @@ class Lucky_Rotation extends React.Component {
 		this.props.getItemAward(user.Token, item.AwardId).then(()=>{
 			// $('#Loading').modal('hide');
 			var data=this.props.dataItemAward;
-			award_open=true;
 			if(data!==undefined){
 				if(data.Status===0){
 					// this.setState({listHistory:data.Data, countHistory:data.Totals})
@@ -777,7 +775,7 @@ class Lucky_Rotation extends React.Component {
 	touchStart=(e)=>{
 		console.log('AAAAAAAAAA')
 		// console.log("touchStart",e.touches)
-		const {stage, layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
+		const {stage, layer, dartFlightImg, score_text, text_warning}=this.state;
 		var _this=this;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
@@ -871,7 +869,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	draw=(x,deltalX, y, deltalY)=>{
-		const {dartFlightImg}=this.state;
 		var _this=this;
 		
 
@@ -965,7 +962,7 @@ class Lucky_Rotation extends React.Component {
 	   }
 
 	generateScore=()=> {
-		const {tieuconlai, txt_points, sessionId, list_top_user, hight_score, awardsContent}=this.state;
+		const {tieuconlai, txt_points, sessionId, hight_score, awardsContent}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var _this=this;
 		if (SEGMENT_NAMES[segmentType] == 'out') {

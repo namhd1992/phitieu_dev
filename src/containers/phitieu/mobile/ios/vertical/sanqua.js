@@ -55,9 +55,6 @@ var img_w=960;
 var img_h=1800
 var award_open=true;
 var n=0;
-var animId;
-var dartTimerId = 1;
-var FLIGHT_ANIM_DELAY = 20;
 var SEGMENT_COUNT = 20;
 var width = window.innerWidth;
 var height = window.innerHeight;
@@ -72,9 +69,6 @@ var srcY=0;
 
 var Dart_Center_X=565;
 var Dart_Center_Y=900;
-var radius=108;
-
-var SEGMENT_SIZE = Math.PI/10.0;
 var SEGMENTS = [17, 27, 143, 163, 243, 263];
 var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
 var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
@@ -655,7 +649,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	getLuckyInfo=(type)=>{
-		const {tieuconlai, username, vip_level, txt_points, tg_conlai, list_top_user}=this.state;
+		const {tieuconlai, username, txt_points, list_top_user}=this.state;
 		console.log(username)
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.props.getLuckyInfo(type, user.Token).then(()=>{
@@ -857,7 +851,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	timeRemain=(times)=>{
-		const {tg_conlai, data}=this.state;
+		const {tg_conlai}=this.state;
 		var _this=this;
 		setInterval(()=>{
 			var time=(times-Date.now())/1000;
@@ -944,7 +938,7 @@ class Lucky_Rotation extends React.Component {
 
 	touchEnd=(e)=>{
 		// console.log("touchEnd", e.touches)
-		const {stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart, mg_left, delta,height_plus}=this.state;
+		const {stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart,height_plus}=this.state;
 		var _this=this;
 		var arr=[];
 		if(none_multi){
@@ -978,7 +972,7 @@ class Lucky_Rotation extends React.Component {
 
 	touchMove=(e)=>{
 		// console.log("touchMove",e.touches)
-		const {stage, layer, darthVaderImg, isPlay, none_multi}=this.state;
+		const {darthVaderImg, none_multi}=this.state;
 
 		if(none_multi){
 			if(JSON.stringify(darthVaderImg) !== '{}'){
@@ -1097,7 +1091,7 @@ class Lucky_Rotation extends React.Component {
 	generateScore=()=> {
 		const {tieuconlai, txt_points, sessionId, list_top_user, awardsContent}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
-		var _this=this;
+
 		if (SEGMENT_NAMES[segmentType] == 'out') {
 	
 			totalScore = 0; // mimo herni pole
@@ -1163,7 +1157,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	check_auto=()=>{
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		const {checkboxImg, uncheckboxImg, auto_play}=this.state;
 		this.setState({auto_play:!auto_play},()=>{
 			if(this.state.auto_play){
 				checkboxImg.hide();
@@ -1180,7 +1174,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	autoPlay=()=>{
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart, isChangetab}=this.state;
+		const {dartFlightImg, countDart, isChangetab}=this.state;
 		curFrame=0;
 		if(countDart>0){
 			if(JSON.stringify(dartFlightImg) !== '{}'){
@@ -1273,7 +1267,7 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {msg, user, image, vertical, auto_play, listTop, isPlay, awardsContent, duatop, isLoading}=this.state;
+		const {msg, vertical, auto_play, listTop, duatop, isLoading}=this.state;
 
 		if(!vertical){
 			return (

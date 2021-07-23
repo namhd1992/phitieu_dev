@@ -29,14 +29,12 @@ import {
 
 
 import icon_clock from './images/icon-clock.png';
-import line_timing from './images/line-timing.png';
 import phitieu from './images/phitieu.png';
 import dart_player from './images/dart-player.png';
 import img_checkbox_none from './images/img-checkbox-none.png';
 import img_checkbox_checked from './images/img-checkbox-checked.png';
 import btn_thoat from './images/btn-thoat.png';
 import btn_sanqua from './images/btn-sanqua.png';
-import vip_kimcuong from './images/vip-kimcuong.png';
 import vip_bachkim from './images/vip-bachkim.png';
 import vip_vang from './images/vip-vang.png';
 import vip_bac from './images/vip-bac.png';
@@ -56,9 +54,6 @@ var startX=500, endX=745, startY=250, endY=490;
 
 var award_open=true;
 var n=0;
-var animId;
-var dartTimerId = 1;
-var FLIGHT_ANIM_DELAY = 20;
 var SEGMENT_COUNT = 20;
 var width = window.innerWidth;
 var height = window.innerHeight;
@@ -73,9 +68,6 @@ var srcY=0;
 
 var Dart_Center_X=619;
 var Dart_Center_Y=375;
-var radius=134;
-
-var SEGMENT_SIZE = Math.PI/10.0;
 var SEGMENTS = [8, 15, 73, 83, 124, 134];
 var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
 var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
@@ -279,7 +271,6 @@ class Lucky_Rotation extends React.Component {
 		btnExit.src = btn_thoat;
 
 
-		const {img_width, img_height}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.setState({user:user})
 
@@ -507,7 +498,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	touchStart=()=>{
-		const {stage, layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
+		const {stage, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
@@ -529,7 +520,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchEnd=()=>{
-		const {stage, layer, darthVaderImg, dartPositionY, dartFlightImg, isPlay, countDart}=this.state;
+		const {stage, darthVaderImg, dartPositionY, isPlay, countDart}=this.state;
 		var _this=this;
 		var arr=[];
 		if(isPlay){
@@ -561,7 +552,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchMove=()=>{
-		const {stage, layer, darthVaderImg, isPlay}=this.state;
+		const {stage, darthVaderImg}=this.state;
 		if(JSON.stringify(darthVaderImg) !== '{}'){
 			var touchPos = stage.getPointerPosition();
 			var x= touchPos.x-20;
@@ -577,7 +568,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	draw=(x,deltalX, y, deltalY)=>{
-		const {dartFlightImg}=this.state;
 		var _this=this;
 		
 		var newX=x + deltalX/13*n;
@@ -672,7 +662,6 @@ class Lucky_Rotation extends React.Component {
 	generateScore=()=> {
 		const {sessionId} =this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
-		var _this=this;
 		if (SEGMENT_NAMES[segmentType] == 'out') {
 	
 			totalScore = 0; // mimo herni pole
@@ -721,7 +710,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	check_auto=()=>{
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg}=this.state;
+		const {checkboxImg, uncheckboxImg, auto_play}=this.state;
 		this.setState({auto_play:!auto_play},()=>{
 			if(this.state.auto_play){
 				checkboxImg.hide();
@@ -739,7 +728,7 @@ class Lucky_Rotation extends React.Component {
 
 	autoPlay=()=>{
 		
-		const {checkboxImg, uncheckboxImg, auto_play, dartFlightImg, countDart, isChangetab}=this.state;
+		const { dartFlightImg, countDart, isChangetab}=this.state;
 		curFrame=0;
 		if(countDart>0){
 			if(JSON.stringify(dartFlightImg) !== '{}'){
@@ -831,7 +820,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {msg, user, image, auto_play, timing, day, hour, minute, second, data, countDart, points, highestPoints, isPlay, awardsContent, sanqua}=this.state;
+		const {msg, user, auto_play, timing, day, hour, minute, second, countDart, points, highestPoints, awardsContent, sanqua}=this.state;
 
 
 		return (<div class="bg-page-duatop position-relative">

@@ -650,7 +650,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	getLuckyInfo=(type)=>{
-		const {tieuconlai, username, vip_level, txt_points, tg_conlai, list_top_user}=this.state;
+		const {tieuconlai, username, vip_level, txt_points, list_top_user}=this.state;
 		console.log(username)
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.props.getLuckyInfo(type, user.Token).then(()=>{
@@ -875,7 +875,6 @@ class Lucky_Rotation extends React.Component {
 		this.props.getItemAward(user.Token, item.AwardId).then(()=>{
 			// $('#Loading').modal('hide');
 			var data=this.props.dataItemAward;
-			award_open=true;
 			if(data!==undefined){
 				if(data.Status===0){
 					// this.setState({listHistory:data.Data, countHistory:data.Totals})
@@ -1303,7 +1302,7 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {fullScreen, horizontal, auto_play, msg, listTop, isPlay, awardsContent, duatop, isLoading}=this.state;
+		const {fullScreen, horizontal, auto_play, msg, listTop, duatop, isLoading}=this.state;
 
 		return (
 				<div id="game">
