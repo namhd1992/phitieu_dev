@@ -671,7 +671,7 @@ class Lucky_Rotation extends React.Component {
 					}
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
-					this.setState({msg:'Hiện tại chưa đến giờ săn quà, mời bạn sang tham gia Đua TOP'})
+					this.setState({msg:'Hiện tại phiên chơi đã kết thúc. Mời bạn sang tham gia Đua TOP.'})
 					$('#Modalnone').modal('show');
 				}else if(data.Status===3){
 					this.logoutAction();
