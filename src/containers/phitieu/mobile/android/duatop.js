@@ -1,8 +1,6 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
-import Pagination from "react-js-pagination";
 import axios from 'axios';
-import { render } from 'react-dom';
 // import { Stage, Layer, Image, Text } from 'react-konva';
 import Konva from 'konva';
 import { connect } from 'react-redux'
@@ -43,7 +41,6 @@ import bg_page_duatop from '../images/bg-page-duatop.png';
 
 
 
-import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
 import 'bootstrap';
 
@@ -58,9 +55,6 @@ var img_w=960;
 var img_h=450
 var award_open=true;
 var n=0;
-var animId;
-var dartTimerId = 1;
-var FLIGHT_ANIM_DELAY = 20;
 var SEGMENT_COUNT = 20;
 var width = window.screen.width;
 var height = window.screen.height;
@@ -75,9 +69,6 @@ var srcY=0;
 
 var Dart_Center_X=478;
 var Dart_Center_Y=280;
-var radius=108;
-
-var SEGMENT_SIZE = Math.PI/10.0;
 var SEGMENTS = [4, 9, 57, 67, 99, 108];
 var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
 var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];

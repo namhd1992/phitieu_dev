@@ -1,13 +1,10 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
-import Pagination from "react-js-pagination";
 import axios from 'axios';
-import { render } from 'react-dom';
 // import { Stage, Layer, Image, Text } from 'react-konva';
 import Konva from 'konva';
 import { connect } from 'react-redux'
 import '../../css/style.css';
-import DeviceOrientation, { Orientation } from 'react-screen-orientation';
 import {
 	getDetailData,
 	getRotationDetailData,
@@ -36,12 +33,7 @@ import img_checkbox_none from '../../images/img-checkbox-none.png';
 import img_checkbox_checked from '../../images/img-checkbox-checked.png';
 import btn_thoat from '../../images/btn-thoat.png';
 import btn_duatop from '../../images/btn-duatop.png';
-import vip_kimcuong from '../../images/vip-kimcuong.png';
-import vip_bachkim from '../../images/vip-bachkim.png';
-import vip_vang from '../../images/vip-vang.png';
-import vip_bac from '../../images/vip-bac.png';
-import vip_dong from '../../images/vip-dong.png';
-import rotate from '../../images/rotate.png';
+
 
 import btn_nap_scoin from '../../images/btn-nap-scoin.png';
 
@@ -49,7 +41,6 @@ import bg_page_sanqua from '../../images/bg_sanqua_dung.png';
 
 
 
-import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
 import 'bootstrap';
 

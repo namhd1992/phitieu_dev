@@ -1,13 +1,10 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
-import Pagination from "react-js-pagination";
 import axios from 'axios';
-import { render } from 'react-dom';
 // import { Stage, Layer, Image, Text } from 'react-konva';
 import Konva from 'konva';
 import { connect } from 'react-redux'
 import '../css/style.css';
-import DeviceOrientation, { Orientation } from 'react-screen-orientation';
 import {
 	getDetailData,
 	getRotationDetailData,
@@ -36,11 +33,6 @@ import img_checkbox_none from '../images/img-checkbox-none.png';
 import img_checkbox_checked from '../images/img-checkbox-checked.png';
 import btn_thoat from '../images/btn-thoat.png';
 import btn_duatop from '../images/btn-duatop.png';
-import vip_kimcuong from '../images/vip-kimcuong.png';
-import vip_bachkim from '../images/vip-bachkim.png';
-import vip_vang from '../images/vip-vang.png';
-import vip_bac from '../images/vip-bac.png';
-import vip_dong from '../images/vip-dong.png';
 import rotate from '../images/rotate.png';
 
 import bg_page_sanqua from '../images/bg-page-sanqua.png';
@@ -48,7 +40,6 @@ import btn_nap_scoin from '../images/btn-nap-scoin.png';
 
 
 
-import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
 import 'bootstrap';
 
@@ -61,11 +52,7 @@ const styles = {
 var startX=370, endX=587, startY=170, endY=387;
 var img_w=960;
 var img_h=450
-var award_open=true;
 var n=0;
-var animId;
-var dartTimerId = 1;
-var FLIGHT_ANIM_DELAY = 20;
 var SEGMENT_COUNT = 20;
 var width = window.innerWidth;
 var height = window.innerHeight;
@@ -80,9 +67,7 @@ var srcY=0;
 
 var Dart_Center_X=478;
 var Dart_Center_Y=280;
-var radius=108;
 
-var SEGMENT_SIZE = Math.PI/10.0;
 var SEGMENTS = [4, 9, 57, 67, 99, 108];
 var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
 var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
@@ -879,7 +864,6 @@ class Lucky_Rotation extends React.Component {
 		this.props.getItemAward(user.Token, item.AwardId).then(()=>{
 			// $('#Loading').modal('hide');
 			var data=this.props.dataItemAward;
-			award_open=true;
 			if(data!==undefined){
 				if(data.Status===0){
 					// this.setState({listHistory:data.Data, countHistory:data.Totals})

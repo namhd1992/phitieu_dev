@@ -1,8 +1,6 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
-import Pagination from "react-js-pagination";
 import axios from 'axios';
-import { render } from 'react-dom';
 // import { Stage, Layer, Image, Text } from 'react-konva';
 import Konva from 'konva';
 import { connect } from 'react-redux'
@@ -29,21 +27,18 @@ import {
 
 
 import icon_clock from './images/icon-clock.png';
-import line_timing from './images/line-timing.png';
 import phitieu from './images/phitieu.png';
 import dart_player from './images/dart-player.png';
 import img_checkbox_none from './images/img-checkbox-none.png';
 import img_checkbox_checked from './images/img-checkbox-checked.png';
 import btn_thoat from './images/btn-thoat.png';
 import btn_duatop from './images/btn-duatop.png';
-import vip_kimcuong from './images/vip-kimcuong.png';
 import vip_bachkim from './images/vip-bachkim.png';
 import vip_vang from './images/vip-vang.png';
 import vip_bac from './images/vip-bac.png';
 import vip_dong from './images/vip-dong.png';
 import btn_nap_scoin from './images/btn-nap-scoin.png';
 
-import ReactResizeDetector from 'react-resize-detector'
 import $ from 'jquery';
 import 'bootstrap';
 
@@ -57,9 +52,6 @@ var startX=500, endX=745, startY=250, endY=490;
 
 var award_open=true;
 var n=0;
-var animId;
-var dartTimerId = 1;
-var FLIGHT_ANIM_DELAY = 20;
 var SEGMENT_COUNT = 20;
 var width = window.innerWidth;
 var height = window.innerHeight;
@@ -74,9 +66,6 @@ var srcY=0;
 
 var Dart_Center_X=619;
 var Dart_Center_Y=375;
-var radius=134;
-
-var SEGMENT_SIZE = Math.PI/10.0;
 var SEGMENTS = [8, 15, 73, 83, 124, 134];
 var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
 var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
@@ -903,7 +892,8 @@ class Lucky_Rotation extends React.Component {
 										<span class="text-shadow font-weight-bold">Bạn đã đoạt giải Săn Quà</span>
 									</div>
 									<p class="pt-2 mb-2 text-center text-shadow" style={{fontSize:14}}>(Phần thưởng đã được chuyển vào tủ đồ sự kiện)</p>
-									<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14" data-dismiss="modal">Xác nhận</button>
+									
+									<button type="button" class="btn btn-danger btn-sm btn-block text-center font-size-14" data-dismiss="modal" onClick={this.exit}>Xác nhận</button>
 								</div>
 								</div>
 								
