@@ -186,8 +186,6 @@ class Lucky_Rotation extends React.Component {
 		const {horizontal}=this.state;
 		var deltal_img=img_w/img_h;
 		var deltal_device=width/height;
-		console.log("deltal_img:", deltal_img)
-		console.log("deltal_device:", deltal_device)
 		var bg_x=0, bg_y=0;
 		var list_top_user=[];
 		var user = JSON.parse(localStorage.getItem("user"));
@@ -195,7 +193,7 @@ class Lucky_Rotation extends React.Component {
 		// this.toggleFullScreen();
 		if(width/height > 2){
 			bg_x=width;
-			bg_y=height*deltal_img/deltal_device;
+			bg_y=height*deltal_device/deltal_img;
 		}else{
 			bg_x=width;
 			bg_y=height*deltal_device/deltal_img;

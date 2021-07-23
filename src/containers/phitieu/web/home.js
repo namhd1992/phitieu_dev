@@ -641,6 +641,7 @@ class Lucky_Rotation extends React.Component {
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		return (<div>	
 					<div class="container-fluid page position-relative">
+						{/* <div id="tooltip" style={{width:400, height:40}}></div> */}
 						{(isLogin)?(<div class="login d-flex flex-row-reverse">
 							<div class="align-self-center">
 								<a title="Đăng nhập" onClick={this.logoutAction} style={{cursor:'pointer'}}><img src={btn_dangxuat} alt="" width="100" /></a>

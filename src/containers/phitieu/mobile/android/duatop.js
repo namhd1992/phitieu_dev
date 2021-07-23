@@ -191,7 +191,7 @@ class Lucky_Rotation extends React.Component {
 		// this.toggleFullScreen();
 		if(width/height > 2){
 			bg_x=width;
-			bg_y=height*deltal_img/deltal_device;
+			bg_y=height*deltal_device/deltal_img;
 		}else{
 			bg_x=width;
 			bg_y=height*deltal_device/deltal_img;
