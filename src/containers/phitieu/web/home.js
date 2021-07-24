@@ -144,7 +144,7 @@ class Lucky_Rotation extends React.Component {
 			innerWidth:0,
 			type:1, 
 			tab_tudo: true,
-			listSesstions:[]
+			listSesstions:[],
 		};
 	}
 	componentWillMount(){
@@ -165,8 +165,6 @@ class Lucky_Rotation extends React.Component {
 		if (user !== null) {
 			this.setState({isLogin:true, user:user})
 		} 
-
-		this.getMoreSessions();
 		
 		window.addEventListener('scroll', this.handleScroll);
 	}
@@ -191,15 +189,18 @@ class Lucky_Rotation extends React.Component {
 	}
 
 
-	getMoreSessions=()=>{
+	showModalGiaiThuong=()=>{
 		this.props.getMoreSessions().then(()=>{
 			var data=this.props.dataSesions;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({listSesstions:data.Data})
+					this.setState({listSesstions:data.Data}, ()=>{
+						$('#Modalgiaithuong').modal('show');
+					})
 				}else if(data.Status===2){
-					this.setState({msg:'Chưa load được dữ liệu'})
-					$('#myModal11').modal('show');
+					this.setState({message_error:data.Message}, ()=>{
+						$('#myModal11').modal('show');
+					})
 				}else if(data.Status===3){
 					this.logoutAction();
 				}else{
@@ -386,10 +387,7 @@ class Lucky_Rotation extends React.Component {
 		}
 	}
 
-	showModalGiaiThuong=()=>{
-		this.getMoreSessions();
-		$('#Modalgiaithuong').modal('show');
-	}
+
 
 	showModalHuongDan=()=>{
 		$('#Modalhuongdan').modal('show');
@@ -405,13 +403,14 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataTuDo;
 			if(data!==undefined){
 				if(data.Status===0){
-					$('#myModal2').modal('show');
 					this.setState({listTuDo:data.Data, countTuDo:data.Totals, noti_tudo:false})
 				}else if(data.Status===3){
 					this.logoutAction();
 				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'})
+				
+					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'}, ()=>{
+						$('#myModal11').modal('show');
+					})
 				}
 			}else{
 				$('#myModal12').modal('show');
@@ -478,9 +477,6 @@ class Lucky_Rotation extends React.Component {
 		});
 	}
 
-	hideModalTuDo=()=>{
-		$('#myModal2').modal('hide');
-	}
 
 	closePopupAuto=()=>{
 		clearInterval(this.state.intervalId);

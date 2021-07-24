@@ -189,15 +189,18 @@ class Lucky_Rotation extends React.Component {
 		}
 	}
 
-	getMoreSessions=()=>{
+	showModalGiaiThuong=()=>{
 		this.props.getMoreSessions().then(()=>{
 			var data=this.props.dataSesions;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({listSesstions:data.Data})
+					this.setState({listSesstions:data.Data}, ()=>{
+						$('#Modalgiaithuong').modal('show');
+					})
 				}else if(data.Status===2){
-					this.setState({msg:'Chưa load được dữ liệu'})
-					$('#myModal11').modal('show');
+					this.setState({message_error:data.Message}, ()=>{
+						$('#myModal11').modal('show');
+					})
 				}else if(data.Status===3){
 					this.logoutAction();
 				}else{
@@ -403,13 +406,13 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataTuDo;
 			if(data!==undefined){
 				if(data.Status===0){
-					$('#myModal2').modal('show');
 					this.setState({listTuDo:data.Data, countTuDo:data.Totals, noti_tudo:false})
 				}else if(data.Status===3){
 					this.logoutAction();
 				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'})
+					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'}, ()=>{
+						$('#myModal11').modal('show');
+					})
 				}
 			}else{
 				$('#myModal12').modal('show');
@@ -459,23 +462,21 @@ class Lucky_Rotation extends React.Component {
 						})
 					}
 				}else if(data.Status===1){
-					$('#myModal11').modal('show');
-					this.setState({message_error:data.Message})
+					this.setState({message_error:data.Message}, ()=>{
+						$('#myModal11').modal('show');
+					})
 				}else if(data.Status===3){
 					this.logoutAction();
 				}else{
-					$('#myModal11').modal('show');
-					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'})
+					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'}, ()=>{
+						$('#myModal11').modal('show');
+					})
 				}
 			}else{
 				$('#myModal12').modal('show');
 				this.setState({server_err:true})
 			}
 		});
-	}
-
-	hideModalTuDo=()=>{
-		$('#myModal2').modal('hide');
 	}
 
 	closePopupAuto=()=>{
@@ -787,6 +788,21 @@ class Lucky_Rotation extends React.Component {
 					<div class="modal-body border-0">
 						<h2 class="font-size-3vw_m font-weight-bold text-uppercase text-center">Bạn cần active tài khoản VIP để chơi.</h2>
 						<p class="text-center"><a href="https://vip.scoin.vn" target="_blank"><img src={btn_activevip} width="120" alt="Active VIP" /></a></p>
+					</div>
+
+					</div>
+				</div>
+			</div>
+
+						{/* <!-- The Modal Thông báo lỗi--> */}
+			<div className="modal fade" id="myModal11" style={{zIndex:99999}}>
+				<div class="modal-dialog modal-dangnhap">
+					<div class="modal-content bg-transparent border-0">
+					<div class="modal-header border-0 p-0 text-dark">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body border-0">
+						<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{message_error}</h2>
 					</div>
 
 					</div>
