@@ -165,7 +165,6 @@ class Lucky_Rotation extends React.Component {
 			this.setState({isLogin:true, user:user})
 		} 
 
-		this.getMoreSessions();
 		
 		window.addEventListener('scroll', this.handleScroll);
 	}
@@ -387,10 +386,10 @@ class Lucky_Rotation extends React.Component {
 		}
 	}
 
-	showModalGiaiThuong=()=>{
-		this.getMoreSessions();
-		$('#Modalgiaithuong').modal('show');
-	}
+	// showModalGiaiThuong=()=>{
+	// 	this.getMoreSessions();
+	// 	$('#Modalgiaithuong').modal('show');
+	// }
 
 	showModalHuongDan=()=>{
 		$('#Modalhuongdan').modal('show');
