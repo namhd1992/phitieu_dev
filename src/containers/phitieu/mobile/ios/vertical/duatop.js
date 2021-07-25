@@ -843,7 +843,7 @@ class Lucky_Rotation extends React.Component {
 		st_touch=setTimeout(()=>{
 			_this.setState({isPlay:true})
 			clearTimeout(st_touch)
-		}, 1500);
+		}, 1000);
 	}
 
 

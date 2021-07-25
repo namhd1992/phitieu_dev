@@ -958,7 +958,7 @@ class Lucky_Rotation extends React.Component {
 		st_touch=setTimeout(()=>{
 			_this.setState({isPlay:true})
 			clearTimeout(st_touch)
-		}, 1500);
+		}, 1000);
 	}
 
 	touchMove=(e)=>{
@@ -1115,7 +1115,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	generateScore=()=> {
-		const {tieuconlai, txt_points, sessionId, list_top_user, awardsContent}=this.state;
+		const {tieuconlai, txt_points, sessionId, list_top_user, awardsContent, auto_play}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		if (SEGMENT_NAMES[segmentType] == 'out') {
 	
@@ -1153,6 +1153,9 @@ class Lucky_Rotation extends React.Component {
 					}
 
 					if(data.Points===0){
+						if(auto_play){
+							clearInterval(this.state.intervalId);
+						}
 						$('#myModalchucmung').modal('show');
 					}
 					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`);
