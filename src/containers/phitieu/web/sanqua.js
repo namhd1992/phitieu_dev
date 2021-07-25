@@ -49,7 +49,7 @@ const styles = {
 };
 
 var startX=500, endX=745, startY=250, endY=490;
-
+var st_touch={};
 var award_open=true;
 var n=0;
 var SEGMENT_COUNT = 20;
@@ -511,11 +511,10 @@ class Lucky_Rotation extends React.Component {
 		}
 
 		darthVaderImg.hide();
-		setTimeout(()=>{
+		st_touch=setTimeout(()=>{
 			_this.setState({isPlay:true})
+			clearTimeout(st_touch)
 		}, 1500);
-		
-		
 	}
 
 	touchMove=()=>{

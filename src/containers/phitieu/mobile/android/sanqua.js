@@ -53,6 +53,7 @@ var startX=370, endX=587, startY=170, endY=387;
 var img_w=960;
 var img_h=450
 var award_open=true;
+var st_touch={};
 var n=0;
 var SEGMENT_COUNT = 20;
 var width = window.screen.width;
@@ -964,8 +965,9 @@ class Lucky_Rotation extends React.Component {
 		
 		
 		darthVaderImg.hide();
-		setTimeout(()=>{
+		st_touch=setTimeout(()=>{
 			_this.setState({isPlay:true})
+			clearTimeout(st_touch)
 		}, 1500);
 	}
 
