@@ -893,7 +893,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchStart=(e)=>{
-		console.log('AAAAAAAAAA')
 		// console.log("touchStart",e.touches)
 		const {stage, layer, dartFlightImg, score_text, text_warning}=this.state;
 		var _this=this;
@@ -1349,7 +1348,7 @@ class Lucky_Rotation extends React.Component {
 
 										
 					{/* <!-- The Modal Thông báo--> */}
-					<div class="modal fade" id="ThongBao" style={{zIndex:9999999}}>
+					<div class="modal fade" id="ThongBao" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
 						<div class="modal-dialog modal-dangnhap">
 							<div class="modal-content bg-transparent border-0">
 
@@ -1364,7 +1363,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 
 					{/* <!-- The Modal Thông báo chúc mừng--> */}
-					<div class="modal" id="myModalchucmung" style={{zIndex:9999999}}>
+					<div class="modal" id="myModalchucmung" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
 						<div class="modal-dialog">
 							<div class="modal-content bg-transparent border-0">
 

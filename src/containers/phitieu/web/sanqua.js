@@ -145,8 +145,8 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth})
-		console.log("window.screen.height", window.screen.height)
-		console.log("window.innerHeight", window.innerHeight)
+		// console.log("window.screen.height", window.screen.height)
+		// console.log("window.innerHeight", window.innerHeight)
 		
 		// if (!this.isConsoleOpen) {
 		// 	window.location.replace("/")
@@ -182,23 +182,23 @@ class Lucky_Rotation extends React.Component {
 
 		this.setState({stage:stage, layer:layer})
 		var _this=this
-		var imageObj = new Image();
-		imageObj.onload = function () {
-			var darthVaderImg = new Konva.Image({
-				image: imageObj,
-				x: 0,
-				y: 0,
-				width: 46,
-				height: 200,
-				draggable: true,
-				visible:false
-				});
+		// var imageObj = new Image();
+		// imageObj.onload = function () {
+		// 	var darthVaderImg = new Konva.Image({
+		// 		image: imageObj,
+		// 		x: 0,
+		// 		y: 0,
+		// 		width: 46,
+		// 		height: 200,
+		// 		draggable: true,
+		// 		visible:false
+		// 		});
 		
-				layer.add(darthVaderImg);
-				stage.add(layer);
-				_this.setState({darthVaderImg:darthVaderImg})
-		};
-		imageObj.src = phitieu;
+		// 		layer.add(darthVaderImg);
+		// 		stage.add(layer);
+		// 		_this.setState({darthVaderImg:darthVaderImg})
+		// };
+		// imageObj.src = phitieu;
 
 		// var dartFlight = new Image();
 		// dartFlight.onload = function () {
@@ -276,7 +276,6 @@ class Lucky_Rotation extends React.Component {
 			if(data!==undefined){
 				if(data.Status===0){
 					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points,isLoading:true, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
-					console.log(data.Data)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
 					this.setState({msg:"Hiện tại phiên chơi đã kết thúc. Mời bạn sang tham gia Đua TOP."})
@@ -313,9 +312,7 @@ class Lucky_Rotation extends React.Component {
 			if(data!==undefined){
 				if(data.Status===0){
 					var list=data.Data.filter( i => i.SessionType===2 );
-					console.log(list)
 					var pos = list.map((e)=> { return e.Status; }).indexOf(1);
-					console.log(pos)
 					if(pos!==-1){
 						this.setState({duatop:true})
 					}else{
@@ -446,7 +443,8 @@ class Lucky_Rotation extends React.Component {
 
 
 	touchStart=()=>{
-		const {stage, darthVaderImg, dartFlightImg, text_warning, score_text}=this.state;
+		const {stage,layer, darthVaderImg, dartFlightImg, text_warning, score_text}=this.state;
+		var _this=this;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
@@ -459,13 +457,33 @@ class Lucky_Rotation extends React.Component {
 			text_warning.remove();
 		}
 		
+		// var touchPos = stage.getPointerPosition();
+		// var x= touchPos.x-20;
+		// var y= touchPos.y-80;
+		// darthVaderImg.x(x);
+		// darthVaderImg.y(y);
+		// darthVaderImg.show();
+		// this.setState({dartPositionY:touchPos.y})
+
 		var touchPos = stage.getPointerPosition();
-		var x= touchPos.x-20;
-		var y= touchPos.y-80;
-		darthVaderImg.x(x);
-		darthVaderImg.y(y);
-		darthVaderImg.show();
-		this.setState({dartPositionY:touchPos.y})
+			var imageObj = new Image();
+			imageObj.onload = function () {
+				var darthVaderImg = new Konva.Image({
+					image: imageObj,
+					x: touchPos.x-20,
+					y: touchPos.y-80,
+					width: 46,
+					height: 200,
+					draggable: true,
+					});
+			
+					layer.add(darthVaderImg);
+					stage.add(layer);
+					_this.setState({darthVaderImg:darthVaderImg})
+			};
+			imageObj.src = phitieu;
+			
+			this.setState({dartPositionY:touchPos.y})
 		
 	}
 
@@ -475,19 +493,18 @@ class Lucky_Rotation extends React.Component {
 		var arr=[];
 		if(isPlay){
 			if(countDart>0){
-				var touchPos = stage.getPointerPosition();
-				curFrame=0;
-				n=0;
-				if(dartPositionY >touchPos.y){
-					arr=this.getDealtal(touchPos.x, touchPos.y)
-					console.log(arr)
-					this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
-					this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
-				}else{
-					// alert("vuốt lên để phi tiêu")
-					this.showTextWarning();
-				}
-				this.setState({isPlay:false})
+				this.setState({isPlay:false}, ()=>{
+					var touchPos = stage.getPointerPosition();
+					curFrame=0;
+					n=0;
+					if(dartPositionY >touchPos.y){
+						arr=this.getDealtal(touchPos.x, touchPos.y)
+						this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
+						this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
+					}else{
+						this.showTextWarning();
+					}
+				})
 			}else{
 				$('#ThongBao').modal('show');
 			}
@@ -523,7 +540,7 @@ class Lucky_Rotation extends React.Component {
 
 		var newX=x + deltalX/13*n;
 		var newY=y + deltalY/13*n;
-		console.log("newX:", newX, "newY:",newY)
+		// console.log("newX:", newX, "newY:",newY)
 		const {stage, layer}=this.state;
 		var touchPos = stage.getPointerPosition();
 		this.updateFrame();
@@ -537,7 +554,7 @@ class Lucky_Rotation extends React.Component {
 				height: heightFrame,
 				// visible:false
 				});
-			console.log(dartFlightImg)
+			// console.log(dartFlightImg)
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
@@ -839,9 +856,9 @@ class Lucky_Rotation extends React.Component {
 							</tbody>
 						</table>
 					</div>
+
 					<div>{(auto_play)?(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}}></div>):(<div id="canvas" style={{position:'absolute', top:0, left:0, zIndex:99999}} onMouseDown={this.touchStart} onMouseUp={this.touchEnd} onMouseMove={this.touchMove}></div>)}</div>
-					
-					
+
 					<div id="div_checkbox" style={{position:'absolute', top:"90%", left:"37%", zIndex:999999}} onMouseDown={this.check_auto}></div>
 					<div id="div_exit" style={{position:'absolute', top:0, left:"83%", zIndex:999999}} onMouseDown={this.exit}></div>
 					
@@ -864,7 +881,7 @@ class Lucky_Rotation extends React.Component {
 
 										
 					{/* <!-- The Modal Thông báo--> */}
-					<div class="modal fade" id="ThongBao" style={{zIndex:9999999}}>
+					<div class="modal fade" id="ThongBao" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
 						<div class="modal-dialog modal-dangnhap">
 							<div class="modal-content bg-transparent border-0">
 
@@ -878,7 +895,7 @@ class Lucky_Rotation extends React.Component {
 						</div>
 					</div>
 
-					<div class="modal" id="myModalchucmung">
+					<div class="modal" id="myModalchucmung"  style={{zIndex:9999999}}>
 						<div class="modal-dialog">
 							<div class="modal-content bg-transparent border-0">
 

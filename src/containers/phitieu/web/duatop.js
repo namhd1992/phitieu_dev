@@ -904,7 +904,7 @@ class Lucky_Rotation extends React.Component {
 			</div>
 		</div>
 
-		<div class="modal" id="myModalchucmung">
+		<div class="modal" id="myModalchucmung" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
 			<div class="modal-dialog">
 				<div class="modal-content bg-transparent border-0">
 
