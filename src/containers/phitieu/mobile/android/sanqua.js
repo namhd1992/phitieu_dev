@@ -1337,10 +1337,10 @@ class Lucky_Rotation extends React.Component {
 
 							<div class="modal-body border-0">
 							{(duatop)?(<div class="modal-body border-0">
-								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+								<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{msg}</h2>
 								<p class="text-center pt-1"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
 							</div>):(<div class="modal-body border-0">
-								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+								<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{msg}</h2>
 								{(!isLoading)?(<h2 class="font-size-16 font-weight-bold text-uppercase text-center">Giải này đã thuộc về tài khoản <span class="text-shadow">{listTop[0].Username}</span></h2>):(<div></div>)}
 								
 								<p class="text-center"> <a href="/"><img src={btn_thoat} width="120" alt="Active VIP" /></a></p>

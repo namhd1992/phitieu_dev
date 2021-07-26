@@ -547,7 +547,7 @@ class Lucky_Rotation extends React.Component {
 				
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
-					this.setState({msg:data.Message}, ()=>{
+					this.setState({msg:"Hiện tại phiên chơi đã kết thúc. Mời bạn sang tham gia Săn Quà."}, ()=>{
 						$('#ModalnoneDuaTop').modal('show');
 					})
 				}else if(data.Status===3){
@@ -1173,10 +1173,10 @@ class Lucky_Rotation extends React.Component {
 
 							<div class="modal-body border-0">
 							{(sanqua)?(<div class="modal-body border-0">
-								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+								<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{msg}</h2>
 								<p class="text-center pt-1"> <a href="duatop"><img src={btn_sanqua} width="120" alt="Active VIP" /></a></p>
 							</div>):(<div class="modal-body border-0">
-								<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg}</h2>
+								<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{msg}</h2>
 								<p class="text-center"> <a href="/"><img src={btn_thoat} width="120" alt="Active VIP" /></a></p>
 							</div>)}
 							</div>
