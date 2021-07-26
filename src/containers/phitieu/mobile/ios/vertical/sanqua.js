@@ -204,6 +204,9 @@ class Lucky_Rotation extends React.Component {
 		var bg_x=0, bg_y=0;
 		var list_top_user=[];
 		var user = JSON.parse(localStorage.getItem("user"));
+		var canvas=document.getElementById("canvas");
+		canvas.addEventListener ("mouseout", this.checkoutCanvas);
+
 
 		// this.toggleFullScreen();
 		if(height/width > 2){
@@ -701,6 +704,13 @@ class Lucky_Rotation extends React.Component {
 				}
 			}
 		})
+	}
+
+	checkoutCanvas=()=>{
+		const {stage, darthVaderImg}=this.state;
+		if(JSON.stringify(darthVaderImg) !== '{}'){
+			darthVaderImg.hide();
+		}
 	}
 	
 	getLevelUser=(user)=>{
