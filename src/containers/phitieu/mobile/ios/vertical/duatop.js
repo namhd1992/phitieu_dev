@@ -198,8 +198,8 @@ class Lucky_Rotation extends React.Component {
 		var deltal_device=width/height;
 		var bg_x=0, bg_y=0;
 		var user = JSON.parse(localStorage.getItem("user"));
-		var canvas=document.getElementById("canvas");
-		canvas.addEventListener ("mouseout", this.checkoutCanvas);
+		// var canvas=document.getElementById("canvas");
+		// canvas.addEventListener ("mouseout", this.checkoutCanvas);
 
 		// this.toggleFullScreen();
 		if(height/width > 2){
