@@ -498,7 +498,9 @@ class Lucky_Rotation extends React.Component {
 
 
 	touchStart=()=>{
-		const {stage, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
+		const {stage,layer, darthVaderImg, dartFlightImg, score_text, text_warning}=this.state;
+		clearTimeout(st_touch);
+		var _this=this;
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
@@ -509,12 +511,32 @@ class Lucky_Rotation extends React.Component {
 		if(JSON.stringify(text_warning) !== '{}'){
 			text_warning.remove();
 		}
+		// var touchPos = stage.getPointerPosition();
+		// var x= touchPos.x-20;
+		// var y= touchPos.y-80;
+		// darthVaderImg.x(x);
+		// darthVaderImg.y(y);
+		// darthVaderImg.show();
+		// this.setState({dartPositionY:touchPos.y})
+
 		var touchPos = stage.getPointerPosition();
-		var x= touchPos.x-20;
-		var y= touchPos.y-80;
-		darthVaderImg.x(x);
-		darthVaderImg.y(y);
-		darthVaderImg.show();
+			var imageObj = new Image();
+			imageObj.onload = function () {
+				var darthVaderImg = new Konva.Image({
+					image: imageObj,
+					x: touchPos.x-20,
+					y: touchPos.y-80,
+					width: 46,
+					height: 200,
+					draggable: true,
+					});
+			
+					layer.add(darthVaderImg);
+					stage.add(layer);
+					_this.setState({darthVaderImg:darthVaderImg})
+			};
+		imageObj.src = phitieu;
+			
 		this.setState({dartPositionY:touchPos.y})
 		
 	}
@@ -546,8 +568,7 @@ class Lucky_Rotation extends React.Component {
 		darthVaderImg.hide();
 		st_touch=setTimeout(()=>{
 			_this.setState({isPlay:true})
-			clearTimeout(st_touch)
-		}, 1000);
+		}, 500);
 		
 		
 	}

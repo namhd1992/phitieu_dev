@@ -445,6 +445,7 @@ class Lucky_Rotation extends React.Component {
 	touchStart=()=>{
 		const {stage,layer, darthVaderImg, dartFlightImg, text_warning, score_text}=this.state;
 		var _this=this;
+		clearTimeout(st_touch)
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
@@ -513,8 +514,7 @@ class Lucky_Rotation extends React.Component {
 		darthVaderImg.hide();
 		st_touch=setTimeout(()=>{
 			_this.setState({isPlay:true})
-			clearTimeout(st_touch)
-		}, 1000);
+		}, 500);
 	}
 
 	touchMove=()=>{
@@ -898,7 +898,7 @@ class Lucky_Rotation extends React.Component {
 						</div>
 					</div>
 
-					<div class="modal" id="myModalchucmung"  style={{zIndex:9999999}}>
+					<div class="modal" id="myModalchucmung" data-keyboard="false" data-backdrop="static"  style={{zIndex:9999999}}>
 						<div class="modal-dialog">
 							<div class="modal-content bg-transparent border-0">
 

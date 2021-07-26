@@ -774,6 +774,7 @@ class Lucky_Rotation extends React.Component {
 		// console.log("touchStart",e.touches)
 		const {stage, layer, dartFlightImg, score_text, text_warning}=this.state;
 		var _this=this;
+		clearTimeout(st_touch);
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
@@ -842,8 +843,7 @@ class Lucky_Rotation extends React.Component {
 		darthVaderImg.hide();
 		st_touch=setTimeout(()=>{
 			_this.setState({isPlay:true})
-			clearTimeout(st_touch)
-		}, 1000);
+		}, 500);
 	}
 
 

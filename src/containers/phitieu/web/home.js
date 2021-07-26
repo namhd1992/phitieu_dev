@@ -961,7 +961,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 
 					{/* <!-- Modal body --> */}
-					<div class="modal-body order-0 py-0 my-4 px-4 ml-2 scroll-modal-body">
+					<div class="modal-body order-0 py-0 mt-4 mb-5 px-4 ml-2 scroll-modal-body">
 						<h4 class="font-size-16 font-weight-bold">1. Cách thức tham gia</h4>
 						<dl class="font-size-16">
 							<dt>- Đối tượng tham gia:</dt>
