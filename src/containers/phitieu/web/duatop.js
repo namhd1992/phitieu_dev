@@ -142,6 +142,7 @@ class Lucky_Rotation extends React.Component {
 			awardsContent:"",
 			sanqua:false,
 			isLoading:true,
+			code_key:'',
 
 		};
 	}
@@ -278,7 +279,7 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points: data.Data.AddInfo.Points,isLoading:true, highestPoints:data.Data.AddInfo.HighestPoints, sessionId: data.Data.SessionId, awardsContent:data.Data.Awards})
+					this.setState({data:data.Data,code_key:data.Data.Code, countDart: data.Data.AddInfo.Darts, points: data.Data.AddInfo.Points,isLoading:true, highestPoints:data.Data.AddInfo.HighestPoints, sessionId: data.Data.SessionId, awardsContent:data.Data.Awards})
 					console.log(data.Data)
 					this.getStatus(data.Data)
 				}else if(data.Status===2){
@@ -682,7 +683,7 @@ class Lucky_Rotation extends React.Component {
 	   }
 
 	generateScore=()=> {
-		const {sessionId} =this.state;
+		const {sessionId, code_key} =this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		if (SEGMENT_NAMES[segmentType] == 'out') {
 	
@@ -711,7 +712,7 @@ class Lucky_Rotation extends React.Component {
 		
 
 		setTimeout(()=>{
-			this.props.getDartScore(2, totalScore,sessionId, user.Token).then(()=>{
+			this.props.getDartScore(2, totalScore,sessionId, user.Token, code_key).then(()=>{
 				var data=this.props.dataUserSpin;
 				if(data.Status===0){
 					this.setState({countDart: data.Darts, points: data.Points, highestPoints:data.HighestPoint})
@@ -722,6 +723,10 @@ class Lucky_Rotation extends React.Component {
 					
 				}else if(data.Status===3){
 					this.logoutAction();
+				}else if(data.Status===5){
+					this.setState({msg_err:'Có lỗi xảy ra!'}, ()=>{
+						$('#Error').modal('show');
+					})
 				}
 			})
 			this.showScore(totalScore)
@@ -842,7 +847,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {msg, user, auto_play, timing, day, hour, minute, second, countDart, points, highestPoints, awardsContent, sanqua}=this.state;
+		const {msg, user, auto_play, timing, day, hour, minute, second, countDart, points, highestPoints, awardsContent, sanqua, msg_err}=this.state;
 
 
 		return (<div class="bg-page-duatop position-relative">
@@ -906,6 +911,16 @@ class Lucky_Rotation extends React.Component {
 							</div>)}
 				</div>
 
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="Error" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
+			<div class="modal-dialog modal-dangnhap">
+				<div class="modal-content bg-transparent border-0">
+					<div class="modal-body border-0">
+						<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg_err}</h2>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -151,6 +151,7 @@ class Lucky_Rotation extends React.Component {
 			none_multi:false,
 			awardsContent:"",
 			sanqua:false,
+			code_key:''
 
 		};
 	}
@@ -537,7 +538,7 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataLuckyInfo;
 			if(data!==undefined){
 				if(data.Status===0){
-					this.setState({data:data.Data, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, highestPoints:data.Data.AddInfo.HighestPoints, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
+					this.setState({data:data.Data,code_key:data.Data.Code, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points, highestPoints:data.Data.AddInfo.HighestPoints, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
 					
 					username.text(user.Username)
 					vip_level.text(this.getLevelUser(user))
@@ -964,7 +965,7 @@ class Lucky_Rotation extends React.Component {
 	   }
 
 	generateScore=()=> {
-		const {tieuconlai, txt_points, sessionId, hight_score, awardsContent}=this.state;
+		const {tieuconlai, txt_points, sessionId, hight_score, awardsContent, code_key}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var _this=this;
 		if (SEGMENT_NAMES[segmentType] == 'out') {
@@ -995,7 +996,7 @@ class Lucky_Rotation extends React.Component {
 
 		setTimeout(()=>{
 			this.showScore(totalScore);
-			this.props.getDartScore(2, totalScore,sessionId, user.Token).then(()=>{
+			this.props.getDartScore(2, totalScore,sessionId, user.Token, code_key).then(()=>{
 				var data=this.props.dataUserSpin;
 				if(data.Status===0){
 					tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
@@ -1013,6 +1014,10 @@ class Lucky_Rotation extends React.Component {
 					
 				}else if(data.Status===3){
 					this.logoutAction();
+				}else if(data.Status===5){
+					this.setState({msg_err:'Có lỗi xảy ra!'}, ()=>{
+						$('#Error').modal('show');
+					})
 				}
 			})
 		}, 400);
@@ -1141,7 +1146,7 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {fullScreen, horizontal, auto_play, msg, sanqua}=this.state;
+		const {fullScreen, horizontal, auto_play, msg, sanqua, msg_err}=this.state;
 
 		return (
 				<div id="game">
@@ -1200,6 +1205,16 @@ class Lucky_Rotation extends React.Component {
 							</div>
 						</div>
 					</div>
+
+					<div class="modal fade" id="Error" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
+							<div class="modal-dialog modal-dangnhap">
+								<div class="modal-content bg-transparent border-0">
+									<div class="modal-body border-0">
+										<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{msg_err}</h2>
+									</div>
+								</div>
+							</div>
+						</div>
 
 					{/* <!-- The Modal Thông báo chúc mừng--> */}
 					<div class="modal" id="myModalchucmung" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>

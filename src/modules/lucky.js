@@ -26,6 +26,12 @@ const initialState = {
 	waiting: false
 }
 
+var keySize = 256;
+var ivSize = 128;
+var saltSize = 256;
+var iterations = 1000;
+
+
 export default (state = initialState, action) => { 
 	switch (action.type) {
 		case LUCKY_REQUEST:
@@ -197,13 +203,55 @@ export const getMoreSessions= () => {
 }
 
 
-export const getDartScore = (type, points,sessionId,  token) => {
+export const getDartScore = (type, points,sessionId,  token, code_key) => {
+	
+	var code=encrypt(`type=${type}&points=${points}&sessionId=${sessionId}`, code_key)
+
+	var myHeaders = new Headers();
+	myHeaders.append("token", token);
+
+	var formdata = new FormData();
+	formdata.append("code", code);
+
+	var requestOptions = {
+		method: 'POST',
+		headers: myHeaders,
+		body: formdata,
+		redirect: 'follow'
+	  };
+	
+
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + `darts/user-throwx/`;
+		return fetch(url, requestOptions)
+		.then(response => response.json())
+		.then(result => {
+			console.log(result)
+			dispatch({
+				type: DATA_USER_SPIN,
+				data: result
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
+
+
+export const getDartScoresssss = (type, points,sessionId,  token, code_key) => {
 	var header = {
 		headers: {
 			"Content-Type": "application/json",
 			"token": token,
 		}
 	}
+	
 	return dispatch => {
 		dispatch({
 			type: LUCKY_REQUEST
@@ -221,6 +269,7 @@ export const getDartScore = (type, points,sessionId,  token) => {
 		})
 	}
 }
+
 
 export const getVinhDanh = (limit, offset, type) => {
 	var header = {
@@ -332,7 +381,7 @@ export const getInfoUser = (token) => {
 		dispatch({
 			type: LUCKY_REQUEST
 		})
-		var url = Ultilities.base_url() + "luckywheel/user-signin";
+		var url = Ultilities.base_url() + "darts/user-signin";
 		return axios.get(url, header).then(function (response) {
 			console.log("response.data:",response.data)
 			dispatch({
@@ -631,4 +680,46 @@ export const getCodeBonus = (token, id, type) => {
 			})
 		})
 	}
+}
+
+
+
+
+function encrypt(msg, pass) {
+    var salt = window.CryptoJS.lib.WordArray.random(saltSize / 8);
+
+    var key = window.CryptoJS.PBKDF2(pass, salt, {
+        keySize: keySize / 32,
+        iterations: iterations
+    });
+
+    var iv = window.CryptoJS.lib.WordArray.random(ivSize / 8);
+
+    var encrypted = window.CryptoJS.AES.encrypt(msg, key, {
+        iv: iv,
+        padding: window.CryptoJS.pad.Pkcs7,
+        mode: window.CryptoJS.mode.CBC
+
+    });
+
+    var encryptedHex = base64ToHex(encrypted.toString());
+    var base64result = hexToBase64(salt + iv + encryptedHex);
+
+
+    return base64result;
+}
+
+function hexToBase64(str) {
+    return btoa(String.fromCharCode.apply(null,
+        str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" "))
+    );
+}
+
+function base64ToHex(str) {
+    for (var i = 0, bin = atob(str.replace(/[ \r\n]+$/, "")), hex = []; i < bin.length; ++i) {
+        var tmp = bin.charCodeAt(i).toString(16);
+        if (tmp.length === 1) tmp = "0" + tmp;
+        hex[hex.length] = tmp;
+    }
+    return hex.join("");
 }
