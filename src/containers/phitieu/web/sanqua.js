@@ -142,7 +142,7 @@ class Lucky_Rotation extends React.Component {
 	}
 	componentWillMount(){
 		this.onResize();
-		var canvas=document.getElementById("canvas")
+		
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
@@ -161,6 +161,8 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
+		var canvas=document.getElementById("canvas");
+		canvas.addEventListener ("mouseout", this.checkoutCanvas);
 		var stage = new Konva.Stage({
 			container: 'canvas',
 			width: 1244,
@@ -522,6 +524,14 @@ class Lucky_Rotation extends React.Component {
 			darthVaderImg.y(y);
 		}
 	}
+
+	checkoutCanvas=()=>{
+		const {stage, darthVaderImg}=this.state;
+		if(JSON.stringify(darthVaderImg) !== '{}'){
+			darthVaderImg.hide();
+		}
+	}
+
 	updateFrame=()=>{
 		srcX=curFrame*widthFrame;
 		srcY=0;

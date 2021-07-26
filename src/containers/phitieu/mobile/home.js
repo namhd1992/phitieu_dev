@@ -1147,7 +1147,7 @@ class Lucky_Rotation extends React.Component {
 									</tr>
 									</tbody>
 								</table>
-								<p class="card-text text-secondary">Ngày kết thúc: {dataItem.Expires}</p>
+								<p class="card-text text-secondary">Hạn sử dụng: {dataItem.Expires}</p>
 								<p class="card-text"></p>
 							</div>):(<div></div>)}
 
