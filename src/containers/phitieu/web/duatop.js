@@ -207,22 +207,22 @@ class Lucky_Rotation extends React.Component {
 		};
 		imageObj.src = phitieu;
 
-		// var dartFlight = new Image();
-		// dartFlight.onload = function () {
-		// 	var dartFlightImg = new Konva.Image({
-		// 		image: dartFlight,
-		// 		x: 0,
-		// 		y: 0,
-		// 		width: 200,
-		// 		height: 137,
-		// 		visible:false
-		// 		});
+		var dartFlight = new Image();
+		dartFlight.onload = function () {
+			var dartFlightImg = new Konva.Image({
+				image: dartFlight,
+				x: 0,
+				y: 0,
+				width: 200,
+				height: 137,
+				visible:false
+				});
 		
-		// 		layer.add(dartFlightImg);
-		// 		stage.add(layer);
-		// 		_this.setState({dartFlightImg:dartFlightImg})
-		// };
-		// dartFlight.src = dart_player;
+				layer.add(dartFlightImg);
+				stage.add(layer);
+				_this.setState({dartFlightImg:dartFlightImg})
+		};
+		dartFlight.src = dart_player;
 
 		var checkbox = new Image();
 		checkbox.onload = function () {
@@ -514,31 +514,31 @@ class Lucky_Rotation extends React.Component {
 		if(JSON.stringify(text_warning) !== '{}'){
 			text_warning.remove();
 		}
-		// var touchPos = stage.getPointerPosition();
-		// var x= touchPos.x-20;
-		// var y= touchPos.y-80;
-		// darthVaderImg.x(x);
-		// darthVaderImg.y(y);
-		// darthVaderImg.show();
-		// this.setState({dartPositionY:touchPos.y})
-
 		var touchPos = stage.getPointerPosition();
-			var imageObj = new Image();
-			imageObj.onload = function () {
-				var darthVaderImg = new Konva.Image({
-					image: imageObj,
-					x: touchPos.x-20,
-					y: touchPos.y-80,
-					width: 46,
-					height: 200,
-					draggable: true,
-					});
+		var x= touchPos.x-20;
+		var y= touchPos.y-80;
+		darthVaderImg.x(x);
+		darthVaderImg.y(y);
+		darthVaderImg.show();
+		this.setState({dartPositionY:touchPos.y})
+
+		// var touchPos = stage.getPointerPosition();
+		// 	var imageObj = new Image();
+		// 	imageObj.onload = function () {
+		// 		var darthVaderImg = new Konva.Image({
+		// 			image: imageObj,
+		// 			x: touchPos.x-20,
+		// 			y: touchPos.y-80,
+		// 			width: 46,
+		// 			height: 200,
+		// 			draggable: true,
+		// 			});
 			
-					layer.add(darthVaderImg);
-					stage.add(layer);
-					_this.setState({darthVaderImg:darthVaderImg})
-			};
-		imageObj.src = phitieu;
+		// 			layer.add(darthVaderImg);
+		// 			stage.add(layer);
+		// 			_this.setState({darthVaderImg:darthVaderImg})
+		// 	};
+		// imageObj.src = phitieu;
 			
 		this.setState({dartPositionY:touchPos.y})
 		

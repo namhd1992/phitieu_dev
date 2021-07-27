@@ -186,23 +186,23 @@ class Lucky_Rotation extends React.Component {
 
 		this.setState({stage:stage, layer:layer})
 		var _this=this
-		// var imageObj = new Image();
-		// imageObj.onload = function () {
-		// 	var darthVaderImg = new Konva.Image({
-		// 		image: imageObj,
-		// 		x: 0,
-		// 		y: 0,
-		// 		width: 46,
-		// 		height: 200,
-		// 		draggable: true,
-		// 		visible:false
-		// 		});
+		var imageObj = new Image();
+		imageObj.onload = function () {
+			var darthVaderImg = new Konva.Image({
+				image: imageObj,
+				x: 0,
+				y: 0,
+				width: 46,
+				height: 200,
+				draggable: true,
+				visible:false
+				});
 		
-		// 		layer.add(darthVaderImg);
-		// 		stage.add(layer);
-		// 		_this.setState({darthVaderImg:darthVaderImg})
-		// };
-		// imageObj.src = phitieu;
+				layer.add(darthVaderImg);
+				stage.add(layer);
+				_this.setState({darthVaderImg:darthVaderImg})
+		};
+		imageObj.src = phitieu;
 
 		// var dartFlight = new Image();
 		// dartFlight.onload = function () {
@@ -490,25 +490,32 @@ class Lucky_Rotation extends React.Component {
 		}
 		
 
+		// var touchPos = stage.getPointerPosition();
+		// 	var imageObj = new Image();
+		// 	imageObj.onload = function () {
+		// 		var darthVaderImg = new Konva.Image({
+		// 			image: imageObj,
+		// 			x: touchPos.x-20,
+		// 			y: touchPos.y-80,
+		// 			width: 46,
+		// 			height: 200,
+		// 			draggable: true,
+		// 			});
+			
+		// 			layer.add(darthVaderImg);
+		// 			stage.add(layer);
+		// 			_this.setState({darthVaderImg:darthVaderImg})
+		// 	};
+		// 	imageObj.src = phitieu;
+		
 		var touchPos = stage.getPointerPosition();
-			var imageObj = new Image();
-			imageObj.onload = function () {
-				var darthVaderImg = new Konva.Image({
-					image: imageObj,
-					x: touchPos.x-20,
-					y: touchPos.y-80,
-					width: 46,
-					height: 200,
-					draggable: true,
-					});
-			
-					layer.add(darthVaderImg);
-					stage.add(layer);
-					_this.setState({darthVaderImg:darthVaderImg})
-			};
-			imageObj.src = phitieu;
-			
-			this.setState({dartPositionY:touchPos.y})
+		var x= touchPos.x-20;
+		var y= touchPos.y-80;
+		darthVaderImg.x(x);
+		darthVaderImg.y(y);
+		darthVaderImg.show();
+		this.setState({dartPositionY:touchPos.y})
+		this.setState({dartPositionY:touchPos.y})
 		
 	}
 
