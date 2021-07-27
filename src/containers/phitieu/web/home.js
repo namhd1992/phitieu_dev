@@ -628,6 +628,22 @@ class Lucky_Rotation extends React.Component {
 		return s;
 	}
 
+	timeEnd=(time)=>{
+		var start=time.substring(time.indexOf("(") +1,time.indexOf(")"));
+		var a = new Date(+start);
+		// var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+		var year = a.getFullYear();
+		var m=a.getMonth()+1
+		var month =m > 9 ? m : `0${m}`;
+		var date = a.getDate();
+		var hour = a.getHours() > 9 ? a.getHours() : `0${a.getHours()}`;
+		var min = a.getMinutes() > 9 ? a.getMinutes() : `0${a.getMinutes()}`;
+		var sec = a.getSeconds() > 9 ? a.getSeconds() : `0${a.getSeconds()}`;
+		var s = hour + ':' + min + ':' + sec + " ngày " + date + '/' + month + '/' + year ;
+		return s;
+	}
+
+
 	numberWithCommas=(x)=> {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
@@ -828,7 +844,7 @@ class Lucky_Rotation extends React.Component {
 										<h2 class="font-size-16 font-weight-bold text-uppercase mb-0">{this.getTypeGiaiThuong(obj.SessionType)}</h2>
 										{(obj.Status===0)?(<p class="font-size-16 mb-0">Còn: {this.timeModalGiaiThuowng(obj.StartTime)}</p>):(<div></div>)}
 										{(obj.Status===1)?(<p class="font-size-16 mb-0 text-yellow text-blink"><span class="spinner-grow text-yellow" style={{width: ".8rem", height: ".8rem"}}></span> Đang diễn ra ... </p>):(<div></div>)}
-										{(obj.Status===2)?( <p class="font-size-16 mb-0 text-danger">Đã kết thúc</p>):(<div></div>)}
+										{(obj.Status===2)?( <p class="font-size-16 mb-0 text-danger">Đã kết thúc {this.timeEnd(obj.EndTime)}</p>):(<div></div>)}
 										
 									</div>
 

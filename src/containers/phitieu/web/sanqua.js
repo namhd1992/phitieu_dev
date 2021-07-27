@@ -153,7 +153,7 @@ class Lucky_Rotation extends React.Component {
 		// if (!this.isConsoleOpen) {
 		// 	window.location.replace("/")
 		// }
-		this.isConsoleOpen();
+		// this.isConsoleOpen();
 	}
 
 
@@ -382,7 +382,7 @@ class Lucky_Rotation extends React.Component {
 		// if (!this.isConsoleOpen) {
 		// 	window.location.replace("/")
 		// }
-		this.isConsoleOpen();
+		// this.isConsoleOpen();
 	}
 
 	isConsoleOpen=()=> {
