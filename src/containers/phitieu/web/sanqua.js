@@ -676,7 +676,7 @@ class Lucky_Rotation extends React.Component {
 					}
 					this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
 				}else if(data.Status===2){
-					this.setState({listTop:data.TopList,isLoading:false, duatop:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
+					this.setState({listTop:data.Data,isLoading:false, duatop:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
 						$('#Modalnone').modal('show');
 					})
 					

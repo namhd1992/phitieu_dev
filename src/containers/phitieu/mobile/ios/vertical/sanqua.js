@@ -334,7 +334,7 @@ class Lucky_Rotation extends React.Component {
 				text:"Còn: 0h : 0p : 0s",
 				fontSize: 14,
 				fontFamily: 'Calibri',
-				fill: '#4a2101',
+				fill: 'yellow',
 				width: 300,
 				padding: 10,
 				align: 'left',
@@ -346,7 +346,7 @@ class Lucky_Rotation extends React.Component {
 				text:"Số phi tiêu còn lại: 0",
 				fontSize: 14,
 				fontFamily: 'Calibri',
-				fill: '#4a2101',
+				fill: 'yellow',
 				width: 380,
 				padding: 10,
 				align: 'center',
@@ -1157,7 +1157,7 @@ class Lucky_Rotation extends React.Component {
 					}
 					this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
 				}else if(data.Status===2){
-					this.setState({listTop:data.TopList,isLoading:false, duatop:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
+					this.setState({listTop:data.Data,isLoading:false, duatop:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
 						$('#Modalnone').modal('show');
 					})
 					
