@@ -557,7 +557,7 @@ class Lucky_Rotation extends React.Component {
 					arr=this.getDealtal(touchPos.x, touchPos.y)
 					console.log(arr)
 					this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
-					this.fireDart(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
+					this.fd(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
 				}else{
 					// alert("vuốt lên để phi tiêu")
 					this.showTextWarning();
@@ -661,9 +661,9 @@ class Lucky_Rotation extends React.Component {
 		return [x,y];
 	}
 
-	fireDart=(tarX, tarY)=> {
+	fd=(tarX, tarY)=> {
 		this.computeHit(tarX,tarY);
-		this.generateScore();
+		this.gs();
 	}
 
 	
@@ -692,7 +692,7 @@ class Lucky_Rotation extends React.Component {
 	
 	   }
 
-	generateScore=()=> {
+	gs=()=> {
 		const {sessionId, code_key} =this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		if (SEGMENT_NAMES[segmentType] == 'out') {
@@ -776,7 +776,7 @@ class Lucky_Rotation extends React.Component {
 			if(!isChangetab){
 				this.draw(x,0,y+heightFrame/2,0);
 			}
-			this.fireDart(x, y + 12)
+			this.fd(x, y + 12)
 		}else{
 			$('#ThongBao').modal('show');
 		}
