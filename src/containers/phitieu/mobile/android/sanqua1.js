@@ -21,7 +21,7 @@ import {
 	getLuckyItems,
 	getInfoUser,
 	userLogout,
-	getDartScore,
+	gds,
 	getItemAward
 } from '../../../../modules/lucky'
 
@@ -672,7 +672,7 @@ class Lucky_Rotation extends React.Component {
 			}
 		}
 
-		this.props.getDartScore(1, totalScore,sessionId, user.Token).then(()=>{
+		this.props.gds(1, totalScore,sessionId, user.Token).then(()=>{
 			var data=this.props.dataUserSpin;
 			if(data.Status===0){
 				this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
@@ -933,7 +933,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getLuckyInfo,
 	getLuckyItems,
 	userLogout,
-	getDartScore
+	gds
 }, dispatch)
 
 

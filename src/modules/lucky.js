@@ -204,7 +204,7 @@ export const getMoreSessions= () => {
 }
 
 
-export const getDartScore = (type, points,sessionId,  token, code_key) => {
+export const gds = (type, points,sessionId,  token, code_key) => {
 
 	var code=encrypt(`type=${type}&points=${points}&sessionId=${sessionId}`, code_key)
 
@@ -245,7 +245,7 @@ export const getDartScore = (type, points,sessionId,  token, code_key) => {
 
 
 
-export const getDartScoresssss = (type, points,sessionId,  token, code_key) => {
+export const gdssssss = (type, points,sessionId,  token, code_key) => {
 	var header = {
 		headers: {
 			"Content-Type": "application/json",

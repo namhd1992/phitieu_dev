@@ -20,7 +20,7 @@ import {
 	getLuckyItems,
 	getInfoUser,
 	userLogout,
-	getDartScore,
+	gds,
 	getItemAward
 } from '../../../modules/lucky'
 import {
@@ -1272,7 +1272,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getLuckyInfo,
 	getLuckyItems,
 	userLogout,
-	getDartScore
+	gds
 }, dispatch)
 
 
