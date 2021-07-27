@@ -153,7 +153,7 @@ class Lucky_Rotation extends React.Component {
 		// if (!this.isConsoleOpen) {
 		// 	window.location.replace("/")
 		// }
-		// this.isConsoleOpen();
+		this.isConsoleOpen();
 	}
 
 
@@ -161,6 +161,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
+		this.isConsoleOpen();
 		var canvas=document.getElementById("canvas");
 		canvas.addEventListener ("mouseout", this.checkoutCanvas);
 		var stage = new Konva.Stage({
