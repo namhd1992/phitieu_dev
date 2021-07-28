@@ -49,6 +49,11 @@ const styles = {
 };
 
 var startX=500, endX=745, startY=250, endY=490;
+var Dart_Center_X=619;
+var Dart_Center_Y=375;
+var SEGMENTS = [8, 15, 73, 83, 124, 134];
+
+
 var st_touch={};
 var award_open=true;
 var n=0;
@@ -64,9 +69,7 @@ var heightFrame = spriteHeight;
 var srcX=0; 
 var srcY=0; 
 
-var Dart_Center_X=619;
-var Dart_Center_Y=375;
-var SEGMENTS = [8, 15, 73, 83, 124, 134];
+
 var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
 var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
 
@@ -153,7 +156,7 @@ class Lucky_Rotation extends React.Component {
 		// if (!this.isConsoleOpen) {
 		// 	window.location.replace("/")
 		// }
-		this.isConsoleOpen();
+		// this.isConsoleOpen();
 	}
 
 
@@ -161,7 +164,6 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
-		this.isConsoleOpen();
 		var canvas=document.getElementById("canvas");
 		canvas.addEventListener ("mouseout", this.checkoutCanvas);
 		var stage = new Konva.Stage({
@@ -521,19 +523,54 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchEnd=()=>{
-		const {stage, darthVaderImg, dartPositionY, isPlay, countDart}=this.state;
+		const {stage, darthVaderImg, dartPositionY, isPlay, countDart, sessionId, auto_play, code_key}=this.state;
+		var user = JSON.parse(localStorage.getItem("user"));
 		var _this=this;
 		var arr=[];
 		if(isPlay){
 			if(countDart>0){
 				this.setState({isPlay:false}, ()=>{
 					var touchPos = stage.getPointerPosition();
+					var x=touchPos.x;
+					var y=touchPos.y;
 					curFrame=0;
 					n=0;
 					if(dartPositionY >touchPos.y){
-						arr=this.getDealtal(touchPos.x, touchPos.y)
-						this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
-						this.fd(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
+						this.props.gds(1,sessionId, user.Token, code_key, "web", x, y, 88).then(()=>{
+							var data=this.props.dataUserSpin;
+							if(data.Status===0){
+
+								this.draw(touchPos.x, data.TargetX - touchPos.x, touchPos.y, data.TargetY - touchPos.y)
+								this.showScore(data.Score);
+								console.log(touchPos.x, data.TargetX - touchPos.x, touchPos.y, data.TargetY - touchPos.y)
+
+								if(data.Darts===0){
+									$('#ThongBao').modal('show');
+								}
+								if(data.Points===0){
+									$('#myModalchucmung').modal('show');
+									if(auto_play){
+										clearInterval(this.state.intervalId);
+									}
+									
+								}
+								this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
+							}else if(data.Status===2){
+								this.setState({listTop:data.Data,isLoading:false, duatop:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
+									$('#Modalnone').modal('show');
+								})
+								
+							}else if(data.Status===3){
+								this.logoutAction();
+							}else if(data.Status===5){
+								this.setState({msg_err:'Có lỗi xảy ra!'}, ()=>{
+									$('#Error').modal('show');
+								})
+							}
+						})
+						// arr=this.getDealtal(touchPos.x, touchPos.y)
+						// this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
+						// this.fd(touchPos.x + arr[0], touchPos.y-88 + arr[1])
 					}else{
 						this.showTextWarning();
 					}
@@ -665,7 +702,7 @@ class Lucky_Rotation extends React.Component {
 		segment = Math.round((segmentIndex)  / (360.0/SEGMENT_COUNT));
 	
 	
-	   }
+	}
 
 	gs=()=> {
 		const {sessionId, auto_play, code_key} =this.state;

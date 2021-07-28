@@ -51,6 +51,10 @@ const styles = {
 };
 
 var startX=300, endX=828, startY=640, endY=1168;
+var Dart_Center_X=565;
+var Dart_Center_Y=900;
+var SEGMENTS = [17, 27, 143, 163, 243, 263];
+
 var img_w=960;
 var img_h=1800
 var award_open=true;
@@ -68,9 +72,7 @@ var heightFrame = spriteHeight;
 var srcX=0; 
 var srcY=0; 
 
-var Dart_Center_X=565;
-var Dart_Center_Y=900;
-var SEGMENTS = [17, 27, 143, 163, 243, 263];
+
 var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
 var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
 

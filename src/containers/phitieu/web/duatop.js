@@ -550,19 +550,38 @@ class Lucky_Rotation extends React.Component {
 		var arr=[];
 		if(isPlay){
 			if(countDart>0){
-				var touchPos = stage.getPointerPosition();
-				curFrame=0;
-				n=0;
-				if(dartPositionY >touchPos.y){
-					arr=this.getDealtal(touchPos.x, touchPos.y)
-					console.log(arr)
-					this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
-					this.fd(touchPos.x + arr[0], touchPos.y-heightFrame/2 + 12 + arr[1])
-				}else{
-					// alert("vuốt lên để phi tiêu")
-					this.showTextWarning();
-				}
-				this.setState({isPlay:false})
+				this.setState({isPlay:false}, ()=>{
+					var touchPos = stage.getPointerPosition();
+					var x=touchPos.x;
+					var y=touchPos.y;
+					curFrame=0;
+					n=0;
+					if(dartPositionY >touchPos.y){
+						this.props.gds(1,sessionId, user.Token, code_key, "web", x, y, 88).then(()=>{
+							var data=this.props.dataUserSpin;
+							if(data.Status===0){
+								this.showScore(data.Score);
+								this.setState({countDart: data.Darts, points: data.Points, highestPoints:data.HighestPoint})
+							}else if(data.Status===2){
+								this.setState({highestPoints:data.Data, sanqua:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
+									$('#ModalnoneDuaTop').modal('show');
+								})
+								
+							}else if(data.Status===3){
+								this.logoutAction();
+							}else if(data.Status===5){
+								this.setState({msg_err:'Có lỗi xảy ra!'}, ()=>{
+									$('#Error').modal('show');
+								})
+							}
+						})
+						// arr=this.getDealtal(touchPos.x, touchPos.y)
+						// this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
+						// this.fd(touchPos.x + arr[0], touchPos.y-88 + arr[1])
+					}else{
+						this.showTextWarning();
+					}
+				})
 			}else{
 				$('#ThongBao').modal('show');
 			}
@@ -646,17 +665,17 @@ class Lucky_Rotation extends React.Component {
 		var delta = Math.sqrt(dx*dx+dy*dy);
 
 		if(delta<10){
-			x=this.getRandomInt(25, -25)
-			y=this.getRandomInt(25, -25)
+			x=this.getRandomInt(-25, 25)
+			y=this.getRandomInt(-25, 25)
 		}else if(delta >10 && delta <= 60){
-			x=this.getRandomInt(35, -35)
-			y=this.getRandomInt(35, -35)
+			x=this.getRandomInt(-35, 35)
+			y=this.getRandomInt(-35, 35)
 		}else if(delta >60 && delta <= 100){
-			x=this.getRandomInt(45, -45)
-			y=this.getRandomInt(45, -45)
+			x=this.getRandomInt(-45, 45)
+			y=this.getRandomInt(-45, 45)
 		}else if(delta >100 && delta <= 130){
-			x=this.getRandomInt(50, -50)
-			y=this.getRandomInt(50, -50)
+			x=this.getRandomInt(-50, 50)
+			y=this.getRandomInt(-50, 50)
 		}
 		return [x,y];
 	}

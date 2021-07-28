@@ -50,6 +50,11 @@ const styles = {
 };
 
 var startX=370, endX=587, startY=170, endY=387;
+var Dart_Center_X=478;
+var Dart_Center_Y=280;
+var SEGMENTS = [4, 9, 57, 67, 99, 108];
+
+
 var img_w=960;
 var img_h=450;
 var st_touch={};
@@ -66,10 +71,7 @@ var heightFrame = spriteHeight;
 var srcX=0; 
 var srcY=0; 
 
-var Dart_Center_X=478;
-var Dart_Center_Y=280;
 
-var SEGMENTS = [4, 9, 57, 67, 99, 108];
 var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
 var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
 
