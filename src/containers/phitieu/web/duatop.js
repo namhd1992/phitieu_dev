@@ -545,7 +545,8 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchEnd=()=>{
-		const {stage, darthVaderImg, dartPositionY, isPlay, countDart}=this.state;
+		const {stage, darthVaderImg, dartPositionY, isPlay, countDart, sessionId, auto_play, code_key}=this.state;
+		var user = JSON.parse(localStorage.getItem("user"));
 		var _this=this;
 		var arr=[];
 		if(isPlay){
