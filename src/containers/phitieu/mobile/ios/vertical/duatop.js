@@ -839,7 +839,8 @@ class Lucky_Rotation extends React.Component {
 									$('#ThongBao').modal('show');
 								}
 			
-								this.draw(x, data.TargetX - x, y, data.TargetY - y)
+								// this.draw(x+2, data.TargetX - x -2, y-8, data.TargetY - y + 8)
+								this.draw(x+1, data.TargetX - x-1, y-10, data.TargetY - y+10)
 
 								setTimeout(()=>{
 									this.showScore(data.Score);
@@ -963,7 +964,7 @@ class Lucky_Rotation extends React.Component {
 			if(this.state.auto_play){
 				checkboxImg.hide();
 				uncheckboxImg.show();
-				var intervalId = setInterval(this.autoPlay, 2000);
+				var intervalId = setInterval(this.autoPlay, 5000);
 				this.setState({intervalId:intervalId})
 				
 			}else{
