@@ -1149,7 +1149,7 @@ class Lucky_Rotation extends React.Component {
 								<div class="modal-body border-0">
 									<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">Bạn đã hết Phi Tiêu.</h2>
 									<p class="font-size-14 pt-1 font-weight-bold text-uppercase text-center"> Vui lòng nạp thêm Scoin để nhận Phi Tiêu và tiếp tục chơi.</p>
-									<p class="text-center"><a href="https://scoin.vn/" title="Nạp Scoin" target="_blank"><img src={btn_nap_scoin} width="30%" hspace="10" alt="" /></a><a href="#" title="Thoát"><img src="images/btn-thoat.png" width="30%" alt="" /></a></p>
+									<p class="text-center"><a href="https://scoin.vn/" title="Nạp Scoin" target="_blank"><img src={btn_nap_scoin} width="30%" hspace="10" alt="" /></a><a href="/" title="Thoát"><img src={btn_thoat} width="30%" alt="" /></a></p>
 								</div>
 
 								</div>
