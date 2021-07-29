@@ -541,8 +541,6 @@ class Lucky_Rotation extends React.Component {
 							if(data.Status===0){
 
 								this.draw(touchPos.x, data.TargetX - touchPos.x, touchPos.y, data.TargetY - touchPos.y)
-								this.showScore(data.Score);
-								console.log(touchPos.x, data.TargetX - touchPos.x, touchPos.y, data.TargetY - touchPos.y)
 
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
@@ -554,7 +552,11 @@ class Lucky_Rotation extends React.Component {
 									}
 									
 								}
-								this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
+								setTimeout(()=>{
+									this.showScore(data.Score);
+									this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
+								}, 400);
+								
 							}else if(data.Status===2){
 								this.setState({listTop:data.Data,isLoading:false, duatop:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
 									$('#Modalnone').modal('show');
@@ -647,123 +649,6 @@ class Lucky_Rotation extends React.Component {
 		dartFlight.src = dart_player;
 	}
 
-	getDealtal=(xpos,ypos)=>{
-		var dx = Dart_Center_X - xpos;
-		var dy = Dart_Center_Y - ypos;
-		var x=0;
-		var y=0;
-
-		var delta = Math.sqrt(dx*dx+dy*dy);
-
-		if(delta<10){
-			x=this.getRandomInt(25, -25)
-			y=this.getRandomInt(25, -25)
-		}else if(delta >10 && delta <= 60){
-			x=this.getRandomInt(35, -35)
-			y=this.getRandomInt(35, -35)
-		}else if(delta >60 && delta <= 100){
-			x=this.getRandomInt(45, -45)
-			y=this.getRandomInt(45, -45)
-		}else if(delta >100 && delta <= 130){
-			x=this.getRandomInt(50, -50)
-			y=this.getRandomInt(50, -50)
-		}
-		return [x,y];
-	}
-
-
-
-	fd=(tarX, tarY)=> {
-		this.computeHit(tarX,tarY);
-		this.gs();
-	}
-
-	
-    computeHit=(xpos,ypos)=> {
-
-		var dx = Dart_Center_X - xpos;
-		var dy = Dart_Center_Y - ypos;
-	
-		// var angle = Math.atan2(dx,dy)-angleOffset*2;
-		var angle = Math.atan2(dy,dx);
-		var delta = Math.sqrt(dx*dx+dy*dy);
-
-
-		var sg = 0;
-		for (var i = 0; i < 6; i++) {
-			if (delta > SEGMENTS[i])
-			sg = i+1;
-		}
-
-		segmentType = sg;
-		segmentIndex = Math.round(-angle * (180.0/Math.PI)+180.0);
-	
-	
-		segment = Math.round((segmentIndex)  / (360.0/SEGMENT_COUNT));
-	
-	
-	}
-
-	gs=()=> {
-		const {sessionId, auto_play, code_key} =this.state;
-		var user = JSON.parse(localStorage.getItem("user"));
-		if (SEGMENT_NAMES[segmentType] == 'out') {
-	
-			totalScore = 0; // mimo herni pole
-	
-		} else
-		if (SEGMENT_NAMES[segmentType] == '50') {
-	
-			totalScore = 50; // cisty stred
-	
-			} else {
-	
-			if (SEGMENT_NAMES[segmentType] == '25') {
-	
-				totalScore = 25; // sirsi stred
-	
-			} else {
-	
-				totalScore = SCORE_VALUES[segment];
-	
-				if (SEGMENT_NAMES[segmentType] == 'double') totalScore *= 2;  // vnejsi okraj - double
-				if (SEGMENT_NAMES[segmentType] == 'tripple') totalScore *= 3; // prostredni pole - tripple
-			}
-		}
-
-		setTimeout(()=>{
-			this.showScore(totalScore);
-			this.props.gds(1, totalScore,sessionId, user.Token, code_key).then(()=>{
-				var data=this.props.dataUserSpin;
-				if(data.Status===0){
-					if(data.Darts===0){
-						$('#ThongBao').modal('show');
-					}
-					if(data.Points===0){
-						$('#myModalchucmung').modal('show');
-						if(auto_play){
-							clearInterval(this.state.intervalId);
-						}
-						
-					}
-					this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
-				}else if(data.Status===2){
-					this.setState({listTop:data.Data,isLoading:false, duatop:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
-						$('#Modalnone').modal('show');
-					})
-					
-				}else if(data.Status===3){
-					this.logoutAction();
-				}else if(data.Status===5){
-					this.setState({msg_err:'Có lỗi xảy ra!'}, ()=>{
-						$('#Error').modal('show');
-					})
-				}
-			})
-		}, 400);
-		
-			// console.log('AA:', totalScore)
-	}
 
 
 	check_auto=()=>{
@@ -784,19 +669,56 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	autoPlay=()=>{
-		
-		const {dartFlightImg, countDart, isChangetab}=this.state;
+		const {dartFlightImg,isChangetab,  countDart, sessionId, auto_play, code_key}=this.state;
+		var user = JSON.parse(localStorage.getItem("user"));
 		curFrame=0;
 		if(countDart>0){
 			if(JSON.stringify(dartFlightImg) !== '{}'){
 				dartFlightImg.remove();
 			}
-			var x=this.getRandomInt(startX, endX);
-			var y=this.getRandomInt(startY, endY);
-			if(!isChangetab){
-				this.draw(x,0,y+heightFrame/2,0);
-			}
-			this.fd(x, y + 12)
+
+			this.props.gds(1,sessionId, user.Token, code_key, "web", 0, 0, 0).then(()=>{
+				var data=this.props.dataUserSpin;
+				if(data.Status===0){
+					if(!isChangetab){
+						this.draw(data.TargetX,0,data.TargetY+88,0);
+					}
+					setTimeout(()=>{
+						this.showScore(data.Score);
+						this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
+					}, 400);
+
+					if(data.Darts===0){
+						$('#ThongBao').modal('show');
+						if(auto_play){
+							clearInterval(this.state.intervalId);
+						}
+					}
+					if(data.Points===0){
+						$('#myModalchucmung').modal('show');
+						if(auto_play){
+							clearInterval(this.state.intervalId);
+						}
+						
+					}
+					
+				}else if(data.Status===2){
+					this.setState({listTop:data.Data,isLoading:false, duatop:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
+						$('#Modalnone').modal('show');
+					})
+					
+				}else if(data.Status===3){
+					this.logoutAction();
+				}else if(data.Status===5){
+					this.setState({msg_err:'Có lỗi xảy ra!'}, ()=>{
+						$('#Error').modal('show');
+					})
+				}
+			})
+			// var x=this.getRandomInt(startX, endX);
+			// var y=this.getRandomInt(startY, endY);
+			
+			// this.fd(x, y + 12)
 		}else{
 			$('#ThongBao').modal('show');
 		}
