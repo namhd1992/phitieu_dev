@@ -151,7 +151,8 @@ class Lucky_Rotation extends React.Component {
 			none_multi:false,
 			awardsContent:"",
 			sanqua:false,
-			code_key:''
+			code_key:'',
+			delta:0
 
 		};
 	}
@@ -161,7 +162,6 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
-		this.setState({innerWidth:window.innerWidth});
 		if(window.innerWidth < window.innerHeight){
 			this.setState({horizontal: false})
 		}else{
@@ -177,7 +177,7 @@ class Lucky_Rotation extends React.Component {
 		SEGMENTS=SEGMENTS.map(v => {
 			return v*delta
 		})
-		this.setState({delta:delta})
+		this.setState({delta:delta, innerWidth:window.innerWidth})
 	}
 
 

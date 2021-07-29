@@ -156,7 +156,8 @@ class Lucky_Rotation extends React.Component {
 			awardsContent:"",
 			duatop:false,
 			isLoading:true,
-			code_key:''
+			code_key:'',
+			delta:0
 		};
 	}
 	componentWillMount(){
@@ -165,7 +166,6 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
-		this.setState({innerWidth:window.innerWidth});
 		var delta=window.innerWidth/img_w;
 		if(height/width < 2){
 			this.setState({mg_left:10, height_plus: 22});
@@ -178,7 +178,7 @@ class Lucky_Rotation extends React.Component {
 			this.setState({vertical: true})
 		}
 
-		this.setState({delta:delta})
+		this.setState({delta:delta, innerWidth:window.innerWidth})
 		
 		Dart_Center_X=Dart_Center_X*delta;
 		Dart_Center_Y=Dart_Center_Y*delta;
