@@ -564,9 +564,11 @@ class Lucky_Rotation extends React.Component {
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
 								}
-								this.showScore(data.Score);
 								this.draw(x, data.TargetX - x, y, data.TargetY - y)
-								this.setState({countDart: data.Darts, points: data.Points, highestPoints:data.HighestPoint})
+								setTimeout(()=>{
+									this.showScore(data.Score);
+									this.setState({countDart: data.Darts, points: data.Points, highestPoints:data.HighestPoint})
+								}, 400);
 							}else if(data.Status===2){
 								this.setState({highestPoints:data.Data, sanqua:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
 									$('#ModalnoneDuaTop').modal('show');
@@ -755,14 +757,14 @@ class Lucky_Rotation extends React.Component {
 			size=size+0.1;
 			score_text.fontSize(size)
 			score_text.y(newH);
-		}, 20);
+		}, 200);
 
 		layer.add(score_text)
 		stage.add(layer)
-		setTimeout(()=>{ 
-			score_text.remove();
-			clearInterval(inter)
-		}, 1000);
+		// setTimeout(()=>{ 
+		// 	score_text.remove();
+		// 	clearInterval(inter)
+		// }, 1000);
 
 		
 		this.setState({score_text:score_text})

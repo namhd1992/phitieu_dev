@@ -715,10 +715,6 @@ class Lucky_Rotation extends React.Component {
 					})
 				}
 			})
-			// var x=this.getRandomInt(startX, endX);
-			// var y=this.getRandomInt(startY, endY);
-			
-			// this.fd(x, y + 12)
 		}else{
 			$('#ThongBao').modal('show');
 		}
