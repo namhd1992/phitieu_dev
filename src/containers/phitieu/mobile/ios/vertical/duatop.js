@@ -838,9 +838,8 @@ class Lucky_Rotation extends React.Component {
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
 								}
-			
-								// this.draw(x+2, data.TargetX - x -2, y-8, data.TargetY - y + 8)
-								this.draw(x+1, data.TargetX - x-1, y-10, data.TargetY - y+10)
+
+								this.draw(x+1, data.TargetX - x-1, y-20, data.TargetY - y+20)
 
 								setTimeout(()=>{
 									this.showScore(data.Score);
