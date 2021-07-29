@@ -558,13 +558,14 @@ class Lucky_Rotation extends React.Component {
 					curFrame=0;
 					n=0;
 					if(dartPositionY >touchPos.y){
-						this.props.gds(2,sessionId, user.Token, code_key, "web", x, y, 88).then(()=>{
+						this.props.gds(2,sessionId, user.Token, code_key, "web", x, y, 88, 1).then(()=>{
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
 								}
 								this.draw(x, data.TargetX - x, y, data.TargetY - y)
+								
 								setTimeout(()=>{
 									this.showScore(data.Score);
 									this.setState({countDart: data.Darts, points: data.Points, highestPoints:data.HighestPoint})
@@ -690,7 +691,7 @@ class Lucky_Rotation extends React.Component {
 				dartFlightImg.remove();
 			}
 
-			this.props.gds(2,sessionId, user.Token, code_key, "web", 0, 0, 0).then(()=>{
+			this.props.gds(2,sessionId, user.Token, code_key, "web", 0, 0, 0, 1).then(()=>{
 				var data=this.props.dataUserSpin;
 				if(data.Status===0){
 					if(!isChangetab){
@@ -757,14 +758,14 @@ class Lucky_Rotation extends React.Component {
 			size=size+0.1;
 			score_text.fontSize(size)
 			score_text.y(newH);
-		}, 200);
+		}, 20);
 
 		layer.add(score_text)
 		stage.add(layer)
-		// setTimeout(()=>{ 
-		// 	score_text.remove();
-		// 	clearInterval(inter)
-		// }, 1000);
+		setTimeout(()=>{ 
+			score_text.remove();
+			clearInterval(inter)
+		}, 1000);
 
 		
 		this.setState({score_text:score_text})

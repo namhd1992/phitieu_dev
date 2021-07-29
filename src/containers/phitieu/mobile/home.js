@@ -1081,12 +1081,13 @@ class Lucky_Rotation extends React.Component {
 						<h4 class="font-size-3vw_m font-weight-bold">2. Săn quà</h4>
 						<dl class="font-size-3vw_m">
 							<dd>- Thời gian của phiên <strong>Săn quà</strong> diễn ra trong 1 ngày và giải thưởng của phiên đó được cập nhật liên tục tại <a href="#Modalgiaithuong" title="Giải thưởng" data-toggle="modal" data-dismiss="modal">Giải thưởng</a></dd>
-							<dd>- Trong thời gian diễn ra Phiên săn quà, người chơi chọn Chế độ <strong>Săn quà</strong> tại Trang chủ để tham gia.</dd>
+							<dd>- Trong thời gian diễn ra <strong>Phiên săn quà</strong>, người chơi chọn Chế độ Săn quà tại Trang chủ để tham gia.</dd>
 							<dd>- Mỗi tài khoản có số điểm mặc định ban đầu là <strong>501 điểm</strong>.</dd>
 							<dd>- Người chơi sử dụng số Phi tiêu mình có để ném vào bảng, số điểm nhận được sau mỗi lần ném sẽ được trừ dần vào số điểm 501 ban đầu.</dd>
-							<dd>- Trong thời gian quy định, tài khoản nào đưa được tổng điểm về 0 sớm nhất sẽ là người thắng cuộc và nhận được giải thưởng của phiên chơi đó, đồng thời phiên chơi sẽ kết thúc, tất cả các tài khoản còn lại sẽ được tiếp tục tham gia ở Phiên săn quà tiếp theo.</dd>
-							<dd>- Trường hợp có nhiều tài khoản cùng đưa được điểm về 0 tại cùng thời điểm, giải thưởng sẽ được chia đều cho các tài khoản.</dd>
-							<dd>- Trường hợp trong thời gian quy định, không có người chơi nào đưa được điểm về 0, người thắng cuộc là người có số điểm còn lại ít nhất.</dd>           
+							<dd>- Trong thời gian quy định, tài khoản nào đưa được tổng điểm về <strong>0 sớm nhất</strong> sẽ là người thắng cuộc và nhận được giải thưởng của phiên chơi đó, đồng thời phiên chơi sẽ kết thúc, tất cả các tài khoản còn lại sẽ được tiếp tục tham gia ở Phiên săn quà tiếp theo.</dd>
+							<dd>- Trường hợp trong thời gian quy định, không có người chơi nào đưa được điểm về 0, người thắng cuộc là người có số <strong>điểm còn lại ít nhất</strong>.</dd>
+							<dd>- Trường hợp có nhiều tài khoản cùng đưa được điểm về 0 hoặc cùng có số điểm ít nhất bằng nhau, thì người thắng cuộc là người đưa được điểm về 0 (ít nhất) trong thời gian sớm nhất.</dd>
+							<dd><em>- Lưu ý: Trong trường hợp phát sinh tranh chấp, khiếu nại liên quan đến chương trình, Công ty VTC Mobile sẽ trực tiếp giải quyết và quyết định của VTC Mobile là kết quả cuối cùng. Mọi trường hợp gian lận hoặc không trung thực sẽ bị xử lý theo pháp luật.</em></dd>           
 						</dl>
 						<h4 class="font-size-3vw_m font-weight-bold">3. Đua TOP</h4>
 						<dl class="font-size-3vw_m">
@@ -1094,8 +1095,8 @@ class Lucky_Rotation extends React.Component {
 							<dd>- Mỗi tài khoản có số điểm mặc định ban đầu là <strong>0 điểm</strong>.</dd>
 							<dd>- Người chơi sử dụng số Phi tiêu mình có để ném vào bảng, số điểm nhận được sau mỗi lần ném sẽ được cộng dồn vào tổng điểm đang có.</dd>
 							<dd>- Kết thúc Phiên Đua top, tài khoản có tổng điểm cao nhất sẽ là người thắng cuộc và nhận được giải thưởng.</dd>
-							<dd>- Trường hợp nhiều người chơi có tổng điểm cao nhất bằng nhau, người thắng cuộc là người có số lượt ném Phi tiêu nhiều nhất.</dd>
-							<dd>- Trường hợp nhiều người chơi có tổng điểm cao nhất bằng nhau và số lượt ném phi tiêu bằng nhau, giải thưởng được chia đều cho các tài khoản.</dd>         
+							<dd>- Trường hợp nhiều người chơi có tổng điểm cao nhất bằng nhau, người thắng cuộc là người đạt được số điểm cao nhất trong thời gian sớm nhất.</dd>
+							<dd><em>- Lưu ý: Trong trường hợp phát sinh tranh chấp, khiếu nại liên quan đến chương trình, Công ty VTC Mobile sẽ trực tiếp giải quyết và quyết định của VTC Mobile là kết quả cuối cùng. Mọi trường hợp gian lận hoặc không trung thực sẽ bị xử lý theo pháp luật.</em></dd>         
 						</dl>
 						<h4 class="font-size-3vw_m font-weight-bold">4. Hướng dẫn sử dụng giải thưởng</h4>
 						<dl class="font-size-3vw_m">

@@ -535,12 +535,12 @@ class Lucky_Rotation extends React.Component {
 					var y=touchPos.y;
 					curFrame=0;
 					n=0;
-					if(dartPositionY >touchPos.y){
-						this.props.gds(1,sessionId, user.Token, code_key, "web", x, y, 88).then(()=>{
+					if(dartPositionY >y){
+						this.props.gds(1,sessionId, user.Token, code_key, "web", x, y, 88, 1).then(()=>{
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
 
-								this.draw(touchPos.x, data.TargetX - touchPos.x, touchPos.y, data.TargetY - touchPos.y)
+								this.draw(x, data.TargetX - x, y, data.TargetY - y)
 
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
@@ -677,7 +677,7 @@ class Lucky_Rotation extends React.Component {
 				dartFlightImg.remove();
 			}
 
-			this.props.gds(1,sessionId, user.Token, code_key, "web", 0, 0, 0).then(()=>{
+			this.props.gds(1,sessionId, user.Token, code_key, "web", 0, 0, 0, 1).then(()=>{
 				var data=this.props.dataUserSpin;
 				if(data.Status===0){
 					if(!isChangetab){

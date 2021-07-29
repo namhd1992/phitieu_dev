@@ -204,11 +204,11 @@ export const getMoreSessions= () => {
 }
 
 
-export const gds = (type,sessionId,  token, code_key, type_device, x, y, i) => {
+export const gds = (type,sessionId,  token, code_key, type_device, x, y, i, delta) => {
 
 	console.log(`t=${type}&s=${sessionId}&x=${x}&y=${y}&c=${type_device}&i=${i}`)
 
-	var code=encrypt(`t=${type}&s=${sessionId}&x=${x}&y=${y}&c=${type_device}&i=${i}`, code_key)
+	var code=encrypt(`t=${type}&s=${sessionId}&x=${x}&y=${y}&c=${type_device}&i=${i}&d=${delta}`, code_key)
 
 
 	var myHeaders = new Headers();
