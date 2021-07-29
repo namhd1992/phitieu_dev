@@ -183,7 +183,8 @@ class Lucky_Rotation extends React.Component {
 		SEGMENTS=SEGMENTS.map(v => {
 			return v*delta
 		})
-		console.log('Dart_Center_X',Dart_Center_X)
+
+		this.setState({delta:delta})
 	}
 
 
@@ -817,7 +818,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchEnd=(e)=>{
-		const {tieuconlai, txt_points, awardsContent, stage, darthVaderImg, dartPositionY,hight_score, isPlay, none_multi, countDart,  sessionId, auto_play, code_key, height_plus}=this.state;
+		const {tieuconlai, txt_points, awardsContent, stage, darthVaderImg, dartPositionY,hight_score, isPlay, none_multi, countDart,  sessionId, auto_play, code_key, height_plus, delta}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var _this=this;
 		var arr=[];
@@ -831,7 +832,7 @@ class Lucky_Rotation extends React.Component {
 					n=0;
 					var plus=heightFrame/2 - height_plus
 					if(dartPositionY >touchPos.y){
-						this.props.gds(2,sessionId, user.Token, code_key, "iosp", x, y, plus).then(()=>{
+						this.props.gds(2,sessionId, user.Token, code_key, "iosp", x, y, plus, delta).then(()=>{
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
 								if(data.Darts===0){

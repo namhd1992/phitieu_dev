@@ -175,6 +175,8 @@ class Lucky_Rotation extends React.Component {
 		SEGMENTS=SEGMENTS.map(v => {
 			return v*delta
 		})
+
+		this.setState({delta:delta})
 	}
 
 

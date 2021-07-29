@@ -148,6 +148,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family: Arial, Helvetica, s
 @media screen and (min-width:480px) {
 .menu-left_m p.menu-link_m {margin-top: 4%;}
 .text-phanthuong_m {font-size: 18px}
+.text-tudo_m {font-size: 14px;}
 }
 
 @media screen and (max-width:640px) {
