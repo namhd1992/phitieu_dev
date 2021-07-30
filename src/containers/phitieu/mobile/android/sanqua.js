@@ -969,7 +969,7 @@ class Lucky_Rotation extends React.Component {
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
 	
-								this.draw(x, data.TargetX - x, y-1, data.TargetY - y)
+								this.draw(x, data.TargetX - x, y, data.TargetY - y)
 	
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
