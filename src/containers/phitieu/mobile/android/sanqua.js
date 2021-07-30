@@ -965,7 +965,7 @@ class Lucky_Rotation extends React.Component {
 					curFrame=0;
 					n=0;
 					if(dartPositionY >y){
-						this.props.gds(1,sessionId, user.Token, code_key, "android", x, y, 54, delta).then(()=>{
+						this.props.gds(1,sessionId, user.Token, code_key, "android", x, y, 56, delta).then(()=>{
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
 	
@@ -1129,7 +1129,7 @@ class Lucky_Rotation extends React.Component {
 				var data=this.props.dataUserSpin;
 				if(data.Status===0){
 					if(!isChangetab){
-						this.draw(data.TargetX,0,data.TargetY+54,0);
+						this.draw(data.TargetX,0,data.TargetY+56,0);
 					}
 					
 					if(data.Darts===0){
