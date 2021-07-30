@@ -755,19 +755,19 @@ class Lucky_Rotation extends React.Component {
 			text: score,
 		});
 
-		// var inter=setInterval(()=>{	
-		// 	newH=newH-1;
-		// 	size=size+0.1;
-		// 	score_text.fontSize(size)
-		// 	score_text.y(newH);
-		// }, 20);
+		var inter=setInterval(()=>{	
+			newH=newH-1;
+			size=size+0.1;
+			score_text.fontSize(size)
+			score_text.y(newH);
+		}, 20);
 
 		layer.add(score_text)
 		stage.add(layer)
-		// setTimeout(()=>{ 
-		// 	score_text.remove();
-		// 	clearInterval(inter)
-		// }, 1000);
+		setTimeout(()=>{ 
+			score_text.remove();
+			clearInterval(inter)
+		}, 1000);
 
 		
 		this.setState({score_text:score_text})
