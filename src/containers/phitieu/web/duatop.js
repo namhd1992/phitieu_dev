@@ -66,8 +66,8 @@ var heightFrame = spriteHeight;
 var srcX=0; 
 var srcY=0; 
 
-var Dart_Center_X=619;
-var Dart_Center_Y=375;
+var Dart_Center_X=620;
+var Dart_Center_Y=376;
 var SEGMENTS = [8, 15, 73, 83, 124, 134];
 var SEGMENT_NAMES = ['50','25','value','tripple','value','double','out'];
 var SCORE_VALUES = [6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10, 6];
@@ -515,8 +515,8 @@ class Lucky_Rotation extends React.Component {
 			text_warning.remove();
 		}
 		var touchPos = stage.getPointerPosition();
-		var x= touchPos.x-20;
-		var y= touchPos.y-80;
+		var x= touchPos.x-23;
+		var y= touchPos.y-100;
 		darthVaderImg.x(x);
 		darthVaderImg.y(y);
 		darthVaderImg.show();
@@ -564,7 +564,7 @@ class Lucky_Rotation extends React.Component {
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
 								}
-								this.draw(x+1, data.TargetX - x, y, data.TargetY - y)
+								this.draw(x, data.TargetX - x, y, data.TargetY - y)
 								
 								
 								setTimeout(()=>{
@@ -608,7 +608,7 @@ class Lucky_Rotation extends React.Component {
 		const {stage, darthVaderImg}=this.state;
 		if(JSON.stringify(darthVaderImg) !== '{}'){
 			var touchPos = stage.getPointerPosition();
-			var x= touchPos.x-20;
+			var x= touchPos.x-23;
 			var y= touchPos.y-100;
 			darthVaderImg.x(x);
 			darthVaderImg.y(y);
@@ -631,8 +631,9 @@ class Lucky_Rotation extends React.Component {
 	draw=(x,deltalX, y, deltalY)=>{
 		var _this=this;
 		
-		var newX=x + deltalX/13*n;
-		var newY=y + deltalY/13*n;
+		var newX=x + deltalX/12*n;
+		var newY=y + deltalY/12*n;
+
 		console.log("newX:", newX, "newY:",newY)
 		const {stage, layer}=this.state;
 		var touchPos = stage.getPointerPosition();
@@ -647,15 +648,15 @@ class Lucky_Rotation extends React.Component {
 				height: heightFrame,
 				// visible:false
 				});
-			console.log(dartFlightImg)
+			// console.log(dartFlightImg)
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
 			if(curFrame <= 12){
 				setTimeout(()=>{
+					n=n+1
 					_this.draw(x,deltalX,y,deltalY) 
 					dartFlightImg.remove(); 
-					n=n+1
 				}, 23);
 			}
 			
