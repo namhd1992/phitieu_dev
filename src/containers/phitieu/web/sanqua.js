@@ -540,7 +540,7 @@ class Lucky_Rotation extends React.Component {
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
 
-								this.draw(x, data.TargetX - x, y, data.TargetY - y)
+								this.draw(x+1, data.TargetX - x, y, data.TargetY - y)
 
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
@@ -565,6 +565,7 @@ class Lucky_Rotation extends React.Component {
 							}else if(data.Status===3){
 								this.logoutAction();
 							}else if(data.Status===5){
+								alert("LỖI 05:",code_key)
 								this.setState({msg_err:'Có lỗi xảy ra!'}, ()=>{
 									$('#Error').modal('show');
 								})
@@ -886,6 +887,9 @@ class Lucky_Rotation extends React.Component {
 					<div class="modal fade" id="Error" data-keyboard="false" data-backdrop="static" style={{zIndex:9999999}}>
 						<div class="modal-dialog modal-dangnhap">
 							<div class="modal-content bg-transparent border-0">
+								<div class="modal-header border-0 p-0 text-dark">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
 								<div class="modal-body border-0">
 									<h2 class="font-size-16 pt-5 font-weight-bold text-uppercase text-center">{msg_err}</h2>
 								</div>
