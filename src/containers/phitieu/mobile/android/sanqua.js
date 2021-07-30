@@ -50,9 +50,9 @@ const styles = {
 };
 
 var startX=370, endX=587, startY=170, endY=387;
-var Dart_Center_X=478;
+var Dart_Center_X=479;
 var Dart_Center_Y=280;
-var SEGMENTS = [4, 9, 57, 67, 99, 108];
+var SEGMENTS = [5, 11, 59, 68, 100, 109];
 
 var img_w=960;
 var img_h=450
@@ -965,11 +965,11 @@ class Lucky_Rotation extends React.Component {
 					curFrame=0;
 					n=0;
 					if(dartPositionY >y){
-						this.props.gds(1,sessionId, user.Token, code_key, "android", x, y, 56, delta).then(()=>{
+						this.props.gds(1,sessionId, user.Token, code_key, "android", x, y, 54, delta).then(()=>{
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
 	
-								this.draw(x, data.TargetX - x, y, data.TargetY - y)
+								this.draw(x, data.TargetX - x, y-1, data.TargetY - y)
 	
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
@@ -1129,7 +1129,7 @@ class Lucky_Rotation extends React.Component {
 				var data=this.props.dataUserSpin;
 				if(data.Status===0){
 					if(!isChangetab){
-						this.draw(data.TargetX,0,data.TargetY+56,0);
+						this.draw(data.TargetX,0,data.TargetY+54,0);
 					}
 					
 					if(data.Darts===0){
