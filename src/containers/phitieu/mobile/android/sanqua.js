@@ -241,7 +241,24 @@ class Lucky_Rotation extends React.Component {
 			this.setState({stage:stage, layer:layer})
 			var _this=this
 
+			var imageObj = new Image();
+			imageObj.onload = function () {
+				var darthVaderImg = new Konva.Image({
+					image: imageObj,
+					x: 0,
+					y: 0,
+					width: 28,
+					height: 120,
+					draggable: true,
+					visible:false
+					});
 			
+					layer.add(darthVaderImg);
+					stage.add(layer);
+					_this.setState({darthVaderImg:darthVaderImg})
+			};
+			imageObj.src = phitieu;
+
 			var bggame = new Image();
 			bggame.onload = function () {
 				var bgGameImg = new Konva.Image({
@@ -902,7 +919,7 @@ class Lucky_Rotation extends React.Component {
 
 	touchStart=(e)=>{
 		// console.log("touchStart",e.touches)
-		const {stage, layer, dartFlightImg, score_text, text_warning}=this.state;
+		const {stage, layer, dartFlightImg, score_text, text_warning, darthVaderImg}=this.state;
 		var _this=this;
 		clearTimeout(st_touch);
 		if(JSON.stringify(dartFlightImg) !== '{}'){
@@ -919,23 +936,11 @@ class Lucky_Rotation extends React.Component {
 
 		if(e.touches.length===1){
 			var touchPos = stage.getPointerPosition();
-			var imageObj = new Image();
-			imageObj.onload = function () {
-				var darthVaderImg = new Konva.Image({
-					image: imageObj,
-					x: touchPos.x-widthFrame/2,
-					y: touchPos.y-heightFrame/2,
-					width: 28,
-					height: 120,
-					draggable: true,
-					});
-			
-					layer.add(darthVaderImg);
-					stage.add(layer);
-					_this.setState({darthVaderImg:darthVaderImg})
-			};
-			imageObj.src = phitieu;
-			
+			var x= touchPos.x-widthFrame/2;
+			var y= touchPos.y-heightFrame/2;
+			darthVaderImg.x(x);
+			darthVaderImg.y(y);
+			darthVaderImg.show();
 			this.setState({dartPositionY:touchPos.y, none_multi:true})
 		}else{
 			this.setState({none_multi:false})
