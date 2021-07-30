@@ -566,6 +566,7 @@ class Lucky_Rotation extends React.Component {
 								}
 								this.draw(x+1, data.TargetX - x, y, data.TargetY - y)
 								
+								
 								setTimeout(()=>{
 									this.showScore(data.Score);
 									this.setState({countDart: data.Darts, points: data.Points, highestPoints:data.HighestPoint})
@@ -578,7 +579,6 @@ class Lucky_Rotation extends React.Component {
 							}else if(data.Status===3){
 								this.logoutAction();
 							}else if(data.Status===5){
-								console.log("LỖI 05:",code_key)
 								this.setState({msg_err:'Có lỗi xảy ra!'}, ()=>{
 									$('#Error').modal('show');
 								})
@@ -700,7 +700,7 @@ class Lucky_Rotation extends React.Component {
 					}
 					setTimeout(()=>{
 						this.showScore(data.Score);
-						this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
+						this.setState({countDart: data.Darts, points: data.Points, listTop:data.TopList})
 					}, 400);
 
 					if(data.Darts===0){
@@ -763,10 +763,10 @@ class Lucky_Rotation extends React.Component {
 
 		layer.add(score_text)
 		stage.add(layer)
-		setTimeout(()=>{ 
-			score_text.remove();
-			clearInterval(inter)
-		}, 1000);
+		// setTimeout(()=>{ 
+		// 	score_text.remove();
+		// 	clearInterval(inter)
+		// }, 1000);
 
 		
 		this.setState({score_text:score_text})

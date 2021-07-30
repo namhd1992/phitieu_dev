@@ -541,6 +541,8 @@ class Lucky_Rotation extends React.Component {
 
 								this.draw(x+1, data.TargetX - x, y, data.TargetY - y)
 
+								// console.log(x, data.TargetX - x, y, data.TargetY - y)
+
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
 								}
@@ -564,7 +566,6 @@ class Lucky_Rotation extends React.Component {
 							}else if(data.Status===3){
 								this.logoutAction();
 							}else if(data.Status===5){
-								alert("LỖI 05:",code_key)
 								this.setState({msg_err:'Có lỗi xảy ra!'}, ()=>{
 									$('#Error').modal('show');
 								})
@@ -755,10 +756,10 @@ class Lucky_Rotation extends React.Component {
 
 		layer.add(score_text)
 		stage.add(layer)
-		setTimeout(()=>{ 
-			score_text.remove();
-			clearInterval(inter)
-		}, 1000);
+		// setTimeout(()=>{ 
+		// 	score_text.remove();
+		// 	clearInterval(inter)
+		// }, 1000);
 
 		
 		this.setState({score_text:score_text})
