@@ -634,7 +634,7 @@ class Lucky_Rotation extends React.Component {
 		var newX=x + deltalX/12*n;
 		var newY=y + deltalY/12*n;
 
-		console.log("newX:", newX, "newY:",newY)
+		// console.log("newX:", newX, "newY:",newY)
 		const {stage, layer}=this.state;
 		var touchPos = stage.getPointerPosition();
 		this.updateFrame();

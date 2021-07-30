@@ -926,9 +926,9 @@ class Lucky_Rotation extends React.Component {
 		var _this=this;
 		
 
-		var newX=x + deltalX/13*n;
-		var newY=y + deltalY/13*n;
-		console.log("newX:", newX, "newY:",newY)
+		var newX=x + deltalX/12*n;
+		var newY=y + deltalY/12*n;
+		// console.log("newX:", newX, "newY:",newY)
 		const {stage, layer}=this.state;
 		var touchPos = stage.getPointerPosition();
 		this.updateFrame();
@@ -942,15 +942,15 @@ class Lucky_Rotation extends React.Component {
 				height: heightFrame,
 				// visible:false
 				});
-			console.log(dartFlightImg)
+			// console.log(dartFlightImg)
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
 			if(curFrame <= 12){
 				setTimeout(()=>{
+					n=n+1
 					_this.draw(x,deltalX,y,deltalY) 
 					dartFlightImg.remove(); 
-					n=n+1
 				}, 23);
 			}
 			
@@ -1070,10 +1070,10 @@ class Lucky_Rotation extends React.Component {
 
 		layer.add(score_text)
 		stage.add(layer)
-		// setTimeout(()=>{ 
-		// 	score_text.remove();
-		// 	clearInterval(inter)
-		// }, 1000);
+		setTimeout(()=>{ 
+			score_text.remove();
+			clearInterval(inter)
+		}, 1000);
 
 		
 		this.setState({score_text:score_text})

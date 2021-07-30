@@ -844,7 +844,7 @@ class Lucky_Rotation extends React.Component {
 									$('#ThongBao').modal('show');
 								}
 
-								this.draw(x, data.TargetX - x, y-10, data.TargetY - y)
+								this.draw(x, data.TargetX - x, y, data.TargetY - y)
 
 								setTimeout(()=>{
 									this.showScore(data.Score);
@@ -925,9 +925,9 @@ class Lucky_Rotation extends React.Component {
 	draw=(x,deltalX, y, deltalY)=>{
 		console.log('deltalX:', deltalX)
 		var _this=this;
-		var newX=x + deltalX/13*n;
-		var newY=y + deltalY/13*n;
-		console.log("newX:", newX, "newY:",newY)
+		var newX=x + deltalX/12*n;
+		var newY=y + deltalY/12*n;
+		// console.log("newX:", newX, "newY:",newY)
 		const {stage, layer}=this.state;
 		var touchPos = stage.getPointerPosition();
 		this.updateFrame();
@@ -941,7 +941,7 @@ class Lucky_Rotation extends React.Component {
 				height: heightFrame,
 				// visible:false
 				});
-			console.log(dartFlightImg)
+			// console.log(dartFlightImg)
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
@@ -949,8 +949,9 @@ class Lucky_Rotation extends React.Component {
 			if(curFrame <= 12){
 				setTimeout(()=>{
 					// dartFlightImg.remove(); 
-					_this.draw(x,deltalX,y,deltalY) 
 					n=n+1
+					_this.draw(x,deltalX,y,deltalY) 
+					
 				}, 25);
 				setTimeout(()=>{
 					dartFlightImg.remove(); 
@@ -1076,10 +1077,10 @@ class Lucky_Rotation extends React.Component {
 
 		layer.add(score_text)
 		stage.add(layer)
-		// setTimeout(()=>{ 
-		// 	score_text.remove();
-		// 	clearInterval(inter)
-		// }, 1000);
+		setTimeout(()=>{ 
+			score_text.remove();
+			clearInterval(inter)
+		}, 1000);
 
 		
 		this.setState({score_text:score_text})
