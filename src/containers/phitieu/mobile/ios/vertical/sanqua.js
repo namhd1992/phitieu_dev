@@ -966,12 +966,13 @@ class Lucky_Rotation extends React.Component {
 					curFrame=0;
 					n=0;
 					var plus=heightFrame/2 - height_plus;
+					console.log(plus)
 					if(dartPositionY >y){
 						this.props.gds(1,sessionId, user.Token, code_key, "iosp", x, y, plus, delta).then(()=>{
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
 	
-								this.draw(x+1, data.TargetX - x-1, y-20, data.TargetY - y+20)
+								this.draw(x, data.TargetX - x, y-15, data.TargetY - y)
 	
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
@@ -1057,7 +1058,7 @@ class Lucky_Rotation extends React.Component {
 		var _this=this;
 		var newX=x + deltalX/13*n;
 		var newY=y + deltalY/13*n;
-		console.log("newX:", newX, "newY:",newY)
+		// console.log("newX:", newX, "newY:",newY)
 		const {stage, layer}=this.state;
 		var touchPos = stage.getPointerPosition();
 		this.updateFrame();
@@ -1071,7 +1072,7 @@ class Lucky_Rotation extends React.Component {
 				height: heightFrame,
 				// visible:false
 				});
-			console.log(dartFlightImg)
+			// console.log(dartFlightImg)
 			dartFlightImg.crop({x:srcX, y:srcY, width: widthFrame, height: heightFrame})
 			layer.add(dartFlightImg);
 			stage.add(layer);
@@ -1272,10 +1273,10 @@ class Lucky_Rotation extends React.Component {
 
 							<div class="modal-body border-0">
 								{(duatop)?(<div class="modal-body border-0">
-										<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{msg}</h2>
+										<h2 class="font-size-16_m pt-4 font-weight-bold text-uppercase text-center">{msg}</h2>
 										<p class="text-center pt-1"> <a href="duatop"><img src={btn_duatop} width="120" alt="Active VIP" /></a></p>
 									</div>):(<div class="modal-body border-0">
-										<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">{msg}</h2>
+										<h2 class="font-size-16_m pt-4 font-weight-bold text-uppercase text-center">{msg}</h2>
 										{(!isLoading)?(<h2 class="font-size-16 font-weight-bold text-uppercase text-center">Giải này đã thuộc về tài khoản <span class="text-shadow">{listTop[0].Username}</span></h2>):(<div></div>)}
 										
 										<p class="text-center"> <a href="/"><img src={btn_thoat} width="120" alt="Active VIP" /></a></p>

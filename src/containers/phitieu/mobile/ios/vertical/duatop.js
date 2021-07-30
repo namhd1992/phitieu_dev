@@ -839,7 +839,7 @@ class Lucky_Rotation extends React.Component {
 									$('#ThongBao').modal('show');
 								}
 
-								this.draw(x+1, data.TargetX - x-1, y-20, data.TargetY - y+20)
+								this.draw(x, data.TargetX - x, y-15, data.TargetY - y)
 
 								setTimeout(()=>{
 									this.showScore(data.Score);
@@ -1152,8 +1152,8 @@ class Lucky_Rotation extends React.Component {
 								<div class="modal-content bg-transparent border-0">
 
 								<div class="modal-body border-0">
-									<h2 class="font-size-16 pt-4 font-weight-bold text-uppercase text-center">Bạn đã hết Phi Tiêu.</h2>
-									<p class="font-size-14 font-weight-bold text-uppercase text-center" style={{marginBottom:10}}> Vui lòng nạp thêm Scoin để nhận Phi Tiêu và tiếp tục chơi.</p>
+									<h2 class="font-size-16_m pt-4 font-weight-bold text-uppercase text-center">Bạn đã hết Phi Tiêu.</h2>
+									<p class="font-size-14_m font-weight-bold text-uppercase text-center" style={{marginBottom:10}}> Vui lòng nạp thêm Scoin để nhận Phi Tiêu và tiếp tục chơi.</p>
 									<p class="text-center"><a href="https://scoin.vn/" title="Nạp Scoin" target="_blank"><img src={btn_nap_scoin} width="30%" hspace="10" alt="" /></a><a href="/" title="Thoát"><img src={btn_thoat} width="30%" alt="" /></a></p>
 								</div>
 
