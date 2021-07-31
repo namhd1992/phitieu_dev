@@ -963,7 +963,7 @@ class Lucky_Rotation extends React.Component {
 
 	touchEnd=(e)=>{
 		// console.log("touchEnd", e.touches)
-		const {tieuconlai, txt_points, list_top_user, awardsContent,stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart,  sessionId, auto_play, code_key, height_plus, delta}=this.state;
+		const {mg_left,tieuconlai, txt_points, list_top_user, awardsContent,stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart,  sessionId, auto_play, code_key, height_plus, delta}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var _this=this;
 		var arr=[];
@@ -982,7 +982,7 @@ class Lucky_Rotation extends React.Component {
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
 	
-								this.draw(x, data.TargetX - x, y, data.TargetY - y)
+								this.draw(x-mg_left, data.TargetX - x, y, data.TargetY - y)
 	
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
