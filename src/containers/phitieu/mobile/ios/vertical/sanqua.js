@@ -201,7 +201,8 @@ class Lucky_Rotation extends React.Component {
 		var list_top_user=[];
 		var user = JSON.parse(localStorage.getItem("user"));
 		var mg_left=0;
-		var delta=0
+		var delta=0;
+		var height_plus=0;
 		// var canvas=document.getElementById("canvas");
 		// canvas.addEventListener ("mouseout", this.checkoutCanvas);
 
@@ -213,6 +214,11 @@ class Lucky_Rotation extends React.Component {
 		bg_y=height;
 		bg_x=width*deltal_img/deltal_device;
 		mg_left=(width-bg_x)/2;
+		if(mg_left>30){
+			height_plus=mg_left+32
+		}else{
+			height_plus=mg_left+26
+		}
 		this.setState({mg_left:mg_left, height_plus:mg_left+26})
 
 		delta=img_w/bg_x
@@ -986,9 +992,12 @@ class Lucky_Rotation extends React.Component {
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
 								if(mg_left >30){
-									this.draw(x-7, data.TargetX - x, y, data.TargetY - y)
+									this.draw(data.TargetX-7, 0, data.TargetY,0)
+									// this.draw(x-7, data.TargetX - x, y, data.TargetY - y)
 								}else{
-									this.draw(x-2, data.TargetX - x, y, data.TargetY - y)
+									this.draw(data.TargetX-2, 0, data.TargetY,0)
+									// this.draw(x-2, data.TargetX - x, y, data.TargetY - y)
+									// this.draw(x-7, data.TargetX - x, y, data.TargetY - y)
 								}
 								
 	
