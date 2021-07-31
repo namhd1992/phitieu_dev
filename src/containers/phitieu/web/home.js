@@ -325,7 +325,7 @@ class Lucky_Rotation extends React.Component {
 				"token": user.Token,
 			}
 		}
-		axios.get('https://api.splay.vn/luckywheel/luckywheel/user-signout/', header).then(function (response) {
+		axios.get('https://api.splay.vn/darts/user-signout/', header).then(function (response) {
 			console.log(response)
 		})
 	}
@@ -1220,7 +1220,7 @@ class Lucky_Rotation extends React.Component {
 									</tr>
 									</tbody>
 								</table>
-								<p class="text-center"><a href="https://scoin.vn/" title="Nạp Scoin" target="_blank"><img src={btn_nap_scoin} width="100" hspace="10" alt="" /></a></p>
+								<p class="text-center"><a href="https://scoin.vn/nap-tien#9" title="Nạp Scoin" target="_blank"><img src={btn_nap_scoin} width="100" hspace="10" alt="" /></a></p>
 							</div>
 						</div>
 					</div>
