@@ -222,7 +222,7 @@ class Lucky_Rotation extends React.Component {
 		// 	bg_y=height;
 		// 	bg_x=width*deltal_img/deltal_device;
 		// }
-		alert(`mg_left: ${mg_left}`)
+		// alert(`bg_y: ${bg_y}`)
 		width_bgImg=bg_y;
 		if(vertical){
 			var stage = new Konva.Stage({
@@ -981,8 +981,12 @@ class Lucky_Rotation extends React.Component {
 						this.props.gds(1,sessionId, user.Token, code_key, "iosp", x, y, plus, delta).then(()=>{
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
-	
-								this.draw(x-5, data.TargetX - x, y, data.TargetY - y)
+								if(mg_left >30){
+									this.draw(x-7, data.TargetX - x, y, data.TargetY - y)
+								}else{
+									this.draw(x, data.TargetX - x, y, data.TargetY - y)
+								}
+								
 	
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');
