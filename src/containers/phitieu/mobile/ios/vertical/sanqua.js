@@ -993,6 +993,10 @@ class Lucky_Rotation extends React.Component {
 							var deltaX=0;
 							var deltaY=0;
 							if(data.Status===0){
+								var dx = Dart_Center_X - data.TargetX;
+								var dy = Dart_Center_Y - data.TargetY;
+
+								var delta = Math.sqrt(dx*dx+dy*dy);
 								if(mg_left >30){
 									if(data.TargetX-5>Dart_Center_X){
 										deltaX=2
@@ -1007,20 +1011,22 @@ class Lucky_Rotation extends React.Component {
 									}
 									this.draw(x-deltaX, data.TargetX - x, y-deltaY, data.TargetY - y)
 								}else{
-									if(data.TargetX-10>Dart_Center_X){
-										deltaX=7
-									}else if(Dart_Center_X > data.TargetX+10){
-										deltaX=-4
+									if(delta < 10){
+										deltaX=2;
+										deltaY=-16;
+										alert("ok")
 									}else{
-										deltaX=2
-									}
+										if(data.TargetX-10>Dart_Center_X){
+											deltaX=7
+										}else if(Dart_Center_X > data.TargetX+10){
+											deltaX=-4
+										}
 
-									if(data.TargetY-10>Dart_Center_Y){
-										deltaY=-2
-									}else if(Dart_Center_Y > data.TargetY+10){
-										deltaY=-10
-									}else{
-										deltaY=-16
+										if(data.TargetY-10>Dart_Center_Y){
+											deltaY=-2
+										}else if(Dart_Center_Y > data.TargetY+10){
+											deltaY=-10
+										}
 									}
 
 									this.draw(x-deltaX, data.TargetX - x, y-deltaY, data.TargetY - y)
