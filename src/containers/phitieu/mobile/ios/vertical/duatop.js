@@ -191,9 +191,6 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
-		
-		console.log('width:', width)
-		console.log('height:', height)
 		const {vertical, mg_left}=this.state;
 		var deltal_img=img_w/img_h;
 		var deltal_device=width/height;
@@ -549,7 +546,6 @@ class Lucky_Rotation extends React.Component {
 
 	getLuckyInfo=(type)=>{
 		const {tieuconlai, username, txt_points, hight_score}=this.state;
-		console.log(username)
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.props.getLuckyInfo(type, user.Token).then(()=>{
 			var data=this.props.dataLuckyInfo;
@@ -582,7 +578,6 @@ class Lucky_Rotation extends React.Component {
 			if(data!==undefined){
 				if(data.Status===0){
 					var list=data.Data.filter( i => i.SessionType===1 );
-					console.log(list)
 					var pos = list.map(function(e) { return e.Status; }).indexOf(1);
 					if(pos!==-1){
 						this.setState({sanqua:true})
@@ -791,7 +786,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchStart=(e)=>{
-		console.log('AAAAAAAAAA')
 		// console.log("touchStart",e.touches)
 		const {stage, layer, dartFlightImg, score_text, text_warning, darthVaderImg}=this.state;
 		var _this=this;
@@ -923,7 +917,6 @@ class Lucky_Rotation extends React.Component {
 
 
 	draw=(x,deltalX, y, deltalY)=>{
-		console.log('deltalX:', deltalX)
 		var _this=this;
 		var newX=x + deltalX/12*n;
 		var newY=y + deltalY/12*n;
