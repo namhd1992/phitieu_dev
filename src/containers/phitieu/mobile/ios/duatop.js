@@ -116,6 +116,7 @@ class Lucky_Rotation extends React.Component {
 			len_auto:0,
 			waiting:false,
 			innerWidth:0,
+			innerHeight:0,
 			image: null, 
 			stage:{},
 			layer:{},
@@ -176,7 +177,7 @@ class Lucky_Rotation extends React.Component {
 			return v*delta
 		})
 
-		this.setState({delta:delta, innerWidth:window.innerWidth})
+		this.setState({delta:delta, innerHeight:window.innerHeight,  innerWidth:window.innerWidth})
 	}
 
 
@@ -658,10 +659,10 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	setScreenOrientation=()=>{
-		const {innerWidth}=this.state;
-		if(Math.abs(innerWidth - window.innerWidth) >20){
+		const {innerHeight}=this.state;
+		if(Math.abs(innerHeight - window.innerHeight) >20){
 			window.location.reload();
-			this.setState({innerWidth:window.innerWidth})
+			this.setState({innerHeight:window.innerHeight})
 		}
 		// this.toggleFullScreen() 
 	}
