@@ -195,13 +195,15 @@ class Lucky_Rotation extends React.Component {
 		// canvas.addEventListener ("mouseout", this.checkoutCanvas);
 
 		// this.toggleFullScreen();
-		if(width/height > 2){
-			bg_x=width;
-			bg_y=height*deltal_img/deltal_device;
-		}else{
-			bg_x=width;
-			bg_y=height*deltal_device/deltal_img;
-		}
+		bg_x=width;
+		bg_y=height*deltal_device/deltal_img;
+		// if(width/height > 2){
+		// 	bg_x=width;
+		// 	bg_y=height*deltal_img/deltal_device;
+		// }else{
+		// 	bg_x=width;
+		// 	bg_y=height*deltal_device/deltal_img;
+		// }
 		width_bgImg=bg_y;
 
 		if(horizontal){
