@@ -1016,12 +1016,12 @@ class Lucky_Rotation extends React.Component {
 										deltaY=-15;
 									}else if(delta > 22 && delta < 40){
 										deltaX=2;
-										deltaY=-5;
+										deltaY=-3;
 									}else{
 										if(data.TargetX>Dart_Center_X){
-											deltaX=10
+											deltaX=12
 										}else if(Dart_Center_X > data.TargetX){
-											deltaX=-7
+											deltaX=-4
 										}
 
 										if(data.TargetY>Dart_Center_Y){
