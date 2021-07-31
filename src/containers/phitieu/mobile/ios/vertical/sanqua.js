@@ -200,7 +200,8 @@ class Lucky_Rotation extends React.Component {
 		var bg_x=0, bg_y=0;
 		var list_top_user=[];
 		var user = JSON.parse(localStorage.getItem("user"));
-		var mg_left=0
+		var mg_left=0;
+		var delta=0
 		// var canvas=document.getElementById("canvas");
 		// canvas.addEventListener ("mouseout", this.checkoutCanvas);
 
@@ -214,6 +215,9 @@ class Lucky_Rotation extends React.Component {
 		mg_left=(width-bg_x)/2;
 		this.setState({mg_left:mg_left, height_plus:mg_left+26})
 
+		delta=img_w/bg_x
+		
+
 		
 		// if(height/width > 2){
 		// 	bg_x=width;
@@ -222,7 +226,7 @@ class Lucky_Rotation extends React.Component {
 		// 	bg_y=height;
 		// 	bg_x=width*deltal_img/deltal_device;
 		// }
-		// alert(`bg_y: ${bg_y}`)
+		alert(`delta: ${delta}`)
 		width_bgImg=bg_y;
 		if(vertical){
 			var stage = new Konva.Stage({
@@ -984,7 +988,7 @@ class Lucky_Rotation extends React.Component {
 								if(mg_left >30){
 									this.draw(x-7, data.TargetX - x, y, data.TargetY - y)
 								}else{
-									this.draw(x, data.TargetX - x, y, data.TargetY - y)
+									this.draw(x-2, data.TargetX - x, y, data.TargetY - y)
 								}
 								
 	
