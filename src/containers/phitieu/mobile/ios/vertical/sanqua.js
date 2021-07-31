@@ -209,6 +209,8 @@ class Lucky_Rotation extends React.Component {
 
 
 		// this.toggleFullScreen();
+
+		alert(`width: ${width} height: ${height}`)
 		if(height/width > 2){
 			bg_x=width;
 			bg_y=height*deltal_device/deltal_img;
@@ -216,6 +218,7 @@ class Lucky_Rotation extends React.Component {
 			bg_y=height;
 			bg_x=width*deltal_img/deltal_device;
 		}
+		alert(`bg_x: ${bg_x} bg_y: ${bg_y}`)
 		width_bgImg=bg_y;
 		if(vertical){
 			var stage = new Konva.Stage({
