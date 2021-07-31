@@ -191,7 +191,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
-		const {vertical, mg_left}=this.state;
+		const {vertical}=this.state;
 		var deltal_img=img_w/img_h;
 		var deltal_device=width/height;
 		var bg_x=0, bg_y=0;
