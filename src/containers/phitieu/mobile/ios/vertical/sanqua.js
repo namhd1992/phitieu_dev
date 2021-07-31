@@ -1005,7 +1005,7 @@ class Lucky_Rotation extends React.Component {
 									}else{
 										deltaY=4
 									}
-									this.draw(x-deltaX, data.TargetX - x + deltaX, y-deltaY, data.TargetY - y)
+									this.draw(x-deltaX, data.TargetX - x, y-deltaY, data.TargetY - y)
 								}else{
 									if(data.TargetX>Dart_Center_X){
 										deltaX=7
@@ -1016,9 +1016,9 @@ class Lucky_Rotation extends React.Component {
 									if(data.TargetY>Dart_Center_Y){
 										deltaY=-4
 									}else{
-										deltaY=-8.5
+										deltaY=-8
 									}
-									this.draw(x-deltaX, data.TargetX - x +deltaX, y-deltaY, data.TargetY - y+deltaY)
+									this.draw(x-deltaX, data.TargetX - x, y-deltaY, data.TargetY - y)
 									// this.draw(x-7, data.TargetX - x, y, data.TargetY - y)
 								}
 								
@@ -1128,14 +1128,14 @@ class Lucky_Rotation extends React.Component {
 
 			if(curFrame <= 12){
 				setTimeout(()=>{
-					// dartFlightImg.remove(); 
+					dartFlightImg.remove(); 
 					n=n+1
 					_this.draw(x,deltalX,y,deltalY) 
 					
 				}, 25);
-				setTimeout(()=>{
-					dartFlightImg.remove(); 
-				}, 50);
+				// setTimeout(()=>{
+				// 	dartFlightImg.remove(); 
+				// }, 50);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
