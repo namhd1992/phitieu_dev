@@ -994,9 +994,9 @@ class Lucky_Rotation extends React.Component {
 							var deltaY=0;
 							if(data.Status===0){
 								if(mg_left >30){
-									if(data.TargetX>Dart_Center_X){
+									if(data.TargetX-5>Dart_Center_X){
 										deltaX=2
-									}else{
+									}else if(Dart_Center_X > data.TargetX+5){
 										deltaX=2
 									}
 
@@ -1007,17 +1007,22 @@ class Lucky_Rotation extends React.Component {
 									}
 									this.draw(x-deltaX, data.TargetX - x, y-deltaY, data.TargetY - y)
 								}else{
-									if(data.TargetX>Dart_Center_X){
+									if(data.TargetX-5>Dart_Center_X){
 										deltaX=7
-									}else{
+									}else if(Dart_Center_X > data.TargetX+5){
 										deltaX=-4
+									}else{
+										deltaX=5
 									}
 
-									if(data.TargetY>Dart_Center_Y){
+									if(data.TargetY-5>Dart_Center_Y){
 										deltaY=-4
+									}else if(Dart_Center_Y > data.TargetY+5){
+										deltaY=-9
 									}else{
-										deltaY=-8
+										deltaY=-2
 									}
+
 									this.draw(x-deltaX, data.TargetX - x, y-deltaY, data.TargetY - y)
 									// this.draw(x-7, data.TargetX - x, y, data.TargetY - y)
 								}
@@ -1128,14 +1133,14 @@ class Lucky_Rotation extends React.Component {
 
 			if(curFrame <= 12){
 				setTimeout(()=>{
-					dartFlightImg.remove(); 
+					// dartFlightImg.remove(); 
 					n=n+1
 					_this.draw(x,deltalX,y,deltalY) 
 					
 				}, 25);
-				// setTimeout(()=>{
-				// 	dartFlightImg.remove(); 
-				// }, 50);
+				setTimeout(()=>{
+					dartFlightImg.remove(); 
+				}, 50);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
