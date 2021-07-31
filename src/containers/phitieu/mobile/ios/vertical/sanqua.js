@@ -992,11 +992,9 @@ class Lucky_Rotation extends React.Component {
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
 								if(mg_left >30){
-									this.draw(data.TargetX-7, 0, data.TargetY,0)
-									// this.draw(x-7, data.TargetX - x, y, data.TargetY - y)
+									this.draw(x-7, data.TargetX - x, y, data.TargetY - y)
 								}else{
-									this.draw(data.TargetX-2, 0, data.TargetY,0)
-									// this.draw(x-2, data.TargetX - x, y, data.TargetY - y)
+									this.draw(x-2, data.TargetX - x, y, data.TargetY - y)
 									// this.draw(x-7, data.TargetX - x, y, data.TargetY - y)
 								}
 								
