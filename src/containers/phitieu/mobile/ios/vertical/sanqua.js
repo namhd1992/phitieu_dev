@@ -396,10 +396,10 @@ class Lucky_Rotation extends React.Component {
 
 
 			var auto_text = new Konva.Text({
-				x: 35,
-				y: bg_y*0.855+mg_left,
+				x: 35+mg_left,
+				y: bg_y*0.855,
 				text: "PHÓNG TIÊU TỰ ĐỘNG",
-				fontSize: 15,
+				fontSize: 13,
 				fontStyle:"bold",
 				fontFamily: 'Calibri',
 				fill: 'yellow',
@@ -408,10 +408,10 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var tong_diem = new Konva.Text({
-				x: bg_x*0.15,
-				y: bg_y*0.685+mg_left,
+				x: bg_x*0.15+mg_left,
+				y: bg_y*0.685,
 				text: "TỔNG ĐIỂM",
-				fontSize: 15,
+				fontSize: 13,
 				fontStyle:"bold",
 				fontFamily: 'Calibri',
 				fill: 'yellow',
@@ -434,10 +434,10 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var ds_top = new Konva.Text({
-				x: bg_x*0.52+mg_left,
+				x: bg_x*0.50+mg_left,
 				y: bg_y*0.69,
 				text:"DANH SÁCH TOP",
-				fontSize: 15,
+				fontSize: 13,
 				fontFamily: 'Calibri',
 				fill: 'yellow',
 				width: 300,
@@ -447,7 +447,7 @@ class Lucky_Rotation extends React.Component {
 
 
 			var top_1 = new Konva.Text({
-				x: bg_x*0.53+mg_left,
+				x: bg_x*0.51+mg_left,
 				y: bg_y*0.735,
 				text:"",
 				fontSize: 11,
@@ -459,7 +459,7 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_2 = new Konva.Text({
-				x: bg_x*0.53+mg_left,
+				x: bg_x*0.51+mg_left,
 				y: bg_y*0.755,
 				text:"",
 				fontSize: 11,
@@ -471,7 +471,7 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_3 = new Konva.Text({
-				x: bg_x*0.53+mg_left,
+				x: bg_x*0.51+mg_left,
 				y: bg_y*0.775,
 				text:"",
 				fontSize: 11,
@@ -483,7 +483,7 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_4 = new Konva.Text({
-				x: bg_x*0.53+mg_left,
+				x: bg_x*0.51+mg_left,
 				y: bg_y*0.795,
 				text:"",
 				fontSize: 11,
@@ -495,7 +495,7 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_5 = new Konva.Text({
-				x: bg_x*0.53+mg_left,
+				x: bg_x*0.51+mg_left,
 				y: bg_y*0.815,
 				text:"",
 				fontSize: 11,
@@ -507,7 +507,7 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_6 = new Konva.Text({
-				x: bg_x*0.53+mg_left,
+				x: bg_x*0.51+mg_left,
 				y: bg_y*0.835,
 				text:"",
 				fontSize: 11,
@@ -519,7 +519,7 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_7 = new Konva.Text({
-				x: bg_x*0.53+mg_left,
+				x: bg_x*0.51+mg_left,
 				y: bg_y*0.855,
 				text:"",
 				fontSize: 11,
@@ -532,7 +532,7 @@ class Lucky_Rotation extends React.Component {
 
 
 			var top_8 = new Konva.Text({
-				x: bg_x*0.53+mg_left,
+				x: bg_x*0.51+mg_left,
 				y: bg_y*0.875,
 				text:"",
 				fontSize: 11,
@@ -544,7 +544,7 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_9 = new Konva.Text({
-				x: bg_x*0.53+mg_left,
+				x: bg_x*0.51+mg_left,
 				y: bg_y*0.895,
 				text:"",
 				fontSize: 11,
@@ -556,7 +556,7 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var top_10 = new Konva.Text({
-				x: bg_x*0.53+mg_left,
+				x: bg_x*0.51+mg_left,
 				y: bg_y*0.915,
 				text:"",
 				fontSize: 11,
@@ -763,7 +763,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	formatText=(data)=>{
-		var name=data.Username + ' '.repeat(5+ (14-data.Username.length)*2)
+		var name=data.Username + ' '.repeat((14-data.Username.length)*2)
 		var str=name+data.Points;
 		return str;
 	}
