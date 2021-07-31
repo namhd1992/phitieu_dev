@@ -267,7 +267,7 @@ class Lucky_Rotation extends React.Component {
 			bggame.onload = function () {
 				var bgGameImg = new Konva.Image({
 					image: bggame,
-					x: mg_left,
+					x: 0,
 					y: 0,
 					width: bg_x,
 					height: bg_y,
