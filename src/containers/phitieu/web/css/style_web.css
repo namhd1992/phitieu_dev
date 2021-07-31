@@ -25,7 +25,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family:Arial, Helvetica, sa
 .bg-border-bottom {border-bottom: solid 1px #712400}
 .bg-border-right {background-image: url(../images/bg-border-right.png); background-repeat: no-repeat; background-position: right bottom; background-size: 1%;}
 .w-33 {width: 33%; overflow: hidden; white-space:nowrap; text-overflow: ellipsis;}
-.w-25 {overflow: hidden; white-space:nowrap; text-overflow: ellipsis;}
+/* .w-25 {overflow: hidden; white-space:nowrap; text-overflow: ellipsis;} */
 .btn-h { width:100%; text-align: center;}
 .pt-3vw {padding-top: 2%;}
 

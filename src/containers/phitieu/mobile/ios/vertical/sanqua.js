@@ -986,7 +986,6 @@ class Lucky_Rotation extends React.Component {
 					curFrame=0;
 					n=0;
 					var plus=heightFrame/2 - height_plus;
-					console.log(plus)
 					if(dartPositionY >y){
 						this.props.gds(1,sessionId, user.Token, code_key, "iosp", x, y, plus, delta).then(()=>{
 							var data=this.props.dataUserSpin;

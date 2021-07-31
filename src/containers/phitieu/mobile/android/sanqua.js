@@ -356,7 +356,7 @@ class Lucky_Rotation extends React.Component {
 
 			 var tieuconlai = new Konva.Text({
 				x: bg_x*0.34,
-				y: bg_y*0.14,
+				y: bg_y*0.13,
 				text:"Số phi tiêu còn lại: 0",
 				fontSize: 14,
 				fontFamily: 'Calibri',
@@ -1224,7 +1224,7 @@ class Lucky_Rotation extends React.Component {
 		setTimeout(()=>{ 
 			score_text.remove();
 			clearInterval(inter)
-		}, 5000);
+		}, 1000);
 
 		
 		this.setState({score_text:score_text})

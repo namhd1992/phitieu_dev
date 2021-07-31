@@ -265,7 +265,6 @@ class Lucky_Rotation extends React.Component {
 				if(data!==undefined){
 					if(data.Status===0){
 						var listVinhDanh=data.Data;
-						console.log(listVinhDanh)
 						this.setState({listVinhDanh:data.Data, countVinhDanh:data.Totals})
 					}else{
 						$('#myModal11').modal('show');

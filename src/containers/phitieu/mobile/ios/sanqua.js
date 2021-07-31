@@ -920,7 +920,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchStart=(e)=>{
-		console.log('AAAAAAAAAA')
 		// console.log("touchStart",e.touches)
 		const {stage, layer, dartFlightImg, score_text, text_warning, darthVaderImg}=this.state;
 		var _this=this;
@@ -1216,7 +1215,7 @@ class Lucky_Rotation extends React.Component {
 		setTimeout(()=>{ 
 			score_text.remove();
 			clearInterval(inter)
-		}, 5000);
+		}, 1000);
 
 		
 		this.setState({score_text:score_text})

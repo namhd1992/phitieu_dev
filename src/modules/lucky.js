@@ -206,8 +206,6 @@ export const getMoreSessions= () => {
 
 export const gds = (type,sessionId,  token, code_key, type_device, x, y, i, delta) => {
 
-	console.log(`t=${type}&s=${sessionId}&x=${x}&y=${y}&c=${type_device}&i=${i}&d=${delta}`)
-
 	var code=encrypt(`t=${type}&s=${sessionId}&x=${x}&y=${y}&c=${type_device}&i=${i}&d=${delta}`, code_key)
 
 
@@ -233,7 +231,6 @@ export const gds = (type,sessionId,  token, code_key, type_device, x, y, i, delt
 		return fetch(url, requestOptions)
 		.then(response => response.json())
 		.then(result => {
-			console.log(result)
 			dispatch({
 				type: DATA_USER_SPIN,
 				data: result

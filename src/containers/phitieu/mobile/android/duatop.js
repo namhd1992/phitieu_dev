@@ -351,7 +351,7 @@ class Lucky_Rotation extends React.Component {
 
 			 var tieuconlai = new Konva.Text({
 				x: bg_x*0.34,
-				y: bg_y*0.14,
+				y: bg_y*0.13,
 				text:"Số phi tiêu còn lại: 0",
 				fontSize: 14,
 				fontFamily: 'Calibri',
@@ -559,7 +559,6 @@ class Lucky_Rotation extends React.Component {
 
 	getLuckyInfo=(type)=>{
 		const {tieuconlai, username, vip_level, txt_points, tg_conlai, hight_score}=this.state;
-		console.log(username)
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.props.getLuckyInfo(type, user.Token).then(()=>{
 			var data=this.props.dataLuckyInfo;
@@ -593,7 +592,6 @@ class Lucky_Rotation extends React.Component {
 			if(data!==undefined){
 				if(data.Status===0){
 					var list=data.Data.filter( i => i.SessionType===1 );
-					console.log(list)
 					var pos = list.map(function(e) { return e.Status; }).indexOf(1);
 					if(pos!==-1){
 						this.setState({sanqua:true})
@@ -802,7 +800,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchStart=(e)=>{
-		console.log('AAAAAAAAAA')
 		// console.log("touchStart",e.touches)
 		const {stage, layer, dartFlightImg, score_text, text_warning, darthVaderImg}=this.state;
 		var _this=this;
@@ -1073,7 +1070,7 @@ class Lucky_Rotation extends React.Component {
 		setTimeout(()=>{ 
 			score_text.remove();
 			clearInterval(inter)
-		}, 5000);
+		}, 1000);
 
 		
 		this.setState({score_text:score_text})

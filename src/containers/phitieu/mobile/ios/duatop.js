@@ -547,7 +547,6 @@ class Lucky_Rotation extends React.Component {
 
 	getLuckyInfo=(type)=>{
 		const {tieuconlai, username, txt_points, hight_score}=this.state;
-		console.log(username)
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.props.getLuckyInfo(type, user.Token).then(()=>{
 			var data=this.props.dataLuckyInfo;
@@ -790,7 +789,6 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	touchStart=(e)=>{
-		console.log('AAAAAAAAAA')
 		// console.log("touchStart",e.touches)
 		const {stage, layer, dartFlightImg, score_text, text_warning, darthVaderImg}=this.state;
 		var _this=this;
@@ -1066,7 +1064,7 @@ class Lucky_Rotation extends React.Component {
 		setTimeout(()=>{ 
 			score_text.remove();
 			clearInterval(inter)
-		}, 5000);
+		}, 1000);
 
 		
 		this.setState({score_text:score_text})
