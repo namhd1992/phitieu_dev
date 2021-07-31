@@ -61,7 +61,7 @@ var award_open=true;
 var st_touch={};
 var n=0;
 var SEGMENT_COUNT = 20;
-var width = window.screen.width;
+var width = window.innerWidth;
 var height = window.innerHeight;
 var curFrame = 0;
 var frameCount = 13; 
@@ -209,12 +209,16 @@ class Lucky_Rotation extends React.Component {
 
 
 		// this.toggleFullScreen();
-		bg_x=width;
-		bg_y=height*deltal_device/deltal_img;
 
 		alert(`width: ${width} height: ${height}`)
+
+		bg_y=height;
+		bg_x=width*deltal_img/deltal_device;
+
+		
 		// if(height/width > 2){
-			
+		// 	bg_x=width;
+		// 	bg_y=height*deltal_device/deltal_img;
 		// }else{
 		// 	bg_y=height;
 		// 	bg_x=width*deltal_img/deltal_device;
