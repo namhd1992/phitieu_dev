@@ -1061,7 +1061,7 @@ class Lucky_Rotation extends React.Component {
 		setTimeout(()=>{ 
 			score_text.remove();
 			clearInterval(inter)
-		}, 1000);
+		}, 5000);
 
 		
 		this.setState({score_text:score_text})
