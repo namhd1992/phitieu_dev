@@ -212,7 +212,7 @@ class Lucky_Rotation extends React.Component {
 		bg_y=height;
 		bg_x=width*deltal_img/deltal_device;
 		mg_left=(width-bg_x)/2;
-		this.setState({mg_left:mg_left, height_plus:mg_left+32})
+		this.setState({mg_left:mg_left, height_plus:mg_left+28})
 
 		
 		// if(height/width > 2){
@@ -274,7 +274,7 @@ class Lucky_Rotation extends React.Component {
 			bggame.onload = function () {
 				var bgGameImg = new Konva.Image({
 					image: bggame,
-					x: 0+mg_left,
+					x: mg_left,
 					y: 0,
 					width: bg_x,
 					height: bg_y,
@@ -982,7 +982,8 @@ class Lucky_Rotation extends React.Component {
 							var data=this.props.dataUserSpin;
 							if(data.Status===0){
 	
-								this.draw(x, data.TargetX - x, y, data.TargetY - y)
+								// this.draw(x, data.TargetX - x, y, data.TargetY - y)
+								this.draw(x, 0, y, 0)
 	
 								if(data.Darts===0){
 									$('#ThongBao').modal('show');

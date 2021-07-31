@@ -196,17 +196,22 @@ class Lucky_Rotation extends React.Component {
 		var deltal_device=width/height;
 		var bg_x=0, bg_y=0;
 		var user = JSON.parse(localStorage.getItem("user"));
+		var mg_left=0
 		// var canvas=document.getElementById("canvas");
 		// canvas.addEventListener ("mouseout", this.checkoutCanvas);
+		bg_y=height;
+		bg_x=width*deltal_img/deltal_device;
+		mg_left=(width-bg_x)/2;
+		this.setState({mg_left:mg_left, height_plus:mg_left+32})
 
-		// this.toggleFullScreen();
-		if(height/width > 2){
-			bg_x=width;
-			bg_y=height*deltal_device/deltal_img;
-		}else{
-			bg_y=height;
-			bg_x=width*deltal_img/deltal_device;
-		}
+		// // this.toggleFullScreen();
+		// if(height/width > 2){
+		// 	bg_x=width;
+		// 	bg_y=height*deltal_device/deltal_img;
+		// }else{
+		// 	bg_y=height;
+		// 	bg_x=width*deltal_img/deltal_device;
+		// }
 		width_bgImg=bg_y;
 		if(vertical){
 			var stage = new Konva.Stage({
@@ -274,7 +279,7 @@ class Lucky_Rotation extends React.Component {
 			timing.onload = function () {
 				var timingImg = new Konva.Image({
 					image: timing,
-					x: bg_x*0.37,
+					x: bg_x*0.37+mg_left,
 					y: bg_y*0.17,
 					width: 25,
 					height: 25,
@@ -290,7 +295,7 @@ class Lucky_Rotation extends React.Component {
 			bg_timing.onload = function () {
 				var rect_bg_timing = new Konva.Image({
 					image: bg_timing,
-					x: bg_x*0.43,
+					x: bg_x*0.43+mg_left,
 					y: bg_y*0.165,
 					width: 110,
 					height: 6,
@@ -304,7 +309,7 @@ class Lucky_Rotation extends React.Component {
 
 
 			var rect_timing = new Konva.Rect({
-				x: bg_x*0.43,
+				x: bg_x*0.43+mg_left,
 				y: bg_y*0.165,
 				width: 110,
 				height: 5.5,
@@ -314,7 +319,7 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var username = new Konva.Text({
-				x: bg_x*0.63,
+				x: bg_x*0.63+mg_left,
 				y: 5,
 				text:user.Username,
 				fontSize: 13,
@@ -326,7 +331,7 @@ class Lucky_Rotation extends React.Component {
 
 
 			 var vip_level = new Konva.Text({
-				x: bg_x*0.63,
+				x: bg_x*0.63+mg_left,
 				y: 20,
 				text:this.getLevelUser(user),
 				fontSize: 12,
@@ -337,7 +342,7 @@ class Lucky_Rotation extends React.Component {
 			 });
 
 			var tg_conlai = new Konva.Text({
-				x: bg_x*0.40,
+				x: bg_x*0.40+mg_left,
 				y: bg_y*0.17,
 				text:"Còn: 0h : 0p : 0s",
 				fontSize: 14,
@@ -349,7 +354,7 @@ class Lucky_Rotation extends React.Component {
 			 });
 
 			 var tieuconlai = new Konva.Text({
-				x: bg_x*0.08,
+				x: bg_x*0.08+mg_left,
 				y: bg_y*0.23,
 				text:"Số phi tiêu còn lại: 0",
 				fontSize: 14,
@@ -375,10 +380,10 @@ class Lucky_Rotation extends React.Component {
 
 
 			var auto_text = new Konva.Text({
-				x: 45,
+				x: 40,
 				y: bg_y*0.89,
 				text: "PHÓNG TIÊU TỰ ĐỘNG",
-				fontSize: 15,
+				fontSize: 13,
 				fontStyle:"bold",
 				fontFamily: 'Calibri',
 				fill: 'yellow',
@@ -387,10 +392,10 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var tong_diem = new Konva.Text({
-				x: bg_x*0.15,
+				x: bg_x*0.15+mg_left,
 				y: bg_y*0.71,
 				text: "TỔNG ĐIỂM",
-				fontSize: 15,
+				fontSize: 13,
 				fontStyle:"bold",
 				fontFamily: 'Calibri',
 				fill: 'yellow',
@@ -401,7 +406,7 @@ class Lucky_Rotation extends React.Component {
 			
 
 			var txt_points = new Konva.Text({
-				x: bg_x*0.15,
+				x: bg_x*0.15+mg_left,
 				y: bg_y*0.76,
 				text: "0000",
 				fontSize: 16,
@@ -413,10 +418,10 @@ class Lucky_Rotation extends React.Component {
 			});
 
 			var ds_top = new Konva.Text({
-				x: bg_x*0.6,
+				x: bg_x*0.6+mg_left,
 				y: bg_y*0.71,
 				text:"ĐIỂM CAO NHẤT",
-				fontSize: 15,
+				fontSize: 13,
 				fontFamily: 'Calibri',
 				fill: 'yellow',
 				width: 300,
@@ -426,7 +431,7 @@ class Lucky_Rotation extends React.Component {
 
 
 			var hight_score = new Konva.Text({
-				x: bg_x*0.65,
+				x: bg_x*0.65+mg_left,
 				y: bg_y*0.745,
 				text:"0000",
 				fontSize: 16,
