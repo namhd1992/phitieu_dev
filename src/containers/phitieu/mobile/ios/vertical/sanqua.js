@@ -222,7 +222,7 @@ class Lucky_Rotation extends React.Component {
 		// 	bg_y=height;
 		// 	bg_x=width*deltal_img/deltal_device;
 		// }
-		// alert(`bg_x: ${bg_x} bg_y: ${bg_y}`)
+		alert(`mg_left: ${mg_left}`)
 		width_bgImg=bg_y;
 		if(vertical){
 			var stage = new Konva.Stage({
