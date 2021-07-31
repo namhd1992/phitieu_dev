@@ -994,14 +994,14 @@ class Lucky_Rotation extends React.Component {
 							var deltaY=0;
 							if(data.Status===0){
 								if(mg_left >30){
-									if(x>Dart_Center_X){
+									if(data.TargetX>Dart_Center_X){
 										deltaX=2
 									}else{
-										deltaX=-5
+										deltaX=2
 									}
 
-									if(y-heightFrame/2>Dart_Center_Y){
-										deltaY=25.5
+									if(data.TargetY>Dart_Center_Y){
+										deltaY=28.5
 									}else{
 										deltaY=4
 									}
