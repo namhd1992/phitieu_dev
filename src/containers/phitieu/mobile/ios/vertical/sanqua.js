@@ -219,7 +219,7 @@ class Lucky_Rotation extends React.Component {
 		}else{
 			height_plus=mg_left+26
 		}
-		this.setState({mg_left:mg_left, height_plus:mg_left+26})
+		this.setState({mg_left:mg_left, height_plus:height_plus})
 
 		delta=img_w/bg_x
 		
@@ -995,13 +995,13 @@ class Lucky_Rotation extends React.Component {
 							if(data.Status===0){
 								if(mg_left >30){
 									if(x>Dart_Center_X){
-										deltaX=4
+										deltaX=6
 									}else{
 										deltaX=2
 									}
 
 									if(y>Dart_Center_Y){
-										deltaY=30
+										deltaY=28
 									}else{
 										deltaY=2
 									}
