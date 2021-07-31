@@ -18,7 +18,7 @@ app.get('/', function(request, response) {
     if (err) {
       return console.log(err);
     }
-    data = data.replace(/\$OG_URL/g, 'https://vqmm.splay.vn/');
+    data = data.replace(/\$OG_URL/g, 'https://phitieu.splay.vn/');
     data = data.replace(/\$OG_TYPE/g, "Game");
     data = data.replace(/\$OG_TITLE/g, 'TÍCH CỰC QUAY TAY - RINH NGAY IPHONE 12 PRO MAX');
     data = data.replace(/\$OG_DESCRIPTION/g, "Hàng ngàn phần quà HOT đang chờ đón tại minigame Vòng quay may mắn Scoin VIP. SK dành cho KH VIP từ 15/4 - 14/5/2021.");
