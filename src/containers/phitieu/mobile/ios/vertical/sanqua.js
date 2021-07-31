@@ -184,7 +184,7 @@ class Lucky_Rotation extends React.Component {
 		
 		
 		SEGMENTS=SEGMENTS.map(v => {
-			return (v-5)*delta
+			return v*delta
 		})
 		
 	}
@@ -990,11 +990,35 @@ class Lucky_Rotation extends React.Component {
 					if(dartPositionY >y){
 						this.props.gds(1,sessionId, user.Token, code_key, "iosp", x, y, plus, delta).then(()=>{
 							var data=this.props.dataUserSpin;
+							var deltaX=0;
+							var deltaY=0;
 							if(data.Status===0){
 								if(mg_left >30){
-									this.draw(x-7, data.TargetX - x, y, data.TargetY - y)
+									if(x>Dart_Center_X){
+										deltaX=2
+									}else{
+										deltaX=-2
+									}
+
+									if(y>Dart_Center_Y){
+										deltaY=15
+									}else{
+										deltaY=2
+									}
+									this.draw(x-deltaX, data.TargetX - x, y-deltaY, data.TargetY - y)
 								}else{
-									this.draw(x-2, data.TargetX - x, y, data.TargetY - y)
+									if(x>Dart_Center_X){
+										deltaX=0
+									}else{
+										deltaX=0
+									}
+
+									if(y>Dart_Center_Y){
+										deltaY=0
+									}else{
+										deltaY=0
+									}
+									this.draw(x-deltaX, data.TargetX - x, y-deltaY, data.TargetY - y)
 									// this.draw(x-7, data.TargetX - x, y, data.TargetY - y)
 								}
 								
