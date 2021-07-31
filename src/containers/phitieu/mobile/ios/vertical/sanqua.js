@@ -1020,7 +1020,7 @@ class Lucky_Rotation extends React.Component {
 									}else if(Dart_Center_Y > data.TargetY+10){
 										deltaY=-10
 									}else{
-										deltaY=-17
+										deltaY=-16
 									}
 
 									this.draw(x-deltaX, data.TargetX - x, y-deltaY, data.TargetY - y)
