@@ -215,7 +215,7 @@ class Lucky_Rotation extends React.Component {
 		bg_x=width*deltal_img/deltal_device;
 		mg_left=(width-bg_x)/2;
 		if(mg_left>30){
-			height_plus=mg_left+32
+			height_plus=mg_left+45
 		}else{
 			height_plus=mg_left+26
 		}
@@ -994,18 +994,19 @@ class Lucky_Rotation extends React.Component {
 							var deltaY=0;
 							if(data.Status===0){
 								if(mg_left >30){
-									if(x>Dart_Center_X){
-										deltaX=7
-									}else{
-										deltaX=-5
-									}
+									// if(x>Dart_Center_X){
+									// 	deltaX=7
+									// }else{
+									// 	deltaX=-5
+									// }
 
-									if(y-heightFrame/2>Dart_Center_Y){
-										deltaY=25.5
-									}else{
-										deltaY=7
-									}
-									this.draw(x-deltaX, data.TargetX - x, y-deltaY, data.TargetY - y)
+									// if(y-heightFrame/2>Dart_Center_Y){
+									// 	deltaY=25.5
+									// }else{
+									// 	deltaY=7
+									// }
+									// this.draw(x-deltaX, data.TargetX - x, y-deltaY, data.TargetY - y)
+									this.draw(x, data.TargetX - x, y, data.TargetY - y)
 								}else{
 									if(x>Dart_Center_X){
 										deltaX=0
