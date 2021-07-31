@@ -212,7 +212,7 @@ class Lucky_Rotation extends React.Component {
 		bg_y=height;
 		bg_x=width*deltal_img/deltal_device;
 		mg_left=(width-bg_x)/2;
-		this.setState({mg_left:mg_left, height_plus:mg_left})
+		this.setState({mg_left:mg_left, height_plus:mg_left+25})
 
 		
 		// if(height/width > 2){
@@ -392,7 +392,7 @@ class Lucky_Rotation extends React.Component {
 
 
 			var auto_text = new Konva.Text({
-				x: 40,
+				x: 35,
 				y: bg_y*0.855,
 				text: "PHÓNG TIÊU TỰ ĐỘNG",
 				fontSize: 13,
