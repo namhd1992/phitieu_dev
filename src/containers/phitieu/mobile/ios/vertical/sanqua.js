@@ -166,11 +166,7 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
 		var delta=window.innerWidth/img_w;
-		if(height/width < 2){
-			this.setState({mg_left:10, height_plus: 22});
-		}else{
-			this.setState({height_plus: 5});
-		}
+
 		if(window.innerWidth > window.innerHeight){
 			this.setState({vertical: false})
 		}else{
@@ -211,12 +207,12 @@ class Lucky_Rotation extends React.Component {
 
 		// this.toggleFullScreen();
 
-		alert(`width: ${width} height: ${height}`)
+		// alert(`width: ${width} height: ${height}`)
 
 		bg_y=height;
 		bg_x=width*deltal_img/deltal_device;
 		mg_left=(width-bg_x)/2;
-		this.setState({mg_left:mg_left})
+		this.setState({mg_left:mg_left, height_plus:mg_left})
 
 		
 		// if(height/width > 2){
@@ -226,7 +222,7 @@ class Lucky_Rotation extends React.Component {
 		// 	bg_y=height;
 		// 	bg_x=width*deltal_img/deltal_device;
 		// }
-		alert(`bg_x: ${bg_x} bg_y: ${bg_y}`)
+		// alert(`bg_x: ${bg_x} bg_y: ${bg_y}`)
 		width_bgImg=bg_y;
 		if(vertical){
 			var stage = new Konva.Stage({
@@ -396,7 +392,7 @@ class Lucky_Rotation extends React.Component {
 
 
 			var auto_text = new Konva.Text({
-				x: 35+mg_left,
+				x: 40,
 				y: bg_y*0.855,
 				text: "PHÓNG TIÊU TỰ ĐỘNG",
 				fontSize: 13,
