@@ -749,7 +749,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	formatText=(data)=>{
-		var name=data.Username + ' '.repeat(5+ (16-data.Username.length)*2)
+		var name=data.Username + ' '.repeat(5+ (14-data.Username.length)*2)
 		var str=name+data.Points;
 		return str;
 
