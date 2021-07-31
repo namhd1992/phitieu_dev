@@ -212,7 +212,7 @@ class Lucky_Rotation extends React.Component {
 		bg_y=height;
 		bg_x=width*deltal_img/deltal_device;
 		mg_left=(width-bg_x)/2;
-		this.setState({mg_left:mg_left, height_plus:mg_left+25})
+		this.setState({mg_left:mg_left, height_plus:mg_left+32})
 
 		
 		// if(height/width > 2){
