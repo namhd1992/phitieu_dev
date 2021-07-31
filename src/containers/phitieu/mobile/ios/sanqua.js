@@ -162,6 +162,7 @@ class Lucky_Rotation extends React.Component {
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
+
 		if(window.innerWidth < window.innerHeight){
 			this.setState({horizontal: false})
 		}else{
@@ -789,7 +790,7 @@ class Lucky_Rotation extends React.Component {
 
 	setScreenOrientation=()=>{
 		const {innerWidth}=this.state;
-		if(Math.abs(innerWidth - window.innerWidth) >100){
+		if(Math.abs(innerWidth - window.innerWidth) >20){
 			window.location.reload();
 			this.setState({innerWidth:window.innerWidth})
 		}
