@@ -427,7 +427,7 @@ class Lucky_Rotation extends React.Component {
 
 
 			var top_1 = new Konva.Text({
-				x: bg_x*0.71,
+				x: bg_x*0.705,
 				y: bg_y*0.36,
 				text:"",
 				fontSize: 11,
@@ -749,7 +749,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	formatText=(data)=>{
-		var name=data.Username + ' '.repeat(5+ (14-data.Username.length)*2)
+		var name=data.Username + ' '.repeat(5+ (15-data.Username.length)*2)
 		var str=name+data.Points;
 		return str;
 
