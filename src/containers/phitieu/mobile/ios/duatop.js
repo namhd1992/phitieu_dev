@@ -831,47 +831,48 @@ class Lucky_Rotation extends React.Component {
 					var y=touchPos.y;
 					curFrame=0;
 					n=0;
-					if(dartPositionY >touchPos.y){
-						this.props.gds(2,sessionId, user.Token, code_key, "iosl", x, y, 54, delta).then(()=>{
-							var data=this.props.dataUserSpin;
-							if(data.Status===0){
-								if(data.Darts===0){
-									$('#ThongBao').modal('show');
-								}
-			
-								this.draw(x, data.TargetX - x, y, data.TargetY - y)
-
-								setTimeout(()=>{
-									this.showScore(data.Score);
-									tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
-									txt_points.text(data.Points)
-									hight_score.text(data.HighestPoint)
-									this.setState({countDart: data.Darts, points_sanqua: data.Points,  highestPoints:data.HighestPoint})
-								}, 400);
-								setTimeout(()=>{
-									tieuconlai.text(awardsContent)
-								}, 5000);
-								
-							}else if(data.Status===2){
-								this.setState({highestPoints:data.Data, sanqua:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
-									$('#ModalnoneDuaTop').modal('show');
-								})
-								
-							}else if(data.Status===3){
-								this.logoutAction();
-							}else if(data.Status===5){
-								this.setState({msg_err:'Có lỗi xảy ra!'}, ()=>{
-									$('#Error').modal('show');
-								})
+					// if(dartPositionY >touchPos.y){
+						
+					// 	// arr=this.getDealtal(touchPos.x, touchPos.y)
+					// 	// this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
+					// 	// this.fd(touchPos.x + arr[0] -1, touchPos.y-heightFrame/2 + 4 + arr[1])
+					// }else{
+					// 	this.showTextWarning()
+					// 	// alert("vuốt lên để phi tiêu")
+					// }
+					this.props.gds(2,sessionId, user.Token, code_key, "iosl", x, y, 54, delta).then(()=>{
+						var data=this.props.dataUserSpin;
+						if(data.Status===0){
+							if(data.Darts===0){
+								$('#ThongBao').modal('show');
 							}
-						})
-						// arr=this.getDealtal(touchPos.x, touchPos.y)
-						// this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
-						// this.fd(touchPos.x + arr[0] -1, touchPos.y-heightFrame/2 + 4 + arr[1])
-					}else{
-						this.showTextWarning()
-						// alert("vuốt lên để phi tiêu")
-					}
+		
+							this.draw(x, data.TargetX - x, y, data.TargetY - y)
+
+							setTimeout(()=>{
+								this.showScore(data.Score);
+								tieuconlai.text(`Số phi tiêu còn lại: ${data.Darts}`)
+								txt_points.text(data.Points)
+								hight_score.text(data.HighestPoint)
+								this.setState({countDart: data.Darts, points_sanqua: data.Points,  highestPoints:data.HighestPoint})
+							}, 400);
+							setTimeout(()=>{
+								tieuconlai.text(awardsContent)
+							}, 5000);
+							
+						}else if(data.Status===2){
+							this.setState({highestPoints:data.Data, sanqua:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
+								$('#ModalnoneDuaTop').modal('show');
+							})
+							
+						}else if(data.Status===3){
+							this.logoutAction();
+						}else if(data.Status===5){
+							this.setState({msg_err:'Có lỗi xảy ra!'}, ()=>{
+								$('#Error').modal('show');
+							})
+						}
+					})
 					this.setState({isPlay:false})
 				}else{
 					$('#ThongBao').modal('show');
