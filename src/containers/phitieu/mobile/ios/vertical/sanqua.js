@@ -1015,16 +1015,16 @@ class Lucky_Rotation extends React.Component {
 										deltaX=4;
 										deltaY=-15;
 									}else{
-										if(data.TargetX-10>Dart_Center_X){
-											deltaX=7
-										}else if(Dart_Center_X > data.TargetX+10){
+										if(data.TargetX>Dart_Center_X){
+											deltaX=10
+										}else if(Dart_Center_X > data.TargetX){
 											deltaX=-4
 										}
 
-										if(data.TargetY-10>Dart_Center_Y){
-											deltaY=-2
-										}else if(Dart_Center_Y > data.TargetY+10){
-											deltaY=-10
+										if(data.TargetY>Dart_Center_Y){
+											deltaY=-1
+										}else if(Dart_Center_Y > data.TargetY){
+											deltaY=-15
 										}
 									}
 
