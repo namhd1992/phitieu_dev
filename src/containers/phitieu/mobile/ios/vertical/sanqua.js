@@ -232,7 +232,7 @@ class Lucky_Rotation extends React.Component {
 		// 	bg_y=height;
 		// 	bg_x=width*deltal_img/deltal_device;
 		// }
-		alert(`delta: ${delta}`)
+		alert(`mg_left: ${mg_left}`)
 		width_bgImg=bg_y;
 		if(vertical){
 			var stage = new Konva.Stage({
@@ -995,13 +995,13 @@ class Lucky_Rotation extends React.Component {
 							if(data.Status===0){
 								if(mg_left >30){
 									if(x>Dart_Center_X){
-										deltaX=2
+										deltaX=4
 									}else{
-										deltaX=-2
+										deltaX=2
 									}
 
 									if(y>Dart_Center_Y){
-										deltaY=15
+										deltaY=30
 									}else{
 										deltaY=2
 									}
