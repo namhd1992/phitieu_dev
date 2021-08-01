@@ -956,7 +956,7 @@ class Lucky_Rotation extends React.Component {
 
 			{/* <!-- The Modal Huong Dan--> */}
 			<div class="modal fade" id="Modalhuongdan">
-				<div class="modal-dialog modal-giaithuong_m modal-dialog-scrollable">
+				<div class="modal-dialog modal-huongdan_m modal-dialog-scrollable">
 					<div class="modal-content bg-transparent border-0">
 
 					{/* <!-- Modal Header --> */}
