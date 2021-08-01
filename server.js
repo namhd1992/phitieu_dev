@@ -20,9 +20,9 @@ app.get('/', function(request, response) {
     }
     data = data.replace(/\$OG_URL/g, 'https://phitieu.splay.vn/');
     data = data.replace(/\$OG_TYPE/g, "Game");
-    data = data.replace(/\$OG_TITLE/g, 'TÍCH CỰC QUAY TAY - RINH NGAY IPHONE 12 PRO MAX');
-    data = data.replace(/\$OG_DESCRIPTION/g, "Hàng ngàn phần quà HOT đang chờ đón tại minigame Vòng quay may mắn Scoin VIP. SK dành cho KH VIP từ 15/4 - 14/5/2021.");
-    result = data.replace(/\$OG_IMAGE/g, 'https://i.postimg.cc/QCT4mNV7/sharepost-vqt10.png');
+    data = data.replace(/\$OG_TITLE/g, 'Tham gia PHI TIÊU - nhận quà SIÊU HOT');
+    data = data.replace(/\$OG_DESCRIPTION/g, "Hàng trăm giải thưởng giá trị được phát ra hàng ngày - hàng tuần tại Minigame Phi tiêu. SK dành cho Khách hàng VIP Scoin.");
+    result = data.replace(/\$OG_IMAGE/g, 'https://i.postimg.cc/y8sr3kfc/banner-fb.png');
     response.send(result);
   });
 });

@@ -1096,7 +1096,8 @@ class Lucky_Rotation extends React.Component {
 							<dd>- Trong thời gian quy định, tài khoản nào đưa được tổng điểm về <strong>0 sớm nhất</strong> sẽ là người thắng cuộc và nhận được giải thưởng của phiên chơi đó, đồng thời phiên chơi sẽ kết thúc, tất cả các tài khoản còn lại sẽ được tiếp tục tham gia ở Phiên săn quà tiếp theo.</dd>
 							<dd>- Trường hợp trong thời gian quy định, không có người chơi nào đưa được điểm về 0, người thắng cuộc là người có số <strong>điểm còn lại ít nhất</strong>.</dd>
 							<dd>- Trường hợp có nhiều tài khoản cùng đưa được điểm về 0 hoặc cùng có số điểm ít nhất bằng nhau, thì người thắng cuộc là người đưa được điểm về 0 (ít nhất) trong thời gian sớm nhất.</dd>
-							<dd><em>- Lưu ý: Trong trường hợp phát sinh tranh chấp, khiếu nại liên quan đến chương trình, Công ty VTC Mobile sẽ trực tiếp giải quyết và quyết định của VTC Mobile là kết quả cuối cùng. Mọi trường hợp gian lận hoặc không trung thực sẽ bị xử lý theo pháp luật.</em></dd>           
+							<dd><em>- Lưu ý: Trong trường hợp phát sinh tranh chấp, khiếu nại liên quan đến chương trình, Công ty VTC Mobile sẽ trực tiếp giải quyết và quyết định của VTC Mobile là kết quả cuối cùng. Mọi trường hợp gian lận hoặc không trung thực sẽ bị xử lý theo pháp luật.</em></dd>  
+							<dd><em>- Đối với khách hàng chơi trên điện thoại Iphone: để trải nghiệm game được tốt nhất, hãy tắt các trang đang mở trên trình duyệt safari/chrome trước khi chơi.</em></dd>         
 						</dl>
 						<h4 class="font-size-16 font-weight-bold">3. Đua TOP</h4>
 						<dl class="font-size-16">
@@ -1105,7 +1106,8 @@ class Lucky_Rotation extends React.Component {
 							<dd>- Người chơi sử dụng số Phi tiêu mình có để ném vào bảng, số điểm nhận được sau mỗi lần ném sẽ được cộng dồn vào tổng điểm đang có.</dd>
 							<dd>- Kết thúc Phiên Đua top, tài khoản có tổng điểm cao nhất sẽ là người thắng cuộc và nhận được giải thưởng.</dd>
 							<dd>- Trường hợp nhiều người chơi có tổng điểm cao nhất bằng nhau, người thắng cuộc là người đạt được số điểm cao nhất trong thời gian sớm nhất.</dd>
-							<dd><em>- Lưu ý: Trong trường hợp phát sinh tranh chấp, khiếu nại liên quan đến chương trình, Công ty VTC Mobile sẽ trực tiếp giải quyết và quyết định của VTC Mobile là kết quả cuối cùng. Mọi trường hợp gian lận hoặc không trung thực sẽ bị xử lý theo pháp luật.</em></dd>         
+							<dd><em>- Lưu ý: Trong trường hợp phát sinh tranh chấp, khiếu nại liên quan đến chương trình, Công ty VTC Mobile sẽ trực tiếp giải quyết và quyết định của VTC Mobile là kết quả cuối cùng. Mọi trường hợp gian lận hoặc không trung thực sẽ bị xử lý theo pháp luật.</em></dd>
+							<dd><em>- Đối với khách hàng chơi trên điện thoại Iphone: để trải nghiệm game được tốt nhất, hãy tắt các trang đang mở trên trình duyệt safari/chrome trước khi chơi.</em></dd>         
 						</dl>
 						<h4 class="font-size-16 font-weight-bold">4. Hướng dẫn sử dụng giải thưởng</h4>
 						<dl class="font-size-16">
