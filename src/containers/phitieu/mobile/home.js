@@ -376,9 +376,9 @@ class Lucky_Rotation extends React.Component {
 		var m=a.getMonth()+1
 		var month =m > 9 ? m : `0${m}`;
 		var date = a.getDate();
-		var hour = a.getHours();
-		var min = a.getMinutes();
-		var sec = a.getSeconds();
+		var hour = a.getHours() > 9 ? a.getHours() : `0${a.getHours()}`;
+		var min = a.getMinutes() > 9 ? a.getMinutes() : `0${a.getMinutes()}`;
+		var sec = a.getSeconds() > 9 ? a.getSeconds() : `0${a.getSeconds()}`;
 		var time = date + '/' + month + '/' + year + ' ' + hour + ':' + min + ':' + sec ;
 		return time;
 	  }
@@ -1004,23 +1004,23 @@ class Lucky_Rotation extends React.Component {
 					<div class="modal-body border-0 py-0 mb-2 mt-3 px-3 scroll-modal-body_m">
 						<ul class="nav nav-pills justify-content-around">
 							<li class="nav-item">
-								<a class="nav-link p-1" href="#hd1"><img id="image-5" src={tab_1 ? tab_cachthucthamgia_active : tab_cachthucthamgia} width="130"  alt="" /></a>
+								<a class="nav-link p-1" onClick={this.tab1}><img id="image-5" src={tab_1 ? tab_cachthucthamgia_active : tab_cachthucthamgia} width="130"  alt="" /></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link p-1" href="#hd2"><img id="image-6" src={tab_2 ? tab_hdsanqua_active : tab_hdsanqua} width="130" alt="" /></a>
+								<a class="nav-link p-1" onClick={this.tab2}><img id="image-6" src={tab_2 ? tab_hdsanqua_active : tab_hdsanqua} width="130" alt="" /></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link p-1" href="#hd3"><img id="image-7" src={tab_3 ? tab_hdduatop_active : tab_hdduatop} width="130" alt="" /></a>
+								<a class="nav-link p-1" onClick={this.tab3}><img id="image-7" src={tab_3 ? tab_hdduatop_active : tab_hdduatop} width="130" alt="" /></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link p-1" href="#hd4"><img id="image-8" src={tab_4 ? tab_hdsdgiaithuong_active : tab_hdsdgiaithuong} width="130" alt="" /></a>
+								<a class="nav-link p-1" onClick={this.tab4}><img id="image-8" src={tab_4 ? tab_hdsdgiaithuong_active : tab_hdsdgiaithuong} width="130" alt="" /></a>
 							</li>
 						</ul>
 							
 							{/* <!-- Tab panes --> */}
 							<div class="tab-content">
 								{/* <!-- Tab hd1 --> */}
-							<div class="tab-pane container mt-3 active" id="hd1">
+							<div class={tab_1 ? "tab-pane container mt-3 active" : "tab-pane container mt-3 fade"} id="hd1">
 								<h4 class="font-size-3vw_m font-weight-bold">1. Cách thức tham gia</h4>
 								<dl class="font-size-3vw_m">
 									<dt>- Đối tượng tham gia:</dt>
@@ -1135,7 +1135,7 @@ class Lucky_Rotation extends React.Component {
 							</div>
 							{/* <!-- End Tab hd1 -->
 							<!-- Begin Tab hd2 --> */}
-							<div class="tab-pane container mt-3 fade" id="hd2">
+							<div class={tab_2 ? "tab-pane container mt-3 active" : "tab-pane container mt-3 fade"} id="hd2">
 								<h4 class="font-size-3vw_m font-weight-bold">2. Săn quà</h4>
 								<dl class="font-size-3vw_m">
 									<dd>- Mỗi ngày sẽ có nhiều Phiên <strong>SĂN QUÀ</strong> được diễn ra, người chơi click Tab <strong>GIẢI THƯỞNG</strong> để xem thời gian diễn ra phiên tiếp theo và giải thưởng của phiên đó.</dd>
@@ -1153,7 +1153,7 @@ class Lucky_Rotation extends React.Component {
 							</div>
 							{/* <!-- End Tab hd2 -->
 							<!-- Begin Tab hd3 --> */}
-							<div class="tab-pane container mt-3 fade" id="hd3">
+							<div class={tab_3 ? "tab-pane container mt-3 active" : "tab-pane container mt-3 fade"} id="hd3">
 								<h4 class="font-size-3vw_m font-weight-bold">3. Đua TOP</h4>
 								<dl class="font-size-3vw_m">
 									<dd>- Trong thời gian diễn ra Phiên Đua top, người chơi chọn Chế độ <strong>Đua TOP</strong> tại Trang chủ để tham gia: </dd>
@@ -1168,7 +1168,7 @@ class Lucky_Rotation extends React.Component {
 							</div>
 							{/* <!-- End Tab hd3 -->
 							<!-- Begin Tab hd4 --> */}
-							<div class="tab-pane container mt-3 fade" id="hd4">
+							<div class={tab_4 ? "tab-pane container mt-3 active" : "tab-pane container mt-3 fade"} id="hd4">
 								<h4 class="font-size-3vw_m font-weight-bold">4. Hướng dẫn sử dụng giải thưởng</h4>
 								<dl class="font-size-3vw_m">
 									<dt>- Voucher Scoin:</dt>
