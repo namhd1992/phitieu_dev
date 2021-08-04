@@ -1134,16 +1134,16 @@ class Lucky_Rotation extends React.Component {
 									</table>
 								</dd>            
 								<dd> - Sau khi nhận được Phi tiêu, khách hàng chọn chế độ <strong>SĂN QUÀ</strong> hoặc <strong>ĐUA TOP</strong> để chơi.</dd>
-								<dd> <img src={btn_sanqua_duatop} class="img-fluid" alt="" /></dd>
+								<dd> <img src={btn_sanqua_duatop} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 								<dd> -Khách hàng sử dụng chuột (chơi trên PC) hoặc vuốt màn hình (chơi trên điện thoại) để ném phi tiêu vào bảng</dd>
-								<dd> <img src={nem_phi_tieu} class="img-fluid" alt="" /></dd>
-								<dd> <img src={huy_nem_tieu} class="img-fluid" alt="" /></dd>
+								<dd> <img src={nem_phi_tieu} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
+								<dd> <img src={huy_nem_tieu} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 								<dd> - Người chơi nhận được số <strong>ĐIỂM</strong> tương ứng với <strong>VỊ TRÍ</strong> phi tiêu tại bảng như sau: (khu vực tô vàng)</dd>
-								<dd> <img src={khu_vuc_1} class="img-fluid" alt="" /></dd>
-								<dd> <img src={khu_vuc_2} class="img-fluid" alt="" /></dd>
-								<dd> <img src={khu_vuc_3} class="img-fluid" alt="" /></dd>
-								<dd> <img src={vong_tron_ngoai} class="img-fluid" alt="" /></dd>
-								<dd> <img src={vong_tron_trong} class="img-fluid" alt="" /></dd>
+								<dd> <img src={khu_vuc_1} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
+								<dd> <img src={khu_vuc_2} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
+								<dd> <img src={khu_vuc_3} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
+								<dd> <img src={vong_tron_ngoai} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
+								<dd> <img src={vong_tron_trong} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 							</dl>          
 						</div>
 						{/* <!-- End Tab hd1 -->
@@ -1154,7 +1154,7 @@ class Lucky_Rotation extends React.Component {
 								<dd>- Mỗi ngày sẽ có nhiều Phiên <strong>SĂN QUÀ</strong> được diễn ra, người chơi click Tab <strong>GIẢI THƯỞNG</strong> để xem thời gian diễn ra phiên tiếp theo và giải thưởng của phiên đó.</dd>
 								<dd> <img src={tab_giaithuong} class="img-fluid d-block mx-auto" alt="" /></dd>                 
 								<dd>- Trong thời gian diễn ra Phiên săn quà, người chơi chọn Chế độ <strong>SĂN QUÀ</strong> tại Trang chủ để tham gia:</dd>
-								<dd> <img src={che_do_sanqua} class="img-fluid" alt="" /></dd>  
+								<dd> <img src={che_do_sanqua} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>  
 								<dd>- Mỗi tài khoản có số điểm mặc định ban đầu là <strong>501 điểm</strong>.</dd>
 								<dd>- Người chơi sử dụng số Phi tiêu mình có để ném vào bảng, điểm nhận được sau mỗi lần ném sẽ được <strong>TRỪ</strong> dần vào số điểm 501 ban đầu.</dd>
 								<dd>- Trong thời gian quy định, người chơi nào đưa được tổng điểm <strong>VỀ 0 SỚM</strong> nhất sẽ là người <strong>THẮNG</strong> cuộc và nhận được giải thưởng của phiên chơi đó, đồng thời phiên chơi đó kết thúc.</dd>
@@ -1170,7 +1170,7 @@ class Lucky_Rotation extends React.Component {
 							<h4 class="font-size-16 font-weight-bold">3. Đua TOP</h4>
 							<dl class="font-size-16">
 								<dd>- Trong thời gian diễn ra Phiên Đua top, người chơi chọn Chế độ <strong>Đua TOP</strong> tại Trang chủ để tham gia: </dd>
-								<dd> <img src={che_do_duatop} class="img-fluid" alt="" /></dd>  
+								<dd> <img src={che_do_duatop} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>  
 								<dd>- Mỗi tài khoản có số điểm mặc định ban đầu là <strong>0 điểm</strong>.</dd>
 								<dd>- Người chơi sử dụng số Phi tiêu mình có để ném vào bảng, số điểm nhận được sau mỗi lần ném sẽ được <strong>CỘNG</strong> dồn vào tổng điểm đang có.</dd>
 								<dd>- Kết thúc Phiên Đua top, tài khoản có tổng điểm <strong>CAO</strong> nhất sẽ là người <strong>THẮNG</strong> cuộc và nhận được giải thưởng.</dd>
@@ -1186,32 +1186,32 @@ class Lucky_Rotation extends React.Component {
 							<dl class="font-size-16">
 								<dt>- Voucher Scoin:</dt>
 								<dd> &bull; Khách hàng truy cập <strong>Tủ đồ</strong>, chọn <strong>Phần thưởng</strong>, chọn giải thưởng <strong>Thẻ Scoin voucher</strong> và click <span class="text-primary">Mở</span>.</dd>
-								<dd> <img src={voucher_scoin} class="img-fluid" alt="" /></dd>
+								<dd> <img src={voucher_scoin} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 								<dd> &bull; Copy <strong>MÃ CODE</strong> và số <strong>SERIAL</strong>: </dd>
-								<dd> <img src={scoin_voucher_10k} class="img-fluid" alt="" /></dd>
+								<dd> <img src={scoin_voucher_10k} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 								<dd> &bull; Truy cập <a href="https://scoin.vn/" title="Scoin.vn" target="_blank">https://scoin.vn/</a> , chọn NẠP GAME =&gt; Điền Tên tài khoản và server =&gt; Chọn phương thức nạp Thẻ cào =&gt; Chọn loại thẻ Scoin =&gt; Điền MÃ CODE và số SERIAL đã copy ở trên.</dd>
-								<dd> <img src={nap_voucher_scoin} class="img-fluid" alt="" /></dd>
+								<dd> <img src={nap_voucher_scoin} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 								<dd class="font-italic mark">* Lưu ý: Giải thưởng thẻ voucher có hiệu lực trong vòng 1 tháng kể từ thời điểm kết thúc sự kiện. Hết thời gian kể trên, giải thưởng không còn giá trị.</dd>
 								<dt>- Voucher chuyển khoản ngân hàng:</dt>
 								<dd> &bull; Khách hàng truy cập <strong>Tủ đồ</strong>, chọn <strong>Phần thưởng</strong>, chọn giải thưởng <strong>Thẻ voucher chuyển khoản ngân hàng</strong> và click <span class="text-primary">Mở</span>.</dd>
-								<dd> <img src={voucher_scoin_banktranfer} class="img-fluid" alt="" /></dd>
+								<dd> <img src={voucher_scoin_banktranfer} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 								<dd> &bull; Ấn <strong>“Nạp ngay”</strong></dd>
 								<dd> &bull; Truy cập <a href="https://scoin.vn/" title="Scoin.vn" target="_blank">https://scoin.vn/</a> , chọn Phương thức nạp Ngân hàng</dd>
-								<dd> <img src={nap_ngan_hang} class="img-fluid" alt="" /></dd>
+								<dd> <img src={nap_ngan_hang} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 								<dd> &bull; Copy <strong>Nội dung chuyển khoản</strong> và paste vào mục <strong>Nội dung</strong> khi bạn thực hiện chuyển khoản vào tài khoản VTC Mobile, số tiền trong voucher sẽ được cộng trực tiếp vào Ví sau khi bạn chuyển khoản thành công.</dd>
-								<dd> <img src={ck_ngan_hang} class="img-fluid" alt="" /></dd>
+								<dd> <img src={ck_ngan_hang} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 								<dd class="font-italic mark">* Lưu ý: Giải thưởng thẻ voucher có hiệu lực trong vòng 1 tháng kể từ thời điểm kết thúc sự kiện. Hết thời gian kể trên, giải thưởng không còn giá trị.</dd>
 								<dt>- Topup 50k:</dt>
 								<dd> &bull; Khách hàng truy cập <strong>Tủ đồ</strong>, chọn <strong>Phần thưởng</strong>, chọn giải thưởng <strong>Topup Scoin</strong> và click <span class="text-primary">Mở</span>.</dd>
-								<dd> <img src={topup_scoin} class="img-fluid" alt="" /></dd>
+								<dd> <img src={topup_scoin} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 								<dd> &bull; Scoin được tự động cộng vào Ví Scoin của tài khoản </dd>
 								<dt>- Thẻ Scoin:</dt>
 								<dd> &bull; Khách hàng truy cập <strong>Tủ đồ</strong>, chọn <strong>Phần thưởng</strong>, chọn <strong>giải thưởng Thẻ Scoin</strong> và click <span class="text-primary">Mở</span>.</dd>
-								<dd> <img src={the_scoin} class="img-fluid" alt="" /></dd>
+								<dd> <img src={the_scoin} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 								<dd> &bull; Copy <strong>MÃ CODE</strong> và <strong>SERIAL</strong>: </dd>
-								<dd> <img src={scoin_10k} class="img-fluid" alt="" /></dd>
+								<dd> <img src={scoin_10k} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 								<dd> &bull; Truy cập <a href="https://scoin.vn/" title="Scoin.vn" target="_blank">https://scoin.vn/</a> , chọn Nạp game/Điền Tên tài khoản và server/ Chọn phương thức nạp Thẻ cào/ Chọn loại thẻ Scoin và điền mã Thẻ và số serial đã copy ở trên.</dd>
-								<dd> <img src={nap_voucher_scoin} class="img-fluid" alt="" /></dd>
+								<dd> <img src={nap_voucher_scoin} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>
 					
 							</dl> 
 						</div>
