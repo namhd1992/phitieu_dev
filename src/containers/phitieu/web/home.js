@@ -27,6 +27,17 @@ import {
 	getData
 } from '../../../modules/profile'
 
+
+
+import tab_cachthucthamgia_active from './images/tab-cachthucthamgia-active.png';
+import tab_cachthucthamgia from './images/tab-cachthucthamgia.png';
+import tab_hdsanqua_active from './images/tab-hdsanqua-active.png';
+import tab_hdsanqua from './images/tab-hdsanqua.png';
+import tab_hdduatop_active from './images/tab-hdduatop-active.png';
+import tab_hdduatop from './images/tab-hdduatop.png';
+import tab_hdsdgiaithuong_active from './images/tab-hdsdgiaithuong-active.png';
+import tab_hdsdgiaithuong from './images/tab-hdsdgiaithuong.png';
+
 import scoin_10k from './images/scoin-10k.png';
 import voucher_scoin_banktranfer from './images/voucher-scoin-banktranfer.png';
 import scoin_voucher_10k from './images/scoin-voucher-10k.png';
@@ -152,6 +163,10 @@ class Lucky_Rotation extends React.Component {
 			type:1, 
 			tab_tudo: true,
 			listSesstions:[],
+			tab_1:true,
+			tab_2:false,
+			tab_3:false,
+			tab_4:false
 		};
 	}
 	componentWillMount(){
@@ -654,8 +669,24 @@ class Lucky_Rotation extends React.Component {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 
+	tab1=()=>{
+		this.setState({tab_1:true, tab_2:false, tab_3:false, tab_4:false})
+	}
+
+	tab2=()=>{
+		this.setState({tab_1:false, tab_2:true, tab_3:false, tab_4:false})
+	}
+
+	tab3=()=>{
+		this.setState({tab_1:false, tab_2:false, tab_3:true, tab_4:false})
+	}
+
+	tab4=()=>{
+		this.setState({tab_1:false, tab_2:false, tab_3:false, tab_4:true})
+	}
+
 	render() {
-		const {tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
+		const {tab_1, tab_2, tab_3, tab_4, tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		return (<div>	
 					<div class="container-fluid page position-relative">
@@ -984,19 +1015,19 @@ class Lucky_Rotation extends React.Component {
 
 					{/* <!-- Modal body --> */}
 					<div class="modal-body order-0 py-0 mt-4 mb-5 px-4 ml-2 scroll-modal-body">
-					<ul class="nav nav-tabs justify-content-around">
-						<li class="nav-item">
-							<a class="nav-link font-size-16 active" data-toggle="tab" href="#hd1">1. Cách thức tham gia</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link font-size-16" data-toggle="tab" href="#hd2">2. HD Săn quà &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link font-size-16" data-toggle="tab" href="#hd3">3. HD Đua top</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link font-size-16" data-toggle="tab" href="#hd4">4. HDSD Giải thưởng</a>
-						</li>
+						<ul class="nav nav-pills justify-content-around">
+							<li class="nav-item">
+								<a class="nav-link p-1" href="#hd1" onClick={this.tab1}><img id="image-5" src={tab_1 ? tab_cachthucthamgia_active : tab_cachthucthamgia} width="120"  alt="" /></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link p-1" href="#hd2" onClick={this.tab2}><img id="image-6" src={tab_2 ? tab_hdsanqua_active : tab_hdsanqua} width="120" alt="" /></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link p-1" href="#hd3" onClick={this.tab3}><img id="image-7" src={tab_3 ? tab_hdduatop_active : tab_hdduatop} width="120" alt="" /></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link p-1" href="#hd4" onClick={this.tab4}><img id="image-8" src={tab_4 ? tab_hdsdgiaithuong_active : tab_hdsdgiaithuong} width="120" alt="" /></a>
+							</li>
 						</ul>
 						
 						{/* <!-- Tab panes --> */}

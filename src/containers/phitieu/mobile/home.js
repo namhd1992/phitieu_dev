@@ -25,7 +25,16 @@ import {
 } from '../../../modules/lucky'
 import {
 	getData
-} from '../../../modules/profile'
+} from '../../../modules/profile';
+
+import tab_cachthucthamgia_active from './images/tab-cachthucthamgia-active.png';
+import tab_cachthucthamgia from './images/tab-cachthucthamgia.png';
+import tab_hdsanqua_active from './images/tab-hdsanqua-active.png';
+import tab_hdsanqua from './images/tab-hdsanqua.png';
+import tab_hdduatop_active from './images/tab-hdduatop-active.png';
+import tab_hdduatop from './images/tab-hdduatop.png';
+import tab_hdsdgiaithuong_active from './images/tab-hdsdgiaithuong-active.png';
+import tab_hdsdgiaithuong from './images/tab-hdsdgiaithuong.png';
 
 import scoin_10k from './images/scoin-10k.png';
 import voucher_scoin_banktranfer from './images/voucher-scoin-banktranfer.png';
@@ -151,7 +160,11 @@ class Lucky_Rotation extends React.Component {
 			innerWidth:0,
 			type:1, 
 			tab_tudo: true,
-			listSesstions:[]
+			listSesstions:[],
+			tab_1:true,
+			tab_2:false,
+			tab_3:false,
+			tab_4:false
 		};
 	}
 	componentWillMount(){
@@ -650,10 +663,26 @@ class Lucky_Rotation extends React.Component {
 		return s;
 	}
 
+	tab1=()=>{
+		this.setState({tab_1:true, tab_2:false, tab_3:false, tab_4:false})
+	}
+
+	tab2=()=>{
+		this.setState({tab_1:false, tab_2:true, tab_3:false, tab_4:false})
+	}
+
+	tab3=()=>{
+		this.setState({tab_1:false, tab_2:false, tab_3:true, tab_4:false})
+	}
+
+	tab4=()=>{
+		this.setState({tab_1:false, tab_2:false, tab_3:false, tab_4:true})
+	}
+
 
 
 	render() {
-		const {tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
+		const {tab_1, tab_2, tab_3, tab_4,tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		const { classes } = this.props;
 		return (<div>
@@ -973,20 +1002,20 @@ class Lucky_Rotation extends React.Component {
 
 					{/* <!-- Modal body --> */}
 					<div class="modal-body border-0 py-0 mb-2 mt-3 px-3 scroll-modal-body_m">
-						<ul class="nav nav-tabs justify-content-around">
+						<ul class="nav nav-pills justify-content-around">
 							<li class="nav-item">
-								<a class="nav-link font-size-3vw_m active" data-toggle="tab" href="#hd1">1. Cách thức tham gia</a>
+								<a class="nav-link p-1" href="#hd1"><img id="image-5" src={tab_1 ? tab_cachthucthamgia_active : tab_cachthucthamgia} width="130"  alt="" /></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link font-size-3vw_m" data-toggle="tab" href="#hd2">2. HD Săn quà &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a class="nav-link p-1" href="#hd2"><img id="image-6" src={tab_2 ? tab_hdsanqua_active : tab_hdsanqua} width="130" alt="" /></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link font-size-3vw_m" data-toggle="tab" href="#hd3">3. HD Đua top</a>
+								<a class="nav-link p-1" href="#hd3"><img id="image-7" src={tab_3 ? tab_hdduatop_active : tab_hdduatop} width="130" alt="" /></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link font-size-3vw_m" data-toggle="tab" href="#hd4">4. HDSD Giải thưởng</a>
+								<a class="nav-link p-1" href="#hd4"><img id="image-8" src={tab_4 ? tab_hdsdgiaithuong_active : tab_hdsdgiaithuong} width="130" alt="" /></a>
 							</li>
-							</ul>
+						</ul>
 							
 							{/* <!-- Tab panes --> */}
 							<div class="tab-content">
@@ -1167,7 +1196,7 @@ class Lucky_Rotation extends React.Component {
 									<dd> &bull; Khách hàng truy cập <strong>Tủ đồ</strong>, chọn <strong>Phần thưởng</strong>, chọn <strong>giải thưởng Thẻ Scoin</strong> và click <span class="text-primary">Mở</span>.</dd>
 									<dd> <img src={the_scoin} class="img-fluid" alt="" /></dd>
 									<dd> &bull; Copy <strong>MÃ CODE</strong> và <strong>SERIAL</strong>: </dd>
-									<dd> <img src="images/hd/scoin-10k.png" class="img-fluid" alt="" /></dd>
+									<dd> <img src={scoin_10k} class="img-fluid" alt="" /></dd>
 									<dd> &bull; Truy cập <a href="https://scoin.vn/" title="Scoin.vn" target="_blank">https://scoin.vn/</a> , chọn Nạp game/Điền Tên tài khoản và server/ Chọn phương thức nạp Thẻ cào/ Chọn loại thẻ Scoin và điền mã Thẻ và số serial đã copy ở trên.</dd>
 									<dd> <img src={nap_voucher_scoin} class="img-fluid" alt="" /></dd>
 						
