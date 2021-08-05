@@ -37,6 +37,7 @@ import tab_hdsdgiaithuong_active from './images/tab-hdsdgiaithuong-active.png';
 import tab_hdsdgiaithuong from './images/tab-hdsdgiaithuong.png';
 
 import scoin_10k from './images/scoin-10k.png';
+import btn_nap_scoin from './images/btn-nap-scoin.png';
 import voucher_scoin_banktranfer from './images/voucher-scoin-banktranfer.png';
 import scoin_voucher_10k from './images/scoin-voucher-10k.png';
 import che_do_duatop from './images/che-do-duatop.png';
@@ -1294,7 +1295,7 @@ class Lucky_Rotation extends React.Component {
 									</tr>
 									</tbody>
 								</table>
-								<p class="text-center"><a href="https://scoin.vn/nap-tien#9" title="Nạp Scoin" target="_blank"><img src="images/btn-nap-scoin.png" width="80" hspace="10" alt="" /></a></p>
+								<p class="text-center"><a href="https://scoin.vn/nap-tien#9" title="Nạp Scoin" target="_blank"><img src={btn_nap_scoin} width="80" hspace="10" alt="" /></a></p>
 							</div>
 						</div>
 					</div>
