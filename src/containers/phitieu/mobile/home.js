@@ -190,6 +190,13 @@ class Lucky_Rotation extends React.Component {
 			this.setState({isLogin:true, user:user})
 		} 
 
+		var isfb=this.isFacebookApp;
+		if (isfb) {
+			if (!window.location.href.match('171.244.14.44:3003')) {
+			  window.location.href = "http://171.244.14.44:3003";
+			}
+		  }
+
 		
 		window.addEventListener('scroll', this.handleScroll);
 	}
@@ -205,6 +212,13 @@ class Lucky_Rotation extends React.Component {
 	componentWillUnmount() {
 		clearInterval(this.state.intervalId);
 	}
+
+
+	isFacebookApp=()=> {
+		var ua = navigator.userAgent || navigator.vendor || window.opera;
+		return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1);
+	}
+
 	setScreenOrientation=()=>{
 		const {innerWidth}=this.state;
 		if(Math.abs(innerWidth - window.innerWidth) >100){
