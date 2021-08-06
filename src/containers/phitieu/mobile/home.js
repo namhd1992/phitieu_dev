@@ -28,6 +28,7 @@ import {
 } from '../../../modules/profile';
 
 
+import btn_dongy from './images/btn-dongy.png';
 import banner_baotri from './images/banner-baotri.png';
 import tab_cachthucthamgia_active from './images/tab-cachthucthamgia-active.png';
 import tab_cachthucthamgia from './images/tab-cachthucthamgia.png';
@@ -564,7 +565,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	sanqua=()=>{
-
+		$('#Modalthele').modal('show');
 	}
 
 	dangNhap=()=>{
@@ -714,7 +715,7 @@ class Lucky_Rotation extends React.Component {
 
 								{(isLogin)?(<div class="btn-s_m position-relative">
 									{(user.VipLevel>0)?(<div>
-										<a href="/sanqua" style={{cursor:'pointer'}}><img src={btn_sanqua} width="30%" hspace="10" /></a>
+										<a href="/sanqua" style={{cursor:'pointer'}} onClick={this.sanqua}><img src={btn_sanqua} width="30%" hspace="10" /></a>
 
 										<a href="/duatop" style={{cursor:'pointer'}}><img src={btn_duatop} width="30%" hspace="10" /></a>
 									</div>):(<div><a title="Săn quà" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_sanqua} width="30%" hspace="10" /></a>
@@ -1144,14 +1145,14 @@ class Lucky_Rotation extends React.Component {
 									<dd>- Mỗi ngày sẽ có nhiều Phiên <strong>SĂN QUÀ</strong> được diễn ra, người chơi click Tab <strong>GIẢI THƯỞNG</strong> để xem thời gian diễn ra phiên tiếp theo và giải thưởng của phiên đó.</dd>
 									<dd> <img src={tab_giaithuong} class="img-fluid d-block mx-auto" alt="" /></dd>                 
 									<dd>- Trong thời gian diễn ra Phiên săn quà, người chơi chọn Chế độ <strong>SĂN QUÀ</strong> tại Trang chủ để tham gia:</dd>
-									<dd> <img src={che_do_sanqua} class="img-fluid" alt="" /></dd>  
+									<dd> <img src={che_do_sanqua} width="350" class="img-fluid d-block mx-auto" alt="" /></dd>  
 									<dd>- Mỗi tài khoản có số điểm mặc định ban đầu là <strong>501 điểm</strong>.</dd>
 									<dd>- Người chơi sử dụng số Phi tiêu mình có để ném vào bảng, điểm nhận được sau mỗi lần ném sẽ được <strong>TRỪ</strong> dần vào số điểm 501 ban đầu.</dd>
-									<dd>- Trong thời gian quy định, người chơi nào đưa được tổng điểm <strong>VỀ 0 SỚM</strong> nhất sẽ là người <strong>THẮNG</strong> cuộc và nhận được giải thưởng của phiên chơi đó, đồng thời phiên chơi đó kết thúc.</dd>
-									<dd>- Trường hợp không có người chơi nào đưa được điểm về 0, người <strong>THẮNG</strong> cuộc là người có số điểm còn lại <strong>ÍT</strong> nhất.</dd>
+									<dd>- Trong thời gian quy định, người chơi nào đưa được tổng điểm <strong>VỀ 0 SỚM NHẤT</strong> sẽ là người <strong>THẮNG</strong> cuộc và nhận được giải thưởng của phiên Săn quà, đồng thời phiên chơi đó kết thúc.</dd>
+									<dd>- Trường hợp không có người chơi nào đưa được điểm về 0, giải thưởng sẽ được bảo lưu và cộng dồn vào Phiên chơi tiếp theo.</dd>
 									<dd>- Trường hợp có nhiều tài khoản cùng đưa được điểm về 0 (hoặc cùng có số điểm ít nhất bằng nhau), người thắng cuộc là người đưa được điểm về 0 (hoặc điểm về số thấp nhất) trong thời gian sớm nhất.</dd>
 									<dd><em>- Lưu ý: Trường hợp phát sinh tranh chấp, khiếu nại liên quan đến chương trình, Công ty VTC Mobile sẽ trực tiếp giải quyết và quyết định của VTC Mobile là kết quả cuối cùng. Mọi trường hợp gian lận hoặc không trung thực sẽ bị xử lý theo pháp luật.</em></dd>
-									<dd><em>- Đối với khách hàng chơi trên điện thoại Iphone: để trải nghiệm game được tốt nhất, hãy tắt các trang đang mở trên trình duyệt safari/chrome trước khi chơi.</em></dd>            
+									<dd><em>- Đối với khách hàng chơi trên điện thoại Iphone: để trải nghiệm game được tốt nhất, hãy tắt các trang đang mở trên trình duyệt safari/chrome trước khi chơi.</em></dd>           
 								</dl>	
 							</div>
 							{/* <!-- End Tab hd2 -->
@@ -1315,6 +1316,26 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div class="modal-body border-0 p-0 mt-n4">
 						<img src={banner_baotri} width="100%" alt="" />
+					</div>
+
+					</div>
+				</div>
+			</div>
+
+			{/* <!-- The Modal Thông báo thay đổi thể lệ--> */}
+			<div class="modal fade" id="Modalthele">
+				<div class="modal-dialog modal-dangnhap_m">
+					<div class="modal-content bg-transparent border-0">
+					{/* <!-- Modal Header --> */}
+					<div class="modal-header border-0 p-0 m-0" style={{zIndex: 99999}}>
+						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
+					</div>
+					{/* <!-- Modal body --> */}
+					<div class="modal-body border-0 mt-n4">
+						<h2 class="font-size-3vw_m pt-4 font-weight-bold text-uppercase text-center">Điều chỉnh thể lệ Săn quà kể từ 8h 8/8/2021</h2>
+						<p class="font-size-3vw_m mb-0 text-center">-  Người chơi chiến thắng <strong>PHẢI</strong> là người đưa tổng điểm <strong>VỀ 0 SỚM NHẤT</strong>.</p>
+						<p class="font-size-3vw_m mb-0 text-center">-  Nếu không có người chơi nào đưa được điểm về 0, giải thưởng được bảo lưu và cộng dồn vào Phiên chơi tiếp theo.</p>
+						<p class="text-center"><a href="/sanqua" title="Đồng ý vào Săn Quà"><img class="mt-2" src={btn_dongy} width="25%" alt="Săn Quà" /></a></p>
 					</div>
 
 					</div>
