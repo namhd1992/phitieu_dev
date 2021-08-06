@@ -162,3 +162,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family: Arial, Helvetica, s
 .account-name_m {top: 0;}
 .btn-login_m {top: -5px;}
 }
+
+@media screen and (min-width:767px){
+ .scroll-modal-body_m {height: 390px !important; overflow: auto !important;}
+}
