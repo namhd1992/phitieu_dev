@@ -27,6 +27,8 @@ import {
 	getData
 } from '../../../modules/profile';
 
+
+import banner_baotri from './images/banner-baotri.png';
 import tab_cachthucthamgia_active from './images/tab-cachthucthamgia-active.png';
 import tab_cachthucthamgia from './images/tab-cachthucthamgia.png';
 import tab_hdsanqua_active from './images/tab-hdsanqua-active.png';
@@ -179,7 +181,7 @@ class Lucky_Rotation extends React.Component {
 
 	componentDidMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
-
+		$('#Modalbanner').modal('show');
 		this.getVinhDanh(1,1);
 
 
@@ -1303,6 +1305,22 @@ class Lucky_Rotation extends React.Component {
 					</div>
 				</div>
 			</div>
+
+			{/* <!-- The Modal banner bảo trì--> */}
+			<div class="modal fade" id="Modalbanner">
+				<div class="modal-dialog">
+					<div class="modal-content bg-transparent border-0">
+					<div class="modal-header border-0 p-0 m-0" style={{zIndex:99999}}>
+						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body border-0 p-0 mt-n4">
+						<img src={banner_baotri} width="100%" alt="" />
+					</div>
+
+					</div>
+				</div>
+			</div>
+
 
 
 				
