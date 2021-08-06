@@ -28,6 +28,17 @@ import {
 } from '../../../modules/profile';
 
 
+import fb_a1 from './images/fb-a1.jpg';
+import fb_a2 from './images/fb-a2.jpg';
+import fb_a3_a4 from './images/fb-a3-a4.jpg';
+import fb_a5 from './images/fb-a5.png';
+import fb_i1 from './images/fb-i1.jpg';
+import fb_i2 from './images/fb-i2.jpg';
+import fb_i3_i4 from './images/fb-i3-i4.jpg';
+import fb_i5 from './images/fb-i5.jpg';
+import tab_appfb from './images/tab-appfb.png';
+import tab_appfb_active from './images/tab-appfb-active.png';
+
 import btn_dongy from './images/btn-dongy.png';
 import banner_baotri from './images/banner-baotri.png';
 import tab_cachthucthamgia_active from './images/tab-cachthucthamgia-active.png';
@@ -168,7 +179,8 @@ class Lucky_Rotation extends React.Component {
 			tab_1:true,
 			tab_2:false,
 			tab_3:false,
-			tab_4:false
+			tab_4:false,
+			tab_5:false
 		};
 	}
 	componentWillMount(){
@@ -182,7 +194,7 @@ class Lucky_Rotation extends React.Component {
 
 	componentDidMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
-		$('#Modalbanner').modal('show');
+		
 		this.getVinhDanh(1,1);
 
 
@@ -192,14 +204,10 @@ class Lucky_Rotation extends React.Component {
 
 		var isfb=this.isFacebookApp;
 		if (isfb) {
-			window.open("http://171.244.14.44:3003");
-			alert("ok")
-			  	// window.location.href = "http://171.244.14.44:3003";
-			// if (!window.location.href.match('171.244.14.44:3003')) {
-			// 	alert("ok")
-			//   	window.location.href = "http://171.244.14.44:3003";
-			// }
-		  }
+			$('#Modalfbview').modal('show');
+		}else{
+			$('#Modalbanner').modal('show');
+		}
 
 		
 		window.addEventListener('scroll', this.handleScroll);
@@ -686,25 +694,28 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	tab1=()=>{
-		this.setState({tab_1:true, tab_2:false, tab_3:false, tab_4:false})
+		this.setState({tab_1:true, tab_2:false, tab_3:false, tab_4:false, tab_5:false})
 	}
 
 	tab2=()=>{
-		this.setState({tab_1:false, tab_2:true, tab_3:false, tab_4:false})
+		this.setState({tab_1:false, tab_2:true, tab_3:false, tab_4:false, tab_5:false})
 	}
 
 	tab3=()=>{
-		this.setState({tab_1:false, tab_2:false, tab_3:true, tab_4:false})
+		this.setState({tab_1:false, tab_2:false, tab_3:true, tab_4:false, tab_5:false})
 	}
 
 	tab4=()=>{
-		this.setState({tab_1:false, tab_2:false, tab_3:false, tab_4:true})
+		this.setState({tab_1:false, tab_2:false, tab_3:false, tab_4:true, tab_5:false})
+	}
+
+	tab5=()=>{
+		this.setState({tab_1:false, tab_2:false, tab_3:false, tab_4:false, tab_5:true})
 	}
 
 
-
 	render() {
-		const {tab_1, tab_2, tab_3, tab_4,tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
+		const {tab_1, tab_2, tab_3, tab_4,tab_5,tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		const { classes } = this.props;
 		return (<div>
@@ -1037,6 +1048,9 @@ class Lucky_Rotation extends React.Component {
 							<li class="nav-item">
 								<a class="nav-link p-1" onClick={this.tab4}><img id="image-8" src={tab_4 ? tab_hdsdgiaithuong_active : tab_hdsdgiaithuong} width="130" alt="" /></a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link p-1" onClick={this.tab5}><img id="image-8" src={tab_5 ? tab_appfb_active : tab_appfb} width="130" alt="" /></a>
+							</li>
 						</ul>
 							
 							{/* <!-- Tab panes --> */}
@@ -1224,6 +1238,33 @@ class Lucky_Rotation extends React.Component {
 						
 								</dl> 
 							</div>
+							{/* <!-- Begin Tab hd5 --> */}
+							<div class={tab_5 ? "tab-pane container mt-3 active" : "tab-pane container mt-3 fade"} id="hd5">
+								<h4 class="font-size-3vw_m font-weight-bold">5. Hướng dẫn mở link game Phi tiêu từ app Facebook của điện thoại</h4>
+								<dl class="font-size-3vw_m">
+									<dd>- Để trải nghiệm game được tốt nhất, Khách hàng lưu ý sử dụng trình duyệt <strong>SAFARI</strong> (đối với điện thoại Iphone) hoặc <strong>CHROME</strong> (đối với điện thoại Android) để mở link game <a href="https://phitieu.splay.vn/" title="">https://phitieu.splay.vn/</a> </dd>
+									<dd> Với những khách hàng mở link <a href="https://phitieu.splay.vn/" title="">https://phitieu.splay.vn/</a> từ app Facebook của điện thoại, hãy thực hiện theo hướng dẫn dưới đây.</dd>
+									<dt>1.	Đối với điện thoại Iphone: </dt>
+									<dd><strong>Bước 1</strong>: Ấn vào đường link <a href="https://phitieu.splay.vn/" title="">https://phitieu.splay.vn/</a> từ bài viết tại fanpage Scoin (hoặc bài viết bất kỳ trên Facebook)</dd>
+									<dd> <img src={fb_i1} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									<dd><strong>Bước 2:</strong> Ấn vào dấu ba chấm tại góc phải</dd>
+									<dd> <img src={fb_i2} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									<dd><strong>Bước 3</strong>: Chọn <strong>MỞ TRONG TRÌNH DUYỆT</strong> hoặc <strong>OPEN IN SAFARI</strong> , link game sẽ được mở bằng trình duyệt SAFARI của Iphone</dd>
+									<dd> <img src={fb_i3_i4} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									<dd><strong>Bước 4</strong>: Mở khóa tự động xoay màn hình và trải nghiệm game</dd>
+									<dd> <img src={fb_i5} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									<dt>2. Đối với điện thoại Android: </dt>
+									<dd><strong>Bước 1:</strong> Ấn vào đường link  <a href="https://phitieu.splay.vn/" title="">https://phitieu.splay.vn/</a> từ bài viết tại fanpage Scoin (hoặc bài viết bất kỳ trên Facebook)</dd>
+									<dd> <img src={fb_a1}  width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									<dd><strong>Bước 2</strong>: Ấn vào dấu ba chấm tại góc phải</dd>
+									<dd> <img src={fb_a2} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									<dd><strong>Bước 3</strong>: Chọn <strong>MỞ TRONG TRÌNH DUYỆT</strong> hoặc <strong>OPEN IN BROWSER</strong>, link game sẽ được mở bằng trình duyệt mặc định của điện thoại</dd>
+									<dd> <img src={fb_a3_a4} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									<dd><strong>Bước 4</strong>: Mở khóa tự động xoay màn hình và trải nghiệm game</dd>
+									<dd> <img src={fb_a5} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									
+								</dl> 
+							</div>
 							{/* <!-- End Tab hd4 --> */}
 							</div> 
 						
@@ -1356,6 +1397,41 @@ class Lucky_Rotation extends React.Component {
 						<p class="text-center"><a href="/sanqua" title="Đồng ý vào Săn Quà"><img class="mt-2" src={btn_dongy} width="25%" alt="Săn Quà" /></a></p>
 					</div>
 
+					</div>
+				</div>
+			</div>
+
+			{/* <!-- The Modal Huong Dan mở phi tiêu từ fb view--> */}
+			<div class="modal fade" id="Modalfbview">
+				<div class="modal-dialog modal-huongdan_m modal-dialog-scrollable">
+					<div class="modal-content bg-transparent border-0">
+
+						<div class="modal-header border-0 p-0">
+							<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body border-0 py-0 mb-2 mt-2 px-3 scroll-modal-body fixed-height">
+							<div class="container mt-2">
+								<h4 class="font-size-3vw_m font-weight-bold">Hướng dẫn mở link game Phi tiêu từ app Facebook của điện thoại</h4>
+								<dl class="font-size-3vw_m">                
+									<dd> Khách hàng lưu ý sử dụng trình duyệt <strong>SAFARI</strong> (đối với điện thoại Iphone) hoặc <strong>CHROME</strong> (đối với điện thoại Android) để mở link game <a href="https://phitieu.splay.vn/" title="">https://phitieu.splay.vn/</a></dd>
+									<dt>1.	Đối với điện thoại Iphone: </dt>                
+									<dd><strong>Bước 1:</strong> Ấn vào dấu ba chấm tại góc phải</dd>
+									<dd> <img src={fb_i2} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									<dd><strong>Bước 2</strong>: Chọn <strong>MỞ TRONG TRÌNH DUYỆT</strong> hoặc <strong>OPEN IN SAFARI</strong> , link game sẽ được mở bằng trình duyệt SAFARI của Iphone</dd>
+									<dd> <img src={fb_i3_i4} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									<dd><strong>Bước 3</strong>: Mở khóa tự động xoay màn hình và trải nghiệm game</dd>
+									<dd> <img src={fb_i5} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									<dt>2. Đối với điện thoại Android: </dt>                
+									<dd><strong>Bước 1</strong>: Ấn vào dấu ba chấm tại góc phải</dd>
+									<dd> <img src={fb_a2} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									<dd><strong>Bước 2</strong>: Chọn <strong>MỞ TRONG TRÌNH DUYỆT</strong> hoặc <strong>OPEN IN BROWSER</strong>, link game sẽ được mở bằng trình duyệt mặc định của điện thoại</dd>
+									<dd> <img src={fb_a3_a4} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									<dd><strong>Bước 3</strong>: Mở khóa tự động xoay màn hình và trải nghiệm game</dd>
+									<dd> <img src={fb_a5} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+									
+								</dl> 
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
