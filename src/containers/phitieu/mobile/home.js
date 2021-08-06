@@ -1409,7 +1409,7 @@ class Lucky_Rotation extends React.Component {
 						<div class="modal-header border-0 p-0">
 							<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
 						</div>
-						<div class="modal-body border-0 py-0 mb-2 mt-2 px-3 scroll-modal-body">
+						<div class="modal-body border-0 py-0 mb-2 mt-2 px-3 scroll-modal-body_m">
 							<div class="container mt-2">
 								<h4 class="font-size-3vw_m font-weight-bold">Hướng dẫn mở link game Phi tiêu từ app Facebook của điện thoại</h4>
 								<dl class="font-size-3vw_m">                
