@@ -192,10 +192,13 @@ class Lucky_Rotation extends React.Component {
 
 		var isfb=this.isFacebookApp;
 		if (isfb) {
-			if (!window.location.href.match('171.244.14.44:3003')) {
-				alert("ok")
-			  	window.location.href = "http://171.244.14.44:3003";
-			}
+			window.open("http://171.244.14.44:3003");
+			alert("ok")
+			  	// window.location.href = "http://171.244.14.44:3003";
+			// if (!window.location.href.match('171.244.14.44:3003')) {
+			// 	alert("ok")
+			//   	window.location.href = "http://171.244.14.44:3003";
+			// }
 		  }
 
 		
