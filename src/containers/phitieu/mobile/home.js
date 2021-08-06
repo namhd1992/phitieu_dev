@@ -715,7 +715,7 @@ class Lucky_Rotation extends React.Component {
 
 								{(isLogin)?(<div class="btn-s_m position-relative">
 									{(user.VipLevel>0)?(<div>
-										<a href="/sanqua" style={{cursor:'pointer'}} onClick={this.sanqua}><img src={btn_sanqua} width="30%" hspace="10" /></a>
+										<a style={{cursor:'pointer'}} onClick={this.sanqua}><img src={btn_sanqua} width="30%" hspace="10" /></a>
 
 										<a href="/duatop" style={{cursor:'pointer'}}><img src={btn_duatop} width="30%" hspace="10" /></a>
 									</div>):(<div><a title="Săn quà" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_sanqua} width="30%" hspace="10" /></a>
@@ -1332,7 +1332,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					{/* <!-- Modal body --> */}
 					<div class="modal-body border-0 mt-n4">
-						<h2 class="font-size-3vw_m pt-4 font-weight-bold text-uppercase text-center">Điều chỉnh thể lệ Săn quà kể từ 8h 8/8/2021</h2>
+						<h2 class="font-size-3vw_m pt-3 font-weight-bold text-uppercase text-center">Điều chỉnh thể lệ Săn quà kể từ 8h 8/8/2021</h2>
 						<p class="font-size-3vw_m mb-0 text-center">-  Người chơi chiến thắng <strong>PHẢI</strong> là người đưa tổng điểm <strong>VỀ 0 SỚM NHẤT</strong>.</p>
 						<p class="font-size-3vw_m mb-0 text-center">-  Nếu không có người chơi nào đưa được điểm về 0, giải thưởng được bảo lưu và cộng dồn vào Phiên chơi tiếp theo.</p>
 						<p class="text-center"><a href="/sanqua" title="Đồng ý vào Săn Quà"><img class="mt-2" src={btn_dongy} width="25%" alt="Săn Quà" /></a></p>
