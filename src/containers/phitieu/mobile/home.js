@@ -202,7 +202,7 @@ class Lucky_Rotation extends React.Component {
 			this.setState({isLogin:true, user:user})
 		} 
 
-		var isfb=this.isFacebookApp;
+		var isfb=this.isFacebookApp();
 		if (isfb) {
 			$('#Modalfbview').modal('show');
 		}else{
