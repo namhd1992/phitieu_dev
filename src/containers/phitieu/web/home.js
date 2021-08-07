@@ -1239,10 +1239,10 @@ class Lucky_Rotation extends React.Component {
 
 						{/* <!-- Begin Tab hd5 --> */}
 						<div class={tab_5 ? "tab-pane container mt-3 active" : "tab-pane container mt-3 fade"} id="hd5">
-							<h4 class="font-size-16 font-weight-bold">5. Hướng dẫn mở link game Phi tiêu từ app Facebook của điện thoại</h4>
+							<h4 class="font-size-16 font-weight-bold">5. Hướng dẫn mở link game Phi tiêu từ Facebook của điện thoại</h4>
 							<dl class="font-size-16">
 								<dd>- Để trải nghiệm game được tốt nhất, Khách hàng lưu ý sử dụng trình duyệt <strong>SAFARI</strong> (đối với điện thoại Iphone) hoặc <strong>CHROME</strong> (đối với điện thoại Android) để mở link game <a href="https://phitieu.splay.vn/" title="">https://phitieu.splay.vn/</a> </dd>
-								<dd> Với những khách hàng mở link <a href="https://phitieu.splay.vn/" title="">https://phitieu.splay.vn/</a> từ app Facebook của điện thoại, hãy thực hiện theo hướng dẫn dưới đây.</dd>
+								<dd> Với những khách hàng mở link <a href="https://phitieu.splay.vn/" title="">https://phitieu.splay.vn/</a> từ Facebook của điện thoại, hãy thực hiện theo hướng dẫn dưới đây.</dd>
 								<dt>1.	Đối với điện thoại Iphone: </dt>
 								<dd><strong>Bước 1</strong>: Ấn vào đường link <a href="https://phitieu.splay.vn/" title="">https://phitieu.splay.vn/</a> từ bài viết tại fanpage Scoin (hoặc bài viết bất kỳ trên Facebook)</dd>
 								<dd> <img src={fb_i1} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
