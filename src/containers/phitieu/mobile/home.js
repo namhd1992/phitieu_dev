@@ -180,7 +180,7 @@ class Lucky_Rotation extends React.Component {
 			tab_2:false,
 			tab_3:false,
 			tab_4:false,
-			tab_5:false
+			tab_5:false,
 		};
 	}
 	componentWillMount(){
@@ -194,6 +194,11 @@ class Lucky_Rotation extends React.Component {
 
 	componentDidMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
+		var showMaintain=localStorage.getItem("showMaintain");
+		if(showMaintain===null){
+			$('#Modalbanner').modal('show');
+		}
+		localStorage.setItem("showMaintain", true);
 		
 		this.getVinhDanh(1,1);
 
@@ -202,12 +207,12 @@ class Lucky_Rotation extends React.Component {
 			this.setState({isLogin:true, user:user})
 		} 
 
-		var isfb=this.isFacebookApp();
-		if (isfb) {
-			$('#Modalfbview').modal('show');
-		}else{
-			$('#Modalbanner').modal('show');
-		}
+		// var isfb=this.isFacebookApp();
+		// if (isfb) {
+		// 	$('#Modalfbview').modal('show');
+		// }else{
+		// 	$('#Modalbanner').modal('show');
+		// }
 
 		
 		window.addEventListener('scroll', this.handleScroll);

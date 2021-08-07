@@ -277,23 +277,27 @@ class Lucky_Rotation extends React.Component {
 
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.setState({user:user})
-
-		this.props.getLuckyInfo(1, user.Token).then(()=>{
-			var data=this.props.dataLuckyInfo;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.setState({data:data.Data, code_key:data.Data.Code,  countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points,isLoading:true, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
-					this.getStatus(data.Data)
-				}else if(data.Status===2){
-					this.setState({msg:"Hiện tại phiên chơi đã kết thúc. Mời bạn sang tham gia Đua TOP."})
-					$('#Modalnone').modal('show');
-				}else if(data.Status===3){
-					this.logoutAction();
-				}else{
-					console.log("Lỗi")
+		if(user!==null){
+			this.props.getLuckyInfo(1, user.Token).then(()=>{
+				var data=this.props.dataLuckyInfo;
+				if(data!==undefined){
+					if(data.Status===0){
+						this.setState({data:data.Data, code_key:data.Data.Code,  countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points,isLoading:true, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
+						this.getStatus(data.Data)
+					}else if(data.Status===2){
+						this.setState({msg:"Hiện tại phiên chơi đã kết thúc. Mời bạn sang tham gia Đua TOP."})
+						$('#Modalnone').modal('show');
+					}else if(data.Status===3){
+						this.logoutAction();
+					}else{
+						console.log("Lỗi")
+					}
 				}
-			}
-		});
+			});
+		}else{
+			window.location.replace("/")
+		}
+		
 		this.getMoreSessions();
 
 		

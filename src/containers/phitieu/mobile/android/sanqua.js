@@ -23,6 +23,14 @@ import {
 	getItemAward
 } from '../../../../modules/lucky'
 
+import fb_a1 from '../images/fb-a1.jpg';
+import fb_a2 from '../images/fb-a2.jpg';
+import fb_a3_a4 from '../images/fb-a3-a4.jpg';
+import fb_a5 from '../images/fb-a5.png';
+import fb_i1 from '../images/fb-i1.jpg';
+import fb_i2 from '../images/fb-i2.jpg';
+import fb_i3_i4 from '../images/fb-i3-i4.jpg';
+import fb_i5 from '../images/fb-i5.jpg';
 
 import icon_clock from '../images/icon-clock.png';
 import line_timing from '../images/bg-line-timing.png';
@@ -195,6 +203,11 @@ class Lucky_Rotation extends React.Component {
 		var bg_x=0, bg_y=0;
 		var list_top_user=[];
 		var user = JSON.parse(localStorage.getItem("user"));
+
+		var isfb=this.isFacebookApp();
+		if (isfb) {
+			$('#Modalfbview').modal('show');
+		}
 		// var canvas=document.getElementById("canvas");
 		// canvas.addEventListener ("mouseout", this.checkoutCanvas);
 
@@ -672,35 +685,46 @@ class Lucky_Rotation extends React.Component {
 		this.setState({ auto : !this.state.auto});
 	}
 
+	
+	isFacebookApp=()=> {
+		var ua = navigator.userAgent || navigator.vendor || window.opera;
+		return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1);
+	}
+
 	getLuckyInfo=(type)=>{
 		const {tieuconlai, username, vip_level, txt_points, list_top_user}=this.state;
 		console.log(username)
 		var user = JSON.parse(localStorage.getItem("user"));
-		this.props.getLuckyInfo(type, user.Token).then(()=>{
-			var data=this.props.dataLuckyInfo;
-			if(data!==undefined){
-				if(data.Status===0){
-					this.setState({data:data.Data,code_key:data.Data.Code, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points,isLoading:true, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
-					
-					username.text(user.Username)
-					vip_level.text(this.getLevelUser(user))
-					tieuconlai.text(`Số phi tiêu còn lại: ${data.Data.AddInfo.Darts}`)
-					txt_points.text(data.Data.AddInfo.Points)
-					var list_top=data.Data.AddInfo.TopUsers;
-					for (let i = 0; i < list_top.length; i++) {
-						list_top_user[i].text(this.formatText(list_top[i]))
+		if(user!==null){
+			this.props.getLuckyInfo(type, user.Token).then(()=>{
+				var data=this.props.dataLuckyInfo;
+				if(data!==undefined){
+					if(data.Status===0){
+						this.setState({data:data.Data,code_key:data.Data.Code, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points,isLoading:true, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
+						
+						username.text(user.Username)
+						vip_level.text(this.getLevelUser(user))
+						tieuconlai.text(`Số phi tiêu còn lại: ${data.Data.AddInfo.Darts}`)
+						txt_points.text(data.Data.AddInfo.Points)
+						var list_top=data.Data.AddInfo.TopUsers;
+						for (let i = 0; i < list_top.length; i++) {
+							list_top_user[i].text(this.formatText(list_top[i]))
+						}
+						this.getStatus(data.Data)
+					}else if(data.Status===2){
+						this.setState({msg:'Hiện tại phiên chơi đã kết thúc. Mời bạn sang tham gia Đua TOP.'})
+						$('#Modalnone').modal('show');
+					}else if(data.Status===3){
+						this.logoutAction();
+					}else{
+						console.log("Lỗi")
 					}
-					this.getStatus(data.Data)
-				}else if(data.Status===2){
-					this.setState({msg:'Hiện tại phiên chơi đã kết thúc. Mời bạn sang tham gia Đua TOP.'})
-					$('#Modalnone').modal('show');
-				}else if(data.Status===3){
-					this.logoutAction();
-				}else{
-					console.log("Lỗi")
 				}
-			}
-		})
+			})
+		}else{
+			window.location.replace("/")
+		}
+		
 	}
 
 	getMoreSessions=()=>{
@@ -1353,6 +1377,41 @@ class Lucky_Rotation extends React.Component {
 								
 							</div>
 
+							</div>
+						</div>
+					</div>
+
+								{/* <!-- The Modal Huong Dan mở phi tiêu từ fb view--> */}
+					<div class="modal fade" id="Modalfbview">
+						<div class="modal-dialog modal-huongdan_m modal-dialog-scrollable">
+							<div class="modal-content bg-transparent border-0">
+
+								<div class="modal-header border-0 p-0">
+									<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
+								</div>
+								<div class="modal-body border-0 py-0 mb-2 mt-2 px-3 scroll-modal-body_m">
+									<div class="container mt-2">
+										<h4 class="font-size-3vw_m font-weight-bold">Hướng dẫn mở link game Phi tiêu từ Facebook của điện thoại</h4>
+										<dl class="font-size-3vw_m">                
+											<dd> Khách hàng lưu ý sử dụng trình duyệt <strong>SAFARI</strong> (đối với điện thoại Iphone) hoặc <strong>CHROME</strong> (đối với điện thoại Android) để mở link game <a href="https://phitieu.splay.vn/" title="">https://phitieu.splay.vn/</a></dd>
+											<dt>1.	Đối với điện thoại Iphone: </dt>                
+											<dd><strong>Bước 1:</strong> Ấn vào dấu ba chấm tại góc phải</dd>
+											<dd> <img src={fb_i2} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+											<dd><strong>Bước 2</strong>: Chọn <strong>MỞ TRONG TRÌNH DUYỆT</strong> hoặc <strong>OPEN IN SAFARI</strong> , link game sẽ được mở bằng trình duyệt SAFARI của Iphone</dd>
+											<dd> <img src={fb_i3_i4} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+											<dd><strong>Bước 3</strong>: Mở khóa tự động xoay màn hình và trải nghiệm game</dd>
+											<dd> <img src={fb_i5} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+											<dt>2. Đối với điện thoại Android: </dt>                
+											<dd><strong>Bước 1</strong>: Ấn vào dấu ba chấm tại góc phải</dd>
+											<dd> <img src={fb_a2} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+											<dd><strong>Bước 2</strong>: Chọn <strong>MỞ TRONG TRÌNH DUYỆT</strong> hoặc <strong>OPEN IN BROWSER</strong>, link game sẽ được mở bằng trình duyệt mặc định của điện thoại</dd>
+											<dd> <img src={fb_a3_a4} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+											<dd><strong>Bước 3</strong>: Mở khóa tự động xoay màn hình và trải nghiệm game</dd>
+											<dd> <img src={fb_a5} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+											
+										</dl> 
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
