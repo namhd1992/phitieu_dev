@@ -1142,6 +1142,41 @@ class Lucky_Rotation extends React.Component {
 			return (
 				<div>
 					<img src={rotate} width="100%" alt="" />
+					
+					{/* <!-- The Modal Huong Dan mở phi tiêu từ fb view--> */}
+					<div class="modal fade" id="Modalfbview">
+						<div class="modal-dialog modal-huongdan_m modal-dialog-scrollable">
+							<div class="modal-content bg-transparent border-0">
+
+								<div class="modal-header border-0 p-0">
+									<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
+								</div>
+								<div class="modal-body border-0 py-0 mb-2 mt-2 px-3 scroll-modal-body_m">
+									<div class="container mt-2">
+										<h4 class="font-size-3vw_m font-weight-bold">Hướng dẫn mở link game Phi tiêu từ Facebook của điện thoại</h4>
+										<dl class="font-size-3vw_m">                
+											<dd> Khách hàng lưu ý sử dụng trình duyệt <strong>SAFARI</strong> (đối với điện thoại Iphone) hoặc <strong>CHROME</strong> (đối với điện thoại Android) để mở link game <a href="https://phitieu.splay.vn/" title="">https://phitieu.splay.vn/</a></dd>
+											<dt>1.	Đối với điện thoại Iphone: </dt>                
+											<dd><strong>Bước 1:</strong> Ấn vào dấu ba chấm tại góc phải</dd>
+											<dd> <img src={fb_i2} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+											<dd><strong>Bước 2</strong>: Chọn <strong>MỞ TRONG TRÌNH DUYỆT</strong> hoặc <strong>OPEN IN SAFARI</strong> , link game sẽ được mở bằng trình duyệt SAFARI của Iphone</dd>
+											<dd> <img src={fb_i3_i4} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+											<dd><strong>Bước 3</strong>: Mở khóa tự động xoay màn hình và trải nghiệm game</dd>
+											<dd> <img src={fb_i5} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+											<dt>2. Đối với điện thoại Android: </dt>                
+											<dd><strong>Bước 1</strong>: Ấn vào dấu ba chấm tại góc phải</dd>
+											<dd> <img src={fb_a2} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+											<dd><strong>Bước 2</strong>: Chọn <strong>MỞ TRONG TRÌNH DUYỆT</strong> hoặc <strong>OPEN IN BROWSER</strong>, link game sẽ được mở bằng trình duyệt mặc định của điện thoại</dd>
+											<dd> <img src={fb_a3_a4} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+											<dd><strong>Bước 3</strong>: Mở khóa tự động xoay màn hình và trải nghiệm game</dd>
+											<dd> <img src={fb_a5} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
+											
+										</dl> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			)
 		}
@@ -1219,40 +1254,6 @@ class Lucky_Rotation extends React.Component {
 							</div>
 						</div>
 
-									{/* <!-- The Modal Huong Dan mở phi tiêu từ fb view--> */}
-						<div class="modal fade" id="Modalfbview">
-							<div class="modal-dialog modal-huongdan_m modal-dialog-scrollable">
-								<div class="modal-content bg-transparent border-0">
-
-									<div class="modal-header border-0 p-0">
-										<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
-									</div>
-									<div class="modal-body border-0 py-0 mb-2 mt-2 px-3 scroll-modal-body_m">
-										<div class="container mt-2">
-											<h4 class="font-size-3vw_m font-weight-bold">Hướng dẫn mở link game Phi tiêu từ Facebook của điện thoại</h4>
-											<dl class="font-size-3vw_m">                
-												<dd> Khách hàng lưu ý sử dụng trình duyệt <strong>SAFARI</strong> (đối với điện thoại Iphone) hoặc <strong>CHROME</strong> (đối với điện thoại Android) để mở link game <a href="https://phitieu.splay.vn/" title="">https://phitieu.splay.vn/</a></dd>
-												<dt>1.	Đối với điện thoại Iphone: </dt>                
-												<dd><strong>Bước 1:</strong> Ấn vào dấu ba chấm tại góc phải</dd>
-												<dd> <img src={fb_i2} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
-												<dd><strong>Bước 2</strong>: Chọn <strong>MỞ TRONG TRÌNH DUYỆT</strong> hoặc <strong>OPEN IN SAFARI</strong> , link game sẽ được mở bằng trình duyệt SAFARI của Iphone</dd>
-												<dd> <img src={fb_i3_i4} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
-												<dd><strong>Bước 3</strong>: Mở khóa tự động xoay màn hình và trải nghiệm game</dd>
-												<dd> <img src={fb_i5} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
-												<dt>2. Đối với điện thoại Android: </dt>                
-												<dd><strong>Bước 1</strong>: Ấn vào dấu ba chấm tại góc phải</dd>
-												<dd> <img src={fb_a2} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
-												<dd><strong>Bước 2</strong>: Chọn <strong>MỞ TRONG TRÌNH DUYỆT</strong> hoặc <strong>OPEN IN BROWSER</strong>, link game sẽ được mở bằng trình duyệt mặc định của điện thoại</dd>
-												<dd> <img src={fb_a3_a4} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
-												<dd><strong>Bước 3</strong>: Mở khóa tự động xoay màn hình và trải nghiệm game</dd>
-												<dd> <img src={fb_a5} width="250" class="img-fluid d-block mx-auto" alt="" /></dd>
-												
-											</dl> 
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
 					
 						
 						
