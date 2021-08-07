@@ -168,11 +168,14 @@ class Lucky_Rotation extends React.Component {
 	}
 	componentWillMount(){
 		console.log(document.fullscreenElement)
-		
+		var user = JSON.parse(localStorage.getItem("user"));
 		this.onResize();
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
+		if(user===null){
+			window.location.replace("/")
+		}
 		if(window.innerWidth < window.innerHeight){
 			this.setState({horizontal: false})
 		}else{

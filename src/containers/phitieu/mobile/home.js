@@ -207,12 +207,12 @@ class Lucky_Rotation extends React.Component {
 			this.setState({isLogin:true, user:user})
 		} 
 
-		// var isfb=this.isFacebookApp();
-		// if (isfb) {
-		// 	$('#Modalfbview').modal('show');
-		// }else{
-		// 	$('#Modalbanner').modal('show');
-		// }
+		var isfb=this.isFacebookApp();
+		if (isfb) {
+			$('#Modalfbview').modal('show');
+		}else{
+			$('#Modalbanner').modal('show');
+		}
 
 		
 		window.addEventListener('scroll', this.handleScroll);

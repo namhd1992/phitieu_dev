@@ -167,11 +167,15 @@ class Lucky_Rotation extends React.Component {
 		};
 	}
 	componentWillMount(){
-		console.log(document.fullscreenElement)
+		var user = JSON.parse(localStorage.getItem("user"));
 		this.onResize();
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.addEventListener("visibilitychange", this.visibilityChange);
 		window.removeEventListener('scroll', this.handleScroll);
+
+		if(user===null){
+			window.location.replace("/")
+		}
 
 		if(window.innerWidth < window.innerHeight){
 			this.setState({horizontal: false})
@@ -202,26 +206,15 @@ class Lucky_Rotation extends React.Component {
 		var bg_x=0, bg_y=0;
 		var list_top_user=[];
 		var user = JSON.parse(localStorage.getItem("user"));
-
+		
 		var isfb=this.isFacebookApp();
 		if (isfb) {
 			$('#Modalfbview').modal('show');
 		}
-		// var canvas=document.getElementById("canvas");
-		// canvas.addEventListener ("mouseout", this.checkoutCanvas);
-
-		// this.toggleFullScreen();
 		bg_x=width;
 		bg_y=height*deltal_device/deltal_img;
-		// if(width/height > 2){
-		// 	bg_x=width;
-		// 	bg_y=height*deltal_img/deltal_device;
-		// }else{
-		// 	bg_x=width;
-		// 	bg_y=height*deltal_device/deltal_img;
-		// }
 		width_bgImg=bg_y;
-
+		
 		if(horizontal){
 			var stage = new Konva.Stage({
 				container: 'canvas',
