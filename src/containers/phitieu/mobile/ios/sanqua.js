@@ -1389,10 +1389,6 @@ class Lucky_Rotation extends React.Component {
 								</div>
 							</div>
 						</div>
-
-									
-					
-						
 						
 				</div>
 			)
