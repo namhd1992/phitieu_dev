@@ -211,6 +211,8 @@ class Lucky_Rotation extends React.Component {
 		if (isfb) {
 			$('#Modalfbview').modal('show');
 		}
+		$('#Modalfbview').modal('show');
+		
 		bg_x=width;
 		bg_y=height*deltal_device/deltal_img;
 		width_bgImg=bg_y;
