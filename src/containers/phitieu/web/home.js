@@ -735,7 +735,7 @@ class Lucky_Rotation extends React.Component {
 							<div class="bg-bottom">
 								{(isLogin)?(<div class="btn-s position-relative">
 									{(user.VipLevel>0)?(<div>
-										<a style={{cursor:'pointer'}} onClick={this.sanqua}><img src={btn_sanqua} width="200px" hspace="10" /></a>
+										<a href="/sanqua" style={{cursor:'pointer'}} ><img src={btn_sanqua} width="200px" hspace="10" /></a>
 									
 									<Link to="/duatop">
 										<a style={{cursor:'pointer'}}><img src={btn_duatop} width="200px" hspace="10" /></a>

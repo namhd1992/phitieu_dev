@@ -749,7 +749,7 @@ class Lucky_Rotation extends React.Component {
 
 								{(isLogin)?(<div class="btn-s_m position-relative">
 									{(user.VipLevel>0)?(<div>
-										<a style={{cursor:'pointer'}} onClick={this.sanqua}><img src={btn_sanqua} width="30%" hspace="10" /></a>
+										<a href="/sanqua" style={{cursor:'pointer'}}><img src={btn_sanqua} width="30%" hspace="10" /></a>
 
 										<a href="/duatop" style={{cursor:'pointer'}}><img src={btn_duatop} width="30%" hspace="10" /></a>
 									</div>):(<div><a title="Săn quà" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_sanqua} width="30%" hspace="10" /></a>
