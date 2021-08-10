@@ -979,7 +979,7 @@ class Lucky_Rotation extends React.Component {
 														<td class="p-0 bg-border-right w-25 valign-middle text-tudo_m">{obj.AwardName}</td>
                     									<td class="p-0 bg-border-right w-25 valign-middle text-tudo_m">{obj.AwardDisplay}</td>
 														<td className="p-0 bg-border-right w-25 valign-middle text-tudo_m">{this.timeConverter(obj.RewardTime)}</td>
-														{(obj.Status===0)?(<td class="p-1 w-auto valign-middle">Mở quà</td>):(<td class="p-1 w-auto valign-middle position-relative"><a class="text-primary"  style={{cursor:'pointer'}} onClick={()=>this.getItem(user, obj)}>Mở quà</a><span class="badge badge-pill badge-danger position-absolute noti-tudo_m">!</span></td>)}
+														{(obj.Status===1)?(<td class="p-1 w-auto valign-middle">Mở quà</td>):(<td class="p-1 w-auto valign-middle position-relative"><a class="text-primary"  style={{cursor:'pointer'}} onClick={()=>this.getItem(user, obj)}>Mở quà</a><span class="badge badge-pill badge-danger position-absolute noti-tudo_m">!</span></td>)}
 														
 													</tr>
 												))}				
