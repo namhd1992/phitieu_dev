@@ -130,6 +130,7 @@ const styles = {
 
 
 
+
 class Lucky_Rotation extends React.Component {
 
 	constructor(props){
@@ -178,14 +179,25 @@ class Lucky_Rotation extends React.Component {
 			tab_2:false,
 			tab_3:false,
 			tab_4:false,
-			tab_5:false
+			tab_5:false,
+			content:''
 		};
 	}
 	componentWillMount(){
+		var user = JSON.parse(localStorage.getItem("user"));
 		this.onResize();
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.removeEventListener('scroll', this.handleScroll);
-		this.setState({innerWidth:window.innerWidth})
+		this.setState({innerWidth:window.innerWidth});
+		if(user!==null){
+			if(user.Gifts>0){
+				this.setState({content:	`Có <b>${user.Gifts}</b> món quà chưa mở`})
+				setTimeout(()=>{
+					$('.popover-visible-trigger').popover('hide').off('click'); 
+				}, 10000);
+				
+			}
+		}
 	}
 
 
@@ -201,6 +213,7 @@ class Lucky_Rotation extends React.Component {
 		
 
 		this.getVinhDanh(1,1);
+		$('.popover-visible-trigger').popover('show').off('click'); 
 
 
 		if (user !== null) {
@@ -490,6 +503,7 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataItemAward;
 			if(data!==undefined){
 				if(data.Status===0){
+					this.getDataTuDo(user)
 					// this.setState({listHistory:data.Data, countHistory:data.Totals})
 					if(data.Data.Type ==='BankTransferVoucher'){
 						this.setState({dataItem:data.Data},()=>{
@@ -709,7 +723,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	render() {
-		const {tab_1, tab_2, tab_3, tab_4,tab_5, tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
+		const {content, warning_tudo,tab_1, tab_2, tab_3, tab_4,tab_5, tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		return (<div>	
 					<div class="container-fluid page position-relative">
@@ -827,9 +841,10 @@ class Lucky_Rotation extends React.Component {
 									<a href="https://vip.scoin.vn/" title="Active VIP" target="_blank"><p class="mb-0 menu-link link-first"></p></a>
 									<a title="Hướng dẫn chơi" onClick={this.showModalHuongDan} style={{cursor:'pointer'}}><p class="mb-0 menu-link"></p></a>
 									<a title="Giải thưởng" onClick={this.showModalGiaiThuong} style={{cursor:'pointer'}}><p class="mb-0 menu-link"></p></a>
-									
 								</div>
-								<div class="menu-right"><a  title="Tủ đồ" onClick={this.showModalTuDo} style={{cursor:'pointer'}}><img src={btn_tudo} width="100%" alt="" /></a></div>
+								<div class="menu-right popover-visible-trigger" data-toggle="popover" data-placement="top" data-content={content} data-html="true"><a  title="Tủ đồ" onClick={this.showModalTuDo} style={{cursor:'pointer'}}><img src={btn_tudo} width="100%" alt="" /></a></div>
+									
+								
 							</div>
 						</div> 
 					</div>
@@ -964,7 +979,7 @@ class Lucky_Rotation extends React.Component {
 														<td class="p-0 bg-border-right w-25 valign-middle">{obj.AwardName}</td>
                     									<td class="p-0 bg-border-right w-25 valign-middle">{obj.AwardDisplay}</td>
 														<td className="p-0 bg-border-right w-25 valign-middle">{this.timeConverter(obj.RewardTime)}</td>
-														{(obj.AwardName.indexOf("Thêm")===0)?(<td class="p-1 w-auto valign-middle">Mở</td>):(<td class="p-1 w-auto valign-middle"><a class="text-primary"  style={{cursor:'pointer'}} onClick={()=>this.getItem(user, obj)}>Mở</a></td>)}
+														{(obj.Status===1)?(<td class="p-1 w-auto valign-middle">Mở</td>):(<td class="p-1 w-auto valign-middle position-relative"><a class="text-primary"  style={{cursor:'pointer'}} onClick={()=>this.getItem(user, obj)}>Mở</a><span class="badge badge-pill badge-danger position-absolute noti-tudo">!</span></td>)}
 														
 													</tr>
 												))}				

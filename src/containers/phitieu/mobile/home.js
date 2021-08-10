@@ -181,19 +181,31 @@ class Lucky_Rotation extends React.Component {
 			tab_3:false,
 			tab_4:false,
 			tab_5:false,
+			content:''
 		};
 	}
 	componentWillMount(){
 		this.onResize();
+		var user = JSON.parse(localStorage.getItem("user"));
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth})
+		if(user!==null){
+			if(user.Gifts>0){
+				this.setState({content:	`Có <b>${user.Gifts}</b> món quà chưa mở`})
+				setTimeout(()=>{
+					$('.popover-visible-trigger').popover('hide').off('click'); 
+				}, 10000);
+				
+			}
+		}
 	}
 
 
 
 	componentDidMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
+		$('.popover-visible-trigger').popover('show').off('click'); 
 		// var showMaintain=localStorage.getItem("showMaintain");
 		// if(showMaintain===null){
 		// 	$('#Modalbanner').modal('show');
@@ -506,6 +518,7 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataItemAward;
 			if(data!==undefined){
 				if(data.Status===0){
+					this.getDataTuDo(user)
 					if(data.Data.Type ==='BankTransferVoucher'){
 						this.setState({dataItem:data.Data},()=>{
 							$("#Modalmoquavoucher").modal('show');
@@ -720,7 +733,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {tab_1, tab_2, tab_3, tab_4,tab_5,tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
+		const {content,tab_1, tab_2, tab_3, tab_4,tab_5,tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		const { classes } = this.props;
 		return (<div>
@@ -841,7 +854,8 @@ class Lucky_Rotation extends React.Component {
 									<a title="Hướng dẫn chơi" onClick={this.showModalHuongDan} style={{cursor:'pointer'}}><p class="mb-0 menu-link_m"></p></a>
 									<a title="Giải thưởng" onClick={this.showModalGiaiThuong} style={{cursor:'pointer'}}><p class="mb-0 menu-link_m"></p></a>
 								</div>
-								<div class="menu-right_m"><a title="Tủ đồ" data-toggle="modal" onClick={this.showModalTuDo}><img src={btn_tudo} width="100%" alt="" /></a></div>
+								<div class="menu-right_m popover-visible-trigger" data-toggle="popover" data-placement="top" data-content={content} data-html="true"><a title="Tủ đồ" data-toggle="modal" onClick={this.showModalTuDo}><img src={btn_tudo} width="100%" alt="" /></a></div>
+								
 							</div>
 						</div>
 					
@@ -965,7 +979,7 @@ class Lucky_Rotation extends React.Component {
 														<td class="p-0 bg-border-right w-25 valign-middle text-tudo_m">{obj.AwardName}</td>
                     									<td class="p-0 bg-border-right w-25 valign-middle text-tudo_m">{obj.AwardDisplay}</td>
 														<td className="p-0 bg-border-right w-25 valign-middle text-tudo_m">{this.timeConverter(obj.RewardTime)}</td>
-														{(obj.AwardName.indexOf("Thêm")===0)?(<td class="p-1 w-auto valign-middle">Mở</td>):(<td class="p-1 w-auto valign-middle"><a class="text-primary"  style={{cursor:'pointer'}} onClick={()=>this.getItem(user, obj)}>Mở</a></td>)}
+														{(obj.Status===0)?(<td class="p-1 w-auto valign-middle">Mở quà</td>):(<td class="p-1 w-auto valign-middle position-relative"><a class="text-primary"  style={{cursor:'pointer'}} onClick={()=>this.getItem(user, obj)}>Mở quà</a><span class="badge badge-pill badge-danger position-absolute noti-tudo_m">!</span></td>)}
 														
 													</tr>
 												))}				
