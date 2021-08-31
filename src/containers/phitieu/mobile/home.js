@@ -206,11 +206,11 @@ class Lucky_Rotation extends React.Component {
 	componentDidMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
 		$('.popover-visible-trigger').popover('show').off('click'); 
-		// var showMaintain=localStorage.getItem("showMaintain");
-		// if(showMaintain===null){
-		// 	$('#Modalbanner').modal('show');
-		// }
-		// localStorage.setItem("showMaintain", true);
+		var showMaintain=localStorage.getItem("showMaintain");
+		if(showMaintain===null){
+			$('#Modalbanner').modal('show');
+		}
+		localStorage.setItem("showMaintain", true);
 		
 		this.getVinhDanh(1,1);
 
@@ -1201,7 +1201,7 @@ class Lucky_Rotation extends React.Component {
 									<dd>- Người chơi sử dụng số Phi tiêu mình có để ném vào bảng, điểm nhận được sau mỗi lần ném sẽ được <strong>TRỪ</strong> dần vào số điểm 501 ban đầu.</dd>
 									<dd>- Trong thời gian quy định, người chơi nào đưa được tổng điểm <strong>VỀ 0 SỚM NHẤT</strong> sẽ là người <strong>THẮNG</strong> cuộc và nhận được giải thưởng của phiên Săn quà, đồng thời phiên chơi đó kết thúc.</dd>
 									<dd>- Trường hợp không có người chơi nào đưa được điểm về 0, giải thưởng sẽ được bảo lưu và cộng dồn vào Phiên chơi tiếp theo.</dd>
-									<dd>- Trường hợp có nhiều tài khoản cùng đưa được điểm về 0 (hoặc cùng có số điểm ít nhất bằng nhau), người thắng cuộc là người đưa được điểm về 0 (hoặc điểm về số thấp nhất) trong thời gian sớm nhất.</dd>
+									{/* <dd>- Trường hợp có nhiều tài khoản cùng đưa được điểm về 0 (hoặc cùng có số điểm ít nhất bằng nhau), người thắng cuộc là người đưa được điểm về 0 (hoặc điểm về số thấp nhất) trong thời gian sớm nhất.</dd> */}
 									<dd><em>- Lưu ý: Trường hợp phát sinh tranh chấp, khiếu nại liên quan đến chương trình, Công ty VTC Mobile sẽ trực tiếp giải quyết và quyết định của VTC Mobile là kết quả cuối cùng. Mọi trường hợp gian lận hoặc không trung thực sẽ bị xử lý theo pháp luật.</em></dd>
 									<dd><em>- Đối với khách hàng chơi trên điện thoại Iphone: để trải nghiệm game được tốt nhất, hãy tắt các trang đang mở trên trình duyệt safari/chrome trước khi chơi.</em></dd>           
 								</dl>	
