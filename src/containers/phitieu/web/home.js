@@ -204,12 +204,12 @@ class Lucky_Rotation extends React.Component {
 
 	componentDidMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
-		var showMaintain=localStorage.getItem("showMaintain");
-		if(showMaintain===null){
+		var update29=localStorage.getItem("update29");
+		if(update29===null){
 			$('#Modalbanner').modal('show');
 		}
 
-		localStorage.setItem("showMaintain", true);
+		localStorage.setItem("update29", true);
 		
 
 		this.getVinhDanh(1,1);
