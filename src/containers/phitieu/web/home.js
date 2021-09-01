@@ -21,12 +21,17 @@ import {
 	getInfoUser,
 	userLogout,
 	gds,
-	getItemAward
+	getItemAward,
+	getRollup,
+	getDonate,
+	getInfoDonate
 } from '../../../modules/lucky'
 import {
 	getData
 } from '../../../modules/profile'
 
+import btn_xac_nhan from './images/btn-xac-nhan.png';
+import icon_success from './images/icon-success.png';
 import fb_a1 from './images/fb-a1.jpg';
 import fb_a2 from './images/fb-a2.jpg';
 import fb_a3_a4 from './images/fb-a3-a4.jpg';
@@ -180,7 +185,11 @@ class Lucky_Rotation extends React.Component {
 			tab_3:false,
 			tab_4:false,
 			tab_5:false,
-			content:''
+			content:'',
+			rollup:true,
+			message_rollup:'',
+			dataInfoDonate:{},
+			type_action:''
 		};
 	}
 	componentWillMount(){
@@ -262,6 +271,27 @@ class Lucky_Rotation extends React.Component {
 				}
 			}
 		})
+	}
+
+	showModalChuyenTieu=()=>{
+		var user = JSON.parse(localStorage.getItem("user"));
+		document.getElementById("code").value="";
+		document.getElementById("username").value="";
+		document.getElementById("numberDart").value="";
+		if (user !== null) {
+			this.props.getInfoDonate(user.Token).then(()=>{
+				var data=this.props.dataInfoDonate;
+				if(data!==undefined){
+					if(data.Status===0){
+						this.setState({dataInfoDonate:data.Data}, ()=>{
+							$('#Modalchuyenphitieu').modal('show');
+						})
+					}
+				}
+			})
+		}else {
+			$('#Modaldangnhap').modal('show');
+		}
 	}
 
 	onResize=()=>{
@@ -722,8 +752,61 @@ class Lucky_Rotation extends React.Component {
 		this.setState({tab_1:false, tab_2:false, tab_3:false, tab_4:false, tab_5:true})
 	}
 
+	rollup=()=>{
+		var user = JSON.parse(localStorage.getItem("user"));
+		if (user !== null) {
+			this.props.getRollup(user.Token).then(()=>{
+				var data=this.props.dataRollup;
+				if(data!==undefined){
+					if(data.Status===0){
+						this.setState({rollup:true, message_rollup: data.Message, type_action:'Điểm danh'}, ()=>{
+							$('#Modalddthanhcong').modal('show');
+						})
+					}else if(data.Status===1){
+						this.setState({rollup:false, message_rollup: data.Message}, ()=>{
+							$('#Modalddthanhcong').modal('show');
+						})
+					}
+				}
+			})
+		}else {
+			$('#Modaldangnhap').modal('show');
+		}
+		
+
+	}
+
+	comfirmDonate=()=>{
+		var code=document.getElementById('code').value;
+		var username=document.getElementById('username').value;
+		var numberDart=document.getElementById('numberDart').value;
+
+		var user = JSON.parse(localStorage.getItem("user"));
+		if (user !== null) {
+			this.props.getDonate(user.Token, username, numberDart, code).then(()=>{
+				var data=this.props.dataDonate;
+				console.log(data)
+				if(data!==undefined){
+					if(data.Status===0){
+						this.setState({rollup:true, message_rollup: data.Message, type_action:'Chuyển tiêu'}, ()=>{
+							$('#Modalchuyenphitieu').modal('hide');
+							$('#Modalddthanhcong').modal('show');
+						})
+					}else{
+						this.setState({rollup:false, message_rollup: data.Message}, ()=>{
+							$('#Modalchuyenphitieu').modal('hide');
+							$('#Modalddthanhcong').modal('show');
+						})
+					}
+				}
+			})
+		}else {
+			$('#Modaldangnhap').modal('show');
+		}
+	}
+
 	render() {
-		const {content, warning_tudo,tab_1, tab_2, tab_3, tab_4,tab_5, tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
+		const {type_action, dataInfoDonate, rollup, message_rollup, content, warning_tudo,tab_1, tab_2, tab_3, tab_4,tab_5, tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		return (<div>	
 					<div class="container-fluid page position-relative">
@@ -837,10 +920,14 @@ class Lucky_Rotation extends React.Component {
 										Tổng đài hỗ trợ 1900 1104
 									</p>
 								</div>
+								<div class="alert alert-info alert-diemdanh p-1 m-0">
+									<span class="text-blink"><a onClick={this.rollup} title="Điểm danh" data-toggle="modal" >Điểm danh <strong>+ 5 phi tiêu</strong>.</a></span>
+								</div>
 								<div class="menu-left">
 									<a href="https://vip.scoin.vn/" title="Active VIP" target="_blank"><p class="mb-0 menu-link link-first"></p></a>
 									<a title="Hướng dẫn chơi" onClick={this.showModalHuongDan} style={{cursor:'pointer'}}><p class="mb-0 menu-link"></p></a>
 									<a title="Giải thưởng" onClick={this.showModalGiaiThuong} style={{cursor:'pointer'}}><p class="mb-0 menu-link"></p></a>
+									<a onClick={this.showModalChuyenTieu} title="Tặng phi tiêu" style={{cursor:'pointer'}}><p class="mb-0 menu-link"></p></a>
 								</div>
 								<div class="menu-right popover-visible-trigger" data-toggle="popover" data-placement="top" data-content={content} data-html="true"><a  title="Tủ đồ" onClick={this.showModalTuDo} style={{cursor:'pointer'}}><img src={btn_tudo} width="100%" alt="" /></a></div>
 									
@@ -1413,6 +1500,63 @@ class Lucky_Rotation extends React.Component {
 				</div>
 			</div>
 
+			{/* <!-- The Modal Điểm danh thành công--> */}
+			<div class="modal fade" id="Modalddthanhcong">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content border-0">
+					<div class="modal-header border-0 p-0 text-dark">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body border-0 pt-0 text-center">
+						{(rollup)?(<p class="text-info font-size-18 mb-2"><img src={icon_success} width="24" class="" alt="" /> {type_action} thành công</p>):(
+							<p class="text-info font-size-18 mb-2">Thông Báo</p>
+						)}
+						
+						<p class="text-red font-size-18">{message_rollup}</p>
+					</div>
+
+					</div>
+				</div>
+			</div>
+
+			{/* <!-- The Modal Chuyển phi tiêu--> */}
+			<div class="modal fade" id="Modalchuyenphitieu">
+				<div class="modal-dialog modal-tangtieu">
+					<div class="modal-content bg-transparent border-0">
+
+					<div class="modal-header border-0 p-0 text-dark">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+
+					<div class="modal-body border-0 font-size-14">
+						<form action="/action_page.php" class="p-2">
+						<div class="form-group mb-1">
+							<label class="mb-1 font-weight-bold">TÀI KHOẢN: {dataInfoDonate.Username}</label>
+							<button type="button" class="btn btn-block mb-1 py-1 btn-number-phitieu">{dataInfoDonate.Darts} phi tiêu</button>
+							<input id="username" type="text" class="form-control form-control-sm mb-1 font-size-14" placeholder="Tên tài khoản người nhận" height="40px"></input>
+							<input id="numberDart" type="number" class="form-control form-control-sm mb-1 font-size-14" placeholder="Số phi tiêu" height="40px"></input>
+							<p class="font-italic mb-2">(Số phi tiêu tối đa có thể chuyển: <strong>{dataInfoDonate.Darts} phi tiêu</strong>)</p>
+						</div>
+
+						<div class="form-row">
+							<div class="col">
+							<input id="code" type="text" class="form-control form-control-sm font-size-14" placeholder="Mã xác nhận" name="c" height="40px"></input>
+							</div>
+							<div class="col pt-1">
+							<span class="mark font-italic">{dataInfoDonate.ConfirmCode}</span>
+							</div>
+						</div>
+
+						<a title="Xác nhận" data-toggle="modal" onClick={this.comfirmDonate} style={{cursor:'pointer'}}><img src={btn_xac_nhan} width="100" class="d-block mx-auto mt-2" alt="" /></a>
+						</form> 
+					</div>
+
+					</div>
+				</div>
+			</div>
+
+			
+
 
 				<ReactResizeDetector handleWidth={true} handleHeight={true} onResize={this.onResize} />
 
@@ -1422,6 +1566,9 @@ class Lucky_Rotation extends React.Component {
 }
 
 const mapStateToProps = state => ({
+	dataRollup: state.lucky.dataRollup,
+	dataInfoDonate: state.lucky.dataInfoDonate,
+	dataDonate: state.lucky.dataDonate,
 	dataProfile: state.profile.data,
 	dataSesions: state.lucky.dataSesions,
 	dataLuckyInfo: state.lucky.dataLuckyInfo,
@@ -1458,7 +1605,10 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getLuckyInfo,
 	getLuckyItems,
 	userLogout,
-	gds
+	gds,
+	getRollup,
+	getDonate,
+	getInfoDonate
 }, dispatch)
 
 

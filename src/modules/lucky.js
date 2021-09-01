@@ -21,6 +21,10 @@ export const INFO_USER_RESPONSE='lucky/INFO_USER_RESPONSE'
 export const DATA_USER_SPIN='lucky/DATA_USER_SPIN';
 export const ITEM_AWARD='lucky/ITEM_AWARD';
 export const LUCKY_SESSIONS='lucky/LUCKY_SESSIONS';
+export const LUCKY_ROLLUP='lucky/LUCKY_ROLLUP';
+export const DONATE='lucky/DONATE';
+export const INFO_DONATE='lucky/INFO_DONATE';
+
 
 const initialState = {
 	data: [], 
@@ -150,10 +154,114 @@ export default (state = initialState, action) => {
 				dataSesions: action.data,
 				waiting: false
 			}
+		case LUCKY_ROLLUP:
+			return {
+				...state,
+				dataRollup: action.data,
+				waiting: false
+			}
+		case INFO_DONATE:
+			return {
+				...state,
+				dataInfoDonate: action.data,
+				waiting: false
+			}
+		case DONATE:
+			return {
+				...state,
+				dataDonate: action.data,
+				waiting: false
+			}
 		default:
 			return state
 	}
 }
+
+export const getRollup = (token) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"token": token,
+		}
+	}
+
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "darts/user-rollup"
+		return axios.get(url, header).then(function (response) {
+			console.log(response)
+			dispatch({
+				type: LUCKY_ROLLUP,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
+export const getInfoDonate = (token) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"token": token,
+		}
+	}
+
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "darts/user-request-darts-giving/"
+		return axios.get(url, header).then(function (response) {
+			console.log(response)
+			dispatch({
+				type: INFO_DONATE,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
+
+export const getDonate = (token, receiver, darts, confirmCode) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"token": token,
+			"receiver":receiver,
+			"darts":darts,
+			"confirmCode":confirmCode
+		}
+	}
+
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "darts/user-give-darts/"
+		return axios.get(url, header).then(function (response) {
+			console.log(response)
+			dispatch({
+				type: DONATE,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
 
 export const getLuckyInfo = (type, token) => {
 	var header = {

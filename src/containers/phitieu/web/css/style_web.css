@@ -71,7 +71,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family:Arial, Helvetica, sa
 .modal-huongdan {background:url(../images/bg-popup-huongdan.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 650px; height: 650px; max-width: 650px; min-height: 650px;}
 .modal-huongdan.modal-dialog-scrollable .modal-content {max-height: 650px;}
 .modal-moqua {background:url(../images/bg-popup-moqua.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%;}
-
+.modal-tangtieu {background:url(../images/bg-popup-tangtieu.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
 /* Popover Body */
 .popover-body {font-size: 14px; padding: 10px !important; color:#FFFFFF !important; animation: blinker 1.5s linear infinite;}
 .popover {background-color: #D90000 !important; z-index:100;top:50px !important}
@@ -82,7 +82,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family:Arial, Helvetica, sa
   border-bottom-color: #D90000 !important; }
 /* End Popover Body */
 .noti-tudo {top: 35%; right: 20%;}
-
+.alert-diemdanh {position: absolute !important; left: 45%; top: 9%; width: 150px; font-size:12px}
 .text-blink {animation: blinker 1s linear infinite;}
 @keyframes blinker {
   40% {
