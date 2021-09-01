@@ -24,7 +24,8 @@ import {
 	getItemAward,
 	getRollup,
 	getDonate,
-	getInfoDonate
+	getInfoDonate,
+	checkRollup
 } from '../../../modules/lucky'
 import {
 	getData
@@ -229,8 +230,8 @@ class Lucky_Rotation extends React.Component {
 		} 
 
 		if (user !== null) {
-			this.props.getRollup(user.Token).then(()=>{
-				var data=this.props.dataRollup;
+			this.props.checkRollup(user.Token).then(()=>{
+				var data=this.props.dataCheckRollup;
 				if(data!==undefined){
 					if(data.Status===0){
 						this.setState({showRollup: true})
@@ -1626,6 +1627,7 @@ class Lucky_Rotation extends React.Component {
 }
 
 const mapStateToProps = state => ({
+	dataCheckRollup: state.lucky.dataCheckRollup,
 	dataRollup: state.lucky.dataRollup,
 	dataInfoDonate: state.lucky.dataInfoDonate,
 	dataDonate: state.lucky.dataDonate,
@@ -1668,7 +1670,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	gds,
 	getRollup,
 	getDonate,
-	getInfoDonate
+	getInfoDonate,
+	checkRollup
 }, dispatch)
 
 

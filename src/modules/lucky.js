@@ -24,6 +24,7 @@ export const LUCKY_SESSIONS='lucky/LUCKY_SESSIONS';
 export const LUCKY_ROLLUP='lucky/LUCKY_ROLLUP';
 export const DONATE='lucky/DONATE';
 export const INFO_DONATE='lucky/INFO_DONATE';
+export const CHECK_ROLLUP='lucky/CHECK_ROLLUP';
 
 
 const initialState = {
@@ -172,8 +173,41 @@ export default (state = initialState, action) => {
 				dataDonate: action.data,
 				waiting: false
 			}
+		case CHECK_ROLLUP:
+			return {
+				...state,
+				dataCheckRollup: action.data,
+				waiting: false
+			}
 		default:
 			return state
+	}
+}
+
+export const checkRollup = (token) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"token": token,
+		}
+	}
+
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "darts/user-check-rollup"
+		return axios.get(url, header).then(function (response) {
+			console.log(response)
+			dispatch({
+				type: CHECK_ROLLUP,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
 	}
 }
 
