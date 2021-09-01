@@ -189,7 +189,8 @@ class Lucky_Rotation extends React.Component {
 			rollup:true,
 			message_rollup:'',
 			dataInfoDonate:{},
-			type_action:''
+			type_action:'',
+			showRollup:false
 		};
 	}
 	componentWillMount(){
@@ -228,6 +229,21 @@ class Lucky_Rotation extends React.Component {
 		if (user !== null) {
 			this.setState({isLogin:true, user:user})
 		} 
+
+		if (user !== null) {
+			this.props.getRollup(user.Token).then(()=>{
+				var data=this.props.dataRollup;
+				if(data!==undefined){
+					if(data.Status===0){
+						this.setState({showRollup: true})
+					}else{
+						this.setState({showRollup: false})
+					}
+				}
+			})
+		}else {
+			this.setState({showRollup: true})
+		}
 		
 		window.addEventListener('scroll', this.handleScroll);
 	}
@@ -759,7 +775,7 @@ class Lucky_Rotation extends React.Component {
 				var data=this.props.dataRollup;
 				if(data!==undefined){
 					if(data.Status===0){
-						this.setState({rollup:true, message_rollup: data.Message, type_action:'Điểm danh'}, ()=>{
+						this.setState({rollup:true, message_rollup: data.Message, type_action:'Điểm danh', showRollup:false}, ()=>{
 							$('#Modalddthanhcong').modal('show');
 						})
 					}else if(data.Status===1){
@@ -772,7 +788,6 @@ class Lucky_Rotation extends React.Component {
 		}else {
 			$('#Modaldangnhap').modal('show');
 		}
-		
 
 	}
 
@@ -806,7 +821,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	render() {
-		const {type_action, dataInfoDonate, rollup, message_rollup, content, warning_tudo,tab_1, tab_2, tab_3, tab_4,tab_5, tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
+		const {showRollup,type_action, dataInfoDonate, rollup, message_rollup, content, warning_tudo,tab_1, tab_2, tab_3, tab_4,tab_5, tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		return (<div>	
 					<div class="container-fluid page position-relative">
@@ -920,9 +935,10 @@ class Lucky_Rotation extends React.Component {
 										Tổng đài hỗ trợ 1900 1104
 									</p>
 								</div>
-								<div class="alert alert-info alert-diemdanh p-1 m-0">
-									<span class="text-blink"><a onClick={this.rollup} title="Điểm danh" data-toggle="modal" >Điểm danh <strong>+ 5 phi tiêu</strong>.</a></span>
-								</div>
+								{(showRollup)?(<div class="alert alert-info alert-diemdanh p-1 m-0">
+									<span class="text-blink" style={{cursor:'pointer'}}><a onClick={this.rollup} title="Điểm danh" data-toggle="modal" >Điểm danh <strong>+ 5 phi tiêu</strong>.</a></span>
+								</div>):(<div></div>)}
+								
 								<div class="menu-left">
 									<a href="https://vip.scoin.vn/" title="Active VIP" target="_blank"><p class="mb-0 menu-link link-first"></p></a>
 									<a title="Hướng dẫn chơi" onClick={this.showModalHuongDan} style={{cursor:'pointer'}}><p class="mb-0 menu-link"></p></a>
@@ -1529,25 +1545,25 @@ class Lucky_Rotation extends React.Component {
 					</div>
 
 					<div class="modal-body border-0 font-size-14">
-						<form action="/action_page.php" class="p-2">
-						<div class="form-group mb-1">
-							<label class="mb-1 font-weight-bold">TÀI KHOẢN: {dataInfoDonate.Username}</label>
-							<button type="button" class="btn btn-block mb-1 py-1 btn-number-phitieu">{dataInfoDonate.Darts} phi tiêu</button>
-							<input id="username" type="text" class="form-control form-control-sm mb-1 font-size-14" placeholder="Tên tài khoản người nhận" height="40px"></input>
-							<input id="numberDart" type="number" class="form-control form-control-sm mb-1 font-size-14" placeholder="Số phi tiêu" height="40px"></input>
-							<p class="font-italic mb-2">(Số phi tiêu tối đa có thể chuyển: <strong>{dataInfoDonate.Darts} phi tiêu</strong>)</p>
-						</div>
-
-						<div class="form-row">
-							<div class="col">
-							<input id="code" type="text" class="form-control form-control-sm font-size-14" placeholder="Mã xác nhận" name="c" height="40px"></input>
+						<form class="p-2">
+							<div class="form-group mb-1">
+								<label class="mb-1 font-weight-bold">TÀI KHOẢN: {dataInfoDonate.Username}</label>
+								<button type="button" class="btn btn-block mb-1 py-1 btn-number-phitieu">{dataInfoDonate.Darts} phi tiêu</button>
+								<input id="username" type="text" class="form-control form-control-sm mb-1 font-size-14" placeholder="Tên tài khoản người nhận" height="40px"></input>
+								<input id="numberDart" type="number" class="form-control form-control-sm mb-1 font-size-14" placeholder="Số phi tiêu" height="40px"></input>
+								<p class="font-italic mb-2">(Số phi tiêu tối đa có thể chuyển: <strong>{dataInfoDonate.Darts} phi tiêu</strong>)</p>
 							</div>
-							<div class="col pt-1">
-							<span class="mark font-italic">{dataInfoDonate.ConfirmCode}</span>
-							</div>
-						</div>
 
-						<a title="Xác nhận" data-toggle="modal" onClick={this.comfirmDonate} style={{cursor:'pointer'}}><img src={btn_xac_nhan} width="100" class="d-block mx-auto mt-2" alt="" /></a>
+							<div class="form-row">
+								<div class="col">
+								<input id="code" type="text" class="form-control form-control-sm font-size-14" placeholder="Mã xác nhận" name="c" height="40px"></input>
+								</div>
+								<div class="col pt-1">
+								<span class="mark font-italic">{dataInfoDonate.ConfirmCode}</span>
+								</div>
+							</div>
+
+							<a title="Xác nhận" ><img src={btn_xac_nhan} width="100" class="d-block mx-auto mt-2" alt=""  onClick={this.comfirmDonate} style={{cursor:'pointer'}}/></a>
 						</form> 
 					</div>
 

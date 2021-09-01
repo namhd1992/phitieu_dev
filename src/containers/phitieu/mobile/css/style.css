@@ -64,6 +64,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family: Arial, Helvetica, s
 .modal-moqua_m {background:url(../images/bg-popup-moqua.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%;}
 .modal-huongdan_m {background:url(../images/bg-popup-huongdan.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
 
+.modal-tangtieu_m {background:url(../images/bg-popup-tangtieu.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
 /* Popover Body */
 .popover-body {font-size: 14px; padding: 10px !important; color:#FFFFFF !important; animation: blinker 1.5s linear infinite; }
 .popover {background-color: #D90000 !important; z-index:100; top:50px !important}
@@ -74,6 +75,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family: Arial, Helvetica, s
   border-bottom-color: #D90000 !important; }
 /* End Popover Body */
 .noti-tudo_m {top: 35%; right: 6%;}
+.alert-diemdanh_m {position: absolute !important; left: 32%; top: 8%; width: 150px; font-size:12px}
 
 
 
@@ -155,6 +157,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family: Arial, Helvetica, s
 .modal-dangnhap_m {margin: 0}
 .modal-giaithuong_m {margin: 0}
 .modal-huongdan_m {margin: 0}
+.modal-tangtieu_m {margin: 0}
 .modal-tudo_m {margin: 0}
 .bg-chucmung_m {width: 100% !important; }
 .content-chucmung_m {padding-top: 40px !important;}
