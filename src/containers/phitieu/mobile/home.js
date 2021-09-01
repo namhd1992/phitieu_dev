@@ -216,11 +216,11 @@ class Lucky_Rotation extends React.Component {
 	componentDidMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
 		$('.popover-visible-trigger').popover('show').off('click'); 
-		var update29=localStorage.getItem("update29");
-		if(update29===null){
-			$('#Modalbanner').modal('show');
-		}
-		localStorage.setItem("update29", true);
+		// var update29=localStorage.getItem("update29");
+		// if(update29===null){
+		// 	$('#Modalbanner').modal('show');
+		// }
+		// localStorage.setItem("update29", true);
 		
 		this.getVinhDanh(1,1);
 
