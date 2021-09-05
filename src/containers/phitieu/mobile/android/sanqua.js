@@ -704,14 +704,12 @@ class Lucky_Rotation extends React.Component {
 		const {tieuconlai, username, vip_level, txt_points, list_top_user}=this.state;
 		var obj=JSON.parse(localStorage.getItem("obj"))
 		var user = JSON.parse(localStorage.getItem("user"));
-		alert(obj.SessionType)
 		if(user!==null){
 			this.props.getLuckyInfoSanQua(obj.SessionType, obj.SessionId, user.Token).then(()=>{
-				var data=this.props.dataLuckyInfo;
+				var data=this.props.dataLuckySanqua;
 				if(data!==undefined){
 					if(data.Status===0){
 						this.setState({data:data.Data,code_key:data.Data.Code, countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points,isLoading:true, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
-						alert('type:',obj.SessionType, 'darts:', data.Data.AddInfo.Darts )
 						username.text(user.Username)
 						vip_level.text(this.getLevelUser(user))
 						tieuconlai.text(`Số phi tiêu còn lại: ${data.Data.AddInfo.Darts}`)
