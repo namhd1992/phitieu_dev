@@ -4,6 +4,7 @@ import axios from 'axios';
 import { render } from 'react-dom';
 // import { Stage, Layer, Image, Text } from 'react-konva';
 import Konva from 'konva';
+import Ultilities from '../../../Ultilities/global';
 import { connect } from 'react-redux'
 import './css/style_web.css';
 import {
@@ -391,7 +392,7 @@ class Lucky_Rotation extends React.Component {
 				"token": user.Token,
 			}
 		}
-		axios.get('https://api.splay.vn/darts/user-signout/', header).then(function (response) {
+		axios.get(Ultilities.base_url() +'darts/user-signout/', header).then(function (response) {
 			console.log(response)
 		})
 	}

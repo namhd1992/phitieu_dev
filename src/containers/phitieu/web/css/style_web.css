@@ -72,6 +72,9 @@ html {scroll-behavior: smooth; font-size: 26px; font-family:Arial, Helvetica, sa
 .modal-huongdan.modal-dialog-scrollable .modal-content {max-height: 650px;}
 .modal-moqua {background:url(../images/bg-popup-moqua.png) no-repeat; background-position: top; background-size: contain; display: block; width: 100%; height: 100%;}
 .modal-tangtieu {background:url(../images/bg-popup-tangtieu.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 100%; height: 100%}
+.modal-chonroom {background:url(../images/bg-popup-chonroom.png) no-repeat; background-position: top; background-size: 100%; display: block; width: 650px; height: 650px; max-width: 650px; min-height: 650px;}
+.modal-chonroom.modal-dialog-scrollable .modal-content {max-height: 650px;}
+
 /* Popover Body */
 .popover-body {font-size: 14px; padding: 10px !important; color:#FFFFFF !important; animation: blinker 1.5s linear infinite;}
 .popover {background-color: #D90000 !important; z-index:100;top:50px !important}
@@ -84,6 +87,15 @@ html {scroll-behavior: smooth; font-size: 26px; font-family:Arial, Helvetica, sa
 .noti-tudo {top: 35%; right: 20%;}
 .alert-diemdanh {position: absolute !important; left: 45%; top: 9%; width: 150px; font-size:12px}
 .text-blink {animation: blinker 1s linear infinite;}
+
+.session-chonroom {background-image: url(../images/bg-session-chonroom.png); background-repeat: no-repeat; background-position: top; background-size: 100% 100%; width: 100%; height: 160px; margin: 0 auto;}
+.session-chonroom .scr-c {display: inline-block; text-align: center; padding: 10px 0 0 10px; height: 50px;}
+.session-chonroom .scr-status-open  {display: inline-block; position: absolute; top: 18px; right: 0; width: 100px; height: 32px; background-image: url(../images/bg-chonroom-status-open.png); background-repeat: no-repeat; background-position: top; background-size: 100% 100%;}
+.session-chonroom .scr-status-pending  {display: inline-block; position: absolute; top: 18px; right: 0; width: 100px; height: 32px; background-image: url(../images/bg-chonroom-status-pending.png); background-repeat: no-repeat; background-position: top; background-size: 100% 100%;}
+.session-chonroom .scr-status-close  {display: inline-block; position: absolute; top: 18px; right: 0; width: 100px; height: 32px; background-image: url(../images/bg-chonroom-status-close.png); background-repeat: no-repeat; background-position: top; background-size: 100% 100%;}
+
+.session-chonroom .scr-info {position: absolute; top: 55px ; right: 10px; width: 100%; height: 50px; text-align: right;}
+.session-chonroom .scr-playnow {position: absolute; bottom: 5px ; left: 0; width: 100%; height: 25px; text-align: center;}
 @keyframes blinker {
   40% {
     opacity: 0.2;

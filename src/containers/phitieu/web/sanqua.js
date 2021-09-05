@@ -3,7 +3,8 @@ import { bindActionCreators } from 'redux'
 import axios from 'axios';
 // import { Stage, Layer, Image, Text } from 'react-konva';
 import Konva from 'konva';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import Ultilities from '../../../Ultilities/global';
 import './css/style_web.css';
 import {
 	getDetailData,
@@ -20,6 +21,7 @@ import {
 	getInfoUser,
 	userLogout,
 	gds,
+	getLuckyInfoSanQua
 } from '../../../modules/lucky'
 import {
 	getData
@@ -167,6 +169,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	componentDidMount(){
+		var obj=JSON.parse(localStorage.getItem("obj"))
 		var canvas=document.getElementById("canvas");
 		canvas.addEventListener ("mouseout", this.checkoutCanvas);
 		var stage = new Konva.Stage({
@@ -281,8 +284,8 @@ class Lucky_Rotation extends React.Component {
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.setState({user:user})
 		if(user!==null){
-			this.props.getLuckyInfo(1, user.Token).then(()=>{
-				var data=this.props.dataLuckyInfo;
+			this.props.getLuckyInfoSanQua(obj.SessionType, obj.SessionId, user.Token).then(()=>{
+				var data=this.props.dataLuckySanqua;
 				if(data!==undefined){
 					if(data.Status===0){
 						this.setState({data:data.Data, code_key:data.Data.Code,  countDart: data.Data.AddInfo.Darts, points_sanqua: data.Data.AddInfo.Points,isLoading:true, listTop:data.Data.AddInfo.TopUsers, sessionId: data.Data.SessionId, awardsContent: data.Data.Awards})
@@ -362,7 +365,7 @@ class Lucky_Rotation extends React.Component {
 				"token": user.Token,
 			}
 		}
-		axios.get('https://api.splay.vn/darts/user-signout/', header).then(function (response) {
+		axios.get(Ultilities.base_url() +'darts/user-signout/', header).then(function (response) {
 			console.log(response)
 		})
 	}
@@ -948,6 +951,8 @@ class Lucky_Rotation extends React.Component {
 }
 
 const mapStateToProps = state => ({
+	dataLuckySanqua:state.lucky.dataLuckySanqua,
+	phienSanqua: state.lucky.phienSanqua,
 	dataProfile: state.profile.data,
 	dataLuckyInfo: state.lucky.dataLuckyInfo,
 	dataSesions: state.lucky.dataSesions,
@@ -980,7 +985,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getLuckyInfo,
 	getLuckyItems,
 	userLogout,
-	gds
+	gds,
+	getLuckyInfoSanQua
 }, dispatch)
 
 

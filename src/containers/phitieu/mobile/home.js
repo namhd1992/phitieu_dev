@@ -1,6 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import Pagination from "react-js-pagination";
+import Ultilities from '../../../Ultilities/global'
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { connect } from 'react-redux'
@@ -25,12 +26,14 @@ import {
 	getRollup,
 	getDonate,
 	getInfoDonate,
-	checkRollup
+	checkRollup,
+	getListSanQua
 } from '../../../modules/lucky'
 import {
 	getData
 } from '../../../modules/profile';
 
+import icon_scoin from './images/icon-scoin.png';
 import btn_xac_nhan from './images/btn-xac-nhan.png';
 import icon_success from './images/icon-success.png';
 import fb_a1 from './images/fb-a1.jpg';
@@ -191,7 +194,9 @@ class Lucky_Rotation extends React.Component {
 			message_rollup:'',
 			dataInfoDonate:{},
 			type_action:'',
-			showRollup:false
+			showRollup:false,
+			listSanqua:[],
+			message_sanqua_empty:''
 		};
 	}
 	componentWillMount(){
@@ -438,7 +443,7 @@ class Lucky_Rotation extends React.Component {
 				"token": user.Token,
 			}
 		}
-		axios.get('https://api.splay.vn/darts/user-signout/', header).then(function (response) {
+		axios.get(Ultilities.base_url() +'darts/user-signout/', header).then(function (response) {
 			console.log(response)
 		})
 	}
@@ -830,9 +835,50 @@ class Lucky_Rotation extends React.Component {
 		}
 	}
 
+	getListSanQua=()=>{
+		var user = JSON.parse(localStorage.getItem("user"));
+		if (user !== null) {
+			this.props.getListSanQua(user.Token).then(()=>{
+				var data=this.props.dataSanqua;
+				if(data!==undefined){
+					if(data.Status===0){
+						this.setState({listSanqua:data.Data}, ()=>{
+							$('#Modalchonroom').modal('show');
+						})
+					}else{
+						this.setState({message_sanqua_empty:data.Message}, ()=>{
+							$('#ModalListEmpty').modal('show');
+						})
+					}
+				}
+			})
+		}else {
+			$('#Modaldangnhap').modal('show');
+		}
+	}
+
+	showGiaithuong=(data)=>{
+		var n=data.length;
+		var items=''
+		for (let i = 0; i < n; i++) {
+			if(i < n-1){
+				items=data[i].Description + ' + ' +items
+			}else{
+				items=items + ' ' + data[i].Description
+			}
+			
+		}
+		return items;
+	}
+
+	playSanqua=(obj)=>{
+		localStorage.setItem("obj", JSON.stringify(obj));
+		window.location.replace('/sanqua')
+	}
+
 
 	render() {
-		const {showRollup, type_action, dataInfoDonate, rollup, message_rollup, content,tab_1, tab_2, tab_3, tab_4,tab_5,tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
+		const {message_sanqua_empty, listSanqua,showRollup, type_action, dataInfoDonate, rollup, message_rollup, content,tab_1, tab_2, tab_3, tab_4,tab_5,tab_tudo ,type,numberPage, isLogin,message_error,dataItem,listSesstions,
 			waiting, activeTuDo, activeHistory, activeVinhDanh, limit, countTuDo, countHistory, countVinhDanh, listHistory, listTuDo, listVinhDanh, user}=this.state;
 		const { classes } = this.props;
 		return (<div>
@@ -861,7 +907,7 @@ class Lucky_Rotation extends React.Component {
 
 								{(isLogin)?(<div class="btn-s_m position-relative">
 									{(user.VipLevel>0)?(<div>
-										<a href="/sanqua" style={{cursor:'pointer'}}><img src={btn_sanqua} width="30%" hspace="10" /></a>
+										<a style={{cursor:'pointer'}} onClick={this.getListSanQua}><img src={btn_sanqua} width="30%" hspace="10" /></a>
 
 										<a href="/duatop" style={{cursor:'pointer'}}><img src={btn_duatop} width="30%" hspace="10" /></a>
 									</div>):(<div><a title="Săn quà" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_sanqua} width="30%" hspace="10" /></a>
@@ -1618,6 +1664,63 @@ class Lucky_Rotation extends React.Component {
 				</div>
 			</div>
 
+			{/* <!-- The Modal Chon Room--> */}
+			<div class="modal fade" id="Modalchonroom">
+				<div class="modal-dialog modal-chonroom_m modal-dialog-scrollable">
+					<div class="modal-content bg-transparent border-0">
+
+					<div class="modal-header border-0 p-0">
+						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
+					</div>
+
+					<div class="modal-body border-0 py-0 mb-2 mt-2 px-3 scroll-modal-body_m">
+						{listSanqua.map((obj, key) => (
+
+							<a title="Chơi ngay" key={key} onClick={()=>this.playSanqua(obj)}>    	
+								<div class="mx-0 mb-1 session-chonroom_m d-flex position-relative">
+									<div class="scr-c_m font-size-3vw_m text-uppercase text-warning-50">
+										<img src={icon_scoin} width="24" alt="" /> <span class="pl-1">Tổng điểm: {obj.PointRule}</span>
+									</div>
+									<div class="scr-status-open_m font-size-3vw_m">
+										<p class="pt-5px pl-2 text-white">Đang diễn ra</p>
+									</div>
+									<div class="scr-info_m font-size-3vw_m text-white">
+										<p class="font-italic_m mb-0 pb-3px">Bắt đầu: {this.timeEnd(obj.StartTime)}</p>
+										<p class="text-uppercase mb-0">Giải thưởng: {this.showGiaithuong(obj.Awards)}</p>
+									</div>
+									<div class="scr-playnow_m font-size-3vw_m text-uppercase text-warning">
+										Chơi Ngay
+									</div>
+								</div>
+							</a>
+						))}			
+						
+						
+						
+						
+						
+					</div>
+					</div>
+				</div>
+			</div>
+
+			{/* <!-- The Modal Điểm danh thành công--> */}
+			<div class="modal fade" id="ModalListEmpty">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content border-0">
+					<div class="modal-header border-0 p-0 text-dark">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body border-0 pt-0 text-center">
+						<p class="text-info font-size-18 mb-2">Thông Báo</p>
+						
+						<p class="text-red font-size-18">{message_sanqua_empty}</p>
+					</div>
+
+					</div>
+				</div>
+			</div>
+
 				
 				<ReactResizeDetector handleWidth={true} handleHeight={true} onResize={this.onResize} />
 
@@ -1627,6 +1730,7 @@ class Lucky_Rotation extends React.Component {
 }
 
 const mapStateToProps = state => ({
+	dataSanqua: state.lucky.dataSanqua,
 	dataCheckRollup: state.lucky.dataCheckRollup,
 	dataRollup: state.lucky.dataRollup,
 	dataInfoDonate: state.lucky.dataInfoDonate,
@@ -1671,7 +1775,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getRollup,
 	getDonate,
 	getInfoDonate,
-	checkRollup
+	checkRollup,
+	getListSanQua
 }, dispatch)
 
 

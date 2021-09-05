@@ -25,6 +25,9 @@ export const LUCKY_ROLLUP='lucky/LUCKY_ROLLUP';
 export const DONATE='lucky/DONATE';
 export const INFO_DONATE='lucky/INFO_DONATE';
 export const CHECK_ROLLUP='lucky/CHECK_ROLLUP';
+export const LIST_SANQUA='lucky/LIST_SANQUA';
+export const SET_PHIEN_SANQUA='lucky/SET_PHIEN_SANQUA';
+export const LUCKY_INFO_SANQUA='lucky/LUCKY_INFO_SANQUA';
 
 
 const initialState = {
@@ -179,8 +182,94 @@ export default (state = initialState, action) => {
 				dataCheckRollup: action.data,
 				waiting: false
 			}
+		case LIST_SANQUA:
+			return {
+				...state,
+				dataSanqua: action.data,
+				waiting: false
+			}
+		case SET_PHIEN_SANQUA:
+			return {
+				...state,
+				phienSanqua: action.data,
+				waiting: false
+			}
+		case LUCKY_INFO_SANQUA:
+			return {
+				...state,
+				dataLuckySanqua: action.data,
+				waiting: false
+			}
 		default:
 			return state
+	}
+}
+
+export const getLuckyInfoSanQua = (type, sessionId, token) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"token": token,
+		}
+	}
+	
+
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + `darts/user-join-session/?type=${type}&sessionId=${sessionId}`
+		return axios.get(url, header).then(function (response) {
+			console.log(response)
+			dispatch({
+				type: LUCKY_INFO_SANQUA,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
+
+export const setPhienSanQua = (obj) => {
+	console.log(obj)
+	return dispatch => {
+		dispatch({
+			type: SET_PHIEN_SANQUA,
+			data: obj
+		})
+	}
+
+
+}
+
+export const getListSanQua = (token) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"token": token,
+		}
+	}
+
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url =Ultilities.base_url() + "darts/user-get-current-gift-hunter-sessions/"
+		return axios.get(url, header).then(function (response) {
+			console.log(response)
+			dispatch({
+				type: LIST_SANQUA,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
 	}
 }
 
