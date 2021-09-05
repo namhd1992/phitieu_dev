@@ -169,6 +169,10 @@ class Lucky_Rotation extends React.Component {
 		};
 	}
 	componentWillMount(){
+		var obj=localStorage.getItem("obj")
+		if(obj===null){
+			window.location.replace("/")
+		}
 		console.log(document.fullscreenElement)
 		var user = JSON.parse(localStorage.getItem("user"));
 		this.onResize();
