@@ -94,7 +94,7 @@ html {scroll-behavior: smooth; font-size: 26px; font-family:Arial, Helvetica, sa
 .session-chonroom .scr-status-pending  {display: inline-block; position: absolute; top: 18px; right: 0; width: 100px; height: 32px; background-image: url(../images/bg-chonroom-status-pending.png); background-repeat: no-repeat; background-position: top; background-size: 100% 100%;}
 .session-chonroom .scr-status-close  {display: inline-block; position: absolute; top: 18px; right: 0; width: 100px; height: 32px; background-image: url(../images/bg-chonroom-status-close.png); background-repeat: no-repeat; background-position: top; background-size: 100% 100%;}
 
-.session-chonroom .scr-info {position: absolute; top: 55px ; right: 10px; width: 100%; height: 50px; text-align: right;}
+.session-chonroom .scr-info {position: absolute; top: 55px ; right: 0; width: 100%; height: 50px; text-align: right; padding: 0 10px}
 .session-chonroom .scr-playnow {position: absolute; bottom: 5px ; left: 0; width: 100%; height: 25px; text-align: center;}
 @keyframes blinker {
   40% {
