@@ -1070,7 +1070,7 @@ class Lucky_Rotation extends React.Component {
 						</div>
 						<div class="modal-body border-0 py-0 my-2 px-3 scroll-modal-body_m">
 							{listSesstions.map((obj, key) => (      	
-								<div class="row mx-0 mb-1 border-giaithuong-e_m position-relative" key={key}>
+								<div class="row mx-0 mb-1 border-giaithuong-e_m position-relative d-flex justify-content-center " key={key}>
 									<div class="col-12 text-center text-brown pt-1">
 										<h2 class="font-size-3vw_m font-weight-bold text-uppercase mb-0">{this.getTypeGiaiThuong(obj.SessionType)}</h2>
 										{(obj.Status===0)?(<p class="font-size-3vw_m">Còn: {this.timeModalGiaiThuowng(obj.StartTime)}</p>):(<div></div>)}
@@ -1713,8 +1713,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div class="modal-body border-0 pt-0 text-center">
 						<p class="text-info font-size-18 mb-2">Thông Báo</p>
-						
-						<p class="text-red font-size-18">{message_sanqua_empty}</p>
+						<div class="text-red font-size-18" dangerouslySetInnerHTML={{__html: 'Hiện không có phiên chơi Săn Quà nào đang chạy. </br>Bạn vui lòng vào mục Trang Chủ -> Giải Thưởng để xem lịch chạy các phiên sắp tới nhé!'}}></div>
 					</div>
 
 					</div>

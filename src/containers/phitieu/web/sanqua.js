@@ -865,12 +865,12 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div class="toplist-account text-center">
 						<h2 class="font-size-18 m-0 font-weight-bold text-shadow text-center">Danh sách TOP</h2>
-						<table class="table table-borderless font-size-14 mb-0 mt-1" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "210%"}}>
+						<table class="table table-borderless font-size-14 mb-0 mt-2" style={{tableLayout: "fixed", borderCollapse: "collapse", lineHeight: "170%"}}>
 							<tbody>
 								{listTop.map((obj, key) => (
 									<tr class="bg-border-bottom" key={key}>
-										<td class="p-0 w-50 font-size-16 text-shadow">{obj.Username}</td>
-										<td class="p-0 w-50 font-size-16 text-shadow pl-2">{obj.Points}</td>                
+										<td class="p-0 w-50 font-size-14 text-shadow">{obj.Username}</td>
+										<td class="p-0 w-50 font-size-14 text-shadow pl-2">{obj.Points}</td>                
 									</tr>
 								))}			
 							</tbody>
