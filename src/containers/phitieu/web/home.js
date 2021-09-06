@@ -1666,7 +1666,7 @@ class Lucky_Rotation extends React.Component {
 					<div class="modal-body border-0 pt-0 text-center">
 						<p class="text-info font-size-18 mb-2">Thông Báo</p>
 						
-						<div class="text-red font-size-18" dangerouslySetInnerHTML={{__html: 'Hiện không có phiên chơi Săn Quà nào đang chạy. </br>Bạn vui lòng vào mục Trang Chủ -> Giải Thưởng để xem lịch chạy các phiên sắp tới nhé!'}}></div>
+						<div class="text-red font-size-18" dangerouslySetInnerHTML={{__html: 'Hiện không có phiên Săn Quà.</br> Bạn vào mục Trang Chủ -> Giải Thưởng để xem thông tin phiên kế tiếp nhé!'}}></div>
 					</div>
 
 					</div>
