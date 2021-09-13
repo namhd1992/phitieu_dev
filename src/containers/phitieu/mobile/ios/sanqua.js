@@ -1058,7 +1058,7 @@ class Lucky_Rotation extends React.Component {
 		darthVaderImg.hide();
 		st_touch=setTimeout(()=>{
 			_this.setState({isPlay:true})
-		}, 500);
+		}, 300);
 	}
 
 	touchMove=(e)=>{
