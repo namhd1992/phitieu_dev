@@ -1192,10 +1192,6 @@ class Lucky_Rotation extends React.Component {
 						$('#Modalnone').modal('show');
 					})
 					
-				}else if(data.Status===4){
-					this.setState({msg_err:data.Message}, ()=>{
-						$('#Error').modal('show');
-					})
 				}else if(data.Status===3){
 					this.logoutAction();
 				}else if(data.Status===5){
