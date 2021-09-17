@@ -215,11 +215,6 @@ class Lucky_Rotation extends React.Component {
 		var list_top_user=[];
 		var user = JSON.parse(localStorage.getItem("user"));
 
-		var number=Math.floor(Math.random() * 2);
-		var isVideo=number===1 ? true : false;
-		this.setState({isVideo:isVideo},()=>{
-			$('#myModalads').modal('show');
-		})
 
 		var isfb=this.isFacebookApp();
 		if (isfb) {
@@ -239,6 +234,12 @@ class Lucky_Rotation extends React.Component {
 		width_bgImg=bg_y;
 
 		if(horizontal){
+			
+		var number=Math.floor(Math.random() * 2);
+		var isVideo=number===1 ? true : false;
+		this.setState({isVideo:isVideo},()=>{
+			$('#myModalads').modal('show');
+		})
 			var stage = new Konva.Stage({
 				container: 'canvas',
 				width: width,

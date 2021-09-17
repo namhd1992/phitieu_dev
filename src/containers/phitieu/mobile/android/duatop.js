@@ -205,12 +205,8 @@ class Lucky_Rotation extends React.Component {
 		var bg_x=0, bg_y=0;
 		var list_top_user=[];
 		var user = JSON.parse(localStorage.getItem("user"));
-		var number=Math.floor(Math.random() * 2);
-		var isVideo=number===1 ? true : false;
-		this.setState({isVideo:isVideo},()=>{
-			$('#myModalads').modal('show');
-		})
-		// var canvas=document.getElementById("canvas");
+		
+			// var canvas=document.getElementById("canvas");
 		// canvas.addEventListener ("mouseout", this.checkoutCanvas);
 
 		// this.toggleFullScreen();
@@ -230,6 +226,11 @@ class Lucky_Rotation extends React.Component {
 		width_bgImg=bg_y;
 
 		if(horizontal){
+			var number=Math.floor(Math.random() * 2);
+			var isVideo=number===1 ? true : false;
+			this.setState({isVideo:isVideo},()=>{
+				$('#myModalads').modal('show');
+			})
 			var stage = new Konva.Stage({
 				container: 'canvas',
 				width: width,
