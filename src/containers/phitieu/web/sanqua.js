@@ -963,7 +963,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 
 					{/* <!-- The Modal Quảng cáo--> */}
-					<div class="modal" id="myModalads">
+					<div class="modal" id="myModalads" style={{zIndex:99999999}}>
 						<div class="modal-dialog mt-5 w-50" style={{width: 400}}>
 							<div class="modal-content bg-transparent border-0">
 
