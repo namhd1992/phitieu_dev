@@ -27,7 +27,7 @@ import {
 	getData
 } from '../../../modules/profile';
 
-
+import km_dttq from './images/ads/km-dttq.jpg';
 import icon_clock from './images/icon-clock.png';
 import phitieu from './images/phitieu.png';
 import dart_player from './images/dart-player.png';
@@ -142,6 +142,7 @@ class Lucky_Rotation extends React.Component {
 			duatop:false,
 			isLoading:true,
 			code_key:'',
+			isVideo:false
 
 		};
 	}
@@ -175,6 +176,12 @@ class Lucky_Rotation extends React.Component {
 	componentDidMount(){
 		var obj=JSON.parse(localStorage.getItem("obj"))
 		var canvas=document.getElementById("canvas");
+
+		var number=Math.floor(Math.random() * 2);
+		var isVideo=number===1 ? true : false;
+		this.setState({isVideo:isVideo},()=>{
+			$('#myModalads').modal('show');
+		})
 		canvas.addEventListener ("mouseout", this.checkoutCanvas);
 		var stage = new Konva.Stage({
 			container: 'canvas',
@@ -815,7 +822,7 @@ class Lucky_Rotation extends React.Component {
 
 
 	render() {
-		const {msg, user, auto_play, timing, day, hour, minute, second, countDart, points_sanqua, listTop, awardsContent, duatop, isLoading, msg_err}=this.state;
+		const {isVideo, msg, user, auto_play, timing, day, hour, minute, second, countDart, points_sanqua, listTop, awardsContent, duatop, isLoading, msg_err}=this.state;
 
 
 		return (<div class="bg-page-sanqua position-relative">
@@ -949,6 +956,29 @@ class Lucky_Rotation extends React.Component {
 								</div>
 								</div>
 								
+							</div>
+
+							</div>
+						</div>
+					</div>
+
+					{/* <!-- The Modal Quảng cáo--> */}
+					<div class="modal" id="myModalads">
+						<div class="modal-dialog mt-5 w-50" style={{width: 400}}>
+							<div class="modal-content bg-transparent border-0">
+
+							<div class="modal-header border-0 p-0 text-dark" style={{zIndex: 100}}>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
+							<div class="modal-body text-center mt-n3 p-0 bg-white border">
+								{(!isVideo)?(<a href="https://bit.ly/39cqLve" title="Đấu trường tam quốc" target="_blank" onClick={this.closeAds}><img src={km_dttq} class="img-fluid" /></a>):(<div>
+								<video id="myvideo" class="img-fluid" autoPlay playsinline loop muted controls>
+									<source src="http://171.244.14.44:3003/dautruongtamquoc.mp4" type="video/mp4"></source>
+									Your browser does not support the video tag.
+								</video>
+								<a class="font-size-14 text-primary pb-2 d-block" href="https://bit.ly/39cqLve" title="Đấu trường tam quốc" target="_blank" onClick={this.closeAds}>&raquo; Truy cập ngay &laquo;</a>
+								</div>)}
 							</div>
 
 							</div>

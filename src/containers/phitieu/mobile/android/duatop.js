@@ -24,7 +24,7 @@ import {
 	getItemAward
 } from '../../../../modules/lucky'
 
-
+import km_dttq from '../images/ads/km-dttq.jpg';
 import fb_a1 from '../images/fb-a1.jpg';
 import fb_a2 from '../images/fb-a2.jpg';
 import fb_a3_a4 from '../images/fb-a3-a4.jpg';
@@ -162,7 +162,8 @@ class Lucky_Rotation extends React.Component {
 			awardsContent:"",
 			sanqua:false,
 			code_key:'',
-			delta:0
+			delta:0,
+			isVideo:false
 
 		};
 	}
@@ -204,6 +205,11 @@ class Lucky_Rotation extends React.Component {
 		var bg_x=0, bg_y=0;
 		var list_top_user=[];
 		var user = JSON.parse(localStorage.getItem("user"));
+		var number=Math.floor(Math.random() * 2);
+		var isVideo=number===1 ? true : false;
+		this.setState({isVideo:isVideo},()=>{
+			$('#myModalads').modal('show');
+		})
 		// var canvas=document.getElementById("canvas");
 		// canvas.addEventListener ("mouseout", this.checkoutCanvas);
 
@@ -1009,7 +1015,7 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	autoPlay=()=>{
-		const {tieuconlai, txt_points, awardsContent,dartFlightImg,hight_score, isChangetab, countDart,  sessionId, code_key, delta}=this.state;
+		const {isVideo, tieuconlai, txt_points, awardsContent,dartFlightImg,hight_score, isChangetab, countDart,  sessionId, code_key, delta}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		curFrame=0;
 		if(countDart>0){
@@ -1141,7 +1147,7 @@ class Lucky_Rotation extends React.Component {
 
 	render() {
 
-		const {fullScreen, horizontal, auto_play, msg, sanqua, msg_err}=this.state;
+		const {fullScreen, horizontal, auto_play, msg, sanqua, msg_err, isVideo}=this.state;
 
 		return (
 				<div id="game">
@@ -1268,6 +1274,29 @@ class Lucky_Rotation extends React.Component {
 										</dl> 
 									</div>
 								</div>
+							</div>
+						</div>
+					</div>
+
+					{/* <!-- The Modal Quảng cáo--> */}
+					<div class="modal" id="myModalads" style={{zIndex:99999999}}>
+						<div class="modal-dialog modal-dialog-centered mt-1 w-50" style={{maxWidth: 400}}>
+							<div class="modal-content bg-transparent border-0">
+
+							<div class="modal-header border-0 p-0 text-dark" style={{zIndex: 100}}>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
+							<div class="modal-body text-center mt-n3 p-0 bg-white border">
+								{(!isVideo)?(<a href="https://bit.ly/39cqLve" title="Đấu trường tam quốc" target="_blank" onClick={this.closeAds}><img src={km_dttq} class="img-fluid" /></a>):(<div>
+									<video id="myvideo" class="img-fluid" autoPlay playsinline loop muted controls>
+										<source src="http://171.244.14.44:3003/dautruongtamquoc.mp4" type="video/mp4"></source>
+										Your browser does not support the video tag.
+									</video>
+									<a class="font-size-14 text-primary pb-2 d-block" href="https://bit.ly/39cqLve" title="Đấu trường tam quốc" target="_blank">&raquo; Truy cập ngay &laquo;</a>
+								</div>)}
+							</div>
+
 							</div>
 						</div>
 					</div>
