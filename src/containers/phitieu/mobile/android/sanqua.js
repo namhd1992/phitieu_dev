@@ -235,11 +235,11 @@ class Lucky_Rotation extends React.Component {
 
 		if(horizontal){
 			
-		var number=Math.floor(Math.random() * 2);
-		var isVideo=number===1 ? true : false;
-		this.setState({isVideo:isVideo},()=>{
-			$('#myModalads').modal('show');
-		})
+			// var number=Math.floor(Math.random() * 2);
+			// var isVideo=number===1 ? true : false;
+			// this.setState({isVideo:isVideo},()=>{
+			// 	$('#myModalads').modal('show');
+			// })
 			var stage = new Konva.Stage({
 				container: 'canvas',
 				width: width,
@@ -1073,7 +1073,7 @@ class Lucky_Rotation extends React.Component {
 		darthVaderImg.hide();
 		st_touch=setTimeout(()=>{
 			_this.setState({isPlay:true})
-		}, 500);
+		}, 1000);
 	}
 
 	touchMove=(e)=>{

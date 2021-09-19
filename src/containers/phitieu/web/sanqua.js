@@ -177,11 +177,11 @@ class Lucky_Rotation extends React.Component {
 		var obj=JSON.parse(localStorage.getItem("obj"))
 		var canvas=document.getElementById("canvas");
 
-		var number=Math.floor(Math.random() * 2);
-		var isVideo=number===1 ? true : false;
-		this.setState({isVideo:isVideo},()=>{
-			$('#myModalads').modal('show');
-		})
+		// var number=Math.floor(Math.random() * 2);
+		// var isVideo=number===1 ? true : false;
+		// this.setState({isVideo:isVideo},()=>{
+		// 	$('#myModalads').modal('show');
+		// })
 		canvas.addEventListener ("mouseout", this.checkoutCanvas);
 		var stage = new Konva.Stage({
 			container: 'canvas',
@@ -611,7 +611,7 @@ class Lucky_Rotation extends React.Component {
 		darthVaderImg.hide();
 		st_touch=setTimeout(()=>{
 			_this.setState({isPlay:true})
-		}, 500);
+		}, 1000);
 	}
 
 	touchMove=()=>{

@@ -203,11 +203,11 @@ class Lucky_Rotation extends React.Component {
 		var deltal_device=width/height;
 		var bg_x=0, bg_y=0;
 		var user = JSON.parse(localStorage.getItem("user"));
-		var number=Math.floor(Math.random() * 2);
-		var isVideo=number===1 ? true : false;
-		this.setState({isVideo:isVideo},()=>{
-			$('#myModalads').modal('show');
-		})
+		// var number=Math.floor(Math.random() * 2);
+		// var isVideo=number===1 ? true : false;
+		// this.setState({isVideo:isVideo},()=>{
+		// 	$('#myModalads').modal('show');
+		// })
 		
 		
 		var isfb=this.isFacebookApp();
@@ -926,7 +926,7 @@ class Lucky_Rotation extends React.Component {
 		darthVaderImg.hide();
 		st_touch=setTimeout(()=>{
 			_this.setState({isPlay:true})
-		}, 500);
+		}, 1000);
 	}
 
 	touchMove=(e)=>{
