@@ -617,11 +617,13 @@ class Lucky_Rotation extends React.Component {
 						// this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
 						// this.fd(touchPos.x + arr[0], touchPos.y-88 + arr[1])
 					}else{
-						this.showTextWarning();
+						this.showTextWarning("Vuốt lên để phi tiêu!", 200);
 					}
 			}else{
 				$('#ThongBao').modal('show');
 			}
+		}else{
+			this.showTextWarning("Bạn ném tiêu quá nhanh, hãy chậm lại chút!", 200);
 		}
 
 		darthVaderImg.hide();
@@ -807,20 +809,22 @@ class Lucky_Rotation extends React.Component {
 		this.setState({score_text:score_text})
 	}
 
-	showTextWarning=()=>{
+	showTextWarning=(content, with_content)=>{
 		const {layer, stage}=this.state;
 	
 		var text_warning = new Konva.Text({
-			x: stage.width() / 2 -120,
+			x: stage.width() / 2 -with_content,
 			y: stage.height() / 2,
-			text: "Vuốt lên để phi tiêu!",
+			text: content,
 			fontSize: 30,
 			fontFamily: 'Calibri',
-			text: "Vuốt lên để phi tiêu!",
+			text: content,
 			fill: 'yellow',
 			stroke:'black',
 			strokeWidth: 1,
-			text: "Vuốt lên để phi tiêu!",
+			text: content,
+			width:400,
+			align: 'center'
 		});
 
 

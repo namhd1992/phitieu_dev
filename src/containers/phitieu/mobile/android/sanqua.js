@@ -1074,13 +1074,15 @@ class Lucky_Rotation extends React.Component {
 						// this.draw(touchPos.x, arr[0], touchPos.y, arr[1])
 						// this.fd(touchPos.x + arr[0] -1, touchPos.y-heightFrame/2 + 4 + arr[1])
 					}else{
-						this.showTextWarning()
+						this.showTextWarning("Vuốt lên để phi tiêu!", 150);
 						// alert("vuốt lên để phi tiêu")
 					}
 					// this.setState({isPlay:false})
 				}else{
 					$('#ThongBao').modal('show');
 				}
+			}else{
+				this.showTextWarning("Bạn ném tiêu quá nhanh, hãy chậm lại chút!", 150);
 			}
 		}
 		
@@ -1291,21 +1293,23 @@ class Lucky_Rotation extends React.Component {
 	}
 
 
-	showTextWarning=()=>{
+	showTextWarning=(content, with_content)=>{
 		const {layer, stage}=this.state;
 	
 		var text_warning = new Konva.Text({
-			x: stage.width() / 2 -100,
-			y: stage.height() / 2,
-			text: "Vuốt lên để phi tiêu!",
+			x: stage.width() / 2 - with_content,
+			y: stage.height() / 2 - 20,
+			text: content,
 			fontSize: 25,
 			fontFamily: 'Calibri',
-			text: "Vuốt lên để phi tiêu!",
+			text: content,
 			fill: 'yellow',
 			fontStyle:'bold',
 			stroke:'black',
 			strokeWidth: 1,
-			text: "Vuốt lên để phi tiêu!",
+			text: content,
+			width:300,
+			align: 'center'
 		});
 
 
