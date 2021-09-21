@@ -54,9 +54,9 @@ class Ultilities {
 
 	static base_url = () => {
 		//live
-			return "http://42.116.195.210/";
+			// return "http://42.116.195.210/";
 		//dev
-			// return "https://api.splay.vn/";
+			return "https://api.splay.vn/";
 	}
 
 	static splay_api_key = () => {
