@@ -562,6 +562,11 @@ class Lucky_Rotation extends React.Component {
 				isPlay=false;
 			}
 		}
+
+		console.log("darted: ", darted)
+		console.log("time: ", time)
+		console.log("a:", a)
+		console.log("isPlay:", isPlay)
 		
 		if(isPlay){
 			if(countDart>0){
@@ -604,9 +609,10 @@ class Lucky_Rotation extends React.Component {
 							}else if(data.Status===3){
 								this.logoutAction();
 							}else if(data.Status===4){
-								this.setState({msg_err:data.Message}, ()=>{
-									$('#Error').modal('show');
-								})
+								// this.setState({msg_err:data.Message}, ()=>{
+								// 	$('#Error').modal('show');
+								// })
+								this.showTextWarning("Bạn ném tiêu quá nhanh, hãy chậm lại chút!", 200);
 							}else if(data.Status===5){
 								this.setState({msg_err:'Có lỗi xảy ra!'}, ()=>{
 									$('#Error').modal('show');
