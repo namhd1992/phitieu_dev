@@ -92,6 +92,8 @@ var segment = 0;
 var width_bgImg=0;
 
 var totalScore = 0;
+var time=0;
+var darted=0;
 
 
 
@@ -199,6 +201,8 @@ class Lucky_Rotation extends React.Component {
 		SEGMENTS=SEGMENTS.map(v => {
 			return v*delta
 		})
+		darted=0;
+		time=0;
 
 		this.setState({delta:delta, innerWidth:window.innerWidth})
 	}
@@ -962,7 +966,7 @@ class Lucky_Rotation extends React.Component {
 		// console.log("touchStart",e.touches)
 		const {stage, layer, dartFlightImg, score_text, text_warning, darthVaderImg}=this.state;
 		var _this=this;
-		clearTimeout(st_touch);
+		// clearTimeout(st_touch);
 		if(JSON.stringify(dartFlightImg) !== '{}'){
 			dartFlightImg.remove();
 		}
@@ -993,10 +997,19 @@ class Lucky_Rotation extends React.Component {
 
 	touchEnd=(e)=>{
 		// console.log("touchEnd", e.touches)
-		const {tieuconlai, txt_points, list_top_user, awardsContent,  stage, darthVaderImg, dartPositionY, isPlay, none_multi, countDart,  sessionId, auto_play, code_key, delta}=this.state;
+		const {tieuconlai, txt_points, list_top_user, awardsContent,  stage, darthVaderImg, dartPositionY, none_multi, countDart,  sessionId, auto_play, code_key, delta}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var _this=this;
 		var arr=[];
+		var a=Date.now();
+		var isPlay=true;
+		if(darted>0){
+			if(a-time>1000){
+				isPlay=true;
+			}else{
+				isPlay=false;
+			}
+		}
 		if(none_multi){
 			if(isPlay){
 				if(countDart>0){
@@ -1037,6 +1050,8 @@ class Lucky_Rotation extends React.Component {
 									}
 									this.setState({countDart: data.Darts, points_sanqua: data.Points, listTop:data.TopList})
 								}, 400);
+								darted=+1;
+								time=Date.now();
 								
 							}else if(data.Status===2){
 								this.setState({listTop:data.Data,isLoading:false, duatop:false, msg:'Phiên chơi đã kết thúc!'}, ()=>{
@@ -1062,7 +1077,7 @@ class Lucky_Rotation extends React.Component {
 						this.showTextWarning()
 						// alert("vuốt lên để phi tiêu")
 					}
-					this.setState({isPlay:false})
+					// this.setState({isPlay:false})
 				}else{
 					$('#ThongBao').modal('show');
 				}
@@ -1071,9 +1086,9 @@ class Lucky_Rotation extends React.Component {
 		
 		
 		darthVaderImg.hide();
-		st_touch=setTimeout(()=>{
-			_this.setState({isPlay:true})
-		}, 1000);
+		// st_touch=setTimeout(()=>{
+		// 	_this.setState({isPlay:true})
+		// }, 1000);
 	}
 
 	touchMove=(e)=>{
@@ -1127,7 +1142,7 @@ class Lucky_Rotation extends React.Component {
 					_this.draw(x,deltalX,y,deltalY) 
 					dartFlightImg.remove(); 
 					
-				}, 40);
+				}, 30);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
