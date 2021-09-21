@@ -678,7 +678,7 @@ class Lucky_Rotation extends React.Component {
 					n=n+1
 					_this.draw(x,deltalX,y,deltalY) 
 					dartFlightImg.remove(); 
-				}, 23);
+				}, 40);
 			}
 			
 			_this.setState({dartFlightImg:dartFlightImg})
