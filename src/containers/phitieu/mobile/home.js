@@ -7,15 +7,10 @@ import axios from 'axios';
 import { connect } from 'react-redux'
 import './css/style.css';
 import {
-	getDetailData,
-	getRotationDetailData,
-	getRotationDetailDataUser,
 	pickCard,
-	buyTurn,
 	getTuDo,
 	getHistoryTuDo,
 	getMoreSessions,
-	getCodeBonus,
 	getVinhDanh,
 	getLuckyInfo,
 	getLuckyItems,
@@ -1754,18 +1749,13 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-	getDetailData,
-	getRotationDetailData,
-	getRotationDetailDataUser,
 	pickCard,
 	getInfoUser,
-	buyTurn,
 	getMoreSessions,
 	getItemAward,
 	getHistoryTuDo,
 	getData,
 	getTuDo,
-	getCodeBonus,
 	getVinhDanh,
 	getLuckyInfo,
 	getLuckyItems,

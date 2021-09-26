@@ -7,15 +7,10 @@ import { connect } from 'react-redux';
 import Ultilities from '../../../../../Ultilities/global';
 import '../../css/style.css';
 import {
-	getDetailData,
-	getRotationDetailData,
-	getRotationDetailDataUser,
 	getMoreSessions,
 	pickCard,
-	buyTurn,
 	getTuDo,
 	getHistoryTuDo,
-	getCodeBonus,
 	getLuckyInfo,
 	getLuckyItems,
 	getInfoUser,
@@ -1428,17 +1423,12 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-	getDetailData,
-	getRotationDetailData,
-	getRotationDetailDataUser,
 	getMoreSessions,
 	pickCard,
 	getInfoUser,
-	buyTurn,
 	getItemAward,
 	getHistoryTuDo,
 	getTuDo,
-	getCodeBonus,
 	getLuckyInfo,
 	getLuckyItems,
 	userLogout,
