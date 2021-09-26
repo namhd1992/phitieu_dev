@@ -1,2 +1,2 @@
-# splay_scoin
-scoin 2.0
+# Phi Tiêu
+mini game vtc
