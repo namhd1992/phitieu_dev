@@ -29,6 +29,7 @@ import {
 } from '../../../modules/profile'
 
 
+import banner_thongbao_off from './images/banner-thongbao-off.png';
 import icon_scoin from './images/icon-scoin.png';
 import btn_xac_nhan from './images/btn-xac-nhan.png';
 import icon_success from './images/icon-success.png';
@@ -220,6 +221,7 @@ class Lucky_Rotation extends React.Component {
 		// if(update29===null){
 		// 	$('#Modalbanner').modal('show');
 		// }
+		$('#Modalbanner').modal('show');
 
 		// localStorage.setItem("update29", true);
 		
@@ -1533,7 +1535,7 @@ class Lucky_Rotation extends React.Component {
 						<button type="button" class="close text-dark" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body border-0 p-0 mt-n4">
-						<img src={banner_baotri} width="100%" alt="" />
+						<img src={banner_thongbao_off} width="100%" alt="" />
 					</div>
 
 					</div>
