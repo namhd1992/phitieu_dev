@@ -223,7 +223,7 @@ class Lucky_Rotation extends React.Component {
 		// 	$('#Modalbanner').modal('show');
 		// }
 		// localStorage.setItem("update29", true);
-		$('#Modalbanner').modal('show');
+		// $('#Modalbanner').modal('show');
 		
 		this.getVinhDanh(1,1);
 

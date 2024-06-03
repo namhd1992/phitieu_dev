@@ -198,7 +198,7 @@ class Lucky_Rotation extends React.Component {
 	}
 	componentWillMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
-		// this.onResize();
+		this.onResize();
 		window.addEventListener("resize", this.setScreenOrientation);
 		window.removeEventListener('scroll', this.handleScroll);
 		this.setState({innerWidth:window.innerWidth});
@@ -878,10 +878,10 @@ class Lucky_Rotation extends React.Component {
 							</div>
 							<div class="text-center align-self-center pr-1">
 								<p class="font-size-16 text-white mb-0">{user.Username}</p>
-								{/* {(user.VipLevel===1)?(<h2 class="font-size-14 text-warning m-0">VIP Đồng <img src={vip_dong} alt="VIP Đồng" width="16" /></h2>):(<div></div>)}
+								{(user.VipLevel===1)?(<h2 class="font-size-14 text-warning m-0">VIP Đồng <img src={vip_dong} alt="VIP Đồng" width="16" /></h2>):(<div></div>)}
 								{(user.VipLevel===2)?(<h2 class="font-size-14 text-warning m-0">VIP Bạc <img src={vip_bac} alt="VIP Bạc" width="16" /></h2>):(<div></div>)}
 								{(user.VipLevel===3)?(<h2 class="font-size-14 text-warning m-0">VIP Vàng <img src={vip_vang} alt="VIP Vàng" width="16" /></h2>):(<div></div>)}
-								{(user.VipLevel===4)?(<h2 class="font-size-14 text-warning m-0">VIP Bạch kim <img src={vip_bachkim} alt="VIP Bạch kim" width="16" /></h2>):(<div></div>)} */}
+								{(user.VipLevel===4)?(<h2 class="font-size-14 text-warning m-0">VIP Bạch kim <img src={vip_bachkim} alt="VIP Bạch kim" width="16" /></h2>):(<div></div>)}
 							</div>
 						</div>):(<div class="login d-flex flex-row-reverse">
 							<div class="align-self-center">
@@ -902,18 +902,18 @@ class Lucky_Rotation extends React.Component {
 									
 								</div>):(
 								<div class="btn-s position-relative">
-									 	{/* <a title="Săn quà" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_sanqua} width="200" hspace="10" /></a> */}
+									 	<a title="Săn quà" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_sanqua} width="200" hspace="10" /></a>
                							<a title="Đua TOP" style={{cursor:'pointer'}} onClick={this.dangNhap}><img src={btn_duatop} width="200" hspace="10" /></a>
 								</div>
 								)}
 								
 								<div class="bxh position-relative mx-auto">
 									<ul class="nav nav-pills nav-justified" role="tablist">
-										{/* <li class="nav-item">
-											<a class="nav-link btn-vinhdanh p-0" onClick={()=>this.getVinhDanh(1,1)}><img src={type===1?btn_vinhdanhsanqua_active:btn_vinhdanhsanqua} width="340" hspace="5" id="image-1" /></a>
-										</li> */}
 										<li class="nav-item">
-											<a class="nav-link btn-bxhduatop p-0" onClick={()=>this.getVinhDanh(2,1)}><img src={btn_bxhduatop_active} width="340" hspace="5" id="image-2" /></a>
+											<a class="nav-link btn-vinhdanh p-0" onClick={()=>this.getVinhDanh(1,1)}><img src={type===1?btn_vinhdanhsanqua_active:btn_vinhdanhsanqua} width="340" hspace="5" id="image-1" /></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link btn-bxhduatop p-0" onClick={()=>this.getVinhDanh(2,1)}><img src={type==2?btn_bxhduatop_active:btn_bxhduatop} width="340" hspace="5" id="image-2" /></a>
 										</li>
 									</ul>
 									
@@ -954,19 +954,19 @@ class Lucky_Rotation extends React.Component {
 										</div>        
 									</div>
 								</div>
-								{/* <div class="btn-h position-relative">
+								<div class="btn-h position-relative">
 									<a href="https://daily.scoin.vn/huong-dan-mua-the/" title="Hướng dẫn mua thẻ scoin" target="_blank"><img src={btn_huongdanmuathescoin} width="340" hspace="10" /></a>
 									<a href="https://www.facebook.com/scoinvtcmobile" title="Nhận thông báo sự kiện" target="_blank"><img src={btn_nhanthongbaosukien} width="340" hspace="10" /></a>
-								</div> */}
+								</div>
 								<div class="btn-h position-relative mt-2">
-									{/* <a href="https://scoin.vn/nap-game" title="Nạp game" target="_blank"><img src={btn_napgame} width="150" hspace="100" /></a> */}
+									<a href="https://scoin.vn/nap-game" title="Nạp game" target="_blank"><img src={btn_napgame} width="150" hspace="100" /></a>
 									<a href="Tel:19001104" title="Hot line"><img src={img_hotline} width="300" hspace="40" /></a>
 								</div>
-								{/* <div class="btn-h position-relative mt-2">
+								<div class="btn-h position-relative mt-2">
 									<a href="https://scoin.vn/" title="Scoin" target="_blank"><img src={logo_scoin} width="150" hspace="30" /></a>
 									<a href="https://vip.scoin.vn/" title="Scoin VIP" target="_blank"><img src={logo_scoinvip} width="150" hspace="30" /></a>
 									<a title="Splay"><img src={logo_splay} width="150" hspace="30" /></a>
-								</div> */}
+								</div>
 								<div class="btn-h position-relative mt-2 pb-2 font-size-16 text-white-50">
 									<p class="text-center">
 										Hệ thống phát hành game VTC Mobile
@@ -981,9 +981,9 @@ class Lucky_Rotation extends React.Component {
 										Tổng đài hỗ trợ 1900 1104
 									</p>
 								</div>
-								{/* {(showRollup)?(<div class="alert alert-info alert-diemdanh p-1 m-0">
+								{(showRollup)?(<div class="alert alert-info alert-diemdanh p-1 m-0">
 									<span class="text-blink" style={{cursor:'pointer'}}><a onClick={this.rollup} title="Điểm danh" data-toggle="modal" >Điểm danh <strong>+ 5 phi tiêu</strong>.</a></span>
-								</div>):(<div></div>)} */}
+								</div>):(<div></div>)}
 								
 								<div class="menu-left">
 									<a href="https://vip.scoin.vn/" title="Active VIP" target="_blank"><p class="mb-0 menu-link link-first"></p></a>
